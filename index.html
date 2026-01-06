@@ -834,8 +834,8 @@ els.importBtn?.addEventListener("click", (e)=>{ e.preventDefault(); importJSON()
 els.clearFiltersBtn?.addEventListener("click", (e)=>{ e.preventDefault(); clearFilters(); });
 els.homeLink?.addEventListener("click", (e)=>{ e.preventDefault(); scrollToTop(); });
 
-   // Init (run after DOM is ready)
-window.addEventListener("DOMContentLoaded", () => {
+  // Init (runs whether DOMContentLoaded already fired or not)
+function init() {
   state.theme = state.theme === "light" ? "light" : "dark";
   applyTheme();
 
@@ -851,7 +851,13 @@ window.addEventListener("DOMContentLoaded", () => {
 
   hydrateFromHash();
   window.addEventListener("hashchange", hydrateFromHash);
-});
+}
+
+if (document.readyState === "loading") {
+  window.addEventListener("DOMContentLoaded", init);
+} else {
+  init();
+}
   </script>
 </body>
 </html>
