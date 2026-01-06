@@ -829,10 +829,10 @@
       }
     });
 
-    els.exportBtn.addEventListener("click", (e)=>{ e.preventDefault(); exportJSON(); });
-    els.importBtn.addEventListener("click", (e)=>{ e.preventDefault(); importJSON(); });
-    els.clearFiltersBtn.addEventListener("click", (e)=>{ e.preventDefault(); clearFilters(); });
-    els.homeLink.addEventListener("click", (e)=>{ e.preventDefault(); scrollToTop(); });
+    els.exportBtn?.addEventListener("click", (e)=>{ e.preventDefault(); exportJSON(); });
+els.importBtn?.addEventListener("click", (e)=>{ e.preventDefault(); importJSON(); });
+els.clearFiltersBtn?.addEventListener("click", (e)=>{ e.preventDefault(); clearFilters(); });
+els.homeLink?.addEventListener("click", (e)=>{ e.preventDefault(); scrollToTop(); });
 
    // Init (run after DOM is ready)
 window.addEventListener("DOMContentLoaded", () => {
