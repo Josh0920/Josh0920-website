@@ -367,7 +367,7 @@
       <aside class="card">
         <h2 style="font-size:18px;margin:0 0 10px;">About</h2>
         <p style="margin:0;color:var(--muted);">
-          My name is Joshua Haub, and I am an evangelist and preacher. My goal is to share the truth about God's word (The Bible). Here are some of my notes and materials! Please feel free to use them if they are of help to you.
+          Replace this with your bio + what you’re publishing (notes, sermon prep, Greek work, papers, etc.).
         </p>
 
         <div style="height:12px"></div>
@@ -389,9 +389,31 @@
 
         <h2 style="font-size:18px;margin:0 0 10px;">How To Contact Me</h2>
         <ol style="margin:0; padding-left:18px; color:var(--muted); font-size:13px;">
-          <li>Instagram <span style="font-family:var(--mono)">https://www.instagram.com/generousj_?igsh=MXkya3I5eXFmdXBqOA%3D%3D&utm_source=qr</li>
-          <li>Facebook https://www.facebook.com/joshua.haub.538481 <span style="font-family:var(--mono)">body</span>.</li>
-          <li>X <span style="font-family:var(--mono)"> (Formerly Twitter)</span> https://x.com/joshhaub.</li>
+          <!-- CHANGED: made URLs clickable + fixed broken tags -->
+          <li>
+            Instagram
+            <span style="font-family:var(--mono)">
+              <a href="https://www.instagram.com/generousj_?igsh=MXkya3I5eXFmdXBqOA%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">
+                https://www.instagram.com/generousj_
+              </a>
+            </span>
+          </li>
+          <li>
+            Facebook
+            <span style="font-family:var(--mono)">
+              <a href="https://www.facebook.com/joshua.haub.538481" target="_blank" rel="noopener noreferrer">
+                https://www.facebook.com/joshua.haub.538481
+              </a>
+            </span>
+          </li>
+          <li>
+            X <span style="font-family:var(--mono)">(Formerly Twitter)</span>
+            <span style="font-family:var(--mono)">
+              <a href="https://x.com/joshhaub" target="_blank" rel="noopener noreferrer">
+                https://x.com/joshhaub
+              </a>
+            </span>
+          </li>
         </ol>
       </aside>
     </section>
@@ -425,16 +447,16 @@
     /*************************************************************
      * EDIT YOUR CONTENT HERE
      *************************************************************/
-const CONTENT = [
-  {
-    id: "john-7-53-8-11",
-    type: "Papers",
-    title: "Is John 7:53–8:11 Part of the Original Text of John?",
-    date: "2026-01-06",
-    featured: true,
-    tags: ["John", "Textual Criticism", "Pericope Adulterae"],
-    excerpt: "A textual-critical analysis of John 7:53–8:11 and its manuscript evidence.",
-    body: `
+    const CONTENT = [
+      {
+        id: "john-7-53-8-11",
+        type: "Papers",
+        title: "Is John 7:53–8:11 Part of the Original Text of John?",
+        date: "2026-01-06",
+        featured: true,
+        tags: ["John", "Textual Criticism", "Pericope Adulterae"],
+        excerpt: "A textual-critical analysis of John 7:53–8:11 and its manuscript evidence.",
+        body: `
 <iframe
   src="John%207%3A53-8%3A11.pdf"
   width="100%"
@@ -448,8 +470,8 @@ const CONTENT = [
   </a>
 </p>
 `
-  }
-];
+      }
+    ];
 
     /*************************************************************
      * APP LOGIC (No need to edit below unless you want to)
@@ -660,7 +682,10 @@ const CONTENT = [
       els.modalType.textContent = item.type;
       els.modalTitle.textContent = item.title;
       els.modalSub.textContent = `${formatDate(item.date || "")} • ${item.featured ? "Featured • " : ""}${(item.tags || []).join(" • ")}`;
-      els.modalBody.textContent = item.body || "";
+
+      // CHANGED: render iframe/link HTML for the PDF
+      els.modalBody.innerHTML = item.body || "";
+
       els.modalTags.innerHTML = (item.tags || []).map(t=>`<span class="tag">${escapeHtml(t)}</span>`).join("");
 
       els.overlay.classList.add("show");
