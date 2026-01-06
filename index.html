@@ -429,70 +429,105 @@
      * EDIT YOUR CONTENT HERE
      *************************************************************/
     const CONTENT = [
-      {
-        id: "John 7:53-8:11, Pericope Adultarae",
-        type: "Textual Critical Paper",                 // Notes | Papers | Articles
-        title: "Is John 7:53-8:11 Originally Part of the Gospel of John? An Examination of the Evidence from the Manuscripts and Early Church Fathers",
-        date: "2025-12-05",            // YYYY-MM-DD
-        featured: true,
-        tags: ["John 7:53-8:11", "Textual Criticism"],
-        excerpt: "Is this passage originally part of John?",
-        body:
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>PDF Viewer</title>
-<style>
-.pdf-container {
-width: 100%;
-max-width: 1000px;
-margin: 0 auto;
-}
+  {
+    id: "John 7:53-8:11, Pericope Adultarae",
+    type: "Textual Critical Paper",
+    title:
+      "Is John 7:53-8:11 Originally Part of the Gospel of John? An Examination of the Evidence from the Manuscripts and Early Church Fathers",
+    date: "2025-12-05",
+    featured: true,
+    tags: ["John 7:53-8:11", "Textual Criticism"],
+    excerpt: "Is this passage originally part of John?",
+    body: `
+<div class="pdf-wrap">
+  <a class="pdf-open" href="#" id="open-pdf-link">Open PDF</a>
 
-.download-btn {
-display: inline-block;
-margin: 15px 0;
-padding: 10px 16px;
-background-color: #1a73e8;
-color: white;
-text-decoration: none;
-border-radius: 5px;
-font-weight: 600;
-}
+  <!-- Optional: keep this if you also want an obvious download link outside the viewer -->
+  <a
+    class="pdf-download"
+    href="Is%20John%207.53-8.11%20Part%20of%20the%20Original%20Text%20of%20John.pdf"
+    download
+    style="display:none;"
+    id="download-pdf-link"
+  >
+    Download
+  </a>
 
-.download-btn:hover {
-background-color: #1558b0;
-}
-</style>
-</head>
-<body>
-
-<div class="pdf-container">
-
-<!-- Download Button -->
-<a
-href="Is%20John%207.53-8.11%20Part%20of%20the%20Original%20Text%20of%20John.pdf"
-class="download-btn"
-download
->
-Download PDF
-</a>
-
-<!-- Embedded PDF Viewer -->
-<iframe
-src="Is%20John%207.53-8.11%20Part%20of%20the%20Original%20Text%20of%20John.pdf"
-width="100%"
-height="900px"
-style="border: none;"
-></iframe>
-
+  <div class="pdf-container" id="pdf-container" style="display:none;">
+    <iframe
+      id="pdf-frame"
+      src=""
+      width="100%"
+      height="900"
+      style="border:none;"
+      loading="lazy"
+      title="PDF Viewer"
+    ></iframe>
+  </div>
 </div>
 
-</body>
-</html>
+<style>
+  .pdf-wrap {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
 
-      },
+  .pdf-open {
+    display: inline-block;
+    margin: 15px 12px 15px 0;
+    padding: 10px 16px;
+    background: #1a73e8;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+  }
+  .pdf-open:hover { background: #1558b0; }
+
+  .pdf-download {
+    display: inline-block;
+    margin: 15px 0;
+    padding: 10px 16px;
+    background: #111827;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+  }
+  .pdf-download:hover { background: #0b1220; }
+</style>
+
+<script>
+  (function () {
+    const pdfUrl = "Is%20John%207.53-8.11%20Part%20of%20the%20Original%20Text%20of%20John.pdf";
+
+    const openLink = document.getElementById("open-pdf-link");
+    const downloadLink = document.getElementById("download-pdf-link");
+    const container = document.getElementById("pdf-container");
+    const frame = document.getElementById("pdf-frame");
+
+    if (!openLink || !container || !frame) return;
+
+    openLink.addEventListener("click", function (e) {
+      e.preventDefault();
+
+      // This enables the browser PDF viewer toolbar (where the download icon usually appears).
+      // Works in most browsers (Chrome/Edge/Firefox).
+      frame.src = pdfUrl + "#toolbar=1&navpanes=0&scrollbar=1";
+
+      container.style.display = "block";
+      if (downloadLink) downloadLink.style.display = "inline-block";
+
+      // optional: scroll into view
+      container.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  })();
+</script>
+    `,
+  },
+];
+
      
     /*************************************************************
      * APP LOGIC (No need to edit below unless you want to)
