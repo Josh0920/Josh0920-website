@@ -277,6 +277,10 @@
       border-radius:12px;
       cursor:pointer;
       font-size:13px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      text-decoration:none;
     }
     .btn:hover{border-color: color-mix(in srgb, var(--accent) 55%, var(--border));}
     .btn.danger{border-color: color-mix(in srgb, var(--danger) 50%, var(--border));}
@@ -430,6 +434,8 @@
       <header>
         <h3 id="modalType">Reader</h3>
         <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <!-- CHANGED: added top-right download icon/button (hidden unless pdfHref exists) -->
+          <a class="btn" id="downloadBtn" href="#" download title="Download PDF" style="display:none;">⬇️</a>
           <button class="btn" id="copyLinkBtn">Copy Link</button>
           <button class="btn danger" id="closeBtn">Close</button>
         </div>
@@ -456,16 +462,18 @@
         featured: true,
         tags: ["John", "Textual Criticism", "Pericope Adulterae"],
         excerpt: "A textual-critical analysis of John 7:53–8:11 and its manuscript evidence.",
+        // CHANGED: added explicit href for the top-right download icon
+        pdfHref: "John%207:53-8:11.pdf",
         body: `
 <iframe
-  src="John%207%3A53-8%3A11.pdf"
+  src="John%207:53-8:11.pdf"
   width="100%"
   height="900"
   style="border:none;"
 ></iframe>
 
 <p>
-  <a href="John%207%3A53-8%3A11.pdf" download>
+  <a href="John%207:53-8:11.pdf" download>
     Download PDF
   </a>
 </p>
@@ -500,6 +508,8 @@
       modalType: document.getElementById("modalType"),
       closeBtn: document.getElementById("closeBtn"),
       copyLinkBtn: document.getElementById("copyLinkBtn"),
+      // CHANGED: grab the download button element
+      downloadBtn: document.getElementById("downloadBtn"),
 
       exportBtn: document.getElementById("exportBtn"),
       importBtn: document.getElementById("importBtn"),
@@ -685,6 +695,15 @@
 
       // CHANGED: render iframe/link HTML for the PDF
       els.modalBody.innerHTML = item.body || "";
+
+      // CHANGED: show/hide top-right download icon based on item.pdfHref
+      if (item.pdfHref) {
+        els.downloadBtn.href = item.pdfHref;
+        els.downloadBtn.style.display = "inline-flex";
+      } else {
+        els.downloadBtn.href = "#";
+        els.downloadBtn.style.display = "none";
+      }
 
       els.modalTags.innerHTML = (item.tags || []).map(t=>`<span class="tag">${escapeHtml(t)}</span>`).join("");
 
