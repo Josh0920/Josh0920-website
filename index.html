@@ -834,19 +834,24 @@
     els.clearFiltersBtn.addEventListener("click", (e)=>{ e.preventDefault(); clearFilters(); });
     els.homeLink.addEventListener("click", (e)=>{ e.preventDefault(); scrollToTop(); });
 
-    // Init
-    state.theme = state.theme === "light" ? "light" : "dark";
-    applyTheme();
+   // Init (run after DOM is ready)
+window.addEventListener("DOMContentLoaded", () => {
+  state.theme = state.theme === "light" ? "light" : "dark";
+  applyTheme();
 
-    els.year.textContent = new Date().getFullYear();
+  els.year.textContent = new Date().getFullYear();
 
-    buildKPIs();
-buildTagSelect();
-renderFeatured();
-renderGrid();
-setActiveFilterButtons(); // ← NEW: ensure "All" pill is active on first load
-hydrateFromHash();
-window.addEventListener("hashchange", hydrateFromHash);
+  buildKPIs();
+  buildTagSelect();
+  renderFeatured();
+
+  // Ensure default view is All and render immediately
+  state.type = "All";
+  renderGrid();
+
+  hydrateFromHash();
+  window.addEventListener("hashchange", hydrateFromHash);
+});
   </script>
 </body>
 </html>
