@@ -330,15 +330,12 @@ html, body { overflow-x: hidden; }
   .pill{
     padding: 8px 10px;
     font-size: 12px;
+    flex: 1 1 auto;
   }
 
-  /* Reduce page padding so it doesn't feel cramped */
   .wrap{ padding: 14px; }
-
-  /* Cards: slightly tighter */
   .card{ padding: 14px; }
 
-  /* Controls: stack nicely */
   .controls{
     flex-direction: column;
     align-items: stretch;
@@ -346,15 +343,11 @@ html, body { overflow-x: hidden; }
   .search{ width: 100%; }
   .select{ width: 100%; }
 
-  /* Modal sizing improvements for phone */
   .overlay{ padding: 10px; }
-  .modal{
-    max-height: 92vh;
-  }
+  .modal{ max-height: 92vh; }
   .modal .content h1{ font-size: 18px; }
   .modal .content .body{ font-size: 14px; }
 
-  /* Your PDF iframe inside modal: keep it usable on phones */
   .modal iframe{
     height: 70vh !important;
     width: 100% !important;
