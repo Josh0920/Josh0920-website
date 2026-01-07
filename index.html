@@ -288,6 +288,81 @@
     }
     .smalllink{color:var(--muted); text-decoration:none}
     .smalllink:hover{color:var(--text)}
+/* =========================
+   MOBILE FIXES (paste at END of <style>)
+========================= */
+
+img, video, iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+html, body { overflow-x: hidden; }
+
+/* Make header content wrap nicely on phones */
+@media (max-width: 620px) {
+  .topbar{
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px 14px;
+    gap: 10px;
+  }
+
+  .brand{
+    width: 100%;
+    min-width: unset;
+  }
+
+  .logo{
+    width: 64px;
+    height: 64px;
+  }
+
+  nav{
+    width: 100%;
+    justify-content: flex-start;
+    gap: 8px;
+  }
+
+  .pill{
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+
+  /* Reduce page padding so it doesn't feel cramped */
+  .wrap{ padding: 14px; }
+
+  /* Cards: slightly tighter */
+  .card{ padding: 14px; }
+
+  /* Controls: stack nicely */
+  .controls{
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .search{ width: 100%; }
+  .select{ width: 100%; }
+
+  /* Modal sizing improvements for phone */
+  .overlay{ padding: 10px; }
+  .modal{
+    max-height: 92vh;
+  }
+  .modal .content h1{ font-size: 18px; }
+  .modal .content .body{ font-size: 14px; }
+
+  /* Your PDF iframe inside modal: keep it usable on phones */
+  .modal iframe{
+    height: 70vh !important;
+    width: 100% !important;
+  }
+}
+
+/* Mid-size tablets: keep things comfortable */
+@media (max-width: 920px) {
+  .topbar{ padding: 12px 16px; }
+  .wrap{ padding: 18px; }
+}
   </style>
 </head>
 
