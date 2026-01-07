@@ -819,7 +819,9 @@ nav .pill:nth-last-child(2){
         });
       });
     }
-
+function isMobileView() {
+  return window.matchMedia("(max-width: 620px)").matches;
+}
     function openReader(id){
       const item = CONTENT.find(x=>x.id === id);
       if (!item) return;
@@ -829,7 +831,16 @@ nav .pill:nth-last-child(2){
       els.modalSub.textContent = `${formatDate(item.date || "")} • ${item.featured ? "Featured • " : ""}${(item.tags || []).join(" • ")}`;
 
       // CHANGED: render iframe/link HTML for the PDF
-      els.modalBody.innerHTML = item.body || "";
+      // On mobile: open PDFs in a new tab (iframes are wonky on phones)
+if (isMobileView() && item.pdfHref) {
+  // clear hash so back/refresh doesn't keep re-opening
+  history.replaceState(null, "", "#/");
+  window.open(item.pdfHref, "_blank", "noopener,noreferrer");
+  return; // don't open the modal
+}
+
+// Desktop/tablet: keep normal modal reader
+els.modalBody.innerHTML = item.body || "";
 
       // CHANGED: show/hide top-right download icon based on item.pdfHref
       if (item.pdfHref) {
