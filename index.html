@@ -338,12 +338,22 @@ html, body { overflow-x: hidden; }
   .wrap{ padding: 14px; }
   .card{ padding: 14px; }
 
-  .controls{
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .search{ width: 100%; }
-  .select{ width: 100%; }
+ .controls{
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Match the width of the Featured card */
+.hero .card,
+.search{
+  width: calc(100% - 28px);   /* same as mobile wrap padding */
+  max-width: 520px;
+}
+
+.select{
+  width: calc(100% - 28px);
+  max-width: 520px;
+}
 
   .overlay{ padding: 10px; }
   .modal{ max-height: 92vh; }
