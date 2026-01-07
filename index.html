@@ -762,21 +762,24 @@ nav .pill:nth-last-child(2){
     }
 
     function renderFeatured(){
-      const featured = sortItems(CONTENT.filter(x=>x.featured)).slice(0, 4);
-      if (!featured.length){
-        els.featuredList.innerHTML = `<div style="color:var(--muted);font-size:13px;">No featured posts yet.</div>`;
-        return;
-      }
-      els.featuredList.innerHTML = featured.map(x=>`
-        <div class="item" style="min-height:auto;" data-id="${escapeHtml(x.id)}">
-          <div class="badge"><strong>${escapeHtml(x.type)}</strong> · ${escapeHtml(formatDate(x.date || ""))}</div>
-          <div style="height:6px"></div>
-          <div style="font-weight:650;">${escapeHtml(x.title)}</div>
-          <div style="color:var(--muted);font-size:12px;margin-top:4px;">${escapeHtml(x.excerpt || "")}</div>
-        </div>
-      `).join("");
-    }
+  if (!els.featuredList) return; // prevents crash if featuredList doesn't exist
 
+  const featured = sortItems(CONTENT.filter(x=>x.featured)).slice(0, 4);
+
+  if (!featured.length){
+    els.featuredList.innerHTML = `<div style="color:var(--muted);font-size:13px;">No featured posts yet.</div>`;
+    return;
+  }
+
+  els.featuredList.innerHTML = featured.map(x=>`
+    <div class="item" style="min-height:auto;" data-id="${escapeHtml(x.id)}">
+      <div class="badge"><strong>${escapeHtml(x.type)}</strong> · ${escapeHtml(formatDate(x.date || ""))}</div>
+      <div style="height:6px"></div>
+      <div style="font-weight:650;">${escapeHtml(x.title)}</div>
+      <div style="color:var(--muted);font-size:12px;margin-top:4px;">${escapeHtml(x.excerpt || "")}</div>
+    </div>
+  `).join("");
+}
     function renderGrid(){
       setActiveFilterButtons();
 
@@ -963,7 +966,7 @@ function init() {
 
   buildKPIs();
   buildTagSelect();
-  renderFeatured();
+ if (els.featuredList) renderFeatured();
 
   // Ensure default view is All and render immediately
   state.type = "All";
