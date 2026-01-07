@@ -593,7 +593,7 @@ html, body { overflow-x: hidden; }
     title: "Is John 7:53–8:11 Part of the Original Text of John?",
     date: "2026-01-06",
     featured: false,
-    tags: ["John", "Textual Criticism", "Pericope Adulterae", "Church Fathers," "Manuscript"],
+    tags: ["John", "Textual Criticism", "Pericope Adulterae", "Church Fathers", "Manuscript"],
     excerpt: "A textual-critical analysis of John 7:53–8:11 and its external evidence from the Manuscript Witnesses and Early Church Fathers.",
     pdfHref: "John%207:53-8:11.pdf",
     body: `
@@ -699,18 +699,29 @@ html, body { overflow-x: hidden; }
     };
 
     let state = {
-      type: "All",     // All | Notes | Papers | Articles
-      query: "",
-      tag: "",
-      sort: "newest",
-      theme: localStorage.getItem("theme") || "dark",
-    };
+  type: "All",
+  query: "",
+  tag: "",
+  sort: "newest",
+  theme: "dark",
+};
+
+// ✅ Load saved theme safely
+try {
+  const saved = localStorage.getItem("theme");
+  if (saved === "light" || saved === "dark") state.theme = saved;
+} catch (e) {}
 
     function applyTheme() {
-      document.documentElement.setAttribute("data-theme", state.theme === "light" ? "light" : "dark");
-      localStorage.setItem("theme", state.theme);
-    }
+  document.documentElement.setAttribute(
+    "data-theme",
+    state.theme === "light" ? "light" : "dark"
+  );
 
+  try {
+    localStorage.setItem("theme", state.theme);
+  } catch (e) {}
+}
     function normalize(s){ return (s || "").toLowerCase(); }
 
     function formatDate(iso){
@@ -816,7 +827,7 @@ html, body { overflow-x: hidden; }
           </div>
           <div class="meta">
             <div class="tags">${tags}${extra}</div>
-            <div>${item.featured ? "★" : ""}</div>
+            <div></div>
           </div>
         </article>
       `;
@@ -1031,14 +1042,17 @@ els.homeLink?.addEventListener("click", (e)=>{ e.preventDefault(); scrollToTop()
 
   // Init (runs whether DOMContentLoaded already fired or not)
 function init() {
-  state.theme = state.theme === "light" ? "light" : "dark";
+  console.log("INIT RAN", CONTENT.length);  // ✅ optional test line
+  
+if (!location.hash) history.replaceState(null, "", "#/");
+  
   applyTheme();
 
   els.year.textContent = new Date().getFullYear();
 
   buildKPIs();
   buildTagSelect();
- if (els.featuredList) renderFeatured();
+  if (els.featuredList) renderFeatured();
 
   // Ensure default view is All and render immediately
   state.type = "All";
