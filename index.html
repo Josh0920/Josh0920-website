@@ -299,16 +299,17 @@ html, body { overflow-x: hidden; }
 
 /* Make header content wrap nicely on phones */
 @media (max-width: 620px) {
-    /* MOBILE ORDER: show Library before Featured */
- main.wrap{
-  display: flex;
-  flex-direction: column;
-   gap: 14px;
-}
+  /* MOBILE ORDER: show Library before Featured */
+  main.wrap{
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
 
-   .hero{ order: 1; }   /* Welcome/Search section */
+  .hero{ order: 1; }   /* Welcome/Search section */
   .split{ order: 2; }  /* Library section */
-footer.footer{ order: 99; }
+  footer.footer{ order: 99; }
+
   /* Make .hero flex on mobile so order works for its children */
   .hero{
     display: flex;
@@ -317,6 +318,7 @@ footer.footer{ order: 99; }
 
   /* Featured card is inside .hero */
   .hero > aside.card{ order: 3; }
+
   .topbar{
     flex-direction: column;
     align-items: flex-start;
@@ -334,70 +336,69 @@ footer.footer{ order: 99; }
     height: 64px;
   }
 
-/* Tabs: 3 on first row, 2 on second */
-nav{
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 8px;
-}
-
-nav .pill{
-  grid-column: span 2; /* 3 per row (6/2 = 3) */
-  width: 100%;
-  justify-content: center;
-  padding: 8px 10px;
-  font-size: 12px;
-}
-
-/* Last two buttons become 2-per-row */
-nav .pill:nth-last-child(1),
-nav .pill:nth-last-child(2){
-  grid-column: span 3; /* 6/3 = 2 items on last row */
-}
-
- main.wrap{ padding: 14px; }
-  .card{ padding: 14px; }
-
- .controls{
-  flex-direction: column;
-  align-items: stretch; /* fill the card like the About section */
-}
-
-/* Let hero cards behave like normal blocks inside .wrap */
-.hero .card,
-.hero aside.card{
-  width: 100%;
-  max-width: none;
-}
-
-/* Inputs/selects should fill the card width */
-.search,
-.select{
-  width: 100%;
-  max-width: none;
-}
-
-  .overlay{ padding: 10px; }
-  .modal{ max-height: 92vh; }
-  .modal .content h1{ font-size: 18px; }
-  .modal .content .body{ font-size: 14px; }
-
-  .modal iframe{
-    height: 70vh !important;
-    width: 100% !important;
-  }
-    /* Make the search bar compact on mobile (match KPI box size) */
-  .search{
-    padding: 8px 10px;
-    border-radius: 14px;
+  /* Tabs: 3 on first row, 2 on second */
+  nav{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
     gap: 8px;
   }
 
+  nav .pill{
+    grid-column: span 2; /* 3 per row */
+    width: 100%;
+    justify-content: center;
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+
+  /* Last two buttons become 2-per-row */
+  nav .pill:nth-last-child(1),
+  nav .pill:nth-last-child(2){
+    grid-column: span 3; /* 2 items on last row */
+  }
+
+  main.wrap{ padding: 14px; }
+  .card{ padding: 14px; }
+
+   /* ✅ MOBILE SEARCH BAR SHAPE (FORCE iPhone) */
+  .controls{
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    width: 100% !important;
+  }
+
+  .controls > *{
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .search{
+    display: flex !important;
+    align-items: center !important;
+    width: 100% !important;
+    padding: 14px 14px !important;
+    border-radius: 16px !important;
+    min-width: 0 !important;
+  }
+
   .search input{
-    font-size: 13px;
-    line-height: 1.2;
-    padding: 0;
+    width: 100% !important;
+    min-width: 0 !important;
+    font-size: 16px !important; /* prevents iOS zoom */
+    line-height: 1.2 !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+  }
+
+  .select{
+    width: 100% !important;
+    padding: 12px 14px !important;
+    border-radius: 16px !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
   }
 }
 
