@@ -321,17 +321,19 @@ html, body { overflow-x: hidden; }
     height: 64px;
   }
 
-  nav{
-    width: 100%;
-    justify-content: flex-start;
-    gap: 8px;
-  }
+ nav{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
 
   .pill{
-    padding: 8px 10px;
-    font-size: 12px;
-    flex: 1 1 auto;
-  }
+  width: 100%;
+  justify-content: center;
+  padding: 8px 10px;
+  font-size: 12px;
+}
 
   .wrap{ padding: 14px; }
   .card{ padding: 14px; }
