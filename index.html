@@ -305,8 +305,14 @@ html, body { overflow-x: hidden; }
   flex-direction: column;
 }
 
-  .hero{ order: 1; }   /* Welcome/Search section */
+   .hero{ order: 1; }   /* Welcome/Search section */
   .split{ order: 2; }  /* Library section */
+
+  /* Make .hero flex on mobile so order works for its children */
+  .hero{
+    display: flex;
+    flex-direction: column;
+  }
 
   /* Featured card is inside .hero */
   .hero > aside.card{ order: 3; }
