@@ -106,6 +106,25 @@
       align-items:stretch;
     }
     @media (max-width: 920px){
+      /* Reorder sections on mobile: Library before Featured */
+@media (max-width: 620px) {
+  .hero {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero > .card {
+    order: 1; /* Welcome / Search */
+  }
+
+  .split {
+    order: 2; /* Library */
+  }
+
+  .hero > aside.card {
+    order: 3; /* Featured */
+  }
+}
       .hero{grid-template-columns: 1fr; }
       .brand{min-width:unset}
       nav{justify-content:flex-start}
