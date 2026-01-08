@@ -283,6 +283,21 @@
     }
     .smalllink{color:var(--muted); text-decoration:none}
     .smalllink:hover{color:var(--text)}
+    /* Fix weird underline on "Download PDF" */
+.pdf-actions { margin: 10px 0 0; }
+
+.download-link{
+  display: inline;                 /* underline only the text */
+  width: auto;
+  padding: 0;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.download-link:hover{
+  color: var(--accent);
+}
 /* =========================
    MOBILE FIXES (paste at END of <style>)
 ========================= */
@@ -604,10 +619,8 @@ html, body { overflow-x: hidden; }
   style="border:none;"
 ></iframe>
 
-<p>
-  <a href="John%207:53-8:11.pdf" download>
-    Download PDF
-  </a>
+<p class="pdf-actions">
+  <a class="download-link" href="John%207:53-8:11.pdf" download>Download PDF</a>
 </p>
 `
   },
@@ -629,10 +642,8 @@ html, body { overflow-x: hidden; }
   style="border:none;"
 ></iframe>
 
-<p>
-  <a href="The%20External%20Evidence%20for%20the%20Authorship%20of%20Luke%2023.34a.%20An%20Examination%20of%20the%20Evidence%20from%20the%20Manuscript%20and%20Church%20Father%20Witnesses.pdf" download>
-    Download PDF
-  </a>
+<p class="pdf-actions">
+  <a class="download-link" href="The%20External%20Evidence%20for%20the%20Authorship%20of%20Luke%2023.34a.%20An%20Examination%20of%20the%20Evidence%20from%20the%20Manuscript%20and%20Church%20Father%20Witnesses.pdf" download>Download PDF</a>
 </p>
 `
   },
@@ -654,10 +665,8 @@ html, body { overflow-x: hidden; }
   style="border:none;"
 ></iframe>
 
-<p>
-  <a href="Who%20Wrote%201%20Cor.%2014.34-5.%20Paul%20or%20Someone%20Else.pdf" download>
-    Download PDF
-  </a>
+<p class="pdf-actions">
+  <a class="download-link" href="Who%20Wrote%201%20Cor.%2014.34-5.%20Paul%20or%20Someone%20Else.pdf" download>Download PDF</a>
 </p>
 `
   }
