@@ -5,46 +5,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Joshua’s Bible Library</title>
   <meta name="description" content="Bible notes, papers, and articles." />
+
   <style>
     :root{
-      /* Professional, editorial palette (less “neon UI”) */
-      --bg: #0e1116;
-      --surface: #121826;
-      --surface-2:#0f1522;
-      --text: #e9edf7;
-      --muted: #aab3c7;
-      --border: rgba(255,255,255,.10);
+      /* ===== Ultra-clean editorial system ===== */
+      --bg:#fbfbf8;
+      --paper:#ffffff;
+      --ink:#101418;
+      --muted:#586171;
+      --rule: rgba(16,20,24,.12);
+      --soft: rgba(16,20,24,.06);
 
-      /* restrained accent (navy/ink) */
-      --accent: #86a3ff;
-      --accent-2:#7bd8b5;
+      --accent:#1f4bd8;     /* scholarly “link” blue */
+      --accent-2:#0b7a5a;   /* subtle green for highlights */
+      --danger:#c53b3b;
 
-      --danger:#ff6b6b;
+      --radius:14px;
+      --maxw:1140px;
 
-      /* softer, more realistic shadow */
-      --shadow: 0 6px 18px rgba(0,0,0,.28);
+      --shadow: 0 10px 28px rgba(16,20,24,.08);
+      --shadow-soft: 0 6px 18px rgba(16,20,24,.06);
 
-      --radius: 14px;
-      --maxw: 1120px;
-
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-
-      /* editorial typography: serif headings + system body */
       --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
       --serif: ui-serif, Georgia, "Times New Roman", Times, serif;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+      --measure: 66ch;
     }
 
-    [data-theme="light"]{
-      --bg:#f7f7f4;
-      --surface:#ffffff;
-      --surface-2:#fafaf8;
-      --text:#0e1116;
-      --muted:#505b6f;
-      --border: rgba(14,17,22,.12);
-      --accent:#2749d8;
-      --accent-2:#0a7f5d;
-      --danger:#c73f3f;
-      --shadow: 0 10px 26px rgba(14,17,22,.08);
+    /* Optional dark theme (kept because your code has a toggle) */
+    [data-theme="dark"]{
+      --bg:#0f1216;
+      --paper:#12161c;
+      --ink:#e9edf3;
+      --muted:#a6afbf;
+      --rule: rgba(233,237,243,.14);
+      --soft: rgba(233,237,243,.08);
+
+      --accent:#86a3ff;
+      --accent-2:#7bd8b5;
+      --danger:#ff6b6b;
+
+      --shadow: 0 18px 40px rgba(0,0,0,.40);
+      --shadow-soft: 0 10px 24px rgba(0,0,0,.28);
     }
 
     *{box-sizing:border-box}
@@ -53,311 +56,476 @@
       margin:0;
       font-family:var(--sans);
       background: var(--bg);
-      color:var(--text);
-      line-height:1.62;
+      color: var(--ink);
+      line-height:1.65;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
     }
     a{color:inherit}
+    img, video { max-width: 100%; height: auto; }
+    iframe { max-width: 100%; }
+    html, body { overflow-x: hidden; }
 
-    .wrap{max-width:var(--maxw); margin:0 auto; padding:24px}
+    /* ===== Layout containers ===== */
+    .wrap{max-width:var(--maxw); margin:0 auto; padding:26px 22px}
+    main{padding: 18px 0 56px}
 
-    /* Header: clean “institutional” bar */
+    /* ===== Header (institutional / journal-like) ===== */
     header{
       position:sticky; top:0; z-index:50;
       background: color-mix(in srgb, var(--bg) 92%, transparent);
-      border-bottom:1px solid var(--border);
       backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--rule);
     }
     .topbar{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:14px; padding:14px 24px; max-width:var(--maxw); margin:0 auto;
+      max-width:var(--maxw);
+      margin:0 auto;
+      padding: 14px 22px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
     }
-
     .brand{
-      display:flex; align-items:center; gap:12px; min-width:240px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width: 260px;
       text-decoration:none;
     }
     .logo{
-      width:76px;
-      height:76px;
+      width:68px; height:68px;
       border-radius:50%;
-      object-fit: cover;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--border);
+      object-fit:cover;
+      border: 1px solid var(--rule);
+      box-shadow: var(--shadow-soft);
+      background: var(--paper);
     }
     .brand h1{
       margin:0;
       font-size:15px;
       letter-spacing:.2px;
-      font-weight:650;
+      font-weight:700;
     }
     .brand p{
       margin:2px 0 0;
-      color:var(--muted);
       font-size:12px;
-      letter-spacing:.15px;
+      color: var(--muted);
+      letter-spacing:.18px;
     }
 
+    /* ===== Nav: clean tabs ===== */
     nav{
-      display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+      display:flex;
+      align-items:center;
+      gap:14px;
+      flex-wrap:wrap;
       justify-content:flex-end;
     }
-
-    /* Tabs: look like real nav, not “AI pills” */
     .pill{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:9px 12px;
-      border:1px solid var(--border);
-      background: transparent;
-      border-radius:999px;
-      text-decoration:none;
-      color:var(--text);
+      appearance:none;
+      border:0;
+      background:transparent;
+      color: var(--muted);
+      padding: 8px 4px;
       font-size:13px;
-      transition: background .15s ease, border-color .15s ease, transform .15s ease;
-      user-select:none;
+      letter-spacing:.18px;
       cursor:pointer;
+      border-bottom: 2px solid transparent;
+      transition: color .12s ease, border-color .12s ease;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
     }
-    .pill:hover{
-      transform: translateY(-1px);
-      background: color-mix(in srgb, var(--surface) 55%, transparent);
-      border-color: color-mix(in srgb, var(--text) 18%, var(--border));
-    }
+    .pill .dot{display:none;} /* intentionally removed for clean look */
+    .pill:hover{ color: var(--ink); }
     .pill.active{
-      border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
-      background: color-mix(in srgb, var(--accent) 12%, transparent);
+      color: var(--ink);
+      border-bottom-color: var(--accent);
     }
-    .pill .dot{
-      width:6px; height:6px; border-radius:999px;
-      background: currentColor;
-      opacity:.75;
+    #themeToggle{
+      color: var(--ink);
+      border: 1px solid var(--rule);
+      background: var(--paper);
+      padding: 8px 10px;
+      border-radius: 999px;
+      box-shadow: var(--shadow-soft);
     }
+    #themeToggle:hover{ border-color: color-mix(in srgb, var(--accent) 45%, var(--rule)); }
 
-    main{padding:22px 0 60px}
-
+    /* ===== Hero: editorial intro ===== */
     .hero{
-      margin-top:10px;
       display:grid;
-      grid-template-columns: 1.5fr .9fr;
-      gap:18px;
-      align-items:stretch;
+      grid-template-columns: 1.55fr .95fr;
+      gap:22px;
+      align-items:start;
+      margin-top: 10px;
     }
 
     .card{
-      border:1px solid var(--border);
-      background: var(--surface);
+      background: var(--paper);
+      border: 1px solid var(--rule);
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding:18px;
+      box-shadow: var(--shadow-soft);
+      padding: 18px;
     }
 
-    /* Typography hierarchy: serif headings */
     .hero h2{
-      margin:0 0 8px;
-      font-size:26px;
-      letter-spacing:.1px;
+      margin:0 0 10px;
       font-family: var(--serif);
-      font-weight: 700;
+      font-weight: 800;
+      letter-spacing:.2px;
+      line-height:1.18;
+      font-size: 30px;
     }
-    .hero p{margin:0 0 14px; color:var(--muted)}
-
-    .kpis{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
-    .kpi{
-      flex: 1 1 120px;
-      padding:12px;
-      border:1px solid var(--border);
-      background: var(--surface-2);
-      border-radius:12px;
+    .hero p{
+      margin:0 0 14px;
+      color: var(--muted);
+      max-width: var(--measure);
+      font-size: 14px;
     }
-    .kpi b{display:block; font-size:16px}
-    .kpi span{color:var(--muted); font-size:12px}
 
+    /* Search + controls: clean form style */
     .controls{
-      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
-      margin-top:12px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      margin-top: 14px;
     }
     .search{
-      flex: 1 1 260px;
-      display:flex; align-items:center; gap:10px;
-      padding:10px 12px;
-      border:1px solid var(--border);
-      background: var(--surface-2);
+      flex: 1 1 320px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding: 12px 12px;
+      border: 1px solid var(--rule);
+      background: color-mix(in srgb, var(--paper) 92%, var(--bg));
       border-radius: 12px;
     }
     .search input{
       width:100%;
-      border:none;
-      outline:none;
+      border:0;
+      outline:0;
       background:transparent;
-      color:var(--text);
-      font-size:14px;
+      color: var(--ink);
+      font-size: 14px;
     }
     .select{
-      flex: 0 0 auto;
-      border:1px solid var(--border);
-      background: var(--surface-2);
+      border: 1px solid var(--rule);
+      background: color-mix(in srgb, var(--paper) 92%, var(--bg));
       border-radius: 12px;
-      padding:10px 12px;
-      color:var(--text);
-      font-size:14px;
+      padding: 12px 12px;
+      color: var(--ink);
+      font-size: 14px;
       outline:none;
     }
 
+    /* KPIs: make them look like subtle “counts” */
+    .kpis{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--soft);
+    }
+    .kpi{
+      flex: 1 1 140px;
+      padding: 10px 0;
+      border: 0;
+      background: transparent;
+    }
+    .kpi b{
+      display:block;
+      font-size: 18px;
+      font-weight: 800;
+      font-family: var(--serif);
+      letter-spacing:.2px;
+      color: var(--ink);
+    }
+    .kpi span{
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing:.2px;
+      text-transform: uppercase;
+    }
+
+    /* Podcast card: keep your content but make it “feature” style */
+    .podcast-title{
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 800;
+      margin:0 0 10px;
+    }
+    .podcast-img{
+      width:100%;
+      border-radius: 12px;
+      border:1px solid var(--rule);
+      box-shadow: var(--shadow-soft);
+      transition: transform .15s ease;
+    }
+    .podcast-img:hover{ transform: translateY(-2px); }
+
+    /* ===== Main split: library + sidebar ===== */
+    .split{
+      display:grid;
+      grid-template-columns: 1fr 380px;
+      gap:22px;
+      margin-top: 22px;
+      align-items:start;
+    }
+
+    /* Library header */
+    .section-head{
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top: 6px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--soft);
+    }
+    .section-head h2{
+      margin:0;
+      font-family: var(--serif);
+      font-weight: 900;
+      letter-spacing:.2px;
+      font-size: 20px;
+    }
+    .section-head .count{
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* ===== Library entries: citation-like list cards ===== */
     .grid{
       display:grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap:14px;
-      margin-top:16px;
+      margin-top: 14px;
     }
-    @media (max-width: 980px){ .grid{grid-template-columns: repeat(2, 1fr);} }
-    @media (max-width: 620px){ .grid{grid-template-columns: 1fr;} }
+    @media (min-width: 1080px){
+      .grid{ grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 820px){
+      .hero{ grid-template-columns: 1fr; }
+      .split{ grid-template-columns: 1fr; }
+      .grid{ grid-template-columns: 1fr; }
+    }
 
-    /* Cards: flatter + editorial */
     .item{
-      padding:14px;
-      border:1px solid var(--border);
-      background: var(--surface);
-      border-radius: 14px;
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      border-radius: 12px;
+      padding: 14px 14px 12px;
       cursor:pointer;
-      transition: border-color .15s ease, transform .15s ease, background .15s ease;
-      min-height: 160px;
-      display:flex; flex-direction:column; justify-content:space-between;
+      transition: border-color .12s ease, transform .12s ease, box-shadow .12s ease;
+      box-shadow: none;
+      min-height: 150px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      position:relative;
+      overflow:hidden;
     }
+
+    /* left “accent rule” */
+    .item::before{
+      content:"";
+      position:absolute;
+      left:0; top:0; bottom:0;
+      width: 3px;
+      background: color-mix(in srgb, var(--accent) 55%, transparent);
+      opacity:.35;
+    }
+
     .item:hover{
       transform: translateY(-2px);
-      border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
-      background: color-mix(in srgb, var(--surface) 92%, var(--accent) 8%);
+      border-color: color-mix(in srgb, var(--accent) 40%, var(--rule));
+      box-shadow: var(--shadow-soft);
     }
 
     .badge{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background: var(--surface-2);
-      color:var(--muted);
-      font-size:12px;
-      width:fit-content;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size: 11px;
+      letter-spacing:.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
     }
-    .badge strong{color:var(--text); font-weight:650}
+    .badge strong{
+      color: var(--ink);
+      font-weight: 800;
+      letter-spacing:.14em;
+    }
 
     .title{
-      margin:10px 0 6px;
-      font-size:16px;
-      letter-spacing:.15px;
-      font-weight: 700;
+      margin:0 0 8px;
       font-family: var(--serif);
+      font-weight: 900;
+      font-size: 17px;
+      line-height:1.25;
+      letter-spacing:.2px;
+      color: var(--ink);
     }
+
     .excerpt{
       margin:0 0 10px;
-      color:var(--muted);
-      font-size:13px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height:1.55;
       display:-webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow:hidden;
+      max-width: var(--measure);
     }
 
     .meta{
-      display:flex; justify-content:space-between; gap:10px;
-      color:var(--muted); font-size:12px;
+      display:flex;
+      justify-content:space-between;
       align-items:center;
+      gap:10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--soft);
+      color: var(--muted);
+      font-size: 12px;
     }
     .tags{display:flex; gap:6px; flex-wrap:wrap}
     .tag{
-      font-family:var(--mono);
-      font-size:11px;
-      padding:4px 8px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background: var(--surface-2);
-      color: color-mix(in srgb, var(--muted) 80%, var(--text));
+      font-family: var(--mono);
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--soft);
+      background: color-mix(in srgb, var(--paper) 90%, var(--bg));
+      color: color-mix(in srgb, var(--muted) 75%, var(--ink));
     }
 
-    .split{
-      display:grid;
-      grid-template-columns: 1fr 380px;
-      gap:16px;
-      margin-top:18px;
-      align-items:start;
+    /* ===== Sidebar blocks ===== */
+    .aside h2{
+      font-family: var(--serif);
+      font-weight: 900;
+      letter-spacing:.2px;
+      margin:0 0 10px;
+      font-size: 18px;
     }
-    @media (max-width: 980px){ .split{grid-template-columns: 1fr;} }
+    .aside p, .aside ol{
+      color: var(--muted);
+      font-size: 13px;
+      margin:0;
+    }
 
-    /* Reader modal */
+    .quicklinks{
+      border:1px solid var(--soft);
+      border-radius: 12px;
+      padding: 12px;
+      background: color-mix(in srgb, var(--paper) 92%, var(--bg));
+      margin-top: 12px;
+    }
+    .quicklinks b{
+      display:block;
+      font-size: 12px;
+      letter-spacing:.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .smalllink{
+      color: var(--muted);
+      text-decoration:none;
+    }
+    .smalllink:hover{ color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+
+    /* ===== Footer ===== */
+    .footer{
+      margin-top: 26px;
+      padding-top: 16px;
+      border-top: 1px solid var(--rule);
+      color: var(--muted);
+      font-size: 12px;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    /* ===== Reader modal ===== */
     .overlay{
       position:fixed; inset:0; z-index:100;
-      background: rgba(0,0,0,.55);
+      background: rgba(0,0,0,.50);
       display:none; align-items:center; justify-content:center;
-      padding:18px;
+      padding: 18px;
     }
     .overlay.show{display:flex;}
     .modal{
-      width:min(960px, 100%);
+      width:min(980px, 100%);
       max-height: 88vh;
       overflow:auto;
-      border-radius: 16px;
-      border:1px solid var(--border);
-      background: var(--surface);
+      border-radius: 14px;
+      border:1px solid var(--rule);
+      background: var(--paper);
       box-shadow: var(--shadow);
     }
     .modal header{
       position:sticky; top:0;
-      background: var(--surface);
-      border-bottom:1px solid var(--border);
-      padding:14px 16px;
+      background: color-mix(in srgb, var(--paper) 94%, transparent);
+      border-bottom: 1px solid var(--rule);
+      padding: 12px 14px;
       display:flex; align-items:center; justify-content:space-between; gap:10px;
       backdrop-filter: blur(10px);
     }
     .modal header h3{
       margin:0;
-      font-size:13px;
-      letter-spacing:.12em;
+      font-size: 11px;
+      letter-spacing:.18em;
       text-transform: uppercase;
       color: var(--muted);
-      font-family: var(--sans);
-      font-weight: 700;
     }
-    .modal .content{padding:16px}
+    .modal .content{ padding: 16px; }
     .modal .content h1{
       margin:0 0 8px;
-      font-size:24px;
       font-family: var(--serif);
+      font-weight: 900;
+      font-size: 24px;
       letter-spacing:.2px;
+      line-height:1.2;
     }
     .modal .content .sub{
-      color:var(--muted); font-size:13px; margin-bottom:12px
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 12px;
     }
     .modal .content .body{
-      white-space:pre-wrap;
-      font-size:15px;
+      white-space: pre-wrap;
+      font-size: 15px;
     }
 
     .btn{
-      border:1px solid var(--border);
-      background: var(--surface-2);
-      color:var(--text);
-      padding:9px 12px;
-      border-radius:12px;
+      border:1px solid var(--rule);
+      background: color-mix(in srgb, var(--paper) 90%, var(--bg));
+      color: var(--ink);
+      padding: 9px 12px;
+      border-radius: 999px;
       cursor:pointer;
-      font-size:13px;
+      font-size: 13px;
       display:inline-flex;
       align-items:center;
       gap:8px;
       text-decoration:none;
+      transition: transform .12s ease, border-color .12s ease;
     }
-    .btn:hover{border-color: color-mix(in srgb, var(--accent) 55%, var(--border));}
-    .btn.danger{border-color: color-mix(in srgb, var(--danger) 50%, var(--border));}
-
-    .footer{
-      margin-top:22px;
-      color:var(--muted);
-      font-size:12px;
-      display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
-      border-top:1px solid var(--border);
-      padding-top:16px;
+    .btn:hover{
+      transform: translateY(-1px);
+      border-color: color-mix(in srgb, var(--accent) 40%, var(--rule));
     }
-    .smalllink{color:var(--muted); text-decoration:none}
-    .smalllink:hover{color:var(--text)}
+    .btn.danger{
+      border-color: color-mix(in srgb, var(--danger) 45%, var(--rule));
+    }
 
     /* Fix weird underline on "Download PDF" */
     .pdf-actions { margin: 10px 0 0; }
@@ -368,106 +536,43 @@
       text-decoration: underline;
       text-decoration-thickness: 1px;
       text-underline-offset: 3px;
+      color: color-mix(in srgb, var(--accent) 85%, var(--ink));
     }
     .download-link:hover{ color: var(--accent); }
 
-    /* =========================
-       MOBILE FIXES (keep yours)
-    ========================= */
-    img, video { max-width: 100%; height: auto; }
-    iframe { max-width: 100%; }
-    html, body { overflow-x: hidden; }
-
+    /* ===== Mobile: keep your functionality + nicer stacking ===== */
     @media (max-width: 620px) {
-      main.wrap{
-        display: flex;
-        flex-direction: column;
-        gap: 14px;
-      }
-
-      .hero{ order: 1; }
-      .split{ order: 2; }
-      footer.footer{ order: 99; }
-
-      .hero{ display: flex; flex-direction: column; }
-      .hero > aside.card{ order: 3; }
-
+      .wrap{ padding: 18px 14px; }
       .topbar{
+        padding: 12px 14px;
         flex-direction: column;
         align-items: flex-start;
-        padding: 12px 14px;
         gap: 10px;
       }
-
-      .brand{ width: 100%; min-width: unset; }
-      .logo{ width: 64px; height: 64px; }
+      .brand{ width:100%; min-width: unset; }
+      .logo{ width: 62px; height: 62px; }
 
       nav{
         width: 100%;
-        display: grid;
-        grid-template-columns: repeat(6, 1fr);
-        gap: 8px;
+        gap: 10px;
       }
-
-      nav .pill{
-        grid-column: span 2;
-        width: 100%;
-        justify-content: center;
-        padding: 8px 10px;
-        font-size: 12px;
+      .pill{
+        padding: 8px 0;
       }
-
-      nav .pill:nth-last-child(1),
-      nav .pill:nth-last-child(2){
-        grid-column: span 3;
+      #themeToggle{
+        margin-left:auto;
       }
-
-      main.wrap{ padding: 14px; }
-      .card{ padding: 14px; }
 
       .controls{
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 10px !important;
-        width: 100% !important;
+        flex-direction: column;
+        align-items: stretch;
       }
-
-      .controls > *{
-        width: 100% !important;
-        max-width: 100% !important;
-        min-width: 0 !important;
+      .search, .select{
+        width: 100%;
       }
-
-      .search{
-        display: flex !important;
-        align-items: center !important;
-        width: 100% !important;
-        padding: 14px 14px !important;
-        border-radius: 16px !important;
-        min-width: 0 !important;
-      }
-
       .search input{
-        width: 100% !important;
-        min-width: 0 !important;
-        font-size: 16px !important;
-        line-height: 1.2 !important;
-        -webkit-appearance: none !important;
-        appearance: none !important;
+        font-size: 16px; /* prevent iOS zoom */
       }
-
-      .select{
-        width: 100% !important;
-        padding: 12px 14px !important;
-        border-radius: 16px !important;
-        -webkit-appearance: none !important;
-        appearance: none !important;
-      }
-    }
-
-    @media (max-width: 920px) {
-      .topbar{ padding: 12px 16px; }
-      .wrap{ padding: 18px; }
     }
   </style>
 </head>
@@ -478,16 +583,17 @@
       <a class="brand" href="#" id="homeLink">
         <img class="logo" src="IMG_6142.jpeg" alt="Joshua Haub" />
         <div>
+          <!-- KEEP: photo + title (changed per your request) -->
           <h1>Joshua Haub Bible Material</h1>
           <p>Notes • Papers • Articles</p>
         </div>
       </a>
 
       <nav aria-label="Primary">
-        <button class="pill active" id="filterAll"><span class="dot"></span>All</button>
-        <button class="pill" id="filterNotes"><span class="dot"></span>Notes</button>
-        <button class="pill" id="filterPapers"><span class="dot"></span>Papers</button>
-        <button class="pill" id="filterArticles"><span class="dot"></span>Articles</button>
+        <button class="pill active" id="filterAll">All</button>
+        <button class="pill" id="filterNotes">Notes</button>
+        <button class="pill" id="filterPapers">Papers</button>
+        <button class="pill" id="filterArticles">Articles</button>
         <button class="pill" id="themeToggle" title="Toggle theme">Theme</button>
       </nav>
     </div>
@@ -522,10 +628,9 @@
         <div class="kpis" id="kpis"></div>
       </div>
 
+      <!-- KEEP: Podcast content + link + image -->
       <aside class="card">
-        <h2 style="font-size:18px;margin-bottom:10px; font-family:var(--serif);">
-          The “What Does It Say?” Podcast
-        </h2>
+        <h2 class="podcast-title">The “What Does It Say?” Podcast</h2>
 
         <a
           href="https://creators.spotify.com/pod/profile/whatdoesitsay/"
@@ -534,14 +639,9 @@
           style="display:block; text-decoration:none;"
         >
           <img
+            class="podcast-img"
             src="ab6765630000ba8ae3f49b0a8f0157a58ad2f1a6.jfif"
             alt="The What Does It Say? Podcast"
-            style="
-              width:100%;
-              border-radius:14px;
-              box-shadow: var(--shadow);
-              transition: transform .15s ease;
-            "
           />
         </a>
 
@@ -553,30 +653,24 @@
 
     <section class="split">
       <div>
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:6px;">
-          <h2 style="margin:0;font-size:18px; font-family:var(--serif);">Library</h2>
-          <div style="color:var(--muted);font-size:13px;">
-            <span id="resultsCount">0</span> results
-          </div>
+        <div class="section-head">
+          <h2>Library</h2>
+          <div class="count"><span id="resultsCount">0</span> results</div>
         </div>
 
         <div class="grid" id="grid"></div>
       </div>
 
-      <aside class="card">
-        <h2 style="font-size:18px;margin:0 0 10px; font-family:var(--serif);">About</h2>
-        <p style="margin:0;color:var(--muted);">
+      <!-- KEEP: About + Quick Links + How To Contact Me content -->
+      <aside class="card aside">
+        <h2>About</h2>
+        <p>
           My name is Joshua Haub and I am an Evangelist and Preacher. My goal in life is to help other people learn about God and His Word. Please feel free to use my material here (free of charge) however best helps you understand these important matters.
         </p>
 
-        <div style="height:12px"></div>
-
-        <div style="border:1px solid var(--border); border-radius:14px; padding:12px; background: var(--surface-2);">
-          <div style="display:flex; justify-content:space-between; align-items:center; gap:10px;">
-            <b>Quick Links</b>
-            <span style="color:var(--muted); font-size:12px;"></span>
-          </div>
-          <div style="display:flex; flex-direction:column; gap:8px; margin-top:10px;">
+        <div class="quicklinks">
+          <b>Quick Links</b>
+          <div style="display:flex; flex-direction:column; gap:8px;">
             <a class="smalllink" href="#" onclick="scrollToTop(); return false;">• Home</a>
             <a class="smalllink" href="#" onclick="setTypeFilter('Notes'); return false;">• Notes</a>
             <a class="smalllink" href="#" onclick="setTypeFilter('Papers'); return false;">• Papers</a>
@@ -584,9 +678,9 @@
           </div>
         </div>
 
-        <div style="height:14px"></div>
+        <div style="height:16px"></div>
 
-        <h2 style="font-size:18px;margin:0 0 10px; font-family:var(--serif);">How To Contact Me</h2>
+        <h2>How To Contact Me</h2>
         <ol style="margin:0; padding-left:18px; color:var(--muted); font-size:13px;">
           <li>
             Instagram
@@ -616,13 +710,14 @@
       </aside>
     </section>
 
+    <!-- KEEP: footer text -->
     <footer class="footer">
       <div>© <span id="year"></span> Joshua’s Bible Library</div>
       <div>To Him Be the Glory</div>
     </footer>
   </main>
 
-  <!-- Reader Modal -->
+  <!-- Reader Modal (KEEP: same IDs/logic; cleaner skin) -->
   <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-label="Reader">
     <div class="modal">
       <header>
@@ -757,9 +852,10 @@
       query: "",
       tag: "",
       sort: "newest",
-      theme: "dark",
+      theme: "light", // clean professional default
     };
 
+    // ✅ Load saved theme safely
     try {
       const saved = localStorage.getItem("theme");
       if (saved === "light" || saved === "dark") state.theme = saved;
@@ -768,7 +864,7 @@
     function applyTheme() {
       document.documentElement.setAttribute(
         "data-theme",
-        state.theme === "light" ? "light" : "dark"
+        state.theme === "dark" ? "dark" : "light"
       );
       try { localStorage.setItem("theme", state.theme); } catch (e) {}
     }
@@ -895,7 +991,7 @@
         <div class="item" style="min-height:auto;" data-id="${escapeHtml(x.id)}">
           <div class="badge"><strong>${escapeHtml(x.type)}</strong> · ${escapeHtml(formatDate(x.date || ""))}</div>
           <div style="height:6px"></div>
-          <div style="font-weight:650; font-family: var(--serif);">${escapeHtml(x.title)}</div>
+          <div style="font-weight:650;">${escapeHtml(x.title)}</div>
           <div style="color:var(--muted);font-size:12px;margin-top:4px;">${escapeHtml(x.excerpt || "")}</div>
         </div>
       `).join("");
@@ -1084,12 +1180,16 @@
     function init() {
       if (!location.hash) history.replaceState(null, "", "#/");
       applyTheme();
+
       els.year.textContent = new Date().getFullYear();
+
       buildKPIs();
       buildTagSelect();
       if (els.featuredList) renderFeatured();
+
       state.type = "All";
       renderGrid();
+
       hydrateFromHash();
       window.addEventListener("hashchange", hydrateFromHash);
     }
