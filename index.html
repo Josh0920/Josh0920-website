@@ -7,123 +7,171 @@
   <meta name="description" content="Bible notes, papers, and articles." />
   <style>
     :root{
-      --bg: #0b0d12;
-      --panel: #121727;
-      --panel-2: #0f1422;
-      --text: #e9eefc;
-      --muted: #aab4d0;
-      --border: rgba(255,255,255,.08);
-      --accent: #7aa2ff;
-      --accent-2:#9bffd6;
+      /* Professional, editorial palette (less “neon UI”) */
+      --bg: #0e1116;
+      --surface: #121826;
+      --surface-2:#0f1522;
+      --text: #e9edf7;
+      --muted: #aab3c7;
+      --border: rgba(255,255,255,.10);
+
+      /* restrained accent (navy/ink) */
+      --accent: #86a3ff;
+      --accent-2:#7bd8b5;
+
       --danger:#ff6b6b;
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
-      --radius: 16px;
-      --maxw: 1100px;
+
+      /* softer, more realistic shadow */
+      --shadow: 0 6px 18px rgba(0,0,0,.28);
+
+      --radius: 14px;
+      --maxw: 1120px;
+
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+      /* editorial typography: serif headings + system body */
       --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      --serif: ui-serif, Georgia, "Times New Roman", Times, serif;
     }
+
     [data-theme="light"]{
-      --bg:#f6f7fb;
-      --panel:#ffffff;
-      --panel-2:#f3f5fb;
-      --text:#0c1020;
-      --muted:#5b647a;
-      --border: rgba(12,16,32,.10);
-      --accent:#335dff;
-      --accent-2:#0aa77d;
-      --danger:#d74646;
-      --shadow: 0 10px 30px rgba(12,16,32,.10);
+      --bg:#f7f7f4;
+      --surface:#ffffff;
+      --surface-2:#fafaf8;
+      --text:#0e1116;
+      --muted:#505b6f;
+      --border: rgba(14,17,22,.12);
+      --accent:#2749d8;
+      --accent-2:#0a7f5d;
+      --danger:#c73f3f;
+      --shadow: 0 10px 26px rgba(14,17,22,.08);
     }
+
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
       font-family:var(--sans);
-      background: radial-gradient(1200px 800px at 20% 0%, rgba(122,162,255,.18), transparent 60%),
-                  radial-gradient(900px 700px at 90% 20%, rgba(155,255,214,.10), transparent 60%),
-                  var(--bg);
+      background: var(--bg);
       color:var(--text);
-      line-height:1.55;
+      line-height:1.62;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
     a{color:inherit}
+
     .wrap{max-width:var(--maxw); margin:0 auto; padding:24px}
+
+    /* Header: clean “institutional” bar */
     header{
       position:sticky; top:0; z-index:50;
-      backdrop-filter: blur(12px);
-      background: color-mix(in srgb, var(--bg) 78%, transparent);
+      background: color-mix(in srgb, var(--bg) 92%, transparent);
       border-bottom:1px solid var(--border);
+      backdrop-filter: blur(10px);
     }
     .topbar{
       display:flex; align-items:center; justify-content:space-between;
-      gap:12px; padding:14px 24px; max-width:var(--maxw); margin:0 auto;
+      gap:14px; padding:14px 24px; max-width:var(--maxw); margin:0 auto;
     }
+
     .brand{
-      display:flex; align-items:center; gap:12px; min-width:220px;
+      display:flex; align-items:center; gap:12px; min-width:240px;
       text-decoration:none;
     }
     .logo{
-  width:88px;
-  height:88px;
-  border-radius:50%;
-  object-fit: cover;
-  box-shadow: var(--shadow);
-}
-    .brand h1{font-size:15px; margin:0; letter-spacing:.2px}
-    .brand p{margin:0; color:var(--muted); font-size:12px}
+      width:76px;
+      height:76px;
+      border-radius:50%;
+      object-fit: cover;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+    .brand h1{
+      margin:0;
+      font-size:15px;
+      letter-spacing:.2px;
+      font-weight:650;
+    }
+    .brand p{
+      margin:2px 0 0;
+      color:var(--muted);
+      font-size:12px;
+      letter-spacing:.15px;
+    }
+
     nav{
       display:flex; align-items:center; gap:10px; flex-wrap:wrap;
       justify-content:flex-end;
     }
+
+    /* Tabs: look like real nav, not “AI pills” */
     .pill{
       display:inline-flex; align-items:center; gap:8px;
       padding:9px 12px;
       border:1px solid var(--border);
-      background: color-mix(in srgb, var(--panel) 92%, transparent);
+      background: transparent;
       border-radius:999px;
       text-decoration:none;
       color:var(--text);
       font-size:13px;
-      transition: transform .15s ease, border-color .15s ease, background .15s ease;
+      transition: background .15s ease, border-color .15s ease, transform .15s ease;
       user-select:none;
       cursor:pointer;
     }
-    .pill:hover{transform: translateY(-1px); border-color: color-mix(in srgb, var(--accent) 55%, var(--border));}
+    .pill:hover{
+      transform: translateY(-1px);
+      background: color-mix(in srgb, var(--surface) 55%, transparent);
+      border-color: color-mix(in srgb, var(--text) 18%, var(--border));
+    }
     .pill.active{
-      border-color: color-mix(in srgb, var(--accent) 60%, var(--border));
-      background: color-mix(in srgb, var(--accent) 18%, var(--panel));
+      border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
+      background: color-mix(in srgb, var(--accent) 12%, transparent);
     }
     .pill .dot{
-      width:8px; height:8px; border-radius:999px; background: var(--accent);
-      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+      width:6px; height:6px; border-radius:999px;
+      background: currentColor;
+      opacity:.75;
     }
 
     main{padding:22px 0 60px}
+
     .hero{
-      margin-top:12px;
+      margin-top:10px;
       display:grid;
-      grid-template-columns: 1.4fr .9fr;
+      grid-template-columns: 1.5fr .9fr;
       gap:18px;
       align-items:stretch;
     }
+
     .card{
       border:1px solid var(--border);
-      background: color-mix(in srgb, var(--panel) 92%, transparent);
+      background: var(--surface);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       padding:18px;
     }
-    .hero h2{margin:0 0 8px; font-size:22px; letter-spacing:.2px}
+
+    /* Typography hierarchy: serif headings */
+    .hero h2{
+      margin:0 0 8px;
+      font-size:26px;
+      letter-spacing:.1px;
+      font-family: var(--serif);
+      font-weight: 700;
+    }
     .hero p{margin:0 0 14px; color:var(--muted)}
-    .kpis{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
+
+    .kpis{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
     .kpi{
       flex: 1 1 120px;
       padding:12px;
       border:1px solid var(--border);
-      background: color-mix(in srgb, var(--panel-2) 86%, transparent);
-      border-radius:14px;
+      background: var(--surface-2);
+      border-radius:12px;
     }
     .kpi b{display:block; font-size:16px}
     .kpi span{color:var(--muted); font-size:12px}
+
     .controls{
       display:flex; gap:10px; flex-wrap:wrap; align-items:center;
       margin-top:12px;
@@ -133,8 +181,8 @@
       display:flex; align-items:center; gap:10px;
       padding:10px 12px;
       border:1px solid var(--border);
-      background: color-mix(in srgb, var(--panel-2) 92%, transparent);
-      border-radius: 14px;
+      background: var(--surface-2);
+      border-radius: 12px;
     }
     .search input{
       width:100%;
@@ -147,48 +195,58 @@
     .select{
       flex: 0 0 auto;
       border:1px solid var(--border);
-      background: color-mix(in srgb, var(--panel-2) 92%, transparent);
-      border-radius: 14px;
+      background: var(--surface-2);
+      border-radius: 12px;
       padding:10px 12px;
       color:var(--text);
       font-size:14px;
       outline:none;
     }
+
     .grid{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
       gap:14px;
-      margin-top:18px;
+      margin-top:16px;
     }
     @media (max-width: 980px){ .grid{grid-template-columns: repeat(2, 1fr);} }
     @media (max-width: 620px){ .grid{grid-template-columns: 1fr;} }
 
+    /* Cards: flatter + editorial */
     .item{
       padding:14px;
       border:1px solid var(--border);
-      background: color-mix(in srgb, var(--panel) 92%, transparent);
-      border-radius: 16px;
+      background: var(--surface);
+      border-radius: 14px;
       cursor:pointer;
-      transition: transform .15s ease, border-color .15s ease;
+      transition: border-color .15s ease, transform .15s ease, background .15s ease;
       min-height: 160px;
       display:flex; flex-direction:column; justify-content:space-between;
     }
-    .item:hover{transform: translateY(-2px); border-color: color-mix(in srgb, var(--accent) 55%, var(--border));}
+    .item:hover{
+      transform: translateY(-2px);
+      border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+      background: color-mix(in srgb, var(--surface) 92%, var(--accent) 8%);
+    }
+
     .badge{
       display:inline-flex; align-items:center; gap:8px;
       padding:6px 10px;
       border-radius:999px;
       border:1px solid var(--border);
-      background: color-mix(in srgb, var(--panel-2) 90%, transparent);
+      background: var(--surface-2);
       color:var(--muted);
       font-size:12px;
       width:fit-content;
     }
-    .badge strong{color:var(--text); font-weight:600}
+    .badge strong{color:var(--text); font-weight:650}
+
     .title{
       margin:10px 0 6px;
       font-size:16px;
       letter-spacing:.15px;
+      font-weight: 700;
+      font-family: var(--serif);
     }
     .excerpt{
       margin:0 0 10px;
@@ -199,6 +257,7 @@
       -webkit-box-orient: vertical;
       overflow:hidden;
     }
+
     .meta{
       display:flex; justify-content:space-between; gap:10px;
       color:var(--muted); font-size:12px;
@@ -211,13 +270,14 @@
       padding:4px 8px;
       border-radius:999px;
       border:1px solid var(--border);
-      background: color-mix(in srgb, var(--panel-2) 88%, transparent);
+      background: var(--surface-2);
       color: color-mix(in srgb, var(--muted) 80%, var(--text));
     }
+
     .split{
       display:grid;
       grid-template-columns: 1fr 380px;
-      gap:14px;
+      gap:16px;
       margin-top:18px;
       align-items:start;
     }
@@ -235,22 +295,35 @@
       width:min(960px, 100%);
       max-height: 88vh;
       overflow:auto;
-      border-radius: 18px;
+      border-radius: 16px;
       border:1px solid var(--border);
-      background: color-mix(in srgb, var(--panel) 94%, transparent);
+      background: var(--surface);
       box-shadow: var(--shadow);
     }
     .modal header{
       position:sticky; top:0;
-      background: color-mix(in srgb, var(--panel) 92%, transparent);
+      background: var(--surface);
       border-bottom:1px solid var(--border);
       padding:14px 16px;
       display:flex; align-items:center; justify-content:space-between; gap:10px;
       backdrop-filter: blur(10px);
     }
-    .modal header h3{margin:0; font-size:16px}
+    .modal header h3{
+      margin:0;
+      font-size:13px;
+      letter-spacing:.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-family: var(--sans);
+      font-weight: 700;
+    }
     .modal .content{padding:16px}
-    .modal .content h1{margin:0 0 8px; font-size:22px}
+    .modal .content h1{
+      margin:0 0 8px;
+      font-size:24px;
+      font-family: var(--serif);
+      letter-spacing:.2px;
+    }
     .modal .content .sub{
       color:var(--muted); font-size:13px; margin-bottom:12px
     }
@@ -258,9 +331,10 @@
       white-space:pre-wrap;
       font-size:15px;
     }
+
     .btn{
       border:1px solid var(--border);
-      background: color-mix(in srgb, var(--panel-2) 92%, transparent);
+      background: var(--surface-2);
       color:var(--text);
       padding:9px 12px;
       border-radius:12px;
@@ -273,6 +347,7 @@
     }
     .btn:hover{border-color: color-mix(in srgb, var(--accent) 55%, var(--border));}
     .btn.danger{border-color: color-mix(in srgb, var(--danger) 50%, var(--border));}
+
     .footer{
       margin-top:22px;
       color:var(--muted);
@@ -283,145 +358,117 @@
     }
     .smalllink{color:var(--muted); text-decoration:none}
     .smalllink:hover{color:var(--text)}
+
     /* Fix weird underline on "Download PDF" */
-.pdf-actions { margin: 10px 0 0; }
+    .pdf-actions { margin: 10px 0 0; }
+    .download-link{
+      display: inline;
+      width: auto;
+      padding: 0;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+    .download-link:hover{ color: var(--accent); }
 
-.download-link{
-  display: inline;                 /* underline only the text */
-  width: auto;
-  padding: 0;
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
-}
+    /* =========================
+       MOBILE FIXES (keep yours)
+    ========================= */
+    img, video { max-width: 100%; height: auto; }
+    iframe { max-width: 100%; }
+    html, body { overflow-x: hidden; }
 
-.download-link:hover{
-  color: var(--accent);
-}
-/* =========================
-   MOBILE FIXES (paste at END of <style>)
-========================= */
+    @media (max-width: 620px) {
+      main.wrap{
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
 
-img, video {
-  max-width: 100%;
-  height: auto;
-}
-iframe {
-  max-width: 100%;
-}
+      .hero{ order: 1; }
+      .split{ order: 2; }
+      footer.footer{ order: 99; }
 
-html, body { overflow-x: hidden; }
+      .hero{ display: flex; flex-direction: column; }
+      .hero > aside.card{ order: 3; }
 
-/* Make header content wrap nicely on phones */
-@media (max-width: 620px) {
-  /* MOBILE ORDER: show Library before Featured */
-  main.wrap{
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
+      .topbar{
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 12px 14px;
+        gap: 10px;
+      }
 
-  .hero{ order: 1; }   /* Welcome/Search section */
-  .split{ order: 2; }  /* Library section */
-  footer.footer{ order: 99; }
+      .brand{ width: 100%; min-width: unset; }
+      .logo{ width: 64px; height: 64px; }
 
-  /* Make .hero flex on mobile so order works for its children */
-  .hero{
-    display: flex;
-    flex-direction: column;
-  }
+      nav{
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 8px;
+      }
 
-  /* Featured card is inside .hero */
-  .hero > aside.card{ order: 3; }
+      nav .pill{
+        grid-column: span 2;
+        width: 100%;
+        justify-content: center;
+        padding: 8px 10px;
+        font-size: 12px;
+      }
 
-  .topbar{
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 12px 14px;
-    gap: 10px;
-  }
+      nav .pill:nth-last-child(1),
+      nav .pill:nth-last-child(2){
+        grid-column: span 3;
+      }
 
-  .brand{
-    width: 100%;
-    min-width: unset;
-  }
+      main.wrap{ padding: 14px; }
+      .card{ padding: 14px; }
 
-  .logo{
-    width: 64px;
-    height: 64px;
-  }
+      .controls{
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 10px !important;
+        width: 100% !important;
+      }
 
-  /* Tabs: 3 on first row, 2 on second */
-  nav{
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 8px;
-  }
+      .controls > *{
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+      }
 
-  nav .pill{
-    grid-column: span 2; /* 3 per row */
-    width: 100%;
-    justify-content: center;
-    padding: 8px 10px;
-    font-size: 12px;
-  }
+      .search{
+        display: flex !important;
+        align-items: center !important;
+        width: 100% !important;
+        padding: 14px 14px !important;
+        border-radius: 16px !important;
+        min-width: 0 !important;
+      }
 
-  /* Last two buttons become 2-per-row */
-  nav .pill:nth-last-child(1),
-  nav .pill:nth-last-child(2){
-    grid-column: span 3; /* 2 items on last row */
-  }
+      .search input{
+        width: 100% !important;
+        min-width: 0 !important;
+        font-size: 16px !important;
+        line-height: 1.2 !important;
+        -webkit-appearance: none !important;
+        appearance: none !important;
+      }
 
-  main.wrap{ padding: 14px; }
-  .card{ padding: 14px; }
+      .select{
+        width: 100% !important;
+        padding: 12px 14px !important;
+        border-radius: 16px !important;
+        -webkit-appearance: none !important;
+        appearance: none !important;
+      }
+    }
 
-   /* ✅ MOBILE SEARCH BAR SHAPE (FORCE iPhone) */
-  .controls{
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 10px !important;
-    width: 100% !important;
-  }
-
-  .controls > *{
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: 0 !important;
-  }
-
-  .search{
-    display: flex !important;
-    align-items: center !important;
-    width: 100% !important;
-    padding: 14px 14px !important;
-    border-radius: 16px !important;
-    min-width: 0 !important;
-  }
-
-  .search input{
-    width: 100% !important;
-    min-width: 0 !important;
-    font-size: 16px !important; /* prevents iOS zoom */
-    line-height: 1.2 !important;
-    -webkit-appearance: none !important;
-    appearance: none !important;
-  }
-
-  .select{
-    width: 100% !important;
-    padding: 12px 14px !important;
-    border-radius: 16px !important;
-    -webkit-appearance: none !important;
-    appearance: none !important;
-  }
-}
-
-/* Mid-size tablets: keep things comfortable */
-@media (max-width: 920px) {
-  .topbar{ padding: 12px 16px; }
-  .wrap{ padding: 18px; }
-}
+    @media (max-width: 920px) {
+      .topbar{ padding: 12px 16px; }
+      .wrap{ padding: 18px; }
+    }
   </style>
 </head>
 
@@ -429,19 +476,19 @@ html, body { overflow-x: hidden; }
   <header>
     <div class="topbar">
       <a class="brand" href="#" id="homeLink">
-      <img class="logo" src="IMG_6142.jpeg" alt="Joshua Haub" />
+        <img class="logo" src="IMG_6142.jpeg" alt="Joshua Haub" />
         <div>
-          <h1>Joshua Haub Biblical Material</h1>
+          <h1>Joshua Haub Bible Material</h1>
           <p>Notes • Papers • Articles</p>
         </div>
       </a>
 
       <nav aria-label="Primary">
-       <button class="pill active" id="filterAll"><span class="dot"></span>All</button>
+        <button class="pill active" id="filterAll"><span class="dot"></span>All</button>
         <button class="pill" id="filterNotes"><span class="dot"></span>Notes</button>
         <button class="pill" id="filterPapers"><span class="dot"></span>Papers</button>
         <button class="pill" id="filterArticles"><span class="dot"></span>Articles</button>
-        <button class="pill" id="themeToggle" title="Toggle theme">🌓 Theme</button>
+        <button class="pill" id="themeToggle" title="Toggle theme">Theme</button>
       </nav>
     </div>
   </header>
@@ -449,7 +496,7 @@ html, body { overflow-x: hidden; }
   <main class="wrap">
     <section class="hero">
       <div class="card">
-        <h2> Welcome to my Bible Library</h2>
+        <h2>Welcome to my Bible Library</h2>
         <p>
           Feel free to download these files for personal use in your personal Bible study.
         </p>
@@ -475,39 +522,39 @@ html, body { overflow-x: hidden; }
         <div class="kpis" id="kpis"></div>
       </div>
 
-    <aside class="card">
-  <h2 style="font-size:18px;margin-bottom:10px;">
-    The “What Does It Say?” Podcast
-  </h2>
+      <aside class="card">
+        <h2 style="font-size:18px;margin-bottom:10px; font-family:var(--serif);">
+          The “What Does It Say?” Podcast
+        </h2>
 
-  <a
-    href="https://creators.spotify.com/pod/profile/whatdoesitsay/"
-    target="_blank"
-    rel="noopener noreferrer"
-    style="display:block; text-decoration:none;"
-  >
-    <img
-      src="ab6765630000ba8ae3f49b0a8f0157a58ad2f1a6.jfif"
-      alt="The What Does It Say? Podcast"
-      style="
-        width:100%;
-        border-radius:14px;
-        box-shadow: var(--shadow);
-        transition: transform .15s ease;
-      "
-    />
-  </a>
+        <a
+          href="https://creators.spotify.com/pod/profile/whatdoesitsay/"
+          target="_blank"
+          rel="noopener noreferrer"
+          style="display:block; text-decoration:none;"
+        >
+          <img
+            src="ab6765630000ba8ae3f49b0a8f0157a58ad2f1a6.jfif"
+            alt="The What Does It Say? Podcast"
+            style="
+              width:100%;
+              border-radius:14px;
+              box-shadow: var(--shadow);
+              transition: transform .15s ease;
+            "
+          />
+        </a>
 
-  <p style="color:var(--muted); font-size:13px; margin-top:10px;">
-    In my Podcast, I aim to provide you, the listener, with a detailed account of what the Scripture says, so that in your study, you may have more than just your own ideas to consult.
-  </p>
-</aside>
+        <p style="color:var(--muted); font-size:13px; margin-top:10px;">
+          In my Podcast, I aim to provide you, the listener, with a detailed account of what the Scripture says, so that in your study, you may have more than just your own ideas to consult.
+        </p>
+      </aside>
     </section>
 
     <section class="split">
       <div>
         <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:6px;">
-          <h2 style="margin:0;font-size:18px;">Library</h2>
+          <h2 style="margin:0;font-size:18px; font-family:var(--serif);">Library</h2>
           <div style="color:var(--muted);font-size:13px;">
             <span id="resultsCount">0</span> results
           </div>
@@ -517,14 +564,14 @@ html, body { overflow-x: hidden; }
       </div>
 
       <aside class="card">
-        <h2 style="font-size:18px;margin:0 0 10px;">About</h2>
+        <h2 style="font-size:18px;margin:0 0 10px; font-family:var(--serif);">About</h2>
         <p style="margin:0;color:var(--muted);">
           My name is Joshua Haub and I am an Evangelist and Preacher. My goal in life is to help other people learn about God and His Word. Please feel free to use my material here (free of charge) however best helps you understand these important matters.
         </p>
 
         <div style="height:12px"></div>
 
-        <div style="border:1px solid var(--border); border-radius:14px; padding:12px; background: color-mix(in srgb, var(--panel-2) 88%, transparent);">
+        <div style="border:1px solid var(--border); border-radius:14px; padding:12px; background: var(--surface-2);">
           <div style="display:flex; justify-content:space-between; align-items:center; gap:10px;">
             <b>Quick Links</b>
             <span style="color:var(--muted); font-size:12px;"></span>
@@ -539,9 +586,8 @@ html, body { overflow-x: hidden; }
 
         <div style="height:14px"></div>
 
-        <h2 style="font-size:18px;margin:0 0 10px;">How To Contact Me</h2>
+        <h2 style="font-size:18px;margin:0 0 10px; font-family:var(--serif);">How To Contact Me</h2>
         <ol style="margin:0; padding-left:18px; color:var(--muted); font-size:13px;">
-          <!-- CHANGED: made URLs clickable + fixed broken tags -->
           <li>
             Instagram
             <span style="font-family:var(--mono)">
@@ -572,7 +618,7 @@ html, body { overflow-x: hidden; }
 
     <footer class="footer">
       <div>© <span id="year"></span> Joshua’s Bible Library</div>
-      <div> To Him Be the Glory</div>
+      <div>To Him Be the Glory</div>
     </footer>
   </main>
 
@@ -582,7 +628,6 @@ html, body { overflow-x: hidden; }
       <header>
         <h3 id="modalType">Reader</h3>
         <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          <!-- CHANGED: added top-right download icon/button (hidden unless pdfHref exists) -->
           <a class="btn" id="downloadBtn" href="#" download title="Download PDF" style="display:none;">⬇️</a>
           <button class="btn" id="copyLinkBtn">Copy Link</button>
           <button class="btn danger" id="closeBtn">Close</button>
@@ -602,16 +647,16 @@ html, body { overflow-x: hidden; }
      * EDIT YOUR CONTENT HERE
      *************************************************************/
     const CONTENT = [
-  {
-    id: "john-7-53-8-11",
-    type: "Papers",
-    title: "Is John 7:53–8:11 Part of the Original Text of John?",
-    date: "2026-01-06",
-    featured: false,
-    tags: ["John", "Textual Criticism", "Pericope Adulterae", "Church Fathers", "Manuscript"],
-    excerpt: "A textual-critical analysis of John 7:53–8:11 and its external evidence from the Manuscript Witnesses and Early Church Fathers.",
-    pdfHref: "John%207:53-8:11.pdf",
-    body: `
+      {
+        id: "john-7-53-8-11",
+        type: "Papers",
+        title: "Is John 7:53–8:11 Part of the Original Text of John?",
+        date: "2026-01-06",
+        featured: false,
+        tags: ["John", "Textual Criticism", "Pericope Adulterae", "Church Fathers", "Manuscript"],
+        excerpt: "A textual-critical analysis of John 7:53–8:11 and its external evidence from the Manuscript Witnesses and Early Church Fathers.",
+        pdfHref: "John%207:53-8:11.pdf",
+        body: `
 <iframe
   src="John%207:53-8:11.pdf"
   width="100%"
@@ -623,18 +668,18 @@ html, body { overflow-x: hidden; }
   <a class="download-link" href="John%207:53-8:11.pdf" download>Download PDF</a>
 </p>
 `
-  },
+      },
 
-  {
-    id: "luke-23-34a-authorship",
-    type: "Papers",
-    title: "The External Evidence for the Authenticity of Luke 23:34a",
-    date: "2026-01-07",
-    featured: false,
-    tags: ["Luke", "Textual Criticism", "Manuscripts", "Church Fathers"],
-    excerpt: "A textual-critical analysis of Luke 23:34a and its external evidence from the Manuscript Witnesses and Early Church Fathers.",
-    pdfHref: "The%20External%20Evidence%20for%20the%20Authorship%20of%20Luke%2023.34a.%20An%20Examination%20of%20the%20Evidence%20from%20the%20Manuscript%20and%20Church%20Father%20Witnesses.pdf",
-    body: `
+      {
+        id: "luke-23-34a-authorship",
+        type: "Papers",
+        title: "The External Evidence for the Authenticity of Luke 23:34a",
+        date: "2026-01-07",
+        featured: false,
+        tags: ["Luke", "Textual Criticism", "Manuscripts", "Church Fathers"],
+        excerpt: "A textual-critical analysis of Luke 23:34a and its external evidence from the Manuscript Witnesses and Early Church Fathers.",
+        pdfHref: "The%20External%20Evidence%20for%20the%20Authorship%20of%20Luke%2023.34a.%20An%20Examination%20of%20the%20Evidence%20from%20the%20Manuscript%20and%20Church%20Father%20Witnesses.pdf",
+        body: `
 <iframe
   src="The%20External%20Evidence%20for%20the%20Authorship%20of%20Luke%2023.34a.%20An%20Examination%20of%20the%20Evidence%20from%20the%20Manuscript%20and%20Church%20Father%20Witnesses.pdf"
   width="100%"
@@ -646,18 +691,18 @@ html, body { overflow-x: hidden; }
   <a class="download-link" href="The%20External%20Evidence%20for%20the%20Authorship%20of%20Luke%2023.34a.%20An%20Examination%20of%20the%20Evidence%20from%20the%20Manuscript%20and%20Church%20Father%20Witnesses.pdf" download>Download PDF</a>
 </p>
 `
-  },
+      },
 
-  {
-    id: "1cor-14-34-35-authorship",
-    type: "Papers",
-    title: "Who Wrote 1 Cor. 14:34–35 — Paul or Someone Else?",
-    date: "2026-01-07",
-    featured: false,
-    tags: ["1 Corinthians", "Textual Criticism", "Manuscript"],
-    excerpt: "A textual-critical analysis of 1 Corinthians 14:34-5 and its external evidence from the Manuscript Witnesses.",
-    pdfHref: "Who%20Wrote%201%20Cor.%2014.34-5.%20Paul%20or%20Someone%20Else.pdf",
-    body: `
+      {
+        id: "1cor-14-34-35-authorship",
+        type: "Papers",
+        title: "Who Wrote 1 Cor. 14:34–35 — Paul or Someone Else?",
+        date: "2026-01-07",
+        featured: false,
+        tags: ["1 Corinthians", "Textual Criticism", "Manuscript"],
+        excerpt: "A textual-critical analysis of 1 Corinthians 14:34-5 and its external evidence from the Manuscript Witnesses.",
+        pdfHref: "Who%20Wrote%201%20Cor.%2014.34-5.%20Paul%20or%20Someone%20Else.pdf",
+        body: `
 <iframe
   src="Who%20Wrote%201%20Cor.%2014.34-5.%20Paul%20or%20Someone%20Else.pdf"
   width="100%"
@@ -669,8 +714,9 @@ html, body { overflow-x: hidden; }
   <a class="download-link" href="Who%20Wrote%201%20Cor.%2014.34-5.%20Paul%20or%20Someone%20Else.pdf" download>Download PDF</a>
 </p>
 `
-  }
-];
+      }
+    ];
+
     /*************************************************************
      * APP LOGIC (No need to edit below unless you want to)
      *************************************************************/
@@ -698,7 +744,6 @@ html, body { overflow-x: hidden; }
       modalType: document.getElementById("modalType"),
       closeBtn: document.getElementById("closeBtn"),
       copyLinkBtn: document.getElementById("copyLinkBtn"),
-      // CHANGED: grab the download button element
       downloadBtn: document.getElementById("downloadBtn"),
 
       exportBtn: document.getElementById("exportBtn"),
@@ -708,33 +753,29 @@ html, body { overflow-x: hidden; }
     };
 
     let state = {
-  type: "All",
-  query: "",
-  tag: "",
-  sort: "newest",
-  theme: "dark",
-};
+      type: "All",
+      query: "",
+      tag: "",
+      sort: "newest",
+      theme: "dark",
+    };
 
-// ✅ Load saved theme safely
-try {
-  const saved = localStorage.getItem("theme");
-  if (saved === "light" || saved === "dark") state.theme = saved;
-} catch (e) {}
+    try {
+      const saved = localStorage.getItem("theme");
+      if (saved === "light" || saved === "dark") state.theme = saved;
+    } catch (e) {}
 
     function applyTheme() {
-  document.documentElement.setAttribute(
-    "data-theme",
-    state.theme === "light" ? "light" : "dark"
-  );
+      document.documentElement.setAttribute(
+        "data-theme",
+        state.theme === "light" ? "light" : "dark"
+      );
+      try { localStorage.setItem("theme", state.theme); } catch (e) {}
+    }
 
-  try {
-    localStorage.setItem("theme", state.theme);
-  } catch (e) {}
-}
     function normalize(s){ return (s || "").toLowerCase(); }
 
     function formatDate(iso){
-      // iso YYYY-MM-DD
       try {
         const [y,m,d] = iso.split("-").map(Number);
         const dt = new Date(y, m-1, d);
@@ -785,7 +826,6 @@ try {
       const notes = CONTENT.filter(x=>x.type==="Notes").length;
       const papers = CONTENT.filter(x=>x.type==="Papers").length;
       const articles = CONTENT.filter(x=>x.type==="Articles").length;
-
       const featured = CONTENT.filter(x=>x.featured).length;
 
       const kpis = [
@@ -843,24 +883,24 @@ try {
     }
 
     function renderFeatured(){
-  if (!els.featuredList) return; // prevents crash if featuredList doesn't exist
+      if (!els.featuredList) return;
+      const featured = sortItems(CONTENT.filter(x=>x.featured)).slice(0, 4);
 
-  const featured = sortItems(CONTENT.filter(x=>x.featured)).slice(0, 4);
+      if (!featured.length){
+        els.featuredList.innerHTML = `<div style="color:var(--muted);font-size:13px;">No featured posts yet.</div>`;
+        return;
+      }
 
-  if (!featured.length){
-    els.featuredList.innerHTML = `<div style="color:var(--muted);font-size:13px;">No featured posts yet.</div>`;
-    return;
-  }
+      els.featuredList.innerHTML = featured.map(x=>`
+        <div class="item" style="min-height:auto;" data-id="${escapeHtml(x.id)}">
+          <div class="badge"><strong>${escapeHtml(x.type)}</strong> · ${escapeHtml(formatDate(x.date || ""))}</div>
+          <div style="height:6px"></div>
+          <div style="font-weight:650; font-family: var(--serif);">${escapeHtml(x.title)}</div>
+          <div style="color:var(--muted);font-size:12px;margin-top:4px;">${escapeHtml(x.excerpt || "")}</div>
+        </div>
+      `).join("");
+    }
 
-  els.featuredList.innerHTML = featured.map(x=>`
-    <div class="item" style="min-height:auto;" data-id="${escapeHtml(x.id)}">
-      <div class="badge"><strong>${escapeHtml(x.type)}</strong> · ${escapeHtml(formatDate(x.date || ""))}</div>
-      <div style="height:6px"></div>
-      <div style="font-weight:650;">${escapeHtml(x.title)}</div>
-      <div style="color:var(--muted);font-size:12px;margin-top:4px;">${escapeHtml(x.excerpt || "")}</div>
-    </div>
-  `).join("");
-}
     function renderGrid(){
       setActiveFilterButtons();
 
@@ -877,7 +917,6 @@ try {
         </div>
       `;
 
-      // Wire click handlers
       document.querySelectorAll("[data-id]").forEach(el=>{
         el.addEventListener("click", ()=> openReader(el.getAttribute("data-id")));
         el.addEventListener("keydown", (e)=>{
@@ -888,9 +927,11 @@ try {
         });
       });
     }
-function isMobileView() {
-  return window.matchMedia("(max-width: 620px)").matches;
-}
+
+    function isMobileView() {
+      return window.matchMedia("(max-width: 620px)").matches;
+    }
+
     function openReader(id){
       const item = CONTENT.find(x=>x.id === id);
       if (!item) return;
@@ -899,19 +940,14 @@ function isMobileView() {
       els.modalTitle.textContent = item.title;
       els.modalSub.textContent = `${formatDate(item.date || "")} • ${item.featured ? "Featured • " : ""}${(item.tags || []).join(" • ")}`;
 
-      // CHANGED: render iframe/link HTML for the PDF
-      // On mobile: open PDFs in a new tab (iframes are wonky on phones)
-if (isMobileView() && item.pdfHref) {
-  // clear hash so back/refresh doesn't keep re-opening
-  history.replaceState(null, "", "#/");
-  window.open(item.pdfHref, "_blank", "noopener,noreferrer");
-  return; // don't open the modal
-}
+      if (isMobileView() && item.pdfHref) {
+        history.replaceState(null, "", "#/");
+        window.open(item.pdfHref, "_blank", "noopener,noreferrer");
+        return;
+      }
 
-// Desktop/tablet: keep normal modal reader
-els.modalBody.innerHTML = item.body || "";
+      els.modalBody.innerHTML = item.body || "";
 
-      // CHANGED: show/hide top-right download icon based on item.pdfHref
       if (item.pdfHref) {
         els.downloadBtn.href = item.pdfHref;
         els.downloadBtn.style.display = "inline-flex";
@@ -924,15 +960,12 @@ els.modalBody.innerHTML = item.body || "";
 
       els.overlay.classList.add("show");
       document.body.style.overflow = "hidden";
-
-      // update hash for deep linking
       history.replaceState(null, "", `#/${encodeURIComponent(item.id)}`);
     }
 
     function closeReader(){
       els.overlay.classList.remove("show");
       document.body.style.overflow = "";
-      // return to library view hash
       history.replaceState(null, "", "#/");
     }
 
@@ -1000,7 +1033,6 @@ els.modalBody.innerHTML = item.body || "";
       input.click();
     }
 
-    // Event wiring
     els.filterAll.addEventListener("click", ()=> setTypeFilter("All"));
     els.filterNotes.addEventListener("click", ()=> setTypeFilter("Notes"));
     els.filterPapers.addEventListener("click", ()=> setTypeFilter("Papers"));
@@ -1044,38 +1076,29 @@ els.modalBody.innerHTML = item.body || "";
       }
     });
 
-   els.exportBtn?.addEventListener("click", (e)=>{ e.preventDefault(); exportJSON(); });
-els.importBtn?.addEventListener("click", (e)=>{ e.preventDefault(); importJSON(); });
-els.clearFiltersBtn?.addEventListener("click", (e)=>{ e.preventDefault(); clearFilters(); });
-els.homeLink?.addEventListener("click", (e)=>{ e.preventDefault(); scrollToTop(); });
+    els.exportBtn?.addEventListener("click", (e)=>{ e.preventDefault(); exportJSON(); });
+    els.importBtn?.addEventListener("click", (e)=>{ e.preventDefault(); importJSON(); });
+    els.clearFiltersBtn?.addEventListener("click", (e)=>{ e.preventDefault(); clearFilters(); });
+    els.homeLink?.addEventListener("click", (e)=>{ e.preventDefault(); scrollToTop(); });
 
-  // Init (runs whether DOMContentLoaded already fired or not)
-function init() {
-  console.log("INIT RAN", CONTENT.length);  // ✅ optional test line
-  
-if (!location.hash) history.replaceState(null, "", "#/");
-  
-  applyTheme();
+    function init() {
+      if (!location.hash) history.replaceState(null, "", "#/");
+      applyTheme();
+      els.year.textContent = new Date().getFullYear();
+      buildKPIs();
+      buildTagSelect();
+      if (els.featuredList) renderFeatured();
+      state.type = "All";
+      renderGrid();
+      hydrateFromHash();
+      window.addEventListener("hashchange", hydrateFromHash);
+    }
 
-  els.year.textContent = new Date().getFullYear();
-
-  buildKPIs();
-  buildTagSelect();
-  if (els.featuredList) renderFeatured();
-
-  // Ensure default view is All and render immediately
-  state.type = "All";
-  renderGrid();
-
-  hydrateFromHash();
-  window.addEventListener("hashchange", hydrateFromHash);
-}
-
-if (document.readyState === "loading") {
-  window.addEventListener("DOMContentLoaded", init);
-} else {
-  init();
-}
+    if (document.readyState === "loading") {
+      window.addEventListener("DOMContentLoaded", init);
+    } else {
+      init();
+    }
   </script>
 </body>
 </html>
