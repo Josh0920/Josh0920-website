@@ -597,7 +597,8 @@
         <button class="pill" id="filterNotes">Notes</button>
         <button class="pill" id="filterPapers">Papers</button>
         <button class="pill" id="filterArticles">Articles</button>
-        <button class="pill" id="themeToggle" title="Toggle theme">Theme</button>
+<button class="pill" id="langToggle" data-lang="en">Español</button>
+<button class="pill" id="themeToggle" title="Toggle theme">Theme</button>
       </nav>
     </div>
   </header>
@@ -833,6 +834,7 @@
       filterPapers: document.getElementById("filterPapers"),
       filterArticles: document.getElementById("filterArticles"),
       themeToggle: document.getElementById("themeToggle"),
+      langToggle: document.getElementById("langToggle"),
 
       overlay: document.getElementById("overlay"),
       modalTitle: document.getElementById("modalTitle"),
@@ -856,6 +858,7 @@
       tag: "",
       sort: "newest",
       theme: "light", // clean professional default
+      lang: "en",
     };
 
     // ✅ Load saved theme safely
@@ -886,6 +889,7 @@
       const q = normalize(state.query).trim();
       if (state.type !== "All" && item.type !== state.type) return false;
       if (state.tag && !(item.tags || []).includes(state.tag)) return false;
+      if (state.lang === "es" && !(item.tags || []).includes("Español")) return false;
 
       if (!q) return true;
 
@@ -1133,14 +1137,26 @@
     }
 
     els.filterAll.addEventListener("click", ()=> setTypeFilter("All"));
-    els.filterNotes.addEventListener("click", ()=> setTypeFilter("Notes"));
-    els.filterPapers.addEventListener("click", ()=> setTypeFilter("Papers"));
-    els.filterArticles.addEventListener("click", ()=> setTypeFilter("Articles"));
+els.filterNotes.addEventListener("click", ()=> setTypeFilter("Notes"));
+els.filterPapers.addEventListener("click", ()=> setTypeFilter("Papers"));
+els.filterArticles.addEventListener("click", ()=> setTypeFilter("Articles"));
 
-    els.themeToggle.addEventListener("click", ()=>{
-      state.theme = (state.theme === "light") ? "dark" : "light";
-      applyTheme();
-    });
+els.themeToggle.addEventListener("click", ()=>{
+  state.theme = (state.theme === "light") ? "dark" : "light";
+  applyTheme();
+});
+
+els.langToggle.addEventListener("click", ()=>{
+  if (state.lang === "en") {
+    state.lang = "es";
+    els.langToggle.textContent = "English";
+  } else {
+    state.lang = "en";
+    els.langToggle.textContent = "Español";
+  }
+  renderGrid();
+  scrollToTop();
+});
 
     els.searchInput.addEventListener("input", (e)=>{
       state.query = e.target.value || "";
