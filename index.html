@@ -943,13 +943,16 @@ const TAGS_ES = {
     function t(key){
       return (I18N[state.lang] && I18N[state.lang][key]) || (I18N.en[key] || "");
     }
-
+function withEnglishSuffix(base){
+  if (state.lang !== "es") return base;
+  return `${base} (En inglés)`;
+}
     function getLocalizedTitle(item){
-      if (state.lang !== "es") return item.title || "";
-      const tr = CONTENT_ES[item.id];
-      const base = tr && tr.title ? tr.title : (item.title || "");
-      return `${base} (En inglés)`;
-    }
+  if (state.lang !== "es") return item.title || "";
+  const tr = CONTENT_ES[item.id];
+  const base = (tr && tr.title) ? tr.title : (item.title || "");
+  return `${base} (En inglés)`;
+}
 function localizeTag(tag){
   if (state.lang !== "es") return tag;
   return TAGS_ES[tag] || tag; // fallback to English if missing
@@ -982,8 +985,8 @@ function localizeType(type){
       document.getElementById("heroDesc").textContent = t("hero_desc");
 
       // podcast
-      document.getElementById("podcastTitle").textContent = t("podcast_title");
-      document.getElementById("podcastDesc").textContent = t("podcast_desc");
+document.getElementById("podcastTitle").textContent = withEnglishSuffix(t("podcast_title"));
+document.getElementById("podcastDesc").textContent = t("podcast_desc");
 
       // search placeholder
       els.searchInput.placeholder = t("search_ph");
