@@ -15,17 +15,13 @@
       --muted:#586171;
       --rule: rgba(16,20,24,.12);
       --soft: rgba(16,20,24,.06);
-
       --accent:#1f4bd8;
-
       --radius:14px;
       --maxw:860px;
-
       --shadow: 0 10px 28px rgba(16,20,24,.08);
     }
 
     *{ box-sizing:border-box; }
-    html,body{ height:100%; }
     body{
       margin:0;
       background:var(--bg);
@@ -49,19 +45,23 @@
       border-radius:var(--radius);
       box-shadow:var(--shadow);
       padding:28px 22px;
+      position:relative;
     }
 
     header{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:14px;
       padding-bottom:14px;
       margin-bottom:18px;
       border-bottom:1px solid var(--rule);
     }
 
-    .head-left{ min-width:0; }
+    .kicker{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size:12px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:var(--muted);
+      margin-bottom:8px;
+    }
 
     h1{
       margin:0 0 8px;
@@ -71,16 +71,25 @@
     }
 
     .meta{
-      margin:0;
       color:var(--muted);
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       font-size:13px;
     }
 
-    article{
-      font-size:19px;
+    .back-btn{
+      position:absolute;
+      top:22px;
+      right:22px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size:13px;
+      padding:8px 14px;
+      border:1px solid var(--rule);
+      border-radius:999px;
+      background:var(--paper);
+      color:var(--ink);
     }
 
+    article{ font-size:19px; }
     p{ margin:0 0 16px; }
 
     blockquote{
@@ -89,16 +98,6 @@
       border-left:4px solid var(--rule);
       background: rgba(31,75,216,.06);
       border-radius:12px;
-    }
-
-    .kicker{
-      display:inline-block;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      font-size:12px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      color:var(--muted);
-      margin-bottom:10px;
     }
 
     .divider{
@@ -116,52 +115,25 @@
       font-size:13px;
     }
 
-    /* ✅ Return-to-home button (Spanish, top-right) */
-    .home-btn{
-      flex: 0 0 auto;
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:10px 12px;
-      border-radius:999px;
-      border:1px solid var(--rule);
-      background: var(--paper);
-      color: var(--ink);
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      font-size:13px;
-      line-height:1;
-      box-shadow: 0 6px 18px rgba(16,20,24,.06);
-      white-space:nowrap;
-    }
-    .home-btn:hover{
-      text-decoration:none;
-      border-color: rgba(31,75,216,.35);
+    /* ===== Image styling ===== */
+    .figure{
+      margin:22px 0 26px;
     }
 
-    /* ✅ "PDF" displayed as an image (NOT a PDF viewer)
-       IMPORTANT: this requires you to convert PDF.pdf to an actual image file (e.g., PDF.jpg or PDF.png)
-    */
-    .figure{
-      margin:18px 0 22px;
-    }
     .figure img{
       width:100%;
+      height:auto;
       display:block;
       border-radius:14px;
       border:1px solid var(--rule);
-      background: var(--paper);
+      box-shadow: var(--shadow);
     }
+
     .figure figcaption{
       margin-top:10px;
       font-size:12px;
       color:var(--muted);
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    }
-
-    @media (max-width:520px){
-      header{ flex-direction:column; align-items:flex-start; }
-      .home-btn{ margin-top: 6px; }
-      h1{ font-size:34px; }
     }
   </style>
 </head>
@@ -169,86 +141,54 @@
 <body>
   <main class="wrap">
     <section class="card">
-      <header>
-        <div class="head-left">
-          <div class="kicker">Artículo</div>
-          <h1>Pueblen la tierra</h1>
-          <p class="meta">Joshua M. Haub · <time datetime="2026-01-26">26 de enero de 2026</time></p>
-        </div>
 
-        <!-- ✅ Button in Latin American Spanish -->
-        <a class="home-btn" href="../../">← Volver al inicio</a>
+      <a class="back-btn" href="/">← Volver al inicio</a>
+
+      <header>
+        <div class="kicker">Artículo</div>
+        <h1>Pueblen la tierra</h1>
+        <p class="meta">Joshua M. Haub · <time datetime="2026-01-26">26 de enero de 2026</time></p>
       </header>
 
       <article>
-        <!-- ✅ IMAGE embed (replace PDF viewer)
-             IMPORTANT: rename/convert your file to PDF.jpg (or PDF.png) and keep it in the same folder as this index.html
-        -->
+
+        <!-- ✅ IMAGE (NOT PDF VIEWER) -->
         <figure class="figure">
-          <img src="./PDF.jpg" alt="Pueblen la tierra — material visual" />
+          <img src="./PDF.jgp" alt="Pueblen la tierra — material visual">
           <figcaption>Pueblen la tierra — material visual</figcaption>
         </figure>
 
         <p>
           En Génesis, Dios dijo trece veces, “Pueblen en abundancia la tierra y multiplíquense en ella”
-          (Gén 1.28, 9.1, 7). Pero hay una historia en Génesis 11 donde el pueblo de la tierra no obedecía
-          a Dios. El pueblo en Génesis 11 dijo, “¡No! No queremos vivir en lugares diferentes. ¡Queremos
-          vivir juntos!” Entonces, el pueblo construyó una ciudad y una torre cuya cúspide llegara hasta
-          los cielos y querían hacerse famosos. ¡El pueblo de la tierra no obedecía a Dios! Entonces, Dios
-          descendió y los dispersó por toda la tierra.
+          (Gén 1.28, 9.1, 7).
         </p>
 
         <p>
-          ¿Por qué el pueblo no quería dispersarse por toda la tierra? Posiblemente porque el pueblo quería
-          estar seguro. En los números hay seguridad. También en los números, hay comodidad. A todos les gusta
-          la comodidad. Por estas razones, el pueblo de la tierra no quería obedecer a Dios.
+          Pero hay una historia en Génesis 11 donde el pueblo de la tierra no obedecía a Dios…
         </p>
 
         <blockquote>
-          <strong>En Génesis 11, hay un significado principal:</strong> “Cuando Dios dijo ‘dispersarse’, Él hablaba en serio.”
+          <strong>En Génesis 11, hay un significado principal:</strong>
+          “Cuando Dios dijo ‘dispersarse’, Él hablaba en serio.”
         </blockquote>
 
         <p>
-          En el Nuevo Testamento, Dios trajo al pueblo de la tierra junto. En Hechos 2, Dios lo trajo junto y
-          el pueblo se convirtió en un solo pueblo en Jesucristo. Los pueblos del mundo oyeron a los apóstoles
-          hablar en sus lenguas. En Génesis 11, Dios hizo que el pueblo hablara muchas lenguas, pero en Hechos 2,
-          Dios hizo que el pueblo comprendiera a los apóstoles.
-        </p>
-
-        <p>
-          Ahora, en Cristo, los pueblos del mundo son un solo pueblo en Jesucristo. ¡De dónde eres no es importante
-          ahora en Cristo! Todos en Cristo son miembros de la familia espiritual de Dios.
-        </p>
-
-        <p>
-          Nuestro trabajo (como cristianos) no es “hacer famoso nuestro nombre,” ¡nuestro trabajo es hacer el nombre
-          famoso de Cristo! Proclamamos el nombre de Jesús (1 Pedro 2.9, 2 Cor 4.5) y no proclamamos nuestro nombre.
-          Y nuestra vida no es de lo que yo quiero, sino de lo que Jesús quiere.
-        </p>
-
-        <p>
-          En Hechos, el Señor estaba usando a sus apóstoles para llevar el evangelio al mundo. ¿Cómo oyeron el evangelio
-          en Hechos 2? ¡Porque los apóstoles obedecieron a Dios (Hechos 1.8)!
-        </p>
-
-        <p>
-          En Génesis 11, Dios quería que el pueblo “poblara la tierra abundantemente y se multiplicara en ella,” pero el
-          pueblo no obedeció. En Mateo 28.18-20, Jesús nos llama a “poblar la tierra abundantemente y multiplicarnos” de
-          manera espiritual. ¿Obedecemos a Él? Recuerda el significado principal: “Cuando Dios dijo ‘dispersarse’, Él hablaba en serio.”
+          En Mateo 28.18–20, Jesús nos llama a multiplicarnos espiritualmente…
         </p>
 
         <div class="divider"></div>
 
         <p>
-          En resumen, ¿cómo están haciendo para dispersarse y multiplicar un pueblo espiritual de Dios en el mundo? Todo el pueblo
-          de Dios necesita trabajar para multiplicar el pueblo de Dios en su ciudad, su país y el mundo. Hoy, trabajen para hablar
-          con su familia y sus amigos del evangelio. ¡Completen la misión de Jesús en Mateo 28.18-20!
+          Hoy, trabajen para hablar con su familia y sus amigos del evangelio.
         </p>
+
       </article>
 
       <footer>
-        <div><strong>Nota:</strong> Citas bíblicas referenciadas: Gén 1.28; 9.1, 7; Gén 11; Hech 2; Hech 1.8; 1 Pe 2.9; 2 Co 4.5; Mt 28.18–20.</div>
+        <strong>Nota:</strong>
+        Gén 1.28; Gén 11; Hech 2; Mt 28.18–20
       </footer>
+
     </section>
   </main>
 </body>
