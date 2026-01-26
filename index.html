@@ -1285,7 +1285,7 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
       if (!item) return;
         // ✅ If this content is a standalone page (HTML article), open it directly
   if (item.href) {
-    window.location.href = item.href;
+    window.open(item.href, "_blank", "noopener,noreferrer");
     return;
   }
 
