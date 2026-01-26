@@ -1224,20 +1224,26 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
     }
 
     function buildTagSelect(){
-      const set = new Set();
-      CONTENT.forEach(x => (x.tags || []).forEach(t => set.add(t)));
-      const tags = Array.from(set).sort((a,b)=>a.localeCompare(b));
-      const current = state.tag;
+  const set = new Set();
+  CONTENT.forEach(x => (x.tags || []).forEach(t => set.add(t)));
+  const tags = Array.from(set).sort((a,b)=>a.localeCompare(b));
+  const current = state.tag;
 
-           const allLabel = t("tag_all");
-      const prefix = t("tag_prefix");
+  const allLabel = t("tag_all");
+  const prefix = t("tag_prefix");
 
-     els.tagSelect.innerHTML =
-  `<option value="">${escapeHtml(allLabel)}</option>` +
-  tags.map(tg =>
-    `<option value="${escapeHtml(tg)}"${tg===current ? " selected":""}>` +
-    `${escapeHtml(prefix)}${escapeHtml(localizeTag(tg, { lang: "es" }))}</option>`
-  ).join("");
+  // Use tag translation rules correctly:
+  // - ES mode: translate English tags -> Spanish (normal items)
+  // - EN mode: only translate Spanish tags -> English for Spanish originals
+  els.tagSelect.innerHTML =
+    `<option value="">${escapeHtml(allLabel)}</option>` +
+    tags.map(tg => {
+      const display = (state.lang === "en")
+        ? escapeHtml(tg) // keep English tags as-is in EN mode
+        : escapeHtml(localizeTag(tg, null)); // translate to Spanish in ES mode
+      return `<option value="${escapeHtml(tg)}"${tg === current ? " selected" : ""}>${escapeHtml(prefix)}${display}</option>`;
+    }).join("");
+}
       
     function escapeHtml(s){
       return String(s)
