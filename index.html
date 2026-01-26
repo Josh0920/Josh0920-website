@@ -504,9 +504,9 @@
       margin-bottom: 12px;
     }
     .modal .content .body{
-      white-space: pre-wrap;
-      font-size: 15px;
-    }
+  white-space: normal;   /* was pre-wrap */
+  font-size: 15px;
+}
 
     .btn{
       border:1px solid var(--rule);
@@ -588,28 +588,28 @@
         <div>
           <!-- KEEP: photo + title (changed per your request) -->
           <h1>Joshua Haub Bible Material</h1>
-          <p>Notes • Papers • Articles</p>
+         <p id="brandSub">Notes • Papers • Articles</p>
         </div>
       </a>
 
       <nav aria-label="Primary">
-        <button class="pill active" id="filterAll">All</button>
-        <button class="pill" id="filterNotes">Notes</button>
-        <button class="pill" id="filterPapers">Papers</button>
-        <button class="pill" id="filterArticles">Articles</button>
-<button class="pill" id="langToggle" data-lang="en">Español (LatAm)</button>
-<button class="pill" id="themeToggle" title="Toggle theme">Theme</button>
-      </nav>
+  <button type="button" class="pill active" id="filterAll">All</button>
+  <button type="button" class="pill" id="filterNotes">Notes</button>
+  <button type="button" class="pill" id="filterPapers">Papers</button>
+  <button type="button" class="pill" id="filterArticles">Articles</button>
+  <button type="button" class="pill" id="langToggle" data-lang="en">Español (LatAm)</button>
+  <button type="button" class="pill" id="themeToggle" title="Toggle theme">Theme</button>
+</nav>
     </div>
   </header>
 
   <main class="wrap">
     <section class="hero">
       <div class="card">
-        <h2>Welcome to my Bible Library</h2>
-        <p>
-          Feel free to download these files for personal use in your personal Bible study.
-        </p>
+       <h2 id="heroTitle">Welcome to my Bible Library</h2>
+<p id="heroDesc">
+  Feel free to download these files for personal use in your personal Bible study.
+</p>
 
         <div class="controls">
           <div class="search" role="search" aria-label="Search library">
@@ -634,57 +634,49 @@
 
       <!-- KEEP: Podcast content + link + image -->
       <aside class="card">
-        <h2 class="podcast-title">The “What Does It Say?” Podcast</h2>
+  <h2 class="podcast-title" id="podcastTitle">The “What Does It Say?” Podcast</h2>
 
-        <a
-          href="https://creators.spotify.com/pod/profile/whatdoesitsay/"
-          target="_blank"
-          rel="noopener noreferrer"
-          style="display:block; text-decoration:none;"
-        >
-          <img
-            class="podcast-img"
-            src="ab6765630000ba8ae3f49b0a8f0157a58ad2f1a6.jfif"
-            alt="The What Does It Say? Podcast"
-          />
-        </a>
+  <a href="PASTE_YOUR_PODCAST_LINK_HERE" target="_blank" rel="noopener noreferrer">
+    <img class="podcast-img" src="PASTE_YOUR_PODCAST_IMAGE.jpg" alt="Podcast cover" />
+  </a>
 
-        <p style="color:var(--muted); font-size:13px; margin-top:10px;">
-          In my Podcast, I aim to provide you, the listener, with a detailed account of what the Scripture says, so that in your study, you may have more than just your own ideas to consult.
-        </p>
-      </aside>
+  <p id="podcastDesc" style="color:var(--muted); font-size:13px; margin-top:10px;">
+    In my Podcast, I aim to provide you, the listener, with a detailed account of what the Scripture says, so that in your study, you may have more than just your own ideas to consult.
+  </p>
+</aside>
     </section>
 
     <section class="split">
       <div>
         <div class="section-head">
-          <h2>Library</h2>
-          <div class="count"><span id="resultsCount">0</span> results</div>
+         <h2 id="libraryHeading">Library</h2>
+<div class="count"><span id="resultsCount">0</span> <span id="resultsLabel">results</span></div>
         </div>
 
+        <div id="featuredList" class="grid" style="margin-top:14px;"></div>
         <div class="grid" id="grid"></div>
       </div>
 
       <!-- KEEP: About + Quick Links + How To Contact Me content -->
       <aside class="card aside">
-        <h2>About</h2>
-        <p>
-          My name is Joshua Haub and I am an Evangelist and Preacher. My goal in life is to help other people learn about God and His Word. Please feel free to use my material here (free of charge) however best helps you understand these important matters.
-        </p>
+        <h2 id="aboutHeading">About</h2>
+<p id="aboutText">
+  My name is Joshua Haub and I am an Evangelist and Preacher. My goal in life is to help other people learn about God and His Word. Please feel free to use my material here (free of charge) however best helps you understand these important matters.
+</p>
 
-        <div class="quicklinks">
-          <b>Quick Links</b>
+<div class="quicklinks">
+  <b id="quickLinksHeading">Quick Links</b>
           <div style="display:flex; flex-direction:column; gap:8px;">
-            <a class="smalllink" href="#" onclick="setTypeFilter('All'); return false;">• Home</a>
-            <a class="smalllink" href="#" onclick="setTypeFilter('Notes'); return false;">• Notes</a>
-            <a class="smalllink" href="#" onclick="setTypeFilter('Papers'); return false;">• Papers</a>
-            <a class="smalllink" href="#" onclick="setTypeFilter('Articles'); return false;">• Articles</a>
+            <a class="smalllink" href="#" onclick="setTypeFilter('All'); return false;">• <span id="quickHomeLabel">Home</span></a>
+<a class="smalllink" href="#" onclick="setTypeFilter('Notes'); return false;">• <span id="quickNotesLabel">Notes</span></a>
+<a class="smalllink" href="#" onclick="setTypeFilter('Papers'); return false;">• <span id="quickPapersLabel">Papers</span></a>
+<a class="smalllink" href="#" onclick="setTypeFilter('Articles'); return false;">• <span id="quickArticlesLabel">Articles</span></a>
           </div>
         </div>
 
         <div style="height:16px"></div>
 
-        <h2>How To Contact Me</h2>
+       <h2 id="contactHeading">How To Contact Me</h2>
         <ol style="margin:0; padding-left:18px; color:var(--muted); font-size:13px;">
           <li>
             Instagram
@@ -703,7 +695,7 @@
             </span>
           </li>
           <li>
-            X <span style="font-family:var(--mono)">(Formerly Twitter)</span>
+            X <span id="formerlyTwitterLabel" style="font-family:var(--mono)">(Formerly Twitter)</span>
             <span style="font-family:var(--mono)">
               <a href="https://x.com/joshhaub" target="_blank" rel="noopener noreferrer">
                 https://x.com/joshhaub
@@ -815,7 +807,196 @@
 `
       }
     ];
+    /*************************************************************
+     * LANGUAGE (EN / ES-LatAm) — minimal i18n layer
+     *************************************************************/
+    const I18N = {
+      en: {
+        nav_all: "All",
+        nav_notes: "Notes",
+        nav_papers: "Papers",
+        nav_articles: "Articles",
+        brand_sub: "Notes • Papers • Articles",
+        theme_btn: "Theme",
+        theme_title: "Toggle theme",
+        hero_title: "Welcome to my Bible Library",
+        hero_desc: "Feel free to download these files for personal use in your personal Bible study.",
+        search_ph: "Search titles, content, tags… (e.g., “textual criticism”)",
+        sort_newest: "Sort: Newest",
+        sort_oldest: "Sort: Oldest",
+        sort_titleaz: "Sort: Title A–Z",
+        sort_titleza: "Sort: Title Z–A",
+        tag_all: "Tag: (All)",
+        tag_prefix: "Tag: ",
+        library_heading: "Library",
+        results_label: "results",
+        empty_title: "No results.",
+        empty_desc: "Try removing filters or searching a different term.",
+        about_heading: "About",
+        about_text:
+          "My name is Joshua Haub and I am an Evangelist and Preacher. My goal in life is to help other people learn about God and His Word. Please feel free to use my material here (free of charge) however best helps you understand these important matters.",
+        quicklinks_heading: "Quick Links",
+        quick_home: "Home",
+        quick_notes: "Notes",
+        quick_papers: "Papers",
+        quick_articles: "Articles",
+        contact_heading: "How To Contact Me",
+        formerly_twitter: "(Formerly Twitter)",
+        modal_reader: "Reader",
+        modal_copy: "Copy Link",
+        modal_copied: "Copied!",
+        modal_close: "Close",
+        dl_title: "Download PDF",
+        open_prefix: "Open ",
+        copy_fail: "Couldn’t copy automatically. You can manually copy the URL from the address bar.",
+        podcast_title: "The “What Does It Say?” Podcast",
+        podcast_desc:
+          "In my Podcast, I aim to provide you, the listener, with a detailed account of what the Scripture says, so that in your study, you may have more than just your own ideas to consult.",
+        lang_btn_when_en: "Español (LatAm)",
+        lang_btn_when_es: "English",
+      },
+      es: {
+        nav_all: "Todo",
+        nav_notes: "Notas",
+        nav_papers: "Trabajos",
+        nav_articles: "Artículos",
+        brand_sub: "Notas • Trabajos • Artículos",
+        theme_btn: "Tema",
+        theme_title: "Cambiar tema",
+        hero_title: "Bienvenido a mi biblioteca bíblica",
+        hero_desc: "Puedes descargar estos archivos para uso personal en tu estudio bíblico.",
+        search_ph: "Buscar títulos, contenido, etiquetas… (p. ej., “crítica textual”)",
+        sort_newest: "Ordenar: Más recientes",
+        sort_oldest: "Ordenar: Más antiguos",
+        sort_titleaz: "Ordenar: Título A–Z",
+        sort_titleza: "Ordenar: Título Z–A",
+        tag_all: "Etiqueta: (Todas)",
+        tag_prefix: "Etiqueta: ",
+        library_heading: "Biblioteca",
+        results_label: "resultados",
+        empty_title: "No hay resultados.",
+        empty_desc: "Prueba quitar filtros o buscar otro término.",
+        about_heading: "Acerca de",
+        about_text:
+          "Me llamo Joshua Haub y soy evangelista y predicador. Mi meta en la vida es ayudar a otras personas a conocer a Dios y Su Palabra. Siéntete libre de usar mi material aquí (gratis) de la manera que mejor te ayude a entender estos asuntos importantes.",
+        quicklinks_heading: "Enlaces rápidos",
+        quick_home: "Inicio",
+        quick_notes: "Notas",
+        quick_papers: "Trabajos",
+        quick_articles: "Artículos",
+        contact_heading: "Cómo contactarme",
+        formerly_twitter: "(Antes Twitter)",
+        modal_reader: "Lector",
+        modal_copy: "Copiar enlace",
+        modal_copied: "¡Copiado!",
+        modal_close: "Cerrar",
+        dl_title: "Descargar PDF",
+        open_prefix: "Abrir ",
+        copy_fail: "No se pudo copiar automáticamente. Puedes copiar la URL manualmente desde la barra de direcciones.",
+        podcast_title: "El pódcast “What Does It Say?”",
+        podcast_desc:
+          "En mi pódcast, busco darte a ti, el oyente, un recuento detallado de lo que dice la Escritura, para que en tu estudio tengas más que solo tus propias ideas para consultar.",
+        lang_btn_when_en: "Español (LatAm)",
+        lang_btn_when_es: "English",
+      }
+    };
 
+    // Spanish titles/excerpts (titles must end with “(En inglés)” in ES mode)
+    const CONTENT_ES = {
+      "john-7-53-8-11": {
+        title: "¿Forma parte Juan 7:53–8:11 del texto original de Juan?",
+        excerpt: "Un análisis de crítica textual de Juan 7:53–8:11 y su evidencia externa a partir de los testigos manuscritos y los primeros Padres de la Iglesia."
+      },
+      "luke-23-34a-authorship": {
+        title: "La evidencia externa a favor de la autenticidad de Lucas 23:34a",
+        excerpt: "Un análisis de crítica textual de Lucas 23:34a y su evidencia externa a partir de los testigos manuscritos y los primeros Padres de la Iglesia."
+      },
+      "1cor-14-34-35-authorship": {
+        title: "¿Quién escribió 1 Cor. 14:34–35: Pablo u otra persona?",
+        excerpt: "Un análisis de crítica textual de 1 Corintios 14:34–35 y su evidencia externa a partir de los testigos manuscritos."
+      }
+    };
+
+    function t(key){
+      return (I18N[state.lang] && I18N[state.lang][key]) || (I18N.en[key] || "");
+    }
+
+    function getLocalizedTitle(item){
+      if (state.lang !== "es") return item.title || "";
+      const tr = CONTENT_ES[item.id];
+      const base = tr && tr.title ? tr.title : (item.title || "");
+      return `${base} (En inglés)`;
+    }
+
+    function getLocalizedExcerpt(item){
+      if (state.lang !== "es") return item.excerpt || "";
+      const tr = CONTENT_ES[item.id];
+      return (tr && tr.excerpt) ? tr.excerpt : (item.excerpt || "");
+    }
+
+    function applyLanguage(){
+      // document language
+      document.documentElement.setAttribute("lang", state.lang === "es" ? "es" : "en");
+
+      // top nav
+      els.filterAll.textContent = t("nav_all");
+      els.filterNotes.textContent = t("nav_notes");
+      els.filterPapers.textContent = t("nav_papers");
+      els.filterArticles.textContent = t("nav_articles");
+
+      // brand + hero
+      document.getElementById("brandSub").textContent = t("brand_sub");
+      document.getElementById("heroTitle").textContent = t("hero_title");
+      document.getElementById("heroDesc").textContent = t("hero_desc");
+
+      // podcast
+      document.getElementById("podcastTitle").textContent = t("podcast_title");
+      document.getElementById("podcastDesc").textContent = t("podcast_desc");
+
+      // search placeholder
+      els.searchInput.placeholder = t("search_ph");
+
+      // theme + language buttons
+      els.themeToggle.textContent = t("theme_btn");
+      els.themeToggle.title = t("theme_title");
+
+      els.langToggle.textContent = (state.lang === "es") ? t("lang_btn_when_es") : t("lang_btn_when_en");
+
+      // sort option labels
+      const opts = els.sortSelect.options;
+      for (let i = 0; i < opts.length; i++){
+        const v = opts[i].value;
+        if (v === "newest") opts[i].textContent = t("sort_newest");
+        if (v === "oldest") opts[i].textContent = t("sort_oldest");
+        if (v === "titleaz") opts[i].textContent = t("sort_titleaz");
+        if (v === "titleza") opts[i].textContent = t("sort_titleza");
+      }
+
+      // tag select (rebuild so label/prefix switches cleanly)
+      buildTagSelect();
+
+      // library heading + results label
+      document.getElementById("libraryHeading").textContent = t("library_heading");
+      document.getElementById("resultsLabel").textContent = t("results_label");
+
+      // sidebar
+      document.getElementById("aboutHeading").textContent = t("about_heading");
+      document.getElementById("aboutText").textContent = t("about_text");
+      document.getElementById("quickLinksHeading").textContent = t("quicklinks_heading");
+      document.getElementById("quickHomeLabel").textContent = t("quick_home");
+      document.getElementById("quickNotesLabel").textContent = t("quick_notes");
+      document.getElementById("quickPapersLabel").textContent = t("quick_papers");
+      document.getElementById("quickArticlesLabel").textContent = t("quick_articles");
+      document.getElementById("contactHeading").textContent = t("contact_heading");
+      document.getElementById("formerlyTwitterLabel").textContent = t("formerly_twitter");
+
+      // modal UI (static labels)
+      els.overlay.setAttribute("aria-label", t("modal_reader"));
+      els.modalType.textContent = t("modal_reader");
+      els.copyLinkBtn.textContent = t("modal_copy");
+      els.closeBtn.textContent = t("modal_close");
+      els.downloadBtn.title = t("dl_title");
+    }
     /*************************************************************
      * APP LOGIC (No need to edit below unless you want to)
      *************************************************************/
@@ -889,8 +1070,7 @@
       const q = normalize(state.query).trim();
       if (state.type !== "All" && item.type !== state.type) return false;
       if (state.tag && !(item.tags || []).includes(state.tag)) return false;
-      if (state.lang === "es" && !(item.tags || []).includes("Español")) return false;
-
+      
       if (!q) return true;
 
       const hay = normalize([
@@ -953,9 +1133,12 @@
       const tags = Array.from(set).sort((a,b)=>a.localeCompare(b));
       const current = state.tag;
 
+           const allLabel = t("tag_all");
+      const prefix = t("tag_prefix");
+
       els.tagSelect.innerHTML =
-        `<option value="">Tag: (All)</option>` +
-        tags.map(t=>`<option value="${escapeHtml(t)}"${t===current ? " selected":""}>Tag: ${escapeHtml(t)}</option>`).join("");
+        `<option value="">${escapeHtml(allLabel)}</option>` +
+        tags.map(tg=>`<option value="${escapeHtml(tg)}"${tg===current ? " selected":""}>${escapeHtml(prefix)}${escapeHtml(tg)}</option>`).join("");
     }
 
     function escapeHtml(s){
@@ -968,54 +1151,60 @@
     }
 
     function itemCard(item){
-      const tags = (item.tags || []).slice(0,4).map(t=>`<span class="tag">${escapeHtml(t)}</span>`).join("");
-      const extra = (item.tags || []).length > 4 ? `<span class="tag">+${(item.tags||[]).length - 4}</span>` : "";
-      return `
-        <article class="item" tabindex="0" role="button" aria-label="Open ${escapeHtml(item.title)}" data-id="${escapeHtml(item.id)}">
-          <div>
-            <div class="badge"><strong>${escapeHtml(item.type)}</strong> · ${escapeHtml(formatDate(item.date || ""))}</div>
-            <h3 class="title">${escapeHtml(item.title)}</h3>
-            <p class="excerpt">${escapeHtml(item.excerpt || "")}</p>
-          </div>
-          <div class="meta">
-            <div class="tags">${tags}${extra}</div>
-            <div></div>
-          </div>
-        </article>
-      `;
-    }
-
+  const tags = (item.tags || []).slice(0,4).map(t=>`<span class="tag">${escapeHtml(t)}</span>`).join("");
+  const extra = (item.tags || []).length > 4 ? `<span class="tag">+${(item.tags||[]).length - 4}</span>` : "";
+  return `
+    <article class="item" tabindex="0" role="button" aria-label="${escapeHtml(t("open_prefix") + getLocalizedTitle(item))}" data-id="${escapeHtml(item.id)}">
+      <div>
+        <div class="badge"><strong>${escapeHtml(item.type)}</strong> · ${escapeHtml(formatDate(item.date || ""))}</div>
+        <h3 class="title">${escapeHtml(getLocalizedTitle(item))}</h3>
+        <p class="excerpt">${escapeHtml(getLocalizedExcerpt(item))}</p>
+      </div>
+      <div class="meta">
+        <div class="tags">${tags}${extra}</div>
+        <div></div>
+      </div>
+    </article>
+  `;
+}
     function renderFeatured(){
-      if (!els.featuredList) return;
-      const featured = sortItems(CONTENT.filter(x=>x.featured)).slice(0, 4);
+  if (!els.featuredList) return;
 
-      if (!featured.length){
-        els.featuredList.innerHTML = `<div style="color:var(--muted);font-size:13px;">No featured posts yet.</div>`;
-        return;
-      }
+  const featured = sortItems(CONTENT.filter(x=>x.featured)).slice(0, 4);
 
-      els.featuredList.innerHTML = featured.map(x=>`
-        <div class="item" style="min-height:auto;" data-id="${escapeHtml(x.id)}">
-          <div class="badge"><strong>${escapeHtml(x.type)}</strong> · ${escapeHtml(formatDate(x.date || ""))}</div>
-          <div style="height:6px"></div>
-          <div style="font-weight:650;">${escapeHtml(x.title)}</div>
-          <div style="color:var(--muted);font-size:12px;margin-top:4px;">${escapeHtml(x.excerpt || "")}</div>
-        </div>
-      `).join("");
-    }
+  // ✅ hide the section entirely when empty (clean polish)
+  if (!featured.length){
+    els.featuredList.style.display = "none";
+    els.featuredList.innerHTML = "";
+    return;
+  }
+
+  // ✅ show it when there is content
+  els.featuredList.style.display = "grid";
+
+  els.featuredList.innerHTML = featured.map(x=>`
+    <div class="item" style="min-height:auto;" data-id="${escapeHtml(x.id)}">
+      <div class="badge"><strong>${escapeHtml(x.type)}</strong> · ${escapeHtml(formatDate(x.date || ""))}</div>
+      <div style="height:6px"></div>
+      <div style="font-weight:650;">${escapeHtml(getLocalizedTitle(x))}</div>
+      <div style="color:var(--muted);font-size:12px;margin-top:4px;">${escapeHtml(getLocalizedExcerpt(x))}</div>
+    </div>
+  `).join("");
+}
 
     function renderGrid(){
-      setActiveFilterButtons();
+  renderFeatured(); // ✅ keep Featured in sync (still hides when empty)
+  setActiveFilterButtons();
 
       const filtered = CONTENT.filter(contentMatches);
       const sorted = sortItems(filtered);
 
       els.resultsCount.textContent = sorted.length;
-      els.grid.innerHTML = sorted.map(itemCard).join("") || `
+            els.grid.innerHTML = sorted.map(itemCard).join("") || `
         <div class="card" style="grid-column: 1/-1;">
-          <b>No results.</b>
+          <b>${escapeHtml(t("empty_title"))}</b>
           <div style="color:var(--muted); margin-top:6px;">
-            Try removing filters or searching a different term.
+            ${escapeHtml(t("empty_desc"))}
           </div>
         </div>
       `;
@@ -1040,7 +1229,7 @@
       if (!item) return;
 
       els.modalType.textContent = item.type;
-      els.modalTitle.textContent = item.title;
+            els.modalTitle.textContent = getLocalizedTitle(item);
       els.modalSub.textContent = `${formatDate(item.date || "")} • ${item.featured ? "Featured • " : ""}${(item.tags || []).join(" • ")}`;
 
       if (isMobileView() && item.pdfHref) {
@@ -1147,13 +1336,8 @@ els.themeToggle.addEventListener("click", ()=>{
 });
 
 els.langToggle.addEventListener("click", ()=>{
-  if (state.lang === "en") {
-    state.lang = "es";
-    els.langToggle.textContent = "English";
-  } else {
-    state.lang = "en";
-    els.langToggle.textContent = "Español";
-  }
+  state.lang = (state.lang === "en") ? "es" : "en";
+  applyLanguage();
   renderGrid();
   scrollToTop();
 });
@@ -1182,14 +1366,14 @@ els.langToggle.addEventListener("click", ()=>{
     });
 
     els.copyLinkBtn.addEventListener("click", async ()=>{
-      try{
-        await navigator.clipboard.writeText(location.href);
-        els.copyLinkBtn.textContent = "Copied!";
-        setTimeout(()=> els.copyLinkBtn.textContent = "Copy Link", 900);
-      } catch {
-        alert("Couldn’t copy automatically. You can manually copy the URL from the address bar.");
-      }
-    });
+  try{
+    await navigator.clipboard.writeText(location.href);
+    els.copyLinkBtn.textContent = t("modal_copied");
+    setTimeout(()=> els.copyLinkBtn.textContent = t("modal_copy"), 900);
+  } catch {
+    alert(t("copy_fail"));
+  }
+});
 
     els.exportBtn?.addEventListener("click", (e)=>{ e.preventDefault(); exportJSON(); });
     els.importBtn?.addEventListener("click", (e)=>{ e.preventDefault(); importJSON(); });
@@ -1198,16 +1382,16 @@ els.langToggle.addEventListener("click", ()=>{
 
     function init() {
       if (!location.hash) history.replaceState(null, "", "#/");
-      applyTheme();
+            applyTheme();
+      applyLanguage();
 
       els.year.textContent = new Date().getFullYear();
 
       buildKPIs();
-      buildTagSelect();
-      if (els.featuredList) renderFeatured();
+buildTagSelect();
 
-      state.type = "All";
-      renderGrid();
+state.type = "All";
+renderGrid();
 
       hydrateFromHash();
       window.addEventListener("hashchange", hydrateFromHash);
