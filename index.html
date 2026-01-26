@@ -806,6 +806,20 @@
 </p>
 `
       }
+            ,
+      {
+        id: "pueblen-la-tierra",
+        type: "Articles",
+        lang: "es",
+        title: "Pueblen la tierra",
+        date: "2026-01-26",
+        featured: false,
+        tags: ["Génesis", "Génesis 11", "Hechos", "Hechos 2", "Misión", "Evangelismo", "Español"],
+        excerpt: "Génesis 11 muestra que cuando Dios dijo ‘dispersarse’, Él hablaba en serio. En Cristo, somos un solo pueblo, llamado a ‘multiplicarnos’ espiritualmente (Mt 28:18–20).",
+
+        /* ✅ This opens a real HTML page instead of the modal */
+        href: "articles/pueblen-la-tierra/"
+      }
     ];
     /*************************************************************
      * LANGUAGE (EN / ES-LatAm) — minimal i18n layer
@@ -951,6 +965,7 @@ function withEnglishSuffix(base){
   if (state.lang !== "es") return item.title || "";
   const tr = CONTENT_ES[item.id];
   const base = (tr && tr.title) ? tr.title : (item.title || "");
+  if (item.lang === "es") return base; // ✅ don't label Spanish items as "(En inglés)"
   return `${base} (En inglés)`;
 }
 function localizeTag(tag){
@@ -1268,6 +1283,11 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
     function openReader(id){
       const item = CONTENT.find(x=>x.id === id);
       if (!item) return;
+        // ✅ If this content is a standalone page (HTML article), open it directly
+  if (item.href) {
+    window.location.href = item.href;
+    return;
+  }
 
       els.modalType.textContent = localizeType(item.type);
             els.modalTitle.textContent = getLocalizedTitle(item);
