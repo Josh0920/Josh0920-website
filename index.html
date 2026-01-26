@@ -597,7 +597,7 @@
   <button type="button" class="pill" id="filterNotes">Notes</button>
   <button type="button" class="pill" id="filterPapers">Papers</button>
   <button type="button" class="pill" id="filterArticles">Articles</button>
-  <button type="button" class="pill" id="langToggle" data-lang="en">Español (LatAm)</button>
+  <button type="button" class="pill" id="langToggle">Español (LatAm)</button>
   <button type="button" class="pill" id="themeToggle" title="Toggle theme">Theme</button>
 </nav>
     </div>
@@ -636,9 +636,9 @@
       <aside class="card">
   <h2 class="podcast-title" id="podcastTitle">The “What Does It Say?” Podcast</h2>
 
-  <a href="PASTE_YOUR_PODCAST_LINK_HERE" target="_blank" rel="noopener noreferrer">
-    <img class="podcast-img" src="PASTE_YOUR_PODCAST_IMAGE.jpg" alt="Podcast cover" />
-  </a>
+ <a href="https://open.spotify.com/show/7CQP1xRqmL7YvKWc9DEWhM?si=zlvNBbFlSmmy3GahuB6HtA" target="_blank" rel="noopener noreferrer">
+  <img class="podcast-img" src="podcast-cover.jpg" alt="Podcast cover" />
+</a>
 
   <p id="podcastDesc" style="color:var(--muted); font-size:13px; margin-top:10px;">
     In my Podcast, I aim to provide you, the listener, with a detailed account of what the Scripture says, so that in your study, you may have more than just your own ideas to consult.
@@ -708,9 +708,9 @@
 
     <!-- KEEP: footer text -->
     <footer class="footer">
-      <div>© <span id="year"></span> Joshua’s Bible Library</div>
-      <div>To Him Be the Glory</div>
-    </footer>
+  <div id="footerLeft"></div>
+  <div id="footerRight"></div>
+</footer>
   </main>
 
   <!-- Reader Modal (KEEP: same IDs/logic; cleaner skin) -->
@@ -854,6 +854,13 @@
           "In my Podcast, I aim to provide you, the listener, with a detailed account of what the Scripture says, so that in your study, you may have more than just your own ideas to consult.",
         lang_btn_when_en: "Español (LatAm)",
         lang_btn_when_es: "English",
+        footer_left: "© {year} Joshua’s Bible Library",
+footer_right: "To Him Be the Glory",
+        kpi_total: "Total",
+kpi_notes: "Notes",
+kpi_papers: "Papers",
+kpi_articles: "Articles",
+kpi_featured: "Featured",
       },
       es: {
         nav_all: "Todo",
@@ -898,6 +905,13 @@
           "En mi pódcast, busco darte a ti, el oyente, un recuento detallado de lo que dice la Escritura, para que en tu estudio tengas más que solo tus propias ideas para consultar.",
         lang_btn_when_en: "Español (LatAm)",
         lang_btn_when_es: "English",
+        footer_left: "© {year} Biblioteca bíblica de Joshua",
+footer_right: "A Él sea la gloria",
+        kpi_total: "Total",
+kpi_notes: "Notas",
+kpi_papers: "Trabajos",
+kpi_articles: "Artículos",
+kpi_featured: "Destacado",
       }
     };
 
@@ -916,7 +930,16 @@
         excerpt: "Un análisis de crítica textual de 1 Corintios 14:34–35 y su evidencia externa a partir de los testigos manuscritos."
       }
     };
-
+const TAGS_ES = {
+  "John": "Juan",
+  "Textual Criticism": "Crítica textual",
+  "Pericope Adulterae": "Perícopa de la adúltera",
+  "Church Fathers": "Padres de la Iglesia",
+  "Manuscript": "Manuscrito",
+  "Manuscripts": "Manuscritos",
+  "Luke": "Lucas",
+  "1 Corinthians": "1 Corintios"
+};
     function t(key){
       return (I18N[state.lang] && I18N[state.lang][key]) || (I18N.en[key] || "");
     }
@@ -927,7 +950,16 @@
       const base = tr && tr.title ? tr.title : (item.title || "");
       return `${base} (En inglés)`;
     }
+function localizeTag(tag){
+  if (state.lang !== "es") return tag;
+  return TAGS_ES[tag] || tag; // fallback to English if missing
+}
 
+function localizeType(type){
+  if (state.lang !== "es") return type;
+  const map = { "Notes":"Notas", "Papers":"Trabajos", "Articles":"Artículos", "All":"Todo" };
+  return map[type] || type;
+}
     function getLocalizedExcerpt(item){
       if (state.lang !== "es") return item.excerpt || "";
       const tr = CONTENT_ES[item.id];
@@ -996,6 +1028,10 @@
       els.copyLinkBtn.textContent = t("modal_copy");
       els.closeBtn.textContent = t("modal_close");
       els.downloadBtn.title = t("dl_title");
+            // footer (updates on language toggle)
+      document.getElementById("footerLeft").textContent =
+        t("footer_left").replace("{year}", new Date().getFullYear());
+      document.getElementById("footerRight").textContent = t("footer_right");
     }
     /*************************************************************
      * APP LOGIC (No need to edit below unless you want to)
@@ -1008,7 +1044,6 @@
       searchInput: document.getElementById("searchInput"),
       sortSelect: document.getElementById("sortSelect"),
       tagSelect: document.getElementById("tagSelect"),
-      year: document.getElementById("year"),
 
       filterAll: document.getElementById("filterAll"),
       filterNotes: document.getElementById("filterNotes"),
@@ -1112,12 +1147,12 @@
       const featured = CONTENT.filter(x=>x.featured).length;
 
       const kpis = [
-        {label:"Total", value: total},
-        {label:"Notes", value: notes},
-        {label:"Papers", value: papers},
-        {label:"Articles", value: articles},
-        {label:"Featured", value: featured},
-      ];
+  {label: t("kpi_total"), value: total},
+  {label: t("kpi_notes"), value: notes},
+  {label: t("kpi_papers"), value: papers},
+  {label: t("kpi_articles"), value: articles},
+  {label: t("kpi_featured"), value: featured},
+];
 
       els.kpis.innerHTML = kpis.map(k=>`
         <div class="kpi">
@@ -1137,8 +1172,11 @@
       const prefix = t("tag_prefix");
 
       els.tagSelect.innerHTML =
-        `<option value="">${escapeHtml(allLabel)}</option>` +
-        tags.map(tg=>`<option value="${escapeHtml(tg)}"${tg===current ? " selected":""}>${escapeHtml(prefix)}${escapeHtml(tg)}</option>`).join("");
+  `<option value="">${escapeHtml(allLabel)}</option>` +
+  tags.map(tg =>
+    `<option value="${escapeHtml(tg)}"${tg===current ? " selected":""}>` +
+    `${escapeHtml(prefix)}${escapeHtml(localizeTag(tg))}</option>`
+  ).join("");
     }
 
     function escapeHtml(s){
@@ -1151,12 +1189,12 @@
     }
 
     function itemCard(item){
-  const tags = (item.tags || []).slice(0,4).map(t=>`<span class="tag">${escapeHtml(t)}</span>`).join("");
+  const tags = (item.tags || []).slice(0,4).map(t=>`<span class="tag">${escapeHtml(localizeTag(t))}</span>`).join("");
   const extra = (item.tags || []).length > 4 ? `<span class="tag">+${(item.tags||[]).length - 4}</span>` : "";
   return `
     <article class="item" tabindex="0" role="button" aria-label="${escapeHtml(t("open_prefix") + getLocalizedTitle(item))}" data-id="${escapeHtml(item.id)}">
       <div>
-        <div class="badge"><strong>${escapeHtml(item.type)}</strong> · ${escapeHtml(formatDate(item.date || ""))}</div>
+        <div class="badge"><strong>${escapeHtml(localizeType(item.type))}</strong> · ${escapeHtml(formatDate(item.date || ""))}</div>
         <h3 class="title">${escapeHtml(getLocalizedTitle(item))}</h3>
         <p class="excerpt">${escapeHtml(getLocalizedExcerpt(item))}</p>
       </div>
@@ -1184,7 +1222,7 @@
 
   els.featuredList.innerHTML = featured.map(x=>`
     <div class="item" style="min-height:auto;" data-id="${escapeHtml(x.id)}">
-      <div class="badge"><strong>${escapeHtml(x.type)}</strong> · ${escapeHtml(formatDate(x.date || ""))}</div>
+      <div class="badge"><strong>${escapeHtml(localizeType(x.type))}</strong> · ${escapeHtml(formatDate(x.date || ""))}</div>
       <div style="height:6px"></div>
       <div style="font-weight:650;">${escapeHtml(getLocalizedTitle(x))}</div>
       <div style="color:var(--muted);font-size:12px;margin-top:4px;">${escapeHtml(getLocalizedExcerpt(x))}</div>
@@ -1228,9 +1266,12 @@
       const item = CONTENT.find(x=>x.id === id);
       if (!item) return;
 
-      els.modalType.textContent = item.type;
+      els.modalType.textContent = localizeType(item.type);
             els.modalTitle.textContent = getLocalizedTitle(item);
-      els.modalSub.textContent = `${formatDate(item.date || "")} • ${item.featured ? "Featured • " : ""}${(item.tags || []).join(" • ")}`;
+      const featuredLabel = (state.lang === "es") ? "Destacado" : "Featured";
+els.modalSub.textContent =
+  `${formatDate(item.date || "")} • ${item.featured ? (featuredLabel + " • ") : ""}` +
+  `${(item.tags || []).map(localizeTag).join(" • ")}`;
 
       if (isMobileView() && item.pdfHref) {
         history.replaceState(null, "", "#/");
@@ -1248,7 +1289,7 @@
         els.downloadBtn.style.display = "none";
       }
 
-      els.modalTags.innerHTML = (item.tags || []).map(t=>`<span class="tag">${escapeHtml(t)}</span>`).join("");
+      els.modalTags.innerHTML = (item.tags || []).map(t=>`<span class="tag">${escapeHtml(localizeTag(t))}</span>`).join("");
 
       els.overlay.classList.add("show");
       document.body.style.overflow = "hidden";
@@ -1338,6 +1379,7 @@ els.themeToggle.addEventListener("click", ()=>{
 els.langToggle.addEventListener("click", ()=>{
   state.lang = (state.lang === "en") ? "es" : "en";
   applyLanguage();
+  buildKPIs();          // ✅ add this
   renderGrid();
   scrollToTop();
 });
@@ -1384,8 +1426,6 @@ els.langToggle.addEventListener("click", ()=>{
       if (!location.hash) history.replaceState(null, "", "#/");
             applyTheme();
       applyLanguage();
-
-      els.year.textContent = new Date().getFullYear();
 
       buildKPIs();
 buildTagSelect();
