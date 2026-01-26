@@ -944,6 +944,14 @@ kpi_featured: "Destacado",
         excerpt: "Un análisis de crítica textual de 1 Corintios 14:34–35 y su evidencia externa a partir de los testigos manuscritos."
       }
     };
+    // English titles/excerpts for Spanish originals (titles must end with “(In Spanish)” in EN mode)
+const CONTENT_EN = {
+  "pueblen-la-tierra": {
+    title: "Fill the earth",
+    excerpt:
+      "Genesis 11 shows that when God said ‘disperse,’ He meant it. In Christ, we are one people, called to ‘multiply’ spiritually (Matt 28:18–20)."
+  }
+};
 const TAGS_ES = {
   "John": "Juan",
   "Textual Criticism": "Crítica textual",
@@ -954,6 +962,15 @@ const TAGS_ES = {
   "Luke": "Lucas",
   "1 Corinthians": "1 Corintios"
 };
+    const TAGS_EN = {
+  "Génesis": "Genesis",
+  "Génesis 11": "Genesis 11",
+  "Hechos": "Acts",
+  "Hechos 2": "Acts 2",
+  "Misión": "Mission",
+  "Evangelismo": "Evangelism",
+  "Español": "Spanish"
+};
     function t(key){
       return (I18N[state.lang] && I18N[state.lang][key]) || (I18N.en[key] || "");
     }
@@ -961,28 +978,51 @@ function withEnglishSuffix(base){
   if (state.lang !== "es") return base;
   return `${base} (En inglés)`;
 }
-    function getLocalizedTitle(item){
-  if (state.lang !== "es") return item.title || "";
+   function getLocalizedTitle(item){
+  // EN mode: translate Spanish originals -> English + “(In Spanish)”
+  if (state.lang === "en") {
+    if (item.lang === "es") {
+      const tr = CONTENT_EN[item.id];
+      const base = (tr && tr.title) ? tr.title : (item.title || "");
+      return `${base} (In Spanish)`;
+    }
+    return item.title || "";
+  }
+
+  // ES mode: existing behavior (translate English -> Spanish + “(En inglés)”)
   const tr = CONTENT_ES[item.id];
   const base = (tr && tr.title) ? tr.title : (item.title || "");
-  if (item.lang === "es") return base; // ✅ don't label Spanish items as "(En inglés)"
+  if (item.lang === "es") return base; // don't label Spanish originals as "(En inglés)"
   return `${base} (En inglés)`;
 }
-function localizeTag(tag){
-  if (state.lang !== "es") return tag;
-  return TAGS_ES[tag] || tag; // fallback to English if missing
-}
+function localizeTag(tag, item){
+  // ES mode: English tags -> Spanish
+  if (state.lang === "es") return TAGS_ES[tag] || tag;
 
+  // EN mode: Spanish tags -> English (only for Spanish originals)
+  if (state.lang === "en" && item && item.lang === "es") return TAGS_EN[tag] || tag;
+
+  return tag;
+}
 function localizeType(type){
   if (state.lang !== "es") return type;
   const map = { "Notes":"Notas", "Papers":"Trabajos", "Articles":"Artículos", "All":"Todo" };
   return map[type] || type;
 }
     function getLocalizedExcerpt(item){
-      if (state.lang !== "es") return item.excerpt || "";
-      const tr = CONTENT_ES[item.id];
+  // EN mode: translate Spanish originals -> English
+  if (state.lang === "en") {
+    if (item.lang === "es") {
+      const tr = CONTENT_EN[item.id];
       return (tr && tr.excerpt) ? tr.excerpt : (item.excerpt || "");
     }
+    return item.excerpt || "";
+  }
+
+  // ES mode: existing behavior
+  const tr = CONTENT_ES[item.id];
+  return (tr && tr.excerpt) ? tr.excerpt : (item.excerpt || "");
+}
 
     function applyLanguage(){
       // document language
@@ -1127,11 +1167,14 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
       if (!q) return true;
 
       const hay = normalize([
-        item.title,
-        item.excerpt,
-        item.body,
-        (item.tags || []).join(" ")
-      ].join(" | "));
+  getLocalizedTitle(item),
+  getLocalizedExcerpt(item),
+  item.title,
+  item.excerpt,
+  item.body,
+  (item.tags || []).join(" "),
+  (item.tags || []).map(tg => localizeTag(tg, item)).join(" ")
+].join(" | "));
 
       return hay.includes(q);
     }
@@ -1189,14 +1232,13 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
            const allLabel = t("tag_all");
       const prefix = t("tag_prefix");
 
-      els.tagSelect.innerHTML =
+     els.tagSelect.innerHTML =
   `<option value="">${escapeHtml(allLabel)}</option>` +
   tags.map(tg =>
     `<option value="${escapeHtml(tg)}"${tg===current ? " selected":""}>` +
-    `${escapeHtml(prefix)}${escapeHtml(localizeTag(tg))}</option>`
+    `${escapeHtml(prefix)}${escapeHtml(localizeTag(tg, { lang: "es" }))}</option>`
   ).join("");
-    }
-
+      
     function escapeHtml(s){
       return String(s)
         .replaceAll("&","&amp;")
@@ -1207,7 +1249,7 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
     }
 
     function itemCard(item){
-  const tags = (item.tags || []).slice(0,4).map(t=>`<span class="tag">${escapeHtml(localizeTag(t))}</span>`).join("");
+  const tags = (item.tags || []).slice(0,4).map(t=>`<span class="tag">${escapeHtml(localizeTag(t, item))}</span>`).join("");
   const extra = (item.tags || []).length > 4 ? `<span class="tag">+${(item.tags||[]).length - 4}</span>` : "";
   return `
     <article class="item" tabindex="0" role="button" aria-label="${escapeHtml(t("open_prefix") + getLocalizedTitle(item))}" data-id="${escapeHtml(item.id)}">
@@ -1294,8 +1336,7 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
       const featuredLabel = (state.lang === "es") ? "Destacado" : "Featured";
 els.modalSub.textContent =
   `${formatDate(item.date || "")} • ${item.featured ? (featuredLabel + " • ") : ""}` +
-  `${(item.tags || []).map(localizeTag).join(" • ")}`;
-
+  `${(item.tags || []).map(tg => localizeTag(tg, item)).join(" • ")}`;
       if (isMobileView() && item.pdfHref) {
         history.replaceState(null, "", "#/");
         window.open(item.pdfHref, "_blank", "noopener,noreferrer");
@@ -1312,7 +1353,7 @@ els.modalSub.textContent =
         els.downloadBtn.style.display = "none";
       }
 
-      els.modalTags.innerHTML = (item.tags || []).map(t=>`<span class="tag">${escapeHtml(localizeTag(t))}</span>`).join("");
+      els.modalTags.innerHTML = (item.tags || []).map(t=>`<span class="tag">${escapeHtml(localizeTag(t, item))}</span>`).join("");
 
       els.overlay.classList.add("show");
       document.body.style.overflow = "hidden";
