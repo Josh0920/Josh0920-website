@@ -318,6 +318,10 @@
   .hero{ grid-template-columns: 1fr; } /* collapse only on phones */
 }
 
+    @keyframes fadeUp{
+      from{ opacity:0; transform:translateY(8px); }
+      to{ opacity:1; transform:translateY(0); }
+    }
     .item{
       background: var(--paper);
       border: 1px solid var(--rule);
@@ -332,7 +336,12 @@
       justify-content:space-between;
       position:relative;
       overflow:hidden;
+      animation: fadeUp .3s ease both;
     }
+    .grid .item:nth-child(1){ animation-delay: 0s; }
+    .grid .item:nth-child(2){ animation-delay: .05s; }
+    .grid .item:nth-child(3){ animation-delay: .1s; }
+    .grid .item:nth-child(4){ animation-delay: .15s; }
 
     /* left “accent rule” */
     .item::before{
@@ -530,18 +539,110 @@
       border-color: color-mix(in srgb, var(--danger) 45%, var(--rule));
     }
 
-    /* Fix weird underline on "Download PDF" */
-    .pdf-actions { margin: 10px 0 0; }
-    .download-link{
-      display: inline;
-      width: auto;
-      padding: 0;
-      text-decoration: underline;
-      text-decoration-thickness: 1px;
-      text-underline-offset: 3px;
-      color: color-mix(in srgb, var(--accent) 85%, var(--ink));
+    /* Download button in modal header */
+    #downloadBtn{
+      background: color-mix(in srgb, var(--accent) 10%, var(--paper));
+      border-color: color-mix(in srgb, var(--accent) 30%, var(--rule));
+      color: var(--accent);
+      font-weight: 600;
     }
-    .download-link:hover{ color: var(--accent); }
+    #downloadBtn:hover{
+      background: color-mix(in srgb, var(--accent) 18%, var(--paper));
+    }
+
+    /* ===== Comment section ===== */
+    .comments-section{
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--rule);
+    }
+    .comments-section h3{
+      margin: 0 0 14px;
+      font-family: var(--serif);
+      font-weight: 800;
+      font-size: 17px;
+      color: var(--ink);
+    }
+    .comment-form{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .comment-form input,
+    .comment-form textarea{
+      width: 100%;
+      border: 1px solid var(--rule);
+      background: color-mix(in srgb, var(--paper) 92%, var(--bg));
+      border-radius: 10px;
+      padding: 10px 12px;
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 14px;
+      outline: none;
+      transition: border-color .12s ease;
+    }
+    .comment-form input:focus,
+    .comment-form textarea:focus{
+      border-color: color-mix(in srgb, var(--accent) 50%, var(--rule));
+    }
+    .comment-form textarea{
+      min-height: 80px;
+      resize: vertical;
+    }
+    .comment-form button{
+      align-self: flex-end;
+      padding: 9px 18px;
+      border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--rule));
+      background: color-mix(in srgb, var(--accent) 10%, var(--paper));
+      color: var(--accent);
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .12s ease, transform .12s ease;
+    }
+    .comment-form button:hover{
+      background: color-mix(in srgb, var(--accent) 18%, var(--paper));
+      transform: translateY(-1px);
+    }
+    .comment-list{
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .comment{
+      padding: 12px 14px;
+      border: 1px solid var(--soft);
+      border-radius: 10px;
+      background: color-mix(in srgb, var(--paper) 94%, var(--bg));
+    }
+    .comment-header{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .comment-author{
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--ink);
+    }
+    .comment-date{
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .comment-text{
+      font-size: 14px;
+      color: var(--ink);
+      line-height: 1.5;
+      margin: 0;
+    }
+    .comment-empty{
+      color: var(--muted);
+      font-size: 13px;
+      font-style: italic;
+    }
 
     /* ===== Mobile: keep your functionality + nicer stacking ===== */
     @media (max-width: 620px) {
@@ -719,7 +820,7 @@
       <header>
         <h3 id="modalType">Reader</h3>
         <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          <a class="btn" id="downloadBtn" href="#" download title="Download PDF" style="display:none;">⬇️</a>
+          <a class="btn" id="downloadBtn" href="#" download title="Download PDF" style="display:none;">Download PDF</a>
           <button class="btn" id="copyLinkBtn">Copy Link</button>
           <button class="btn danger" id="closeBtn">Close</button>
         </div>
@@ -729,6 +830,16 @@
         <div class="sub" id="modalSub"></div>
         <div class="tags" id="modalTags" style="margin-bottom:12px;"></div>
         <div class="body" id="modalBody"></div>
+
+        <div class="comments-section" id="commentsSection">
+          <h3 id="commentsHeading">Comments</h3>
+          <form class="comment-form" id="commentForm">
+            <input type="text" id="commentName" placeholder="Your name" required maxlength="80" />
+            <textarea id="commentText" placeholder="Share your thoughts..." required maxlength="2000"></textarea>
+            <button type="submit" id="commentSubmitBtn">Post Comment</button>
+          </form>
+          <div class="comment-list" id="commentList"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -754,10 +865,6 @@
   height="900"
   style="border:none;"
 ></iframe>
-
-<p class="pdf-actions">
-  <a class="download-link" href="Is John 7.53-8.11 Part of the Original Text of John (PDF).pdf" download>Download PDF</a>
-</p>
 `
       },
 
@@ -769,18 +876,14 @@
         featured: false,
         tags: ["Luke", "Textual Criticism", "Manuscripts", "Church Fathers"],
         excerpt: "A textual-critical analysis of Luke 23:34a and its external evidence from the Manuscript Witnesses and Early Church Fathers.",
-        pdfHref: "The%20External%20Evidence%20for%20the%20Authorship%20of%20Luke%2023.34a.%20An%20Examination%20of%20the%20Evidence%20from%20the%20Manuscript%20and%20Church%20Father%20Witnesses.pdf",
+        pdfHref: "The%20External%20Evidence%20for%20the%20Authenticity%20of%20Luke%2023.34a%20(PDF).pdf",
         body: `
 <iframe
-  src="The%20External%20Evidence%20for%20the%20Authorship%20of%20Luke%2023.34a.%20An%20Examination%20of%20the%20Evidence%20from%20the%20Manuscript%20and%20Church%20Father%20Witnesses.pdf"
+  src="The%20External%20Evidence%20for%20the%20Authenticity%20of%20Luke%2023.34a%20(PDF).pdf"
   width="100%"
   height="900"
   style="border:none;"
 ></iframe>
-
-<p class="pdf-actions">
-  <a class="download-link" href="The%20External%20Evidence%20for%20the%20Authorship%20of%20Luke%2023.34a.%20An%20Examination%20of%20the%20Evidence%20from%20the%20Manuscript%20and%20Church%20Father%20Witnesses.pdf" download>Download PDF</a>
-</p>
 `
       },
 
@@ -800,10 +903,6 @@
   height="900"
   style="border:none;"
 ></iframe>
-
-<p class="pdf-actions">
-  <a class="download-link" href="Who Wrote 1 Cor. 14.34-5. Paul or Someone Else (PDF).pdf" download>Download PDF</a>
-</p>
 `
       }
             ,
@@ -818,7 +917,8 @@
         excerpt: "Génesis 11 muestra que cuando Dios dijo ‘dispersarse’, Él hablaba en serio. En Cristo, somos un solo pueblo, llamado a ‘multiplicarnos’ espiritualmente (Mt 28:18–20).",
 
         /* ✅ This opens a real HTML page instead of the modal */
-       href: "articles/pueblen-la-tierra/"
+       href: "articles/pueblen-la-tierra/",
+        body: ""
       }
     ];
     /*************************************************************
@@ -875,6 +975,11 @@ kpi_notes: "Notes",
 kpi_papers: "Papers",
 kpi_articles: "Articles",
 kpi_featured: "Featured",
+        comments_heading: "Comments",
+        comment_name_ph: "Your name",
+        comment_text_ph: "Share your thoughts...",
+        comment_submit: "Post Comment",
+        comment_empty: "No comments yet. Be the first to share your thoughts.",
       },
       es: {
         nav_all: "Todo",
@@ -926,6 +1031,11 @@ kpi_notes: "Notas",
 kpi_papers: "Trabajos",
 kpi_articles: "Artículos",
 kpi_featured: "Destacado",
+        comments_heading: "Comentarios",
+        comment_name_ph: "Tu nombre",
+        comment_text_ph: "Comparte tus pensamientos...",
+        comment_submit: "Publicar comentario",
+        comment_empty: "Aún no hay comentarios. Sé el primero en compartir tus pensamientos.",
       }
     };
 
@@ -1086,7 +1196,13 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
       els.copyLinkBtn.textContent = t("modal_copy");
       els.closeBtn.textContent = t("modal_close");
       els.downloadBtn.title = t("dl_title");
-            // footer (updates on language toggle)
+            // comments
+      document.getElementById("commentsHeading").textContent = t("comments_heading");
+      document.getElementById("commentName").placeholder = t("comment_name_ph");
+      document.getElementById("commentText").placeholder = t("comment_text_ph");
+      document.getElementById("commentSubmitBtn").textContent = t("comment_submit");
+
+      // footer (updates on language toggle)
       document.getElementById("footerLeft").textContent =
         t("footer_left").replace("{year}", new Date().getFullYear());
       document.getElementById("footerRight").textContent = t("footer_right");
@@ -1120,9 +1236,6 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
       copyLinkBtn: document.getElementById("copyLinkBtn"),
       downloadBtn: document.getElementById("downloadBtn"),
 
-      exportBtn: document.getElementById("exportBtn"),
-      importBtn: document.getElementById("importBtn"),
-      clearFiltersBtn: document.getElementById("clearFiltersBtn"),
       homeLink: document.getElementById("homeLink"),
     };
 
@@ -1257,6 +1370,8 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
     function itemCard(item){
   const tags = (item.tags || []).slice(0,4).map(t=>`<span class="tag">${escapeHtml(localizeTag(t, item))}</span>`).join("");
   const extra = (item.tags || []).length > 4 ? `<span class="tag">+${(item.tags||[]).length - 4}</span>` : "";
+  const cc = getCommentCount(item.id);
+  const commentBadge = cc > 0 ? `<span style="color:var(--muted);font-size:12px;">${cc} ${cc === 1 ? "comment" : (state.lang === "es" ? "comentarios" : "comments")}</span>` : "";
   return `
     <article class="item" tabindex="0" role="button" aria-label="${escapeHtml(t("open_prefix") + getLocalizedTitle(item))}" data-id="${escapeHtml(item.id)}">
       <div>
@@ -1266,7 +1381,7 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
       </div>
       <div class="meta">
         <div class="tags">${tags}${extra}</div>
-        <div></div>
+        ${commentBadge}
       </div>
     </article>
   `;
@@ -1364,6 +1479,9 @@ els.modalSub.textContent =
       els.overlay.classList.add("show");
       document.body.style.overflow = "hidden";
       history.replaceState(null, "", `#/${encodeURIComponent(item.id)}`);
+
+      // Load comments for this document
+      renderComments(item.id);
     }
 
     function closeReader(){
@@ -1394,47 +1512,6 @@ els.modalSub.textContent =
     }
     window.scrollToTop = scrollToTop;
 
-    function clearFilters(){
-      state.type = "All";
-      state.query = "";
-      state.tag = "";
-      state.sort = "newest";
-      els.searchInput.value = "";
-      els.sortSelect.value = "newest";
-      buildTagSelect();
-      renderGrid();
-      scrollToTop();
-    }
-
-    function exportJSON(){
-      const payload = JSON.stringify(CONTENT, null, 2);
-      const blob = new Blob([payload], {type:"application/json"});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "bible-library-content.json";
-      a.click();
-      URL.revokeObjectURL(url);
-    }
-
-    function importJSON(){
-      const input = document.createElement("input");
-      input.type = "file";
-      input.accept = "application/json";
-      input.onchange = async () => {
-        const file = input.files && input.files[0];
-        if (!file) return;
-        const text = await file.text();
-        try {
-          const parsed = JSON.parse(text);
-          if (!Array.isArray(parsed)) throw new Error("JSON must be an array.");
-          alert("Imported JSON successfully. NOTE: This demo file does not overwrite the hard-coded CONTENT array.\n\nTo use imports permanently, you’d store parsed data in localStorage or load it from a separate .json file.");
-        } catch (e) {
-          alert("Import failed: " + e.message);
-        }
-      };
-      input.click();
-    }
 
     els.filterAll.addEventListener("click", ()=> setTypeFilter("All"));
 els.filterNotes.addEventListener("click", ()=> setTypeFilter("Notes"));
@@ -1487,10 +1564,117 @@ els.langToggle.addEventListener("click", ()=>{
   }
 });
 
-    els.exportBtn?.addEventListener("click", (e)=>{ e.preventDefault(); exportJSON(); });
-    els.importBtn?.addEventListener("click", (e)=>{ e.preventDefault(); importJSON(); });
-    els.clearFiltersBtn?.addEventListener("click", (e)=>{ e.preventDefault(); clearFilters(); });
     els.homeLink?.addEventListener("click", (e)=>{ e.preventDefault(); scrollToTop(); });
+
+    /*************************************************************
+     * COMMENT SYSTEM (Supabase)
+     *************************************************************/
+    const SUPABASE_URL = "https://anhcdgfwwpyfgcxmbneu.supabase.co";
+    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFuaGNkZ2Z3d3B5ZmdjeG1ibmV1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzMjk5NTksImV4cCI6MjA5MDkwNTk1OX0.wjfns8LwUN9r-AM_g-qmnysV9DrFYunjghH9bmLzwP4";
+
+    let currentCommentId = null;
+    // Cache comment counts so cards render instantly
+    const commentCountCache = {};
+
+    async function sbFetch(path, options = {}){
+      const headers = {
+        "apikey": SUPABASE_KEY,
+        "Authorization": "Bearer " + SUPABASE_KEY,
+        "Content-Type": "application/json",
+        ...options.headers
+      };
+      const res = await fetch(SUPABASE_URL + "/rest/v1" + path, { ...options, headers });
+      if (!res.ok) throw new Error(res.statusText);
+      const text = await res.text();
+      return text ? JSON.parse(text) : null;
+    }
+
+    async function fetchComments(docId){
+      return sbFetch(
+        "/comments?document_id=eq." + encodeURIComponent(docId) + "&order=created_at.asc"
+      );
+    }
+
+    async function postComment(docId, name, body){
+      return sbFetch("/comments", {
+        method: "POST",
+        headers: { "Prefer": "return=representation" },
+        body: JSON.stringify({ document_id: docId, name, body })
+      });
+    }
+
+    async function renderComments(id){
+      currentCommentId = id;
+      const list = document.getElementById("commentList");
+      list.innerHTML = `<p class="comment-empty" style="font-style:normal;">Loading...</p>`;
+
+      try {
+        const comments = await fetchComments(id);
+        commentCountCache[id] = comments.length;
+
+        if (!comments.length){
+          list.innerHTML = `<p class="comment-empty">${escapeHtml(t("comment_empty"))}</p>`;
+          return;
+        }
+
+        list.innerHTML = comments.map(c => {
+          const d = c.created_at ? c.created_at.slice(0,10) : "";
+          return `
+          <div class="comment">
+            <div class="comment-header">
+              <span class="comment-author">${escapeHtml(c.name)}</span>
+              <span class="comment-date">${escapeHtml(formatDate(d))}</span>
+            </div>
+            <p class="comment-text">${escapeHtml(c.body)}</p>
+          </div>`;
+        }).join("");
+      } catch {
+        list.innerHTML = `<p class="comment-empty">Could not load comments.</p>`;
+      }
+    }
+
+    function getCommentCount(id){
+      return commentCountCache[id] || 0;
+    }
+
+    // Pre-fetch all comment counts so cards show badges on load
+    async function prefetchCommentCounts(){
+      try {
+        const rows = await sbFetch(
+          "/comments?select=document_id"
+        );
+        const counts = {};
+        rows.forEach(r => { counts[r.document_id] = (counts[r.document_id] || 0) + 1; });
+        Object.assign(commentCountCache, counts);
+        renderGrid(); // re-render cards with updated counts
+      } catch {}
+    }
+
+    document.getElementById("commentForm").addEventListener("submit", async (e)=>{
+      e.preventDefault();
+      if (!currentCommentId) return;
+
+      const nameInput = document.getElementById("commentName");
+      const textInput = document.getElementById("commentText");
+      const submitBtn = document.getElementById("commentSubmitBtn");
+      const name = nameInput.value.trim();
+      const body = textInput.value.trim();
+      if (!name || !body) return;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "...";
+
+      try {
+        await postComment(currentCommentId, name, body);
+        textInput.value = "";
+        await renderComments(currentCommentId);
+      } catch {
+        alert("Could not post comment. Please try again.");
+      }
+
+      submitBtn.disabled = false;
+      submitBtn.textContent = t("comment_submit");
+    });
 
     function init() {
       if (!location.hash) history.replaceState(null, "", "#/");
@@ -1505,6 +1689,9 @@ renderGrid();
 
       hydrateFromHash();
       window.addEventListener("hashchange", hydrateFromHash);
+
+      // Fetch comment counts from Supabase so cards show badges
+      prefetchCommentCounts();
     }
 
     if (document.readyState === "loading") {
