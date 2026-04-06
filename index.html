@@ -617,8 +617,50 @@
       color: var(--muted);
     }
 
-    /* Tablet & phone: hide PDF iframe, show open button */
-    @media (max-width: 960px){
+    /* Tablet landscape: PDF left, sidebar right (like desktop but narrower sidebar) */
+    @media (max-width: 960px) and (orientation: landscape){
+      .modal-body{
+        grid-template-columns: 1fr 340px;
+      }
+      .modal-sidebar h1{
+        font-size: 18px;
+      }
+      .modal-body.no-pdf .modal-sidebar{
+        max-width: 100%;
+        padding: 22px 28px;
+      }
+    }
+
+    /* Tablet portrait: PDF on top, sidebar below */
+    @media (max-width: 960px) and (orientation: portrait){
+      .modal-body{
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr auto;
+        overflow-y: auto;
+      }
+      .modal-pdf{
+        min-height: 65vh;
+      }
+      .modal-sidebar{
+        border-left: none;
+        border-top: 1px solid var(--rule);
+      }
+      .modal-body.no-pdf .modal-sidebar{
+        max-width: 100%;
+        padding: 22px 28px;
+      }
+    }
+
+    /* Phone: hide PDF iframe, show open button */
+    @media (max-width: 620px){
+      .modal header{
+        padding: 10px 14px;
+        flex-wrap: wrap;
+      }
+      .modal-title-inline{
+        max-width: 60vw;
+        font-size: 13px;
+      }
       .modal-body{
         grid-template-columns: 1fr;
         grid-template-rows: auto;
@@ -632,24 +674,6 @@
       }
       .modal-sidebar{
         border-left: none;
-      }
-      .modal-body.no-pdf .modal-sidebar{
-        max-width: 100%;
-        padding: 22px 28px;
-      }
-    }
-
-    /* Phone */
-    @media (max-width: 620px){
-      .modal header{
-        padding: 10px 14px;
-        flex-wrap: wrap;
-      }
-      .modal-title-inline{
-        max-width: 60vw;
-        font-size: 13px;
-      }
-      .modal-sidebar{
         padding: 16px 14px;
       }
       .modal-sidebar h1{
