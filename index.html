@@ -759,7 +759,7 @@
       margin-bottom: 20px;
     }
     .comment-form input,
-    .comment-form textarea{
+    .comment-form .comment-editor{
       width: 100%;
       border: 1px solid var(--rule);
       background: color-mix(in srgb, var(--paper) 92%, var(--bg));
@@ -772,12 +772,20 @@
       transition: border-color .12s ease;
     }
     .comment-form input:focus,
-    .comment-form textarea:focus{
+    .comment-form .comment-editor:focus{
       border-color: color-mix(in srgb, var(--accent) 50%, var(--rule));
     }
-    .comment-form textarea{
+    .comment-form .comment-editor{
       min-height: 80px;
-      resize: vertical;
+      overflow-y: auto;
+      max-height: 200px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    .comment-form .comment-editor:empty::before{
+      content: attr(data-placeholder);
+      color: var(--muted);
+      pointer-events: none;
     }
     .comment-form button{
       align-self: flex-end;
@@ -1011,7 +1019,7 @@
             <h3 id="commentsHeading">Comments</h3>
             <form class="comment-form" id="commentForm">
               <input type="text" id="commentName" placeholder="Your name" required maxlength="80" />
-              <textarea id="commentText" placeholder="Share your thoughts..." required maxlength="2000"></textarea>
+              <div class="comment-editor" id="commentText" contenteditable="true" role="textbox" aria-multiline="true" data-placeholder="Share your thoughts..."></div>
               <button type="submit" id="commentSubmitBtn">Post Comment</button>
             </form>
             <div class="comment-list" id="commentList"></div>
@@ -1333,7 +1341,7 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
             // comments
       document.getElementById("commentsHeading").textContent = t("comments_heading");
       document.getElementById("commentName").placeholder = t("comment_name_ph");
-      document.getElementById("commentText").placeholder = t("comment_text_ph");
+      document.getElementById("commentText").setAttribute("data-placeholder", t("comment_text_ph"));
       document.getElementById("commentSubmitBtn").textContent = t("comment_submit");
 
       // footer (updates on language toggle)
@@ -1479,6 +1487,31 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
         .replaceAll(">","&gt;")
         .replaceAll('"',"&quot;")
         .replaceAll("'","&#039;");
+    }
+
+    // Allow only b, i, u, strong, em tags in comment HTML; strip everything else
+    function sanitizeComment(html){
+      const div = document.createElement("div");
+      div.innerHTML = String(html);
+      const allowed = new Set(["B","I","U","STRONG","EM","BR"]);
+      function clean(node){
+        const children = [...node.childNodes];
+        for (const child of children){
+          if (child.nodeType === 3) continue; // text node, keep
+          if (child.nodeType === 1){
+            if (allowed.has(child.tagName)){
+              clean(child); // recurse into allowed tags
+            } else {
+              // replace disallowed tag with its text content
+              child.replaceWith(document.createTextNode(child.textContent));
+            }
+          } else {
+            child.remove();
+          }
+        }
+      }
+      clean(div);
+      return div.innerHTML;
     }
 
     function itemCard(item){
@@ -1776,7 +1809,7 @@ els.langToggle.addEventListener("click", ()=>{
               <span class="comment-author">${escapeHtml(c.name)}</span>
               <span class="comment-date">${escapeHtml(formatDate(d))}</span>
             </div>
-            <p class="comment-text">${escapeHtml(c.body)}</p>
+            <p class="comment-text">${sanitizeComment(c.body)}</p>
           </div>`;
         }).join("");
       } catch {
@@ -1801,6 +1834,18 @@ els.langToggle.addEventListener("click", ()=>{
       } catch {}
     }
 
+    // Keyboard shortcuts for bold/italic/underline in comment editor
+    document.getElementById("commentText").addEventListener("keydown", (e) => {
+      if ((e.metaKey || e.ctrlKey) && !e.shiftKey && !e.altKey) {
+        const key = e.key.toLowerCase();
+        if (key === "b" || key === "i" || key === "u") {
+          e.preventDefault();
+          const cmd = key === "b" ? "bold" : key === "i" ? "italic" : "underline";
+          document.execCommand(cmd, false, null);
+        }
+      }
+    });
+
     document.getElementById("commentForm").addEventListener("submit", async (e)=>{
       e.preventDefault();
       if (!currentCommentId) return;
@@ -1809,15 +1854,15 @@ els.langToggle.addEventListener("click", ()=>{
       const textInput = document.getElementById("commentText");
       const submitBtn = document.getElementById("commentSubmitBtn");
       const name = nameInput.value.trim();
-      const body = textInput.value.trim();
-      if (!name || !body) return;
+      const body = textInput.innerHTML.trim();
+      if (!name || !body || body === '<br>') return;
 
       submitBtn.disabled = true;
       submitBtn.textContent = "...";
 
       try {
         await postComment(currentCommentId, name, body);
-        textInput.value = "";
+        textInput.innerHTML = "";
         await renderComments(currentCommentId);
       } catch {
         alert("Could not post comment. Please try again.");
