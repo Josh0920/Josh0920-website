@@ -840,6 +840,102 @@
       font-size: 13px;
       font-style: italic;
     }
+    .reply-btn{
+      margin-top: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-family: var(--sans);
+      letter-spacing: 0.01em;
+      transition: background 0.15s, color 0.15s;
+    }
+    .reply-btn:hover{
+      background: color-mix(in srgb, var(--accent) 12%, transparent);
+      color: var(--accent);
+    }
+    .reply-form-wrap{
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 8px;
+      background: color-mix(in srgb, var(--accent) 4%, var(--paper));
+      border: 1px solid color-mix(in srgb, var(--accent) 20%, var(--rule));
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .reply-name-input{
+      border: 1px solid var(--rule);
+      background: var(--paper);
+      border-radius: 8px;
+      padding: 7px 10px;
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 13px;
+      outline: none;
+      width: 100%;
+    }
+    .reply-name-input:focus{
+      border-color: color-mix(in srgb, var(--accent) 50%, var(--rule));
+    }
+    .reply-editor{
+      min-height: 56px;
+      border: 1px solid var(--rule);
+      background: var(--paper);
+      border-radius: 8px;
+      padding: 7px 10px;
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 13px;
+      outline: none;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    .reply-editor:focus{
+      border-color: color-mix(in srgb, var(--accent) 50%, var(--rule));
+    }
+    .reply-editor:empty::before{
+      content: attr(data-placeholder);
+      color: var(--muted);
+      pointer-events: none;
+    }
+    .reply-submit-btn{
+      align-self: flex-end;
+      padding: 6px 14px;
+      border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--rule));
+      background: color-mix(in srgb, var(--accent) 10%, var(--paper));
+      color: var(--accent);
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: var(--sans);
+    }
+    .reply-submit-btn:hover{
+      background: color-mix(in srgb, var(--accent) 18%, var(--paper));
+    }
+    .replies-list{
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-left: 14px;
+      border-left: 2px solid var(--rule);
+    }
+    .comment-reply{
+      padding: 10px 12px;
+      font-size: 13px;
+    }
+    .comment-reply .comment-text{
+      font-size: 13px;
+    }
 
     /* ===== Mobile: keep your functionality + nicer stacking ===== */
     @media (max-width: 620px) {
@@ -1068,6 +1164,17 @@
       },
 
       {
+        id: "ages-in-genesis",
+        type: "Notes",
+        title: "Ages in Genesis (Abraham through Ephraim)",
+        date: "2026-04-10",
+        featured: false,
+        tags: ["Genesis", "Old Testament", "Chronology", "Hebrew"],
+        excerpt: "A chronological chart calculating the ages of Abraham, Sarah, Ishmael, Isaac, Jacob, Joseph, Benjamin, Manasseh, and Ephraim based on the Genesis text.",
+        href: "articles/ages-in-genesis/"
+      },
+
+      {
         id: "genesis-34-dinah",
         type: "Papers",
         title: "What Happened in Genesis 34? Was Dinah Raped or Was She Consenting?",
@@ -1207,6 +1314,10 @@ footer_right: "A Él sea la gloria",
       "1cor-14-34-35-authorship": {
         title: "¿Quién escribió 1 Cor. 14:34–35? ¿Pablo u otra persona?",
         excerpt: "Un análisis de crítica textual de 1 Corintios 14:34–35 y su evidencia externa a partir de los testigos manuscritos."
+      },
+      "ages-in-genesis": {
+        title: "Edades en Génesis (Abraham hasta Efraín)",
+        excerpt: "Un cuadro cronológico que calcula las edades de Abraham, Sara, Ismael, Isaac, Jacob, José, Benjamín, Manasés y Efraín según el texto de Génesis."
       },
       "genesis-34-dinah": {
         title: "¿Qué pasó en Génesis 34? ¿Fue Dina violada o fue consensuado?",
@@ -1798,12 +1909,43 @@ els.langToggle.addEventListener("click", ()=>{
       );
     }
 
-    async function postComment(docId, name, body){
+    async function postComment(docId, name, body, parentId = null){
+      const payload = { document_id: docId, name, body };
+      if (parentId) payload.parent_id = parentId;
       return sbFetch("/comments", {
         method: "POST",
         headers: { "Prefer": "return=representation" },
-        body: JSON.stringify({ document_id: docId, name, body })
+        body: JSON.stringify(payload)
       });
+    }
+
+    function replyPlaceholderText(){ return t("comment_text_ph"); }
+    function replyNamePlaceholderText(){ return t("comment_name_ph"); }
+
+    function toggleReplyForm(parentId){
+      const wrap = document.getElementById(`reply-form-${parentId}`);
+      const isHidden = wrap.style.display === "none" || wrap.style.display === "";
+      wrap.style.display = isHidden ? "flex" : "none";
+      if (isHidden) wrap.querySelector(".reply-name-input").focus();
+    }
+
+    async function submitReply(parentId, btn){
+      const wrap = document.getElementById(`reply-form-${parentId}`);
+      const nameInput = wrap.querySelector(".reply-name-input");
+      const bodyInput = wrap.querySelector(".reply-editor");
+      const name = nameInput.value.trim();
+      const body = bodyInput.innerHTML.trim();
+      if (!name || !body || body === "<br>") return;
+      btn.disabled = true;
+      btn.textContent = "...";
+      try {
+        await postComment(currentCommentId, name, body, parentId);
+        await renderComments(currentCommentId);
+      } catch {
+        alert("Could not post reply. Please try again.");
+        btn.disabled = false;
+        btn.textContent = t("comment_submit");
+      }
     }
 
     async function renderComments(id){
@@ -1813,24 +1955,67 @@ els.langToggle.addEventListener("click", ()=>{
 
       try {
         const comments = await fetchComments(id);
-        commentCountCache[id] = comments.length;
+        const topLevel = comments.filter(c => !c.parent_id);
+        commentCountCache[id] = topLevel.length;
 
         if (!comments.length){
           list.innerHTML = `<p class="comment-empty">${escapeHtml(t("comment_empty"))}</p>`;
           return;
         }
 
-        list.innerHTML = comments.map(c => {
+        // Group replies by parent_id
+        const repliesMap = {};
+        comments.filter(c => c.parent_id).forEach(c => {
+          (repliesMap[c.parent_id] = repliesMap[c.parent_id] || []).push(c);
+        });
+
+        const namePh = escapeHtml(t("comment_name_ph"));
+        const textPh = escapeHtml(t("comment_text_ph"));
+        const replyLabel = state.lang === "es" ? "Responder" : "Reply";
+        const postReplyLabel = t("comment_submit");
+
+        list.innerHTML = topLevel.map(c => {
           const d = c.created_at ? c.created_at.slice(0,10) : "";
-          return `
-          <div class="comment">
+          const childReplies = (repliesMap[c.id] || []).map(r => {
+            const rd = r.created_at ? r.created_at.slice(0,10) : "";
+            return `<div class="comment comment-reply">
+              <div class="comment-header">
+                <span class="comment-author">${escapeHtml(r.name)}</span>
+                <span class="comment-date">${escapeHtml(formatDate(rd))}</span>
+              </div>
+              <p class="comment-text">${sanitizeComment(r.body)}</p>
+            </div>`;
+          }).join("");
+
+          return `<div class="comment" id="comment-${c.id}">
             <div class="comment-header">
               <span class="comment-author">${escapeHtml(c.name)}</span>
               <span class="comment-date">${escapeHtml(formatDate(d))}</span>
             </div>
             <p class="comment-text">${sanitizeComment(c.body)}</p>
+            <button class="reply-btn" onclick="toggleReplyForm(${c.id})"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M10 9V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z"/></svg>${replyLabel}</button>
+            <div class="reply-form-wrap" id="reply-form-${c.id}" style="display:none;">
+              <input class="reply-name-input" type="text" placeholder="${namePh}" maxlength="80" />
+              <div class="comment-editor reply-editor" contenteditable="true" data-placeholder="${textPh}"></div>
+              <button class="reply-submit-btn" onclick="submitReply(${c.id}, this)">${postReplyLabel}</button>
+            </div>
+            ${childReplies ? `<div class="replies-list">${childReplies}</div>` : ""}
           </div>`;
         }).join("");
+
+        // Attach keyboard shortcuts to all reply editors
+        list.querySelectorAll(".reply-editor").forEach(el => {
+          el.addEventListener("keydown", (e) => {
+            if ((e.metaKey || e.ctrlKey) && !e.shiftKey && !e.altKey) {
+              const key = e.key.toLowerCase();
+              if (key === "b" || key === "i" || key === "u") {
+                e.preventDefault();
+                document.execCommand(key === "b" ? "bold" : key === "i" ? "italic" : "underline", false, null);
+              }
+            }
+          });
+        });
+
       } catch {
         list.innerHTML = `<p class="comment-empty">Could not load comments.</p>`;
       }
