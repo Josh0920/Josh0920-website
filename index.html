@@ -155,11 +155,8 @@
 
     /* ===== Hero: personal intro ===== */
     .hero{
-      display:grid;
-      grid-template-columns: 1fr 300px;
-      gap:22px;
-      align-items:start;
       margin-top: 10px;
+      padding: 10px 0 0;
     }
 
     .card{
@@ -171,13 +168,10 @@
     }
 
     .hero-intro{
-      padding: 22px 0 0;
+      padding: 12px 0 0;
       background: none;
       border: none;
       box-shadow: none;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
     }
     .hero-intro h2{
       margin:0 0 10px;
@@ -201,7 +195,7 @@
       flex-wrap:wrap;
       gap:10px;
       align-items:center;
-      margin-top: 18px;
+      margin-top: 12px;
     }
     .search{
       flex: 1 1 280px;
@@ -250,13 +244,52 @@
     }
     .podcast-img:hover{ transform: translateY(-2px); }
 
-    /* ===== Main split: library + sidebar ===== */
+    /* ===== Library section ===== */
     .split{
-      display:grid;
-      grid-template-columns: 1fr 380px;
+      margin-top: 0;
+    }
+
+    /* Full-width podcast card */
+    .podcast-full{
+      display:flex;
+      flex-direction: row;
+      align-items:center;
       gap:22px;
+      margin-top: 28px;
+    }
+    .podcast-full > a{
+      display: block;
+      flex-shrink: 0;
+      width: 160px;
+    }
+    .podcast-full .podcast-img{
+      width: 160px;
+      height: 160px;
+      max-height: none;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+    .podcast-full-body{ flex: 1; }
+
+    /* Full-width about card */
+    .about-full{
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 22px;
       margin-top: 22px;
-      align-items:start;
+    }
+    .about-full-col h2{
+      font-family: var(--serif);
+      font-weight: 900;
+      letter-spacing:.2px;
+      margin:0 0 10px;
+      font-size: 18px;
+    }
+    .about-full-col p{
+      color: var(--muted);
+      font-size: 13px;
+      margin: 0;
+      line-height: 1.65;
     }
 
     /* Library header */
@@ -293,9 +326,14 @@
       .grid{ grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 820px){
-  .split{ grid-template-columns: 1fr; }
   .grid{ grid-template-columns: 1fr; }
-  .hero{ grid-template-columns: 1fr; }
+}
+    @media (max-width: 620px){
+  .about-full{ grid-template-columns: 1fr; }
+  .about-full-col + .about-full-col{ margin-top: 18px; }
+  .podcast-full{ flex-direction: column; align-items: flex-start; }
+  .podcast-full > a{ width: 100%; }
+  .podcast-full .podcast-img{ width: 100%; height: auto; max-height: 160px; }
 }
 
 
@@ -1002,65 +1040,64 @@
       <div class="hero-intro">
         <h2 id="heroTitle">Hey, I'm Joshua. Welcome to My Library!</h2>
       </div>
-
-      <aside class="card">
-        <h2 class="podcast-title" id="podcastTitle">The "What Does It Say?" Podcast</h2>
-        <a href="https://creators.spotify.com/pod/profile/whatdoesitsay/" target="_blank" rel="noopener noreferrer">
-          <img class="podcast-img" src="./ab6765630000ba8ae3f49b0a8f0157a58ad2f1a6.jfif" alt="Podcast cover" />
-        </a>
-        <p id="podcastDesc" style="color:var(--muted); font-size:13px; margin-top:10px;">
-          In my Podcast, I aim to provide you, the listener, with a detailed account of what the Scripture says, so that in your study, you may have more than just your own ideas to consult.
-        </p>
-      </aside>
     </section>
 
-    <div class="toolbar">
-      <div class="search" role="search" aria-label="Search">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input id="searchInput" placeholder="Search..." />
-      </div>
-      <select class="select" id="sortSelect" aria-label="Sort">
-        <option value="newest">Newest</option>
-        <option value="oldest">Oldest</option>
-        <option value="titleaz">Title A–Z</option>
-        <option value="titleza">Title Z–A</option>
-      </select>
-      <select class="select" id="tagSelect" aria-label="Tag filter">
-        <option value="">All tags</option>
-      </select>
-    </div>
-
     <section class="split">
-      <div>
-        <div class="section-head">
-         <h2 id="libraryHeading">Library</h2>
-<div class="count"><span id="resultsCount">0</span> <span id="resultsLabel">results</span></div>
-        </div>
-
-        <div id="featuredList" class="grid" style="margin-top:14px;"></div>
-        <div class="grid" id="grid"></div>
+      <div class="section-head" style="margin-top:18px;">
+        <h2 id="libraryHeading">Library</h2>
+        <div class="count"><span id="resultsCount">0</span> <span id="resultsLabel">results</span></div>
       </div>
 
-      <!-- KEEP: About + Quick Links + How To Contact Me content -->
-      <aside class="card aside">
-        <h2 id="aboutHeading">About</h2>
-<p id="aboutText">
-  I'm an evangelist and preacher. My goal is to help people learn about God and His Word. Everything here is free. Use it however it helps you.
-</p>
-
-<div class="quicklinks">
-  <b id="quickLinksHeading">Quick Links</b>
-          <div style="display:flex; flex-direction:column; gap:8px;">
-            <a class="smalllink" href="#" onclick="setTypeFilter('All'); return false;">• <span id="quickHomeLabel">Home</span></a>
-<a class="smalllink" href="#" onclick="setTypeFilter('Notes'); return false;">• <span id="quickNotesLabel">Notes</span></a>
-<a class="smalllink" href="#" onclick="setTypeFilter('Papers'); return false;">• <span id="quickPapersLabel">Papers</span></a>
-<a class="smalllink" href="#" onclick="setTypeFilter('Articles'); return false;">• <span id="quickArticlesLabel">Articles</span></a>
-          </div>
+      <div class="toolbar">
+        <div class="search" role="search" aria-label="Search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input id="searchInput" placeholder="Search..." />
         </div>
+        <select class="select" id="sortSelect" aria-label="Sort">
+          <option value="newest">Newest</option>
+          <option value="oldest">Oldest</option>
+          <option value="titleaz">Title A–Z</option>
+          <option value="titleza">Title Z–A</option>
+        </select>
+        <select class="select" id="tagSelect" aria-label="Tag filter">
+          <option value="">All tags</option>
+        </select>
+      </div>
 
-        <div style="height:16px"></div>
+      <div id="featuredList" class="grid" style="margin-top:14px;"></div>
+      <div class="grid" id="grid"></div>
+    </section>
 
-       <h2 id="contactHeading">Contact</h2>
+    <!-- Podcast -->
+    <aside class="card podcast-full">
+      <a href="https://creators.spotify.com/pod/profile/whatdoesitsay/" target="_blank" rel="noopener noreferrer">
+        <img class="podcast-img" src="./ab6765630000ba8ae3f49b0a8f0157a58ad2f1a6.jfif" alt="Podcast cover" />
+      </a>
+      <div class="podcast-full-body">
+        <h2 class="podcast-title" id="podcastTitle">The "What Does It Say?" Podcast</h2>
+        <p id="podcastDesc" style="color:var(--muted); font-size:13px; margin-top:8px; line-height:1.6;">
+          In my Podcast, I aim to provide you, the listener, with a detailed account of what the Scripture says, so that in your study, you may have more than just your own ideas to consult.
+        </p>
+      </div>
+    </aside>
+
+    <!-- About -->
+    <div class="card about-full">
+      <div class="about-full-col">
+        <h2 id="aboutHeading">About</h2>
+        <p id="aboutText">I'm an evangelist and preacher. My goal is to help people learn about God and His Word. Everything here is free. Use it however it helps you.</p>
+      </div>
+      <div class="about-full-col">
+        <h2 id="quickLinksHeading" style="font-family:var(--serif);font-weight:900;font-size:18px;margin:0 0 10px;">Quick Links</h2>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <a class="smalllink" href="#" onclick="setTypeFilter('All'); return false;">• <span id="quickHomeLabel">Home</span></a>
+          <a class="smalllink" href="#" onclick="setTypeFilter('Notes'); return false;">• <span id="quickNotesLabel">Notes</span></a>
+          <a class="smalllink" href="#" onclick="setTypeFilter('Papers'); return false;">• <span id="quickPapersLabel">Papers</span></a>
+          <a class="smalllink" href="#" onclick="setTypeFilter('Articles'); return false;">• <span id="quickArticlesLabel">Articles</span></a>
+        </div>
+      </div>
+      <div class="about-full-col">
+        <h2 id="contactHeading" style="font-family:var(--serif);font-weight:900;font-size:18px;margin:0 0 10px;">Contact</h2>
         <div class="contact-links">
           <a class="contact-link" href="https://www.instagram.com/generousj_?igsh=MXkya3I5eXFmdXBqOA%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">
             <span class="contact-label">Instagram</span>
@@ -1075,8 +1112,8 @@
             <span class="contact-handle">@joshhaub</span>
           </a>
         </div>
-      </aside>
-    </section>
+      </div>
+    </div>
 
     <!-- KEEP: footer text -->
     <footer class="footer">
