@@ -701,6 +701,24 @@
         padding: 16px 14px;
       }
     }
+    .ios-pdf-tap{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      width: 100%;
+      height: 100%;
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: .02em;
+      transition: color .15s;
+    }
+    .ios-pdf-tap:hover{ color: #fff; }
+    .ios-pdf-tap svg{ opacity: .8; }
+
     .mobile-pdf-btn{
       display: none;
       align-items: center;
@@ -1810,9 +1828,21 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
         `<span class="tag">${escapeHtml(localizeTag(t, item))}</span>`
       ).join("");
 
+      // iOS Safari can't scroll PDFs in iframes — detect and use tap-to-open instead
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+                    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
       // PDF pane
       if (item.pdfHref) {
-        els.modalPdf.innerHTML = `<iframe src="${escapeHtml(item.pdfHref)}" title="${escapeHtml(locTitle)}"></iframe>`;
+        if (isIOS) {
+          els.modalPdf.innerHTML = `
+            <a href="${escapeHtml(item.pdfHref)}" target="_blank" rel="noopener noreferrer" class="ios-pdf-tap">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+              <span>Tap to open PDF</span>
+            </a>`;
+        } else {
+          els.modalPdf.innerHTML = `<iframe src="${escapeHtml(item.pdfHref)}" title="${escapeHtml(locTitle)}"></iframe>`;
+        }
         els.modalPdf.style.display = "flex";
         els.modalBodyWrap.classList.remove("no-pdf");
         els.downloadBtn.href = item.pdfHref;
