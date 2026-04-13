@@ -655,33 +655,13 @@
       color: var(--muted);
     }
 
-    /* Tablet landscape: PDF left, sidebar right (like desktop but narrower sidebar) */
-    @media (max-width: 960px) and (orientation: landscape){
+    /* Tablet (both orientations): PDF left, sidebar right — same as desktop */
+    @media (max-width: 960px){
       .modal-body{
-        grid-template-columns: 1fr 340px;
+        grid-template-columns: 1fr 300px;
       }
       .modal-sidebar h1{
         font-size: 18px;
-      }
-      .modal-body.no-pdf .modal-sidebar{
-        max-width: 100%;
-        padding: 22px 28px;
-      }
-    }
-
-    /* Tablet portrait: PDF on top, sidebar below */
-    @media (max-width: 960px) and (orientation: portrait){
-      .modal-body{
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr auto;
-        overflow-y: auto;
-      }
-      .modal-pdf{
-        min-height: 65vh;
-      }
-      .modal-sidebar{
-        border-left: none;
-        border-top: 1px solid var(--rule);
       }
       .modal-body.no-pdf .modal-sidebar{
         max-width: 100%;
