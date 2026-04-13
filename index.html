@@ -1673,16 +1673,30 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
     function sanitizeComment(html){
       const div = document.createElement("div");
       div.innerHTML = String(html);
-      const allowed = new Set(["B","I","U","STRONG","EM","BR"]);
+      const allowed = new Set(["B","I","U","STRONG","EM","BR","A"]);
       function clean(node){
         const children = [...node.childNodes];
         for (const child of children){
-          if (child.nodeType === 3) continue; // text node, keep
+          if (child.nodeType === 3) continue;
           if (child.nodeType === 1){
-            if (allowed.has(child.tagName)){
-              clean(child); // recurse into allowed tags
+            if (child.tagName === "A"){
+              // Only allow http/https hrefs, strip everything else
+              const href = child.getAttribute("href") || "";
+              if (/^https?:\/\//i.test(href)){
+                child.setAttribute("href", href);
+                child.setAttribute("target", "_blank");
+                child.setAttribute("rel", "noopener noreferrer");
+                // strip all other attributes
+                [...child.attributes].forEach(a => {
+                  if (!["href","target","rel"].includes(a.name)) child.removeAttribute(a.name);
+                });
+                clean(child);
+              } else {
+                child.replaceWith(document.createTextNode(child.textContent));
+              }
+            } else if (allowed.has(child.tagName)){
+              clean(child);
             } else {
-              // replace disallowed tag with its text content
               child.replaceWith(document.createTextNode(child.textContent));
             }
           } else {
@@ -1691,6 +1705,33 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
         }
       }
       clean(div);
+      // Linkify plain-text URLs in text nodes
+      const urlRe = /https?:\/\/[^\s<>"']+/g;
+      function linkify(node){
+        const children = [...node.childNodes];
+        for (const child of children){
+          if (child.nodeType === 3 && urlRe.test(child.textContent)){
+            urlRe.lastIndex = 0;
+            const frag = document.createDocumentFragment();
+            let last = 0, m;
+            while ((m = urlRe.exec(child.textContent)) !== null){
+              if (m.index > last) frag.appendChild(document.createTextNode(child.textContent.slice(last, m.index)));
+              const a = document.createElement("a");
+              a.href = m[0];
+              a.textContent = m[0];
+              a.target = "_blank";
+              a.rel = "noopener noreferrer";
+              frag.appendChild(a);
+              last = m.index + m[0].length;
+            }
+            if (last < child.textContent.length) frag.appendChild(document.createTextNode(child.textContent.slice(last)));
+            child.replaceWith(frag);
+          } else if (child.nodeType === 1){
+            linkify(child);
+          }
+        }
+      }
+      linkify(div);
       return div.innerHTML;
     }
 
