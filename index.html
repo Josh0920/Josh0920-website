@@ -1090,7 +1090,7 @@
               <span class="contact-handle">@joshhaub</span>
             </a>
             <a class="contact-link" href="mailto:contact@joshuahaub.com">
-              <span class="contact-label">Email</span>
+              <span class="contact-label" id="contactEmailLabel">Email</span>
               <span class="contact-handle">contact@joshuahaub.com</span>
             </a>
           </div>
@@ -1781,6 +1781,7 @@
         quick_papers: "Papers",
         quick_articles: "Articles",
         contact_heading: "Contact",
+        contact_email: "Email",
         modal_reader: "Reader",
         modal_copy: "Copy Link",
         modal_copied: "Copied!",
@@ -1831,6 +1832,7 @@ footer_right: "To Him Be the Glory",
         quick_papers: "Trabajos",
         quick_articles: "Artículos",
         contact_heading: "Contacto",
+        contact_email: "Correo electrónico",
         modal_reader: "Lector",
         modal_copy: "Copiar enlace",
         modal_copied: "¡Copiado!",
@@ -2350,6 +2352,7 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
       document.getElementById("quickPapersLabel").textContent = t("quick_papers");
       document.getElementById("quickArticlesLabel").textContent = t("quick_articles");
       document.getElementById("contactHeading").textContent = t("contact_heading");
+      document.getElementById("contactEmailLabel").textContent = t("contact_email");
 
       // modal UI (static labels)
       els.overlay.setAttribute("aria-label", t("modal_reader"));
