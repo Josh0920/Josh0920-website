@@ -15,6 +15,7 @@
       --rule:rgba(16,20,24,.12);
       --soft:rgba(16,20,24,.06);
       --accent:#1f4bd8;
+      --danger:#c53b3b;
       --radius:14px;
       --maxw:1140px;
       --shadow:0 10px 28px rgba(16,20,24,.08);
@@ -22,6 +23,12 @@
       --sans:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
       --serif:ui-serif,Georgia,"Times New Roman",Times,serif;
       --mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+    }
+    [data-theme="dark"]{
+      --bg:#0f1216; --paper:#12161c; --ink:#e9edf3; --muted:#a6afbf;
+      --rule:rgba(233,237,243,.14); --soft:rgba(233,237,243,.08);
+      --accent:#86a3ff; --danger:#ff6b6b;
+      --shadow:0 18px 40px rgba(0,0,0,.40); --shadow-soft:0 10px 24px rgba(0,0,0,.28);
     }
     *{ box-sizing:border-box; }
     html,body{ margin:0; background:var(--bg); color:var(--ink); font-family:var(--sans); line-height:1.65; -webkit-font-smoothing:antialiased; }
@@ -39,30 +46,18 @@
       padding:14px 22px;
       display:flex; align-items:center; justify-content:space-between; gap:16px;
     }
-    .brand{
-      display:flex; align-items:center; gap:12px;
-      text-decoration:none;
-    }
+    .brand{ display:flex; align-items:center; gap:12px; text-decoration:none; }
     .logo{
-      width:52px; height:52px;
-      border-radius:50%;
+      width:52px; height:52px; border-radius:50%;
       object-fit:cover; object-position:center top;
-      border:1px solid var(--rule);
-      box-shadow:var(--shadow-soft);
-      background:var(--paper);
+      border:1px solid var(--rule); box-shadow:var(--shadow-soft); background:var(--paper);
     }
     .brand-text h1{ margin:0; font-size:15px; font-weight:700; letter-spacing:.2px; }
     .brand-text p{ margin:2px 0 0; font-size:12px; color:var(--muted); letter-spacing:.18px; }
     .back-btn{
-      font-family:var(--sans); font-size:13px;
-      padding:8px 16px;
-      border:1px solid var(--rule);
-      border-radius:999px;
-      background:var(--paper);
-      color:var(--ink);
-      white-space:nowrap;
-      cursor:pointer;
-      transition:border-color .12s;
+      font-family:var(--sans); font-size:13px; padding:8px 16px;
+      border:1px solid var(--rule); border-radius:999px; background:var(--paper);
+      color:var(--ink); white-space:nowrap; cursor:pointer; transition:border-color .12s;
     }
     .back-btn:hover{ border-color:color-mix(in srgb, var(--accent) 40%, var(--rule)); }
 
@@ -70,149 +65,234 @@
     .wrap{ max-width:var(--maxw); margin:0 auto; padding:40px 22px 64px; }
 
     /* ===== Page hero ===== */
-    .page-hero{ margin-bottom:36px; }
     .page-kicker{
-      display:inline-block;
-      font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+      display:inline-block; font-size:11px; letter-spacing:.14em; text-transform:uppercase;
       color:var(--muted); margin-bottom:10px;
     }
     .page-title{
-      margin:0 0 32px;
-      font-family:var(--serif);
+      margin:0 0 32px; font-family:var(--serif);
       font-size:44px; font-weight:900; line-height:1.1; letter-spacing:-.5px;
     }
 
     /* ===== Scholar quotes ===== */
     .quotes-section{ max-width:700px; margin-bottom:48px; }
-
     .scholar-quote{
-      margin:0 0 6px;
-      padding:2px 0 2px 20px;
+      margin:0 0 6px; padding:2px 0 2px 20px;
       border-left:2px solid rgba(16,20,24,.2);
-      background:none;
-      border-radius:0;
-      font-family:var(--serif);
-      font-size:20px;
-      font-style:italic;
-      line-height:1.65;
-      color:var(--ink);
+      background:none; border-radius:0;
+      font-family:var(--serif); font-size:20px; font-style:italic; line-height:1.65; color:var(--ink);
     }
-
     .citation{
-      margin:0 0 30px;
-      padding-left:22px;
-      font-size:12.5px;
-      color:var(--muted);
-      line-height:1.6;
+      margin:0 0 30px; padding-left:22px;
+      font-size:12.5px; color:var(--muted); line-height:1.6;
     }
     .citation em{ font-style:italic; }
 
     /* ===== Section heading ===== */
     .section-label{
       font-size:11px; letter-spacing:.14em; text-transform:uppercase;
-      color:var(--muted); margin:0 0 14px;
-      padding-bottom:8px;
-      border-bottom:1px solid var(--rule);
+      color:var(--muted); margin:0 0 14px; padding-bottom:8px; border-bottom:1px solid var(--rule);
     }
 
-    /* ===== Paper cards ===== */
+    /* ===== Paper cards (identical to homepage .item) ===== */
     .papers-grid{
-      display:grid;
-      grid-template-columns:repeat(2, 1fr);
-      gap:14px;
+      display:grid; grid-template-columns:repeat(2, 1fr); gap:14px;
     }
     @media(max-width:700px){
       .papers-grid{ grid-template-columns:1fr; }
       .page-title{ font-size:34px; }
       .scholar-quote{ font-size:18px; }
     }
-
-    .paper-card{
-      background:var(--paper);
-      border:1px solid var(--rule);
-      border-radius:12px;
-      padding:18px 18px 16px;
-      display:flex; flex-direction:column; justify-content:space-between;
-      min-height:180px;
-      position:relative; overflow:hidden;
+    .item{
+      background:var(--paper); border:1px solid var(--rule); border-radius:12px;
+      padding:14px 14px 12px; cursor:pointer;
       transition:border-color .12s, transform .12s, box-shadow .12s;
-      animation:fadeUp .3s ease both;
+      min-height:150px; display:flex; flex-direction:column; justify-content:space-between;
+      position:relative; overflow:hidden; animation:fadeUp .3s ease both;
     }
-    .paper-card::before{
-      content:"";
-      position:absolute; left:0; top:0; bottom:0;
-      width:3px;
-      background:color-mix(in srgb, var(--accent) 55%, transparent);
-      opacity:.35;
+    .item::before{
+      content:""; position:absolute; left:0; top:0; bottom:0; width:3px;
+      background:color-mix(in srgb, var(--accent) 55%, transparent); opacity:.35;
     }
-    .paper-card:hover{
+    .item:hover{
       transform:translateY(-2px);
       border-color:color-mix(in srgb, var(--accent) 40%, var(--rule));
       box-shadow:var(--shadow-soft);
     }
+    .item:nth-child(1){ animation-delay:0s; }
+    .item:nth-child(2){ animation-delay:.05s; }
+    .item:nth-child(3){ animation-delay:.1s; }
     @keyframes fadeUp{
       from{ opacity:0; transform:translateY(8px); }
       to{ opacity:1; transform:translateY(0); }
     }
-    .paper-card:nth-child(1){ animation-delay:0s; }
-    .paper-card:nth-child(2){ animation-delay:.05s; }
-    .paper-card:nth-child(3){ animation-delay:.1s; }
-
-    .paper-badge{
+    .badge{
       display:inline-flex; align-items:center; gap:8px;
       font-size:11px; letter-spacing:.16em; text-transform:uppercase;
       color:var(--muted); margin-bottom:8px;
     }
-    .paper-badge strong{ color:var(--ink); font-weight:800; letter-spacing:.14em; }
-
-    .paper-title{
-      margin:0 0 8px;
-      font-family:var(--serif);
-      font-weight:900; font-size:17px; line-height:1.25; letter-spacing:.2px;
-      color:var(--ink);
+    .badge strong{ color:var(--ink); font-weight:800; letter-spacing:.14em; }
+    .title{
+      margin:0 0 8px; font-family:var(--serif);
+      font-weight:900; font-size:17px; line-height:1.25; letter-spacing:.2px; color:var(--ink);
     }
-
-    .paper-excerpt{
-      margin:0 0 14px;
-      color:var(--muted); font-size:13px; line-height:1.55;
+    .excerpt{
+      margin:0 0 10px; color:var(--muted); font-size:13px; line-height:1.55;
       display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
     }
-
-    .paper-footer{
-      display:flex; justify-content:space-between; align-items:center;
-      padding-top:10px;
-      border-top:1px solid var(--soft);
-      gap:10px;
+    .meta{
+      display:flex; justify-content:space-between; align-items:center; gap:10px;
+      padding-top:10px; border-top:1px solid var(--soft); color:var(--muted); font-size:12px;
     }
-    .paper-tags{ display:flex; gap:6px; flex-wrap:wrap; }
-    .paper-tag{
-      font-family:var(--mono);
-      font-size:11px; padding:4px 8px;
-      border-radius:999px;
+    .tags{ display:flex; gap:6px; flex-wrap:wrap; }
+    .tag{
+      font-family:var(--mono); font-size:11px; padding:4px 8px; border-radius:999px;
       border:1px solid var(--soft);
       background:color-mix(in srgb, var(--paper) 90%, var(--bg));
       color:color-mix(in srgb, var(--muted) 75%, var(--ink));
     }
-    .pdf-link{
-      font-family:var(--sans); font-size:12px; font-weight:600;
-      padding:6px 14px;
-      border-radius:999px;
-      background:var(--accent);
-      color:#fff;
-      white-space:nowrap;
-      transition:opacity .12s;
-      flex-shrink:0;
-    }
-    .pdf-link:hover{ opacity:.85; }
 
     /* ===== Footer ===== */
     .page-footer{
-      margin-top:56px; padding-top:18px;
-      border-top:1px solid var(--rule);
+      margin-top:56px; padding-top:18px; border-top:1px solid var(--rule);
       font-size:13px; color:var(--muted);
-      display:flex; justify-content:space-between; align-items:center; gap:16px;
-      flex-wrap:wrap;
+      display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;
     }
+
+    /* ===== Modal / Reader (identical to homepage) ===== */
+    .overlay{
+      position:fixed; inset:0; z-index:100;
+      background:var(--bg); display:none; flex-direction:column;
+    }
+    .overlay.show{ display:flex; }
+    .modal{ display:flex; flex-direction:column; width:100%; height:100%; background:var(--bg); overflow:hidden; }
+    .modal header{
+      flex-shrink:0; background:var(--paper); border-bottom:1px solid var(--rule);
+      padding:10px 20px; display:flex; align-items:center; justify-content:space-between; gap:12px;
+    }
+    .modal-header-left{ display:flex; align-items:center; gap:14px; min-width:0; }
+    .modal header h3{ margin:0; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); white-space:nowrap; }
+    .modal-title-inline{
+      margin:0; font-family:var(--serif); font-weight:800; font-size:15px; line-height:1.3;
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:50vw;
+    }
+    .modal-body{
+      flex:1; display:grid; grid-template-columns:1fr 380px; min-height:0; overflow:hidden;
+    }
+    .modal-pdf{
+      min-height:0; overflow:hidden; background:#525659; display:flex; align-items:stretch;
+    }
+    .modal-pdf iframe{ width:100%; height:100%; border:none; display:block; }
+    .modal-sidebar{
+      overflow-y:auto; padding:22px 20px; background:var(--paper); border-left:1px solid var(--rule);
+    }
+    .modal-sidebar h1{
+      margin:0 0 8px; font-family:var(--serif); font-weight:900; font-size:22px; letter-spacing:.2px; line-height:1.2;
+    }
+    .modal-sidebar .sub{ color:var(--muted); font-size:13px; margin-bottom:12px; }
+    .mobile-pdf-btn{
+      display:none; align-items:center; justify-content:center; gap:8px;
+      width:100%; padding:14px; margin-bottom:16px;
+      border:1px solid var(--accent); border-radius:var(--radius);
+      background:color-mix(in srgb, var(--accent) 10%, var(--paper));
+      color:var(--accent); font-family:var(--sans); font-size:15px; font-weight:600;
+      text-decoration:none; cursor:pointer;
+    }
+    .mobile-pdf-btn.visible{ display:flex; }
+    .mobile-pdf-btn:hover{ background:color-mix(in srgb, var(--accent) 18%, var(--paper)); }
+    .btn{
+      border:1px solid var(--rule); background:color-mix(in srgb, var(--paper) 90%, var(--bg));
+      color:var(--ink); padding:9px 12px; border-radius:999px; cursor:pointer; font-size:13px;
+      display:inline-flex; align-items:center; gap:8px; text-decoration:none;
+      transition:transform .12s, border-color .12s;
+    }
+    .btn:hover{ transform:translateY(-1px); border-color:color-mix(in srgb, var(--accent) 40%, var(--rule)); }
+    .btn.danger{ border-color:color-mix(in srgb, var(--danger) 45%, var(--rule)); }
+    #downloadBtn{
+      background:color-mix(in srgb, var(--accent) 10%, var(--paper));
+      border-color:color-mix(in srgb, var(--accent) 30%, var(--rule));
+      color:var(--accent); font-weight:600;
+    }
+    #downloadBtn:hover{ background:color-mix(in srgb, var(--accent) 18%, var(--paper)); }
+    @media(max-width:960px){
+      .modal-body{ grid-template-columns:1fr 300px; }
+      .modal-sidebar h1{ font-size:18px; }
+    }
+    @media(max-width:620px){
+      .modal header{ padding:10px 14px; flex-wrap:wrap; }
+      .modal-title-inline{ max-width:60vw; font-size:13px; }
+      .modal-body{ grid-template-columns:1fr; grid-template-rows:auto; overflow-y:auto; }
+      .modal-pdf{ display:none !important; }
+      .mobile-pdf-btn.visible{ display:flex !important; }
+      .modal-sidebar{ border-left:none; padding:16px 14px; }
+      .modal-sidebar h1{ font-size:18px; }
+    }
+
+    /* ===== Comment section (identical to homepage) ===== */
+    .comments-section{ margin-top:24px; padding-top:20px; border-top:1px solid var(--rule); }
+    .comments-section h3{ margin:0 0 14px; font-family:var(--serif); font-weight:800; font-size:17px; color:var(--ink); }
+    .comment-form{ display:flex; flex-direction:column; gap:10px; margin-bottom:20px; }
+    .comment-form input,
+    .comment-form .comment-editor{
+      width:100%; border:1px solid var(--rule);
+      background:color-mix(in srgb, var(--paper) 92%, var(--bg));
+      border-radius:10px; padding:10px 12px; color:var(--ink);
+      font-family:var(--sans); font-size:14px; outline:none; transition:border-color .12s;
+    }
+    .comment-form input:focus,
+    .comment-form .comment-editor:focus{ border-color:color-mix(in srgb, var(--accent) 50%, var(--rule)); }
+    .comment-form .comment-editor{ min-height:80px; overflow-y:auto; max-height:200px; white-space:pre-wrap; word-wrap:break-word; }
+    .comment-form .comment-editor:empty::before{ content:attr(data-placeholder); color:var(--muted); pointer-events:none; }
+    .comment-form button{
+      align-self:flex-end; padding:9px 18px;
+      border:1px solid color-mix(in srgb, var(--accent) 30%, var(--rule));
+      background:color-mix(in srgb, var(--accent) 10%, var(--paper));
+      color:var(--accent); border-radius:999px; font-size:13px; font-weight:600; cursor:pointer;
+      transition:background .12s, transform .12s;
+    }
+    .comment-form button:hover{ background:color-mix(in srgb, var(--accent) 18%, var(--paper)); transform:translateY(-1px); }
+    .comment-list{ display:flex; flex-direction:column; gap:12px; }
+    .comment{ padding:12px 14px; border:1px solid var(--soft); border-radius:10px; background:color-mix(in srgb, var(--paper) 94%, var(--bg)); }
+    .comment-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; }
+    .comment-author{ font-weight:700; font-size:13px; color:var(--ink); }
+    .comment-date{ font-size:11px; color:var(--muted); }
+    .comment-text{ font-size:14px; color:var(--ink); line-height:1.5; margin:0; }
+    .comment-empty{ color:var(--muted); font-size:13px; font-style:italic; }
+    .reply-btn{
+      margin-top:8px; display:inline-flex; align-items:center; gap:5px;
+      background:none; border:none; color:var(--muted); font-size:13px; font-weight:600;
+      cursor:pointer; padding:6px 12px; border-radius:20px; font-family:var(--sans);
+      letter-spacing:.01em; transition:background .15s, color .15s;
+    }
+    .reply-btn:hover{ background:color-mix(in srgb, var(--accent) 12%, transparent); color:var(--accent); }
+    .reply-form-wrap{
+      margin-top:10px; padding:10px; border-radius:8px;
+      background:color-mix(in srgb, var(--accent) 4%, var(--paper));
+      border:1px solid color-mix(in srgb, var(--accent) 20%, var(--rule));
+      display:flex; flex-direction:column; gap:8px;
+    }
+    .reply-name-input{
+      border:1px solid var(--rule); background:var(--paper); border-radius:8px; padding:7px 10px;
+      color:var(--ink); font-family:var(--sans); font-size:13px; outline:none; width:100%;
+    }
+    .reply-name-input:focus{ border-color:color-mix(in srgb, var(--accent) 50%, var(--rule)); }
+    .reply-editor{
+      min-height:56px; border:1px solid var(--rule); background:var(--paper); border-radius:8px;
+      padding:7px 10px; color:var(--ink); font-family:var(--sans); font-size:13px; outline:none;
+      white-space:pre-wrap; word-wrap:break-word;
+    }
+    .reply-editor:focus{ border-color:color-mix(in srgb, var(--accent) 50%, var(--rule)); }
+    .reply-editor:empty::before{ content:attr(data-placeholder); color:var(--muted); pointer-events:none; }
+    .reply-submit-btn{
+      align-self:flex-end; padding:6px 14px;
+      border:1px solid color-mix(in srgb, var(--accent) 30%, var(--rule));
+      background:color-mix(in srgb, var(--accent) 10%, var(--paper));
+      color:var(--accent); border-radius:999px; font-size:12px; font-weight:600; cursor:pointer; font-family:var(--sans);
+    }
+    .reply-submit-btn:hover{ background:color-mix(in srgb, var(--accent) 18%, var(--paper)); }
+    .replies-list{ margin-top:10px; display:flex; flex-direction:column; gap:8px; padding-left:14px; border-left:2px solid var(--rule); }
+    .comment-reply{ padding:10px 12px; font-size:13px; }
+    .comment-reply .comment-text{ font-size:13px; }
   </style>
 </head>
 <body>
@@ -232,86 +312,524 @@
 
   <main class="wrap">
 
-    <div class="page-hero">
-      <div class="page-kicker">Topic</div>
-      <h2 class="page-title">Textual Criticism</h2>
+    <div class="page-kicker">Topic</div>
+    <h2 class="page-title">Textual Criticism</h2>
 
-      <div class="quotes-section">
-        <blockquote class="scholar-quote">
-          &#8220;Textual criticism&#8212;the study of the original text of the New Testament.&#8221;
-        </blockquote>
-        <p class="citation">
-          David Alan Black, <em>New Testament Textual Criticism: A Concise Guide</em> (Grand Rapids, MI: Baker Books, 1994), 11.
-        </p>
+    <div class="quotes-section">
+      <blockquote class="scholar-quote">
+        &#8220;Textual criticism&#8212;the study of the original text of the New Testament.&#8221;
+      </blockquote>
+      <p class="citation">
+        David Alan Black, <em>New Testament Textual Criticism: A Concise Guide</em> (Grand Rapids, MI: Baker Books, 1994), 11.
+      </p>
 
-        <blockquote class="scholar-quote">
-          &#8220;[Textual Criticism&#8217;s] purpose: to recover the original text of the New Testament from the available evidence&#8221;
-        </blockquote>
-        <p class="citation">
-          David Alan Black, <em>New Testament Textual Criticism: A Concise Guide</em> (Grand Rapids, MI: Baker Books, 1994), 12.
-        </p>
-      </div>
+      <blockquote class="scholar-quote">
+        &#8220;[Textual Criticism&#8217;s] purpose: to recover the original text of the New Testament from the available evidence.&#8221;
+      </blockquote>
+      <p class="citation">
+        David Alan Black, <em>New Testament Textual Criticism: A Concise Guide</em> (Grand Rapids, MI: Baker Books, 1994), 12.
+      </p>
+    </div>
 
-      <p class="section-label">Papers on Textual Criticism</p>
+    <p class="section-label">Papers on Textual Criticism</p>
 
-      <div class="papers-grid">
+    <div class="papers-grid">
 
-        <div class="paper-card">
-          <div>
-            <div class="paper-badge"><strong>Paper</strong> &middot; Jan 6, 2026</div>
-            <h3 class="paper-title">Is John 7:53&#8211;8:11 Part of the Original Text of John?</h3>
-            <p class="paper-excerpt">A textual-critical analysis of John 7:53&#8211;8:11 and its external evidence from the Manuscript Witnesses and Early Church Fathers.</p>
-          </div>
-          <div class="paper-footer">
-            <div class="paper-tags">
-              <span class="paper-tag">John</span>
-              <span class="paper-tag">Manuscripts</span>
-              <span class="paper-tag">Church Fathers</span>
-            </div>
-            <a class="pdf-link" href="../Is John 7.53-8.11 Part of the Original Text of John (PDF).pdf" target="_blank" rel="noopener noreferrer">View PDF</a>
-          </div>
+      <article class="item" tabindex="0" role="button" aria-label="Open: Is John 7:53–8:11 Part of the Original Text of John?" data-id="john-7-53-8-11">
+        <div>
+          <div class="badge"><strong>Paper</strong> &middot; Jan 6, 2026</div>
+          <h3 class="title">Is John 7:53&#8211;8:11 Part of the Original Text of John?</h3>
+          <p class="excerpt">A textual-critical analysis of John 7:53&#8211;8:11 and its external evidence from the Manuscript Witnesses and Early Church Fathers.</p>
         </div>
-
-        <div class="paper-card">
-          <div>
-            <div class="paper-badge"><strong>Paper</strong> &middot; Jan 7, 2026</div>
-            <h3 class="paper-title">The External Evidence for the Authenticity of Luke 23:34a</h3>
-            <p class="paper-excerpt">A textual-critical analysis of Luke 23:34a and its external evidence from the Manuscript Witnesses and Early Church Fathers.</p>
+        <div class="meta">
+          <div class="tags">
+            <span class="tag">John</span>
+            <span class="tag">Manuscripts</span>
+            <span class="tag">Church Fathers</span>
           </div>
-          <div class="paper-footer">
-            <div class="paper-tags">
-              <span class="paper-tag">Luke</span>
-              <span class="paper-tag">Manuscripts</span>
-              <span class="paper-tag">Church Fathers</span>
-            </div>
-            <a class="pdf-link" href="../The External Evidence for the Authenticity of Luke 23.34a (PDF).pdf" target="_blank" rel="noopener noreferrer">View PDF</a>
-          </div>
+          <span class="comment-count" data-comment-count="john-7-53-8-11" style="color:var(--muted);font-size:12px;"></span>
         </div>
+      </article>
 
-        <div class="paper-card">
-          <div>
-            <div class="paper-badge"><strong>Paper</strong> &middot; Jan 7, 2026</div>
-            <h3 class="paper-title">Who Wrote 1 Cor. 14:34&#8211;35: Paul or Someone Else?</h3>
-            <p class="paper-excerpt">A textual-critical analysis of 1 Corinthians 14:34&#8211;35 and its external evidence from the Manuscript Witnesses.</p>
-          </div>
-          <div class="paper-footer">
-            <div class="paper-tags">
-              <span class="paper-tag">1 Corinthians</span>
-              <span class="paper-tag">Manuscripts</span>
-            </div>
-            <a class="pdf-link" href="../Who Wrote 1 Cor. 14.34-5. Paul or Someone Else (PDF).pdf" target="_blank" rel="noopener noreferrer">View PDF</a>
-          </div>
+      <article class="item" tabindex="0" role="button" aria-label="Open: The External Evidence for the Authenticity of Luke 23:34a" data-id="luke-23-34a-authorship">
+        <div>
+          <div class="badge"><strong>Paper</strong> &middot; Jan 7, 2026</div>
+          <h3 class="title">The External Evidence for the Authenticity of Luke 23:34a</h3>
+          <p class="excerpt">A textual-critical analysis of Luke 23:34a and its external evidence from the Manuscript Witnesses and Early Church Fathers.</p>
         </div>
+        <div class="meta">
+          <div class="tags">
+            <span class="tag">Luke</span>
+            <span class="tag">Manuscripts</span>
+            <span class="tag">Church Fathers</span>
+          </div>
+          <span class="comment-count" data-comment-count="luke-23-34a-authorship" style="color:var(--muted);font-size:12px;"></span>
+        </div>
+      </article>
 
-      </div>
+      <article class="item" tabindex="0" role="button" aria-label="Open: Who Wrote 1 Cor. 14:34–35: Paul or Someone Else?" data-id="1cor-14-34-35-authorship">
+        <div>
+          <div class="badge"><strong>Paper</strong> &middot; Jan 7, 2026</div>
+          <h3 class="title">Who Wrote 1 Cor. 14:34&#8211;35: Paul or Someone Else?</h3>
+          <p class="excerpt">A textual-critical analysis of 1 Corinthians 14:34&#8211;35 and its external evidence from the Manuscript Witnesses.</p>
+        </div>
+        <div class="meta">
+          <div class="tags">
+            <span class="tag">1 Corinthians</span>
+            <span class="tag">Manuscripts</span>
+          </div>
+          <span class="comment-count" data-comment-count="1cor-14-34-35-authorship" style="color:var(--muted);font-size:12px;"></span>
+        </div>
+      </article>
+
     </div>
 
     <footer class="page-footer">
-      <span>Joshua M. Haub &nbsp;&#183;&nbsp; <a href="../" style="color:var(--accent);">joshuahaub.com</a></span>
-      <span>All content free to use.</span>
+      <span>&copy; 2026 Joshua Haub</span>
+      <span>To Him Be the Glory</span>
     </footer>
 
   </main>
+
+  <!-- Reader modal — identical structure to homepage -->
+  <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-label="Reader">
+    <div class="modal">
+      <header>
+        <div class="modal-header-left">
+          <h3 id="modalType">Paper</h3>
+          <h2 class="modal-title-inline" id="modalTitleBar"></h2>
+        </div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; flex-shrink:0;">
+          <a class="btn" id="downloadBtn" href="#" download title="Download PDF">Download PDF</a>
+          <button class="btn" id="copyLinkBtn">Copy Link</button>
+          <button class="btn danger" id="closeBtn">Close</button>
+        </div>
+      </header>
+      <div class="modal-body" id="modalBodyWrap">
+        <div class="modal-pdf" id="modalPdf"></div>
+        <div class="modal-sidebar">
+          <h1 id="modalTitle"></h1>
+          <div class="sub" id="modalSub"></div>
+          <div class="tags" id="modalTags" style="margin-bottom:12px;"></div>
+          <a class="mobile-pdf-btn" id="mobilePdfBtn" target="_blank" rel="noopener noreferrer">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+            Open PDF
+          </a>
+
+          <div class="comments-section" id="commentsSection">
+            <h3>Comments</h3>
+            <form class="comment-form" id="commentForm">
+              <input type="text" id="commentName" placeholder="Your name" required maxlength="80" />
+              <div class="comment-editor" id="commentText" contenteditable="true" role="textbox" aria-multiline="true" data-placeholder="Share your thoughts..."></div>
+              <button type="submit" id="commentSubmitBtn">Post Comment</button>
+            </form>
+            <div class="comment-list" id="commentList"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const PAPERS = {
+      "john-7-53-8-11": {
+        title: "Is John 7:53–8:11 Part of the Original Text of John?",
+        date: "January 6, 2026",
+        tags: ["John", "Textual Criticism", "Pericope Adulterae", "Manuscripts", "Church Fathers"],
+        pdfHref: "../Is John 7.53-8.11 Part of the Original Text of John (PDF).pdf"
+      },
+      "luke-23-34a-authorship": {
+        title: "The External Evidence for the Authenticity of Luke 23:34a",
+        date: "January 7, 2026",
+        tags: ["Luke", "Textual Criticism", "Manuscripts", "Church Fathers"],
+        pdfHref: "../The External Evidence for the Authenticity of Luke 23.34a (PDF).pdf"
+      },
+      "1cor-14-34-35-authorship": {
+        title: "Who Wrote 1 Cor. 14:34–35: Paul or Someone Else?",
+        date: "January 7, 2026",
+        tags: ["1 Corinthians", "Textual Criticism", "Manuscripts"],
+        pdfHref: "../Who Wrote 1 Cor. 14.34-5. Paul or Someone Else (PDF).pdf"
+      }
+    };
+
+    const overlay      = document.getElementById("overlay");
+    const modalType    = document.getElementById("modalType");
+    const modalTitleBar= document.getElementById("modalTitleBar");
+    const modalTitle   = document.getElementById("modalTitle");
+    const modalSub     = document.getElementById("modalSub");
+    const modalTags    = document.getElementById("modalTags");
+    const modalPdf     = document.getElementById("modalPdf");
+    const mobilePdfBtn = document.getElementById("mobilePdfBtn");
+    const downloadBtn  = document.getElementById("downloadBtn");
+    const copyLinkBtn  = document.getElementById("copyLinkBtn");
+    const closeBtn     = document.getElementById("closeBtn");
+
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+                  (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+    function openReader(id) {
+      const paper = PAPERS[id];
+      if (!paper) return;
+
+      modalType.textContent = "Paper";
+      modalTitleBar.textContent = paper.title;
+      modalTitle.textContent = paper.title;
+      modalSub.textContent = paper.date + " • " + paper.tags.join(" • ");
+      modalTags.innerHTML = paper.tags.map(t => `<span class="tag">${t}</span>`).join("");
+
+      if (isIOS) {
+        renderPdfJs(paper.pdfHref, modalPdf);
+      } else {
+        modalPdf.innerHTML = `<iframe src="${paper.pdfHref}" title="${paper.title}"></iframe>`;
+      }
+      modalPdf.style.display = "flex";
+      downloadBtn.href = paper.pdfHref;
+      mobilePdfBtn.href = paper.pdfHref;
+      mobilePdfBtn.classList.add("visible");
+
+      overlay.classList.add("show");
+      document.body.style.overflow = "hidden";
+      history.replaceState(null, "", `#/${encodeURIComponent(id)}`);
+
+      renderComments(id);
+    }
+
+    function closeReader() {
+      overlay.classList.remove("show");
+      document.body.style.overflow = "";
+      modalPdf.innerHTML = "";
+      history.replaceState(null, "", location.pathname);
+    }
+
+    /*************************************************************
+     * COMMENT SYSTEM (Supabase) — same backend & document IDs as
+     * the homepage, so comments on a paper are shared everywhere
+     * that paper appears.
+     *************************************************************/
+    const SUPABASE_URL = "https://anhcdgfwwpyfgcxmbneu.supabase.co";
+    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFuaGNkZ2Z3d3B5ZmdjeG1ibmV1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzMjk5NTksImV4cCI6MjA5MDkwNTk1OX0.wjfns8LwUN9r-AM_g-qmnysV9DrFYunjghH9bmLzwP4";
+
+    let currentCommentId = null;
+    const commentCountCache = {};
+
+    function escapeHtml(s){
+      return String(s)
+        .replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;").replaceAll("'","&#039;");
+    }
+
+    function formatDate(iso){
+      try {
+        const [y,m,d] = iso.split("-").map(Number);
+        const dt = new Date(y, m-1, d);
+        return dt.toLocaleDateString(undefined, {year:"numeric", month:"short", day:"numeric"});
+      } catch { return iso; }
+    }
+
+    // Allow only b, i, u, strong, em, br, a tags in comment HTML; strip everything else
+    function sanitizeComment(html){
+      const div = document.createElement("div");
+      div.innerHTML = String(html);
+      const allowed = new Set(["B","I","U","STRONG","EM","BR","A"]);
+      function clean(node){
+        const children = [...node.childNodes];
+        for (const child of children){
+          if (child.nodeType === 3) continue;
+          if (child.nodeType === 1){
+            if (child.tagName === "A"){
+              const href = child.getAttribute("href") || "";
+              if (/^https?:\/\//i.test(href)){
+                child.setAttribute("href", href);
+                child.setAttribute("target", "_blank");
+                child.setAttribute("rel", "noopener noreferrer");
+                [...child.attributes].forEach(a => {
+                  if (!["href","target","rel"].includes(a.name)) child.removeAttribute(a.name);
+                });
+                clean(child);
+              } else {
+                child.replaceWith(document.createTextNode(child.textContent));
+              }
+            } else if (allowed.has(child.tagName)){
+              clean(child);
+            } else {
+              child.replaceWith(document.createTextNode(child.textContent));
+            }
+          } else {
+            child.remove();
+          }
+        }
+      }
+      clean(div);
+      const urlRe = /https?:\/\/[^\s<>"']+/g;
+      function linkify(node){
+        const children = [...node.childNodes];
+        for (const child of children){
+          if (child.nodeType === 3 && urlRe.test(child.textContent)){
+            urlRe.lastIndex = 0;
+            const frag = document.createDocumentFragment();
+            let last = 0, m;
+            while ((m = urlRe.exec(child.textContent)) !== null){
+              if (m.index > last) frag.appendChild(document.createTextNode(child.textContent.slice(last, m.index)));
+              const a = document.createElement("a");
+              a.href = m[0]; a.textContent = m[0]; a.target = "_blank"; a.rel = "noopener noreferrer";
+              frag.appendChild(a);
+              last = m.index + m[0].length;
+            }
+            if (last < child.textContent.length) frag.appendChild(document.createTextNode(child.textContent.slice(last)));
+            child.replaceWith(frag);
+          } else if (child.nodeType === 1){
+            linkify(child);
+          }
+        }
+      }
+      linkify(div);
+      return div.innerHTML;
+    }
+
+    async function sbFetch(path, options = {}){
+      const method = (options.method || "GET").toUpperCase();
+      let url = SUPABASE_URL + "/rest/v1" + path;
+      let headers;
+      if (method === "GET") {
+        const sep = url.includes("?") ? "&" : "?";
+        url += sep + "apikey=" + SUPABASE_KEY;
+        headers = { ...(options.headers || {}) };
+      } else {
+        headers = {
+          "apikey": SUPABASE_KEY,
+          "Authorization": "Bearer " + SUPABASE_KEY,
+          "Content-Type": "application/json",
+          ...(options.headers || {})
+        };
+      }
+      const res = await fetch(url, { ...options, headers, credentials: "omit" });
+      if (!res.ok) throw new Error(res.statusText);
+      const text = await res.text();
+      return text ? JSON.parse(text) : null;
+    }
+
+    async function fetchComments(docId){
+      return sbFetch("/comments?document_id=eq." + encodeURIComponent(docId) + "&order=created_at.asc");
+    }
+
+    async function postComment(docId, name, body, parentId = null){
+      const payload = { document_id: docId, name, body };
+      if (parentId) payload.parent_id = parentId;
+      return sbFetch("/comments", {
+        method: "POST",
+        headers: { "Prefer": "return=representation" },
+        body: JSON.stringify(payload)
+      });
+    }
+
+    function toggleReplyForm(parentId){
+      const wrap = document.getElementById(`reply-form-${parentId}`);
+      const isHidden = wrap.style.display === "none" || wrap.style.display === "";
+      wrap.style.display = isHidden ? "flex" : "none";
+      if (isHidden) wrap.querySelector(".reply-name-input").focus();
+    }
+    window.toggleReplyForm = toggleReplyForm;
+
+    async function submitReply(parentId, btn){
+      const wrap = document.getElementById(`reply-form-${parentId}`);
+      const nameInput = wrap.querySelector(".reply-name-input");
+      const bodyInput = wrap.querySelector(".reply-editor");
+      const name = nameInput.value.trim();
+      const body = bodyInput.innerHTML.trim();
+      if (!name || !body || body === "<br>") return;
+      btn.disabled = true;
+      btn.textContent = "...";
+      try {
+        await postComment(currentCommentId, name, body, parentId);
+        await renderComments(currentCommentId);
+      } catch {
+        alert("Could not post reply. Please try again.");
+        btn.disabled = false;
+        btn.textContent = "Post Comment";
+      }
+    }
+    window.submitReply = submitReply;
+
+    async function renderComments(id){
+      currentCommentId = id;
+      const list = document.getElementById("commentList");
+      list.innerHTML = `<p class="comment-empty" style="font-style:normal;">Loading...</p>`;
+
+      try {
+        const comments = await fetchComments(id);
+        const topLevel = comments.filter(c => !c.parent_id);
+        commentCountCache[id] = topLevel.length;
+        updateCommentBadge(id);
+
+        if (!comments.length){
+          list.innerHTML = `<p class="comment-empty">No comments yet. Be the first to share your thoughts.</p>`;
+          return;
+        }
+
+        const repliesMap = {};
+        comments.filter(c => c.parent_id).forEach(c => {
+          (repliesMap[c.parent_id] = repliesMap[c.parent_id] || []).push(c);
+        });
+
+        list.innerHTML = topLevel.map(c => {
+          const d = c.created_at ? c.created_at.slice(0,10) : "";
+          const childReplies = (repliesMap[c.id] || []).map(r => {
+            const rd = r.created_at ? r.created_at.slice(0,10) : "";
+            return `<div class="comment comment-reply">
+              <div class="comment-header">
+                <span class="comment-author">${escapeHtml(r.name)}</span>
+                <span class="comment-date">${escapeHtml(formatDate(rd))}</span>
+              </div>
+              <p class="comment-text">${sanitizeComment(r.body)}</p>
+            </div>`;
+          }).join("");
+
+          return `<div class="comment" id="comment-${c.id}">
+            <div class="comment-header">
+              <span class="comment-author">${escapeHtml(c.name)}</span>
+              <span class="comment-date">${escapeHtml(formatDate(d))}</span>
+            </div>
+            <p class="comment-text">${sanitizeComment(c.body)}</p>
+            <button class="reply-btn" onclick="toggleReplyForm(${c.id})"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M10 9V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z"/></svg>Reply</button>
+            <div class="reply-form-wrap" id="reply-form-${c.id}" style="display:none;">
+              <input class="reply-name-input" type="text" placeholder="Your name" maxlength="80" />
+              <div class="comment-editor reply-editor" contenteditable="true" data-placeholder="Share your thoughts..."></div>
+              <button class="reply-submit-btn" onclick="submitReply(${c.id}, this)">Post Comment</button>
+            </div>
+            ${childReplies ? `<div class="replies-list">${childReplies}</div>` : ""}
+          </div>`;
+        }).join("");
+
+        list.querySelectorAll(".reply-editor").forEach(el => {
+          el.addEventListener("keydown", (e) => {
+            if ((e.metaKey || e.ctrlKey) && !e.shiftKey && !e.altKey) {
+              const key = e.key.toLowerCase();
+              if (key === "b" || key === "i" || key === "u") {
+                e.preventDefault();
+                document.execCommand(key === "b" ? "bold" : key === "i" ? "italic" : "underline", false, null);
+              }
+            }
+          });
+        });
+
+      } catch(err) {
+        console.error("renderComments failed:", err);
+        list.innerHTML = `<p class="comment-empty">Could not load comments.</p>`;
+      }
+    }
+
+    function updateCommentBadge(id){
+      const el = document.querySelector(`[data-comment-count="${id}"]`);
+      if (!el) return;
+      const cc = commentCountCache[id] || 0;
+      el.textContent = cc > 0 ? `${cc} ${cc === 1 ? "comment" : "comments"}` : "";
+    }
+
+    async function prefetchCommentCounts(){
+      try {
+        const rows = await sbFetch("/comments?select=document_id");
+        const counts = {};
+        rows.forEach(r => { counts[r.document_id] = (counts[r.document_id] || 0) + 1; });
+        Object.assign(commentCountCache, counts);
+        Object.keys(PAPERS).forEach(updateCommentBadge);
+      } catch {}
+    }
+
+    document.getElementById("commentText").addEventListener("keydown", (e) => {
+      if ((e.metaKey || e.ctrlKey) && !e.shiftKey && !e.altKey) {
+        const key = e.key.toLowerCase();
+        if (key === "b" || key === "i" || key === "u") {
+          e.preventDefault();
+          document.execCommand(key === "b" ? "bold" : key === "i" ? "italic" : "underline", false, null);
+        }
+      }
+    });
+
+    document.getElementById("commentForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (!currentCommentId) return;
+      const nameInput = document.getElementById("commentName");
+      const textInput = document.getElementById("commentText");
+      const submitBtn = document.getElementById("commentSubmitBtn");
+      const name = nameInput.value.trim();
+      const body = textInput.innerHTML.trim();
+      if (!name || !body || body === '<br>') return;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "...";
+      try {
+        await postComment(currentCommentId, name, body);
+        textInput.innerHTML = "";
+        await renderComments(currentCommentId);
+      } catch {
+        alert("Could not post comment. Please try again.");
+      }
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Post Comment";
+    });
+
+    prefetchCommentCounts();
+
+    document.querySelectorAll("[data-id]").forEach(el => {
+      el.addEventListener("click", () => openReader(el.getAttribute("data-id")));
+      el.addEventListener("keydown", e => {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openReader(el.getAttribute("data-id")); }
+      });
+    });
+
+    closeBtn.addEventListener("click", closeReader);
+    overlay.addEventListener("click", e => { if (e.target === overlay) closeReader(); });
+    document.addEventListener("keydown", e => { if (e.key === "Escape" && overlay.classList.contains("show")) closeReader(); });
+
+    copyLinkBtn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(location.href);
+        copyLinkBtn.textContent = "Copied!";
+        setTimeout(() => copyLinkBtn.textContent = "Copy Link", 900);
+      } catch { alert("Copy failed — please copy the URL manually."); }
+    });
+
+    async function renderPdfJs(pdfUrl, container) {
+      container.innerHTML = '<p style="color:var(--muted);font-style:italic;padding:20px;text-align:center;">Loading PDF…</p>';
+      if (!window.pdfjsLib) {
+        await new Promise((resolve, reject) => {
+          const s = document.createElement("script");
+          s.src = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";
+          s.onload = resolve; s.onerror = reject;
+          document.head.appendChild(s);
+        });
+        window.pdfjsLib.GlobalWorkerOptions.workerSrc =
+          "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+      }
+      let pdf;
+      try { pdf = await window.pdfjsLib.getDocument(pdfUrl).promise; }
+      catch(e) { container.innerHTML = '<p style="color:var(--muted);font-style:italic;padding:20px;text-align:center;">Could not load PDF.</p>'; return; }
+      const wrap = document.createElement("div");
+      wrap.style.cssText = "overflow-y:auto;height:100%;display:flex;flex-direction:column;gap:8px;padding:8px;box-sizing:border-box;background:var(--bg);";
+      container.innerHTML = "";
+      container.appendChild(wrap);
+      const dpr = window.devicePixelRatio || 1;
+      for (let i = 1; i <= pdf.numPages; i++) {
+        const page = await pdf.getPage(i);
+        const cw = container.clientWidth || 600;
+        const vp = page.getViewport({ scale: 1 });
+        const scale = (cw - 16) / vp.width * dpr;
+        const scaled = page.getViewport({ scale });
+        const canvas = document.createElement("canvas");
+        canvas.width = scaled.width; canvas.height = scaled.height;
+        canvas.style.width = (cw - 16) + "px";
+        canvas.style.height = Math.round(scaled.height / dpr) + "px";
+        canvas.style.display = "block"; canvas.style.borderRadius = "4px";
+        canvas.style.boxShadow = "0 1px 4px rgba(0,0,0,.18)";
+        wrap.appendChild(canvas);
+        await page.render({ canvasContext: canvas.getContext("2d"), viewport: scaled }).promise;
+      }
+    }
+
+    // Open from URL hash on load
+    const hashId = decodeURIComponent((location.hash || "").replace(/^#\//, ""));
+    if (hashId && PAPERS[hashId]) openReader(hashId);
+  </script>
 
 </body>
 </html>

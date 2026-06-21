@@ -257,6 +257,27 @@
       flex-direction:column;
       gap:16px;
     }
+    .tc-btn{
+      display:block;
+      padding:13px 18px;
+      background:var(--paper);
+      border:1px solid var(--rule);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow-soft);
+      font-family:var(--sans);
+      font-size:14px;
+      font-weight:600;
+      color:var(--ink);
+      text-decoration:none;
+      text-align:center;
+      transition:border-color .12s, box-shadow .12s, transform .12s;
+    }
+    .tc-btn:hover{
+      border-color:color-mix(in srgb, var(--accent) 40%, var(--rule));
+      box-shadow:var(--shadow);
+      transform:translateY(-1px);
+      text-decoration:none;
+    }
 
     /* Library header */
     .section-head{
@@ -1049,6 +1070,8 @@
 
       <!-- RIGHT: podcast + about -->
       <aside class="sidebar-stack">
+        <a href="textualcriticism/" class="tc-btn">Go to Textual Criticism &#8594;</a>
+
         <div class="card">
           <h2 class="podcast-title" id="podcastTitle">The "What Does It Say?" Podcast</h2>
           <a href="https://creators.spotify.com/pod/profile/whatdoesitsay/" target="_blank" rel="noopener noreferrer">
