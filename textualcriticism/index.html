@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Textual Criticism | Joshua's Bible Library</title>
+  <meta name="description" content="A collection of textual-critical studies on disputed New Testament passages — examining manuscript evidence, Church Fathers, and the original text." />
+
+  <style>
+    :root{
+      --bg:#fbfbf8;
+      --paper:#ffffff;
+      --ink:#101418;
+      --muted:#586171;
+      --rule:rgba(16,20,24,.12);
+      --soft:rgba(16,20,24,.06);
+      --accent:#1f4bd8;
+      --radius:14px;
+      --maxw:1140px;
+      --shadow:0 10px 28px rgba(16,20,24,.08);
+      --shadow-soft:0 6px 18px rgba(16,20,24,.06);
+      --sans:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      --serif:ui-serif,Georgia,"Times New Roman",Times,serif;
+      --mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+    }
+    *{ box-sizing:border-box; }
+    html,body{ margin:0; background:var(--bg); color:var(--ink); font-family:var(--sans); line-height:1.65; -webkit-font-smoothing:antialiased; }
+    a{ color:inherit; text-decoration:none; }
+
+    /* ===== Header ===== */
+    header{
+      position:sticky; top:0; z-index:50;
+      background:color-mix(in srgb, var(--bg) 92%, transparent);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--rule);
+    }
+    .topbar{
+      max-width:var(--maxw); margin:0 auto;
+      padding:14px 22px;
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      text-decoration:none;
+    }
+    .logo{
+      width:52px; height:52px;
+      border-radius:50%;
+      object-fit:cover; object-position:center top;
+      border:1px solid var(--rule);
+      box-shadow:var(--shadow-soft);
+      background:var(--paper);
+    }
+    .brand-text h1{ margin:0; font-size:15px; font-weight:700; letter-spacing:.2px; }
+    .brand-text p{ margin:2px 0 0; font-size:12px; color:var(--muted); letter-spacing:.18px; }
+    .back-btn{
+      font-family:var(--sans); font-size:13px;
+      padding:8px 16px;
+      border:1px solid var(--rule);
+      border-radius:999px;
+      background:var(--paper);
+      color:var(--ink);
+      white-space:nowrap;
+      cursor:pointer;
+      transition:border-color .12s;
+    }
+    .back-btn:hover{ border-color:color-mix(in srgb, var(--accent) 40%, var(--rule)); }
+
+    /* ===== Main layout ===== */
+    .wrap{ max-width:var(--maxw); margin:0 auto; padding:40px 22px 64px; }
+
+    /* ===== Page hero ===== */
+    .page-hero{ margin-bottom:36px; }
+    .page-kicker{
+      display:inline-block;
+      font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+      color:var(--muted); margin-bottom:10px;
+    }
+    .page-title{
+      margin:0 0 32px;
+      font-family:var(--serif);
+      font-size:44px; font-weight:900; line-height:1.1; letter-spacing:-.5px;
+    }
+
+    /* ===== Scholar quotes ===== */
+    .quotes-section{ max-width:700px; margin-bottom:48px; }
+
+    .scholar-quote{
+      margin:0 0 6px;
+      padding:2px 0 2px 20px;
+      border-left:2px solid rgba(16,20,24,.2);
+      background:none;
+      border-radius:0;
+      font-family:var(--serif);
+      font-size:20px;
+      font-style:italic;
+      line-height:1.65;
+      color:var(--ink);
+    }
+
+    .citation{
+      margin:0 0 30px;
+      padding-left:22px;
+      font-size:12.5px;
+      color:var(--muted);
+      line-height:1.6;
+    }
+    .citation em{ font-style:italic; }
+
+    /* ===== Section heading ===== */
+    .section-label{
+      font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+      color:var(--muted); margin:0 0 14px;
+      padding-bottom:8px;
+      border-bottom:1px solid var(--rule);
+    }
+
+    /* ===== Paper cards ===== */
+    .papers-grid{
+      display:grid;
+      grid-template-columns:repeat(2, 1fr);
+      gap:14px;
+    }
+    @media(max-width:700px){
+      .papers-grid{ grid-template-columns:1fr; }
+      .page-title{ font-size:34px; }
+      .scholar-quote{ font-size:18px; }
+    }
+
+    .paper-card{
+      background:var(--paper);
+      border:1px solid var(--rule);
+      border-radius:12px;
+      padding:18px 18px 16px;
+      display:flex; flex-direction:column; justify-content:space-between;
+      min-height:180px;
+      position:relative; overflow:hidden;
+      transition:border-color .12s, transform .12s, box-shadow .12s;
+      animation:fadeUp .3s ease both;
+    }
+    .paper-card::before{
+      content:"";
+      position:absolute; left:0; top:0; bottom:0;
+      width:3px;
+      background:color-mix(in srgb, var(--accent) 55%, transparent);
+      opacity:.35;
+    }
+    .paper-card:hover{
+      transform:translateY(-2px);
+      border-color:color-mix(in srgb, var(--accent) 40%, var(--rule));
+      box-shadow:var(--shadow-soft);
+    }
+    @keyframes fadeUp{
+      from{ opacity:0; transform:translateY(8px); }
+      to{ opacity:1; transform:translateY(0); }
+    }
+    .paper-card:nth-child(1){ animation-delay:0s; }
+    .paper-card:nth-child(2){ animation-delay:.05s; }
+    .paper-card:nth-child(3){ animation-delay:.1s; }
+
+    .paper-badge{
+      display:inline-flex; align-items:center; gap:8px;
+      font-size:11px; letter-spacing:.16em; text-transform:uppercase;
+      color:var(--muted); margin-bottom:8px;
+    }
+    .paper-badge strong{ color:var(--ink); font-weight:800; letter-spacing:.14em; }
+
+    .paper-title{
+      margin:0 0 8px;
+      font-family:var(--serif);
+      font-weight:900; font-size:17px; line-height:1.25; letter-spacing:.2px;
+      color:var(--ink);
+    }
+
+    .paper-excerpt{
+      margin:0 0 14px;
+      color:var(--muted); font-size:13px; line-height:1.55;
+      display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
+    }
+
+    .paper-footer{
+      display:flex; justify-content:space-between; align-items:center;
+      padding-top:10px;
+      border-top:1px solid var(--soft);
+      gap:10px;
+    }
+    .paper-tags{ display:flex; gap:6px; flex-wrap:wrap; }
+    .paper-tag{
+      font-family:var(--mono);
+      font-size:11px; padding:4px 8px;
+      border-radius:999px;
+      border:1px solid var(--soft);
+      background:color-mix(in srgb, var(--paper) 90%, var(--bg));
+      color:color-mix(in srgb, var(--muted) 75%, var(--ink));
+    }
+    .pdf-link{
+      font-family:var(--sans); font-size:12px; font-weight:600;
+      padding:6px 14px;
+      border-radius:999px;
+      background:var(--accent);
+      color:#fff;
+      white-space:nowrap;
+      transition:opacity .12s;
+      flex-shrink:0;
+    }
+    .pdf-link:hover{ opacity:.85; }
+
+    /* ===== Footer ===== */
+    .page-footer{
+      margin-top:56px; padding-top:18px;
+      border-top:1px solid var(--rule);
+      font-size:13px; color:var(--muted);
+      display:flex; justify-content:space-between; align-items:center; gap:16px;
+      flex-wrap:wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="topbar">
+      <a class="brand" href="../">
+        <img class="logo" src="../IMG_6142.jpeg" alt="Joshua Haub" />
+        <div class="brand-text">
+          <h1>Joshua Haub Bible Material</h1>
+          <p>Notes &#183; Papers &#183; Articles</p>
+        </div>
+      </a>
+      <a class="back-btn" href="../">&#8592; Back to Library</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <div class="page-hero">
+      <div class="page-kicker">Topic</div>
+      <h2 class="page-title">Textual Criticism</h2>
+
+      <div class="quotes-section">
+        <blockquote class="scholar-quote">
+          &#8220;Textual criticism&#8212;the study of the original text of the New Testament.&#8221;
+        </blockquote>
+        <p class="citation">
+          David Alan Black, <em>New Testament Textual Criticism: A Concise Guide</em> (Grand Rapids, MI: Baker Books, 1994), 11.
+        </p>
+
+        <blockquote class="scholar-quote">
+          &#8220;[Textual Criticism&#8217;s] purpose: to recover the original text of the New Testament from the available evidence&#8221;
+        </blockquote>
+        <p class="citation">
+          David Alan Black, <em>New Testament Textual Criticism: A Concise Guide</em> (Grand Rapids, MI: Baker Books, 1994), 12.
+        </p>
+      </div>
+
+      <p class="section-label">Papers on Textual Criticism</p>
+
+      <div class="papers-grid">
+
+        <div class="paper-card">
+          <div>
+            <div class="paper-badge"><strong>Paper</strong> &middot; Jan 6, 2026</div>
+            <h3 class="paper-title">Is John 7:53&#8211;8:11 Part of the Original Text of John?</h3>
+            <p class="paper-excerpt">A textual-critical analysis of John 7:53&#8211;8:11 and its external evidence from the Manuscript Witnesses and Early Church Fathers.</p>
+          </div>
+          <div class="paper-footer">
+            <div class="paper-tags">
+              <span class="paper-tag">John</span>
+              <span class="paper-tag">Manuscripts</span>
+              <span class="paper-tag">Church Fathers</span>
+            </div>
+            <a class="pdf-link" href="../Is John 7.53-8.11 Part of the Original Text of John (PDF).pdf" target="_blank" rel="noopener noreferrer">View PDF</a>
+          </div>
+        </div>
+
+        <div class="paper-card">
+          <div>
+            <div class="paper-badge"><strong>Paper</strong> &middot; Jan 7, 2026</div>
+            <h3 class="paper-title">The External Evidence for the Authenticity of Luke 23:34a</h3>
+            <p class="paper-excerpt">A textual-critical analysis of Luke 23:34a and its external evidence from the Manuscript Witnesses and Early Church Fathers.</p>
+          </div>
+          <div class="paper-footer">
+            <div class="paper-tags">
+              <span class="paper-tag">Luke</span>
+              <span class="paper-tag">Manuscripts</span>
+              <span class="paper-tag">Church Fathers</span>
+            </div>
+            <a class="pdf-link" href="../The External Evidence for the Authenticity of Luke 23.34a (PDF).pdf" target="_blank" rel="noopener noreferrer">View PDF</a>
+          </div>
+        </div>
+
+        <div class="paper-card">
+          <div>
+            <div class="paper-badge"><strong>Paper</strong> &middot; Jan 7, 2026</div>
+            <h3 class="paper-title">Who Wrote 1 Cor. 14:34&#8211;35: Paul or Someone Else?</h3>
+            <p class="paper-excerpt">A textual-critical analysis of 1 Corinthians 14:34&#8211;35 and its external evidence from the Manuscript Witnesses.</p>
+          </div>
+          <div class="paper-footer">
+            <div class="paper-tags">
+              <span class="paper-tag">1 Corinthians</span>
+              <span class="paper-tag">Manuscripts</span>
+            </div>
+            <a class="pdf-link" href="../Who Wrote 1 Cor. 14.34-5. Paul or Someone Else (PDF).pdf" target="_blank" rel="noopener noreferrer">View PDF</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <footer class="page-footer">
+      <span>Joshua M. Haub &nbsp;&#183;&nbsp; <a href="../" style="color:var(--accent);">joshuahaub.com</a></span>
+      <span>All content free to use.</span>
+    </footer>
+
+  </main>
+
+</body>
+</html>
