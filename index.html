@@ -2601,16 +2601,36 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
               } else {
                 child.replaceWith(document.createTextNode(child.textContent));
               }
-            } else if (allowed.has(child.tagName)){
+              continue;
+            }
+
+            // Word/Google Docs paste bold/italic/underline as inline CSS on
+            // SPAN/etc rather than <b>/<u> tags — read that before we strip
+            // attributes or unwrap the element, so the formatting survives.
+            const cs = child.style;
+            const fw = (cs.fontWeight || "").toLowerCase();
+            const weightNum = parseInt(fw, 10);
+            const isBold = fw === "bold" || (!isNaN(weightNum) && weightNum >= 600);
+            const isItalic = (cs.fontStyle || "").toLowerCase() === "italic";
+            const td = (cs.textDecorationLine || cs.textDecoration || "").toLowerCase();
+            const isUnderline = td.includes("underline");
+            const isAllowed = allowed.has(child.tagName);
+
+            clean(child);
+
+            const frag = document.createDocumentFragment();
+            while (child.firstChild) frag.appendChild(child.firstChild);
+            if (isBold){ const s = document.createElement("strong"); while(frag.firstChild) s.appendChild(frag.firstChild); frag.appendChild(s); }
+            if (isItalic){ const e = document.createElement("em"); while(frag.firstChild) e.appendChild(frag.firstChild); frag.appendChild(e); }
+            if (isUnderline){ const u = document.createElement("u"); while(frag.firstChild) u.appendChild(frag.firstChild); frag.appendChild(u); }
+
+            if (isAllowed){
               // Strip style/class/etc. but keep the structural tag itself
               [...child.attributes].forEach(a => child.removeAttribute(a.name));
-              clean(child);
+              child.appendChild(frag);
             } else {
               // Unknown tag (e.g. SPAN/FONT from pasted content) — unwrap it
-              // instead of discarding it, so nested bold/underline/links survive.
-              clean(child);
-              const frag = document.createDocumentFragment();
-              while (child.firstChild) frag.appendChild(child.firstChild);
+              // instead of discarding it, so nested formatting/links survive.
               if (blockTags.has(child.tagName) && frag.lastChild) frag.appendChild(document.createElement("br"));
               child.replaceWith(frag);
             }
