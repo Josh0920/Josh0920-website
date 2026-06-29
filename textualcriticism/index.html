@@ -257,6 +257,10 @@
     .comment-author{ font-weight:700; font-size:13px; color:var(--ink); }
     .comment-date{ font-size:11px; color:var(--muted); }
     .comment-text{ font-size:14px; color:var(--ink); line-height:1.5; margin:0; }
+    .comment-text p, .comment-text div{ margin:0 0 8px; }
+    .comment-text p:last-child, .comment-text div:last-child{ margin-bottom:0; }
+    .comment-text ul, .comment-text ol{ margin:4px 0 8px; padding-left:22px; }
+    .comment-text li{ margin:0 0 4px; }
     .comment-empty{ color:var(--muted); font-size:13px; font-style:italic; }
     .reply-btn{
       margin-top:8px; display:inline-flex; align-items:center; gap:5px;
@@ -530,7 +534,8 @@
     function sanitizeComment(html){
       const div = document.createElement("div");
       div.innerHTML = String(html);
-      const allowed = new Set(["B","I","U","STRONG","EM","BR","A"]);
+      const allowed = new Set(["B","I","U","STRONG","EM","BR","A","UL","OL","LI","DIV","P"]);
+      const blockTags = new Set(["DIV","P","LI","UL","OL","TABLE","TR","TD","TH","BLOCKQUOTE","H1","H2","H3","H4","H5","H6"]);
       function clean(node){
         const children = [...node.childNodes];
         for (const child of children){
@@ -550,9 +555,17 @@
                 child.replaceWith(document.createTextNode(child.textContent));
               }
             } else if (allowed.has(child.tagName)){
+              // Strip style/class/etc. but keep the structural tag itself
+              [...child.attributes].forEach(a => child.removeAttribute(a.name));
               clean(child);
             } else {
-              child.replaceWith(document.createTextNode(child.textContent));
+              // Unknown tag (e.g. SPAN/FONT from pasted content) — unwrap it
+              // instead of discarding it, so nested bold/underline/links survive.
+              clean(child);
+              const frag = document.createDocumentFragment();
+              while (child.firstChild) frag.appendChild(child.firstChild);
+              if (blockTags.has(child.tagName) && frag.lastChild) frag.appendChild(document.createElement("br"));
+              child.replaceWith(frag);
             }
           } else {
             child.remove();
@@ -680,7 +693,7 @@
                 <span class="comment-author">${escapeHtml(r.name)}</span>
                 <span class="comment-date">${escapeHtml(formatDate(rd))}</span>
               </div>
-              <p class="comment-text">${sanitizeComment(r.body)}</p>
+              <div class="comment-text">${sanitizeComment(r.body)}</div>
             </div>`;
           }).join("");
 
@@ -689,7 +702,7 @@
               <span class="comment-author">${escapeHtml(c.name)}</span>
               <span class="comment-date">${escapeHtml(formatDate(d))}</span>
             </div>
-            <p class="comment-text">${sanitizeComment(c.body)}</p>
+            <div class="comment-text">${sanitizeComment(c.body)}</div>
             <button class="reply-btn" onclick="toggleReplyForm(${c.id})"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M10 9V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z"/></svg>Reply</button>
             <div class="reply-form-wrap" id="reply-form-${c.id}" style="display:none;">
               <input class="reply-name-input" type="text" placeholder="Your name" maxlength="80" />
