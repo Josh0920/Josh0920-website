@@ -137,6 +137,20 @@
     }
 
     /* ===== Footer ===== */
+    .forthcoming{
+      margin-top:40px; padding:16px 20px;
+      border:1px solid color-mix(in srgb, var(--accent) 30%, var(--rule));
+      border-radius:var(--radius); background:color-mix(in srgb, var(--accent) 6%, var(--paper));
+      display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;
+    }
+    .forthcoming-label{
+      font-size:11px; letter-spacing:.12em; text-transform:uppercase;
+      color:var(--accent); font-weight:700; white-space:nowrap; flex-shrink:0;
+    }
+    .forthcoming p{
+      margin:0; font-size:14px; color:var(--ink);
+    }
+
     .page-footer{
       margin-top:56px; padding-top:18px; border-top:1px solid var(--rule);
       font-size:13px; color:var(--muted);
@@ -340,6 +354,11 @@
         </div>
       </article>
 
+    </div>
+
+    <div class="forthcoming">
+      <span class="forthcoming-label">Forthcoming</span>
+      <p><em>1 and 2 Peter: A Commentary on the Two Letters of the Apostle Peter</em></p>
     </div>
 
     <footer class="page-footer">
