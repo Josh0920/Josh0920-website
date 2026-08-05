@@ -77,5 +77,24 @@
       <footer>Joshua M. Haub &#183; July 30, 2026</footer>
     </section>
   </main>
+
+  <!-- RefTagger (Faithlife) — turns Scripture references into Biblia links.
+       bibleVersion "NASB" resolves internally to Biblia's nasb95 resource. -->
+  <script>
+    var refTagger = {
+      settings: {
+        bibleVersion: "NASB",
+        addLogosLink: false,
+        socialSharing: [],
+        linksOpenNewWindow: true,
+        convertHyperlinks: false,
+        noSearchClassNames: ["meta", "kicker", "back-btn", "ref-auto"]
+      }
+    };
+  </script>
+  <!-- links bare references ("11:9-12:1") using the surrounding book/version;
+       must run before RefTagger, which then leaves existing links alone -->
+  <script src="../../scripture-context.js"></script>
+  <script src="../../RefTagger.js"></script>
 </body>
 </html>

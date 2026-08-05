@@ -56,5 +56,23 @@
       <footer>Joshua M. Haub &#183; August 17, 2024</footer>
     </section>
   </main>
+
+  <!-- Scripture linking: RefTagger (Faithlife) plus a context pass that
+       resolves bare references like "11:9-12:1" from the surrounding book.
+       scripture-context.js must load first — RefTagger tags on execution. -->
+  <script>
+    var refTagger = {
+      settings: {
+        bibleVersion: "NASB",
+        addLogosLink: false,
+        socialSharing: [],
+        linksOpenNewWindow: true,
+        convertHyperlinks: false,
+        noSearchClassNames: ["meta", "kicker", "back-btn", "ref-auto"]
+      }
+    };
+  </script>
+  <script src="../../scripture-context.js"></script>
+  <script src="../../RefTagger.js"></script>
 </body>
 </html>
