@@ -249,6 +249,40 @@
     return span;
   }
 
+  /* The commentary declares the passage each section covers ("2 Peter · 1:1-4").
+     That is the section's home book. A different book cited in passing
+     ("a connection to Acts 11:17 and 15:11") should govern only the sentence
+     it appears in — the next sentence returns to the passage under discussion.
+     Pages without such headings keep the plain sticky behaviour. */
+  function homeBookOf(node, lookup, bookRe) {
+    for (var el = node.parentElement; el; el = el.parentElement) {
+      if (el.classList && el.classList.contains("ms")) {
+        /* Headings name the book in several shapes — "2 Peter · 1:1-4",
+           "Introduction to 2 Peter · Audience", "Bibliography for 1 Peter" —
+           so look for a book name anywhere in the label and take the last. */
+        var loc = el.getAttribute("data-loc") || "";
+        var found = null, bm2;
+        bookRe.lastIndex = 0;
+        while ((bm2 = bookRe.exec(loc))) found = lookup[bm2[1].toLowerCase()] || found;
+        return found;
+      }
+    }
+    return null;
+  }
+
+  /* Index of the sentence each character belongs to, so a book named in one
+     sentence does not leak into the next. */
+  function sentenceStarts(text) {
+    var bounds = [0], re = /[.!?]["'”’)\]]*\s+/g, m;
+    while ((m = re.exec(text))) bounds.push(m.index + m[0].length);
+    return bounds;
+  }
+  function sentenceOf(bounds, pos) {
+    var i = 0;
+    for (var k = 0; k < bounds.length; k++) if (bounds[k] <= pos) i = k;
+    return i;
+  }
+
   function run(root) {
     var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
     var nodes = [], n;
@@ -266,13 +300,27 @@
       var text = node.nodeValue;
       if (!text || !text.trim()) return;
 
-      // Update the running book from any book named here, even in prose.
-      // Done before linking so "…of Ecclesiastes, in 11:9–12:1…" resolves.
-      var lastBookAt = -1, bm;
+      // Where each book is named here, with its sentence, so a reference can
+      // pick the one that actually governs it.
+      var bounds = sentenceStarts(text);
+      var bmarks = [], bm;
       BOOK_RE.lastIndex = 0;
       while ((bm = BOOK_RE.exec(text))) {
-        book = BOOK_LOOKUP[bm[1].toLowerCase()];
-        lastBookAt = bm.index;
+        bmarks.push([bm.index, BOOK_LOOKUP[bm[1].toLowerCase()], sentenceOf(bounds, bm.index)]);
+      }
+      if (bmarks.length) book = bmarks[bmarks.length - 1][1];   // sticky carry-over
+      var home = homeBookOf(node, BOOK_LOOKUP, BOOK_RE);
+
+      function bookAt(pos, carried) {
+        var sent = sentenceOf(bounds, pos), last = null, anyBefore = null;
+        for (var i = 0; i < bmarks.length; i++) {
+          if (bmarks[i][0] >= pos) break;
+          anyBefore = bmarks[i][1];
+          if (bmarks[i][2] === sent) last = bmarks[i][1];
+        }
+        if (last) return last;              // named in this very sentence
+        if (home) return home;              // otherwise the section's passage
+        return anyBefore || carried;        // else plain sticky behaviour
       }
 
       if (skippable(node) || !book) return;
@@ -298,7 +346,7 @@
       var out = null, cursor = 0, m;
       while ((m = REF_RE.exec(text))) {
         var named = m[1] ? BOOK_LOOKUP[m[1].toLowerCase()] : null;
-        var useBook = named || book;
+        var useBook = named || bookAt(m.index, book);
         if (!useBook) continue;
 
         // On English pages RefTagger already handles references that name
