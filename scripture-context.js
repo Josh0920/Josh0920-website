@@ -16,7 +16,6 @@
 (function () {
   "use strict";
 
-  var DEFAULT_VERSION;   // set once the page language is known
 
   /* Biblia resource ids for the versions worth naming in prose. */
   var VERSIONS = {
@@ -156,21 +155,7 @@
     ["Revelation", ["Apocalipsis", "Apoc", "Ap"]]
   ];
 
-  /* Spanish pages get NBLA (Biblia serves it under the older id "nblh"). */
-  var IS_ES = (document.documentElement.getAttribute("lang") || "")
-                .toLowerCase().indexOf("es") === 0;
-
-  var allNames = [];
-  BOOKS.forEach(function (b) {
-    b[1].forEach(function (n) { allNames.push([n, b[0]]); });
-  });
-  if (IS_ES) {
-    BOOKS_ES.forEach(function (b) {
-      b[1].forEach(function (n) { allNames.push([n, b[0]]); });
-    });
-  }
-  allNames.sort(function (a, b) { return b[0].length - a[0].length; });
-
+  function esc(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
 
   /* Chapter counts, used to reject impossible references — a stray "51:1"
      after Genesis is not Scripture. Verse counts are not checked, so a
@@ -191,37 +176,47 @@
     "Revelation":22
   };
 
-  DEFAULT_VERSION = IS_ES ? "nblh" : "nasb95";
+  function buildBundle(tables) {
+    var names = [];
+    tables.forEach(function (t) {
+      t.forEach(function (bk) {
+        bk[1].forEach(function (n) { names.push([n, bk[0]]); });
+      });
+    });
+    names.sort(function (x, y) { return y[0].length - x[0].length; });
+    var alt = names.map(function (n) { return esc(n[0]); }).join("|");
+    var lookup = {};
+    names.forEach(function (n) { lookup[n[0].toLowerCase()] = n[1]; });
+    return {
+      lookup: lookup,
+      bookRe: new RegExp("\\b(" + alt + ")\\b", "g"),
+      refRe: new RegExp("(?:(" + alt + ")\\.?\\s+)?" +
+        "(\\d{1,3}):(\\d{1,3})(?:\\s*[\u2013\u2014-]\\s*(?:(\\d{1,3}):)?(\\d{1,3}))?", "g")
+    };
+  }
 
-  function esc(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
+  /* The reader modal shows Spanish articles on a page whose own lang is "en",
+     and the site flips <html lang> when the language toggle is used — so the
+     language has to be read at scan time, not once at load. Spanish book names
+     are kept out of English scans so short forms ("Sal", "Ap") cannot match
+     ordinary English words. */
+  function isSpanish() {
+    return (document.documentElement.getAttribute("lang") || "")
+             .toLowerCase().indexOf("es") === 0;
+  }
+  function defaultVersion() { return isSpanish() ? "nblh" : "nasb95"; }
 
-  var BOOK_RE = new RegExp(
-    "\\b(" + allNames.map(function (p) { return esc(p[0]); }).join("|") + ")\\b", "g");
-  var BOOK_LOOKUP = {};
-  allNames.forEach(function (p) { BOOK_LOOKUP[p[0].toLowerCase()] = p[1]; });
+  var EN = buildBundle([BOOKS]);
+  var ES = buildBundle([BOOKS, BOOKS_ES]);
 
-  /* longest first, so "RVR 1960" is not eaten by a shorter alternative */
-  var VERSION_RE = new RegExp(
-    "(?:\\b|^)(" + Object.keys(VERSIONS)
-      .sort(function (a, b) { return b.length - a.length; })
-      .map(esc).join("|") + ")(?:\\b|$)", "g");
-
-  /* "11:9", "12:13-14", "11:9–12:1" — a colon is required, which keeps page
-     numbers ("p. 412-5") and years out. */
   /* ", 6" continuing the previous chapter — but not ", 15:6", which is a
      fresh chapter and belongs to the main pattern. */
   var CONT_RE = /,\s*(\d{1,3})(?!\s*[:.]\s*\d)/g;
 
-  var BOOK_ALT = allNames.map(function (p) { return esc(p[0]); }).join("|");
-  var REF_RE = new RegExp(
-    "(?:(" + BOOK_ALT + ")\\.?\\s+)?" +
-    "(\\d{1,3}):(\\d{1,3})(?:\\s*[\u2013\u2014-]\\s*(?:(\\d{1,3}):)?(\\d{1,3}))?", "g");
-
-  function biblia(book, ch, v, ch2, v2, version) {
-    var ref = book + " " + ch + "." + v;
-    if (v2) ref += "-" + (ch2 ? ch2 + "." + v2 : v2);
-    return "https://biblia.com/bible/" + version + "/" + encodeURIComponent(ref);
-  }
+  var VERSION_RE = new RegExp(
+    "(?:\\b|^)(" + Object.keys(VERSIONS)
+      .sort(function (x, y) { return y.length - x.length; })
+      .map(esc).join("|") + ")(?:\\b|$)", "g");
 
   /* Text nodes we must not touch: inside links, headings, code, or anything
      the page has already marked as not-for-scanning. */
@@ -258,6 +253,11 @@
     var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
     var nodes = [], n;
     while ((n = walker.nextNode())) nodes.push(n);
+
+    var bundle = isSpanish() ? ES : EN;
+    var BOOK_RE = bundle.bookRe, BOOK_LOOKUP = bundle.lookup, REF_RE = bundle.refRe;
+    var DEFAULT_VERSION = defaultVersion();
+    var spanish = isSpanish();
 
     var book = null;          // carries across the whole article
     var linked = 0;
@@ -304,7 +304,7 @@
         // On English pages RefTagger already handles references that name
         // their book, so leave those alone. On Spanish pages it cannot see
         // them at all, so we take those too.
-        if (named && !IS_ES) { book = named; continue; }
+        if (named && !spanish) { book = named; continue; }
         if (named) book = named;
 
         var maxCh = CHAPTERS[useBook] || 150;
@@ -396,9 +396,57 @@
     (document.head || document.documentElement).appendChild(st);
   }
 
+  /* Re-run over freshly injected content. The library page opens articles in
+     a modal: it fetches the article, keeps only <article>/<footer>, and strips
+     every <script> — so the article's own RefTagger never runs. We expand the
+     new content here and ask RefTagger to tag it. */
+  function rescan(root) {
+    if (!root) return;
+    try {
+      run(root);
+      if (window.refTagger && typeof refTagger.tag === "function") refTagger.tag();
+      var tries = 0;
+      (function settle() {
+        if (sweep(false) === 0) return;
+        if (++tries > 60) { sweep(true); return; }
+        setTimeout(settle, 25);
+      })();
+    } catch (e) {
+      if (window.console) console.error("[scripture-context] rescan", e);
+    }
+  }
+  window.rescanScripture = rescan;
+
+  /* Watch the reader modal, if this page has one. */
+  function watchModal() {
+    var body = document.getElementById("modalBody");
+    if (!body || !window.MutationObserver) return;
+    var timer = null;
+    new MutationObserver(function () {
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        // ignore the "Loading..." placeholder and already-processed content
+        if (!body.textContent.trim()) return;
+        if (body.querySelector("a.rtBibleRef") || body.querySelector("span.rc-pending")) return;
+        rescan(body);
+      }, 60);
+    }).observe(body, { childList: true, subtree: true });
+  }
+
   function start() {
     injectStyle();
-    var root = document.querySelector("article") || document.body;
+    watchModal();
+    /* Pick what to scan:
+         - an article page has <article> (a library card is also <article>,
+           hence :not(.item));
+         - the library page has the reader modal, whose content arrives later
+           and is picked up by the observer above;
+         - everything else (the commentary, topic pages) has neither, so scan
+           the document. */
+    var root = document.querySelector("article:not(.item)") ||
+               document.getElementById("modalBody") ||
+               document.body;
+    if (!root) return;
     try {
       var n = run(root);
       // run after RefTagger's own DOMContentLoaded handler (registered later

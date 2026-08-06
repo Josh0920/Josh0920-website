@@ -3275,5 +3275,25 @@ renderGrid();
       }
     }
   </script>
+
+  <!-- Scripture linking for the reader modal. Articles are opened here rather
+       than as standalone pages, and the reader strips their scripts — so the
+       linking has to live on this page. The card grid is excluded so a
+       reference in an excerpt never hijacks the click that opens the article. -->
+  <script>
+    var refTagger = {
+      settings: {
+        bibleVersion: "NASB",
+        addLogosLink: false,
+        socialSharing: [],
+        linksOpenNewWindow: true,
+        convertHyperlinks: false,
+        noSearchClassNames: ["item", "title", "excerpt", "badge", "tag", "tags",
+                             "meta", "kicker", "featured", "ref-auto"]
+      }
+    };
+  </script>
+  <script src="scripture-context.js"></script>
+  <script src="RefTagger.js"></script>
 </body>
 </html>
