@@ -1,6 +1,10 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <!-- The reader shows a real path (e.g. /articles/<id>/) while staying on this
+       page, which would otherwise re-resolve every relative src/href against
+       that deeper path. Pin the base so assets and links keep resolving from /textualcriticism/ -->
+  <base href="/textualcriticism/">
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Textual Criticism | Joshua's Bible Library</title>
@@ -493,7 +497,7 @@
 
       overlay.classList.add("show");
       document.body.style.overflow = "hidden";
-      history.replaceState(null, "", `#/${encodeURIComponent(id)}`);
+      history.replaceState(null, "", "/textualcriticism/" + encodeURIComponent(id) + "/");
 
       renderComments(id);
     }
@@ -502,7 +506,7 @@
       overlay.classList.remove("show");
       document.body.style.overflow = "";
       modalPdf.innerHTML = "";
-      history.replaceState(null, "", location.pathname);
+      history.replaceState(null, "", "/textualcriticism/" + location.search);
     }
 
     /*************************************************************
@@ -860,8 +864,33 @@
     }
 
     // Open from URL hash on load
-    const hashId = decodeURIComponent((location.hash || "").replace(/^#\//, ""));
-    if (hashId && PAPERS[hashId]) openReader(hashId);
+    /* Papers have no page of their own, so /textualcriticism/<id>/ is served by 404.html,
+       which stashes the path and bounces here. Restore it so the address bar
+       keeps the URL that was shared. */
+    function routeFromUrl(){
+      let saved = null;
+      try {
+        saved = sessionStorage.getItem("spaPath");
+        if (saved) sessionStorage.removeItem("spaPath");
+      } catch (e) { /* private mode */ }
+      if (saved) history.replaceState(null, "", saved);
+
+      // Links shared before the switch still arrive as /textualcriticism/#/<id>.
+      const legacy = (location.hash || "").match(/^#\/(.+)$/);
+      if (legacy) {
+        const id = decodeURIComponent(legacy[1]);
+        if (PAPERS[id]) { openReader(id); return; }
+        history.replaceState(null, "", "/textualcriticism/" + location.search);
+        return;
+      }
+      if (location.hash) history.replaceState(null, "", location.pathname + location.search);
+
+      const m = decodeURIComponent(location.pathname).match(/\/([^\/]+)\/?$/);
+      if (m && m[1] !== "textualcriticism" && PAPERS[m[1]]) openReader(m[1]);
+    }
+
+    routeFromUrl();
+    window.addEventListener("popstate", routeFromUrl);
   </script>
 
 

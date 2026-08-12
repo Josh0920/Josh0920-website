@@ -1,6 +1,10 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <!-- The reader shows a real path (e.g. /articles/<id>/) while staying on this
+       page, which would otherwise re-resolve every relative src/href against
+       that deeper path. Pin the base so assets and links keep resolving from / -->
+  <base href="/">
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Joshua’s Bible Library</title>
@@ -2896,7 +2900,7 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
 
       els.overlay.classList.add("show");
       document.body.style.overflow = "hidden";
-      history.replaceState(null, "", `#/${encodeURIComponent(item.id)}`);
+      history.replaceState(null, "", canonicalPath(item, localizedHref));
 
       // Load comments for this document
       renderComments(item.id);
@@ -2908,17 +2912,55 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
       // Clean up iframes to stop any media/loading
       els.modalPdf.innerHTML = "";
       els.modalBody.innerHTML = "";
-      history.replaceState(null, "", "#/");
+      history.replaceState(null, "", "/" + location.search);
     }
 
-    function hydrateFromHash(){
-      const h = location.hash || "#/";
-      const m = h.match(/^#\/(.+)$/);
-      if (m && m[1] && m[1] !== "") {
-        const id = decodeURIComponent(m[1]);
-        const exists = CONTENT.some(x=>x.id === id);
-        if (exists) openReader(id);
+    /* Clean, shareable URL for an item — no "#".
+       Articles have a real page on disk at articles/<id>/ (and .../es/), so a
+       visitor landing there gets a genuine 200 from GitHub Pages. PDF papers
+       have no page of their own, so they get /papers/<id>/ and 404.html hands
+       the path back to us. */
+    function canonicalPath(item, localizedHref){
+      const href = localizedHref || item.href;
+      return href ? "/" + String(href).replace(/^\/+/, "")
+                  : "/papers/" + encodeURIComponent(item.id) + "/";
+    }
+
+    function openIfKnown(id){
+      if (!id) return false;
+      if (!CONTENT.some(x => x.id === id)) return false;
+      openReader(id);
+      return true;
+    }
+
+    function routeFromUrl(){
+      /* A path 404.html captured before bouncing us here. Restore it silently
+         so the address bar keeps the URL that was actually shared. */
+      let saved = null;
+      try {
+        saved = sessionStorage.getItem("spaPath");
+        if (saved) sessionStorage.removeItem("spaPath");
+      } catch (e) { /* private mode — fall through to the live URL */ }
+      if (saved) history.replaceState(null, "", saved);
+
+      /* Links shared before the switch still arrive as /#/<id>. Honour them,
+         then rewrite the bar to the clean path so the "#" does not linger. */
+      const legacy = (location.hash || "").match(/^#\/(.+)$/);
+      if (legacy) {
+        const id = decodeURIComponent(legacy[1]);
+        if (openIfKnown(id)) return;
+        history.replaceState(null, "", "/" + location.search);
+        return;
       }
+      if (location.hash) history.replaceState(null, "", location.pathname + location.search);
+
+      const path = decodeURIComponent(location.pathname);
+      let m = path.match(/\/papers\/([^\/]+)\/?$/);
+      if (m && openIfKnown(m[1])) return;
+      /* Only reachable when an article path was restored from 404.html — the
+         real page normally answers /articles/<id>/ directly. */
+      m = path.match(/\/articles\/([^\/]+)\/(?:es\/)?$/);
+      if (m) openIfKnown(m[1]);
     }
 
     function setTypeFilter(type){
@@ -3198,7 +3240,6 @@ els.langToggle.addEventListener("click", ()=>{
     });
 
     function init() {
-      if (!location.hash) history.replaceState(null, "", "#/");
             applyTheme();
       applyLanguage();
 
@@ -3207,8 +3248,8 @@ buildTagSelect();
 state.type = "All";
 renderGrid();
 
-      hydrateFromHash();
-      window.addEventListener("hashchange", hydrateFromHash);
+      routeFromUrl();
+      window.addEventListener("popstate", routeFromUrl);
 
       // Fetch comment counts from Supabase so cards show badges
       prefetchCommentCounts();
