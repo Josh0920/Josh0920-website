@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Not Found | Joshua's Bible Library</title>
+<meta name="robots" content="noindex">
+<script>
+/* GitHub Pages serves this file for any path that has no file behind it.
+   PDF papers have no page of their own, so /papers/<id>/, /peter/<id>/ and
+   /textualcriticism/<id>/ land here. Stash the path and bounce to the library
+   that owns it; that page restores the URL and opens the reader, so the link
+   the visitor followed is the link that stays in the address bar.
+
+   Articles are NOT listed here on purpose — every article is a real directory,
+   so an article path reaching this file means it genuinely does not exist. */
+(function () {
+  var path = window.location.pathname;
+  var bases = ["/peter/", "/textualcriticism/", "/papers/"];
+  for (var i = 0; i < bases.length; i++) {
+    var base = bases[i];
+    if (path.indexOf(base) === 0 && path.length > base.length) {
+      try {
+        sessionStorage.setItem("spaPath", path + window.location.search);
+      } catch (e) {
+        /* Private mode: the library falls back to showing its index. */
+      }
+      // /papers/ is a virtual prefix of the main library, which lives at "/".
+      window.location.replace(base === "/papers/" ? "/" : base);
+      return;
+    }
+  }
+  document.documentElement.setAttribute("data-state", "missing");
+})();
+try {
+  document.documentElement.setAttribute(
+    "data-theme", localStorage.getItem("theme") === "dark" ? "dark" : "light"
+  );
+} catch (e) {}
+</script>
+<style>
+  :root{
+    --bg:#fbfbf8; --paper:#fff; --ink:#101418; --muted:#5b6470;
+    --rule:#e4e4dd; --accent:#1f4bd8;
+  }
+  [data-theme="dark"]{
+    --bg:#0f1216; --paper:#12161c; --ink:#e9edf3; --muted:#9aa5b4;
+    --rule:#232a33; --accent:#86a3ff;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font:16px/1.6 ui-serif, Georgia, "Times New Roman", serif;
+    display:grid; place-items:center; padding:24px;
+  }
+  /* Hidden until the redirect above has had its chance, so a bounced paper
+     link never flashes "Not Found" on the way through. */
+  main{
+    max-width:34rem; text-align:center; background:var(--paper);
+    border:1px solid var(--rule); border-radius:14px; padding:40px 32px;
+    visibility:hidden;
+  }
+  [data-state="missing"] main{visibility:visible}
+  .code{
+    font:600 12px/1 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--muted);
+  }
+  h1{margin:14px 0 10px; font-size:1.7rem; line-height:1.25; text-wrap:balance}
+  p{margin:0 auto 26px; color:var(--muted); max-width:28rem}
+  a.home{
+    display:inline-block; padding:11px 22px; border-radius:9px;
+    background:var(--accent); color:#fff; text-decoration:none;
+    font:600 15px/1 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  a.home:hover{opacity:.9}
+  a.home:focus-visible{outline:2px solid var(--ink); outline-offset:3px}
+</style>
+</head>
+<body>
+  <main>
+    <div class="code">404</div>
+    <h1>That page isn&rsquo;t here</h1>
+    <p>The link may be mistyped, or the page may have moved since it was shared.</p>
+    <a class="home" href="/">Back to the library</a>
+  </main>
+</body>
+</html>
