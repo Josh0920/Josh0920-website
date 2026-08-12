@@ -211,7 +211,10 @@
 
   /* ", 6" continuing the previous chapter — but not ", 15:6", which is a
      fresh chapter and belongs to the main pattern. */
-  var CONT_RE = /,\s*(\d{1,3})(?!\s*[:.]\s*\d)/g;
+  /* The (?!\d) matters: \d{1,3} is greedy, so against ", 12:10" it first tries
+     "12", fails the colon guard, then backtracks to "1" — which passes, and a
+     chapter reference gets silently linked as a stray verse. */
+  var CONT_RE = /,\s*(\d{1,3})(?!\d)(?!\s*[:.]\s*\d)/g;
 
   var VERSION_RE = new RegExp(
     "(?:\\b|^)(" + Object.keys(VERSIONS)
@@ -221,6 +224,13 @@
   /* Text nodes we must not touch: inside links, headings, code, or anything
      the page has already marked as not-for-scanning. */
   var SKIP = /^(A|SCRIPT|STYLE|CODE|PRE|H1|H2|H3|BUTTON|TIME)$/;
+
+  /* Cues that a following "n:m" is a timestamp or a citation, not Scripture.
+     The abbreviations stay case-sensitive — lowercase "no." and "or." turn up
+     in ordinary prose and must not suppress a real reference — while the
+     timestamp words allow a capital for sentence starts. */
+  var NOT_SCRIPTURE =
+    /(?:[Mm]inute|[Mm]in\.|[Tt]imestamp)\s*$|\b(?:Hom|Ep|Comm|Adv|Haer|Strom|Apol|Praef|Frag|Serm|Tract|Ant|Vit|Pp|No|Vol)\.\s*$|\b(?:pp?|vol)\.\s*$/;
   function skippable(node) {
     for (var el = node.parentElement; el; el = el.parentElement) {
       if (SKIP.test(el.tagName)) return true;
@@ -228,9 +238,10 @@
         var cl = el.classList;
         // Never infer a book inside a comparison table: its bare references
         // belong to the column heading, not to the surrounding prose.
+        // "note"/"notes" are deliberately absent: footnotes are scanned like
+        // any other prose, using the data-loc the build stamps on each note.
         if (cl.contains("no-ref") || cl.contains("meta") || cl.contains("kicker") ||
             cl.contains("tbl-wrap") || cl.contains("sbl") ||
-            cl.contains("notes") || cl.contains("note") ||
             cl.contains("toc-line") || cl.contains("pgb") ||
             cl.contains("fnm")) return true;
       }
@@ -256,7 +267,11 @@
      Pages without such headings keep the plain sticky behaviour. */
   function homeBookOf(node, lookup, bookRe) {
     for (var el = node.parentElement; el; el = el.parentElement) {
-      if (el.classList && el.classList.contains("ms")) {
+      /* Any element carrying data-loc, not just a section: footnotes render in
+         one block at the end of the document, so the build stamps each note
+         with the section its marker sits in. Without that a bare "1:4" in a
+         note would inherit whatever book the previous note happened to name. */
+      if (el.hasAttribute && el.hasAttribute("data-loc")) {
         /* Headings name the book in several shapes — "2 Peter · 1:1-4",
            "Introduction to 2 Peter · Audience", "Bibliography for 1 Peter" —
            so look for a book name anywhere in the label and take the last. */
@@ -348,6 +363,16 @@
         var named = m[1] ? BOOK_LOOKUP[m[1].toLowerCase()] : null;
         var useBook = named || bookAt(m.index, book);
         if (!useBook) continue;
+
+        /* Footnotes are full of things shaped like a reference that are not
+           one. Recordings are cited by timestamp ("minute 42:44") and ancient
+           works by section ("Origen, Homilies on Joshua, Hom. 7.1") — and that
+           second shape sits just after a real book name, so sentence context
+           would confidently mislabel it. Only bare references are suppressed;
+           an explicit "1 Pet 1:4" still wins. */
+        if (!named && NOT_SCRIPTURE.test(text.slice(Math.max(0, m.index - 26), m.index))) {
+          continue;
+        }
 
         // On English pages RefTagger already handles references that name
         // their book, so leave those alone. On Spanish pages it cannot see
