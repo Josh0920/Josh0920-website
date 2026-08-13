@@ -827,15 +827,26 @@ function pvPageOf(el){
 
 /* The leaf the reader is looking at in continuous reading — the last page
    mark at or above the top of the pane. */
-function pvPageAtScroll(){
+function pvFolioAtScroll(){
+  /* Only meaningful while the reading text is on screen. Once page view has
+     hidden it every mark measures as zero, which is "at or above the line",
+     so the walk ran to the end of the book and answered the last page — which
+     is where opening page view for the first time used to land. */
+  if (!pageEl.offsetParent && !pageEl.getClientRects().length) return null;
   const marks = pageEl.querySelectorAll(".pgb");
   const line = read.getBoundingClientRect().top + 48;
   let label = null;
   for (let i = 0; i < marks.length; i++){
-    if (marks[i].getBoundingClientRect().top <= line) label = marks[i].dataset.p;
+    const r = marks[i].getBoundingClientRect();
+    if (!r.height && !r.top) return label;      // hidden: stop guessing
+    if (r.top <= line) label = marks[i].dataset.p;
     else break;
   }
-  return pvIndexOfFolio(label);
+  return label;
+}
+
+function pvPageAtScroll(){
+  return pvIndexOfFolio(pvFolioAtScroll());
 }
 
 function pvJumpToLabel(raw){
@@ -1080,9 +1091,12 @@ viewScrollB.addEventListener("click", function(){
 });
 viewPageB.addEventListener("click", function(){
   if (pvOn) return;
-  const want = pvPages.length ? pvPageAtScroll() : null;   // read before hiding
+  /* Read the position as a page NUMBER while the text is still visible. The
+     index cannot be resolved yet on the first switch — the page list is still
+     loading — and by the time it arrives the text is hidden and unmeasurable. */
+  const label = pvFolioAtScroll();
   setView(true);
-  pvLoad().then(() => { if (want != null) pvGo(want); else pvGo(pvPageAtScroll()); });
+  pvLoad().then(() => pvGo(label != null ? pvIndexOfFolio(label) : 0));
 });
 
 pvPrevB.addEventListener("click", function(){ if (pvIdx > 0) pvGo(pvIdx - 1); });
