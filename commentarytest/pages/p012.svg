@@ -7,13 +7,13 @@
 <path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
 </clipPath>
 <clipPath id="clip_3">
-<path transform="matrix(1,0,0,-1,0,595.25)" d="M371.48 547.72H376.48V559.22H371.48Z" clip-rule="evenodd"/>
+<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
 </clipPath>
 <clipPath id="clip_4">
-<path transform="matrix(1,0,0,-1,0,595.25)" d="M371.48 547.72H376.48V559.22H371.48Z" clip-rule="evenodd"/>
+<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
 </clipPath>
 <clipPath id="clip_5">
-<path transform="matrix(1,0,0,-1,0,595.25)" d="M371.48 547.72H376.48V559.22H371.48Z" clip-rule="evenodd"/>
+<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
 </clipPath>
 <clipPath id="clip_6">
 <path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
@@ -141,42 +141,6 @@
 <clipPath id="clip_47">
 <path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
 </clipPath>
-<clipPath id="clip_48">
-<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
-</clipPath>
-<clipPath id="clip_49">
-<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
-</clipPath>
-<clipPath id="clip_50">
-<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
-</clipPath>
-<clipPath id="clip_51">
-<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
-</clipPath>
-<clipPath id="clip_52">
-<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
-</clipPath>
-<clipPath id="clip_53">
-<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
-</clipPath>
-<clipPath id="clip_54">
-<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
-</clipPath>
-<clipPath id="clip_55">
-<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
-</clipPath>
-<clipPath id="clip_56">
-<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
-</clipPath>
-<clipPath id="clip_57">
-<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
-</clipPath>
-<clipPath id="clip_58">
-<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
-</clipPath>
-<clipPath id="clip_59">
-<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
-</clipPath>
 </defs>
 <g>
 <g clip-path="url(#clip_1)">
@@ -184,174 +148,137 @@
 <g clip-path="url(#clip_2)">
 </g>
 <g clip-path="url(#clip_3)">
+</g>
 <g clip-path="url(#clip_4)">
 </g>
 <g clip-path="url(#clip_5)">
 </g>
-</g>
 <g clip-path="url(#clip_6)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="14" font-family="Times New Roman" font-weight="bold"><tspan y="-527.97" x="164.1 174.09601 181.88 188.88 196.594 201.326 204.826 209.55802 217.34201 223.55802 226.30202 236.29802 244.08202 248.78603 256.57005 263.57005">About the Author</tspan></text>
 </g>
 <g clip-path="url(#clip_7)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="14" font-family="Times New Roman" font-weight="bold"><tspan y="-527.97" x="269.9"> </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-530.97" x="57.525 63.025 68.019008 73.519008 78.51301 81.26301 86.25701 89.26001 93.53901 99.03901 101.78901 104.53901 109.76401 114.75801 118.49802 121.24802 124.251018 129.751 134.74501 137.49501 143.49 150.73902 157.46">have also, per the SBL </tspan></text>
 </g>
 <g clip-path="url(#clip_8)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-508.48" x="57.525 61.804 67.304 71.528 77.028 82.528 87.522 90.272 100.051 102.801 105.551 113.493007 118.50901 124.00901">Joshua M. Haub</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-530.97" x="160.35 165.85 170.84401 176.34401 181.84401 187.34401 192.84401 198.34401 203.84401">handbook </tspan></text>
 </g>
 <g clip-path="url(#clip_9)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-508.48" x="129.58"> </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-530.97" x="206.63">(</tspan></text>
 </g>
 <g clip-path="url(#clip_10)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-508.48" x="132.33 140.31601 145.31002 149.58902 152.33902 157.83902 163.06403 166.80402 172.30402 175.05402 180.04802 185.54802 191.04802 193.54502 197.285 202.279 205.28202 209.56102 214.52202 220.02202 222.77202 225.77503 231.27503 234.02503 241.27404 246.77404 249.77704 255.27704 263.78007 269.28007 274.78007 279.05906 281.80906 284.55906 288.26606 293.76606 299.26606 302.26908 307.26307 312.51008 317.50407 320.25407 323.00407 327.99806 333.49806 338.99806">was born and raised in Columbus, Indiana, and </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-530.97" x="210.38 218.36602 223.86602 226.61602 231.61002 237.11002 239.86002 243.6 246.35 250.09 255.59 258.59303 261.59605 267.09605 274.851 279.845 285.345">which I followed </tspan></text>
 </g>
 <g clip-path="url(#clip_11)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-495.7" x="57.525 65.511 71.011 74.75101 79.03001 84.53001 87.50001 93.00001 97.99401 103.49401 106.24401 114.23001 117.23301 120.23601 125.73601 128.48601 131.48902 136.98902 141.98302 144.73302 151.45401 156.47002 161.71701 166.71102 172.21102 175.21402 180.20803 188.19403 190.69103 195.68503 201.18503 206.68503 210.18303 215.17704 220.67704 223.42704 226.17704 234.16304">worshiped with the Lakeview church. He</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-530.97" x="288.17 291.91 297.41 301.15 303.9 312.15 317.65 320.4 324.13999 329.63999 333.37998 341.883 346.87699 349.88 352.88304 355.88606 361.38606 366.88606">for my formatting)</tspan></text>
 </g>
 <g clip-path="url(#clip_12)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-495.7" x="239.4"> </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-530.97" x="370.72 373.47">, </tspan></text>
 </g>
 <g clip-path="url(#clip_13)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-495.7" x="242.15 245.15">is</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-518.47" x="57.525 60.528 66.028 71.022 74.025 79.525 85.025">include</tspan></text>
 </g>
 <g clip-path="url(#clip_14)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-495.7" x="249.4"> </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-518.47" x="90.05 95.55 98.3 101.303 104.306 109.806 115.306 119.585 122.335 125.305 130.805 133.555 136.558 142.058 147.052 149.802 155.302 160.296 164.036 167.039 172.539 178.039 182.31801 185.06801 189.29203 194.28603 198.02602 206.52902 212.02902 217.52902 221.80803 224.55803 229.51903 235.01903 240.51903 243.26903 250.51804 253.52104 259.02107 262.02409 267.01808 269.76808 274.04707 277.01707 282.51707 288.01707 291.02009 296.01408 300.29307 303.04307 306.75007 311.50209 315.24208 320.23606 323.73405 328.72804 334.22804 338.98005 343.97404 349.47404 352.22404 355.22706 360.72706">d links to the various sermons and Bible studies referenced in </tspan></text>
 </g>
 <g clip-path="url(#clip_15)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-495.7" x="252.15 257.14399 262.391 266.13099 269.62898 274.62297 280.12297 283.12599 286.129 291.629 294.379 299.373 302.123 306.40199 309.37199 314.87199 320.37199 325.36598 330.86598 333.869 336.619 341.61299 344.616">currently a student at </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-505.7" x="57.525 60.528 66.028 69.031 73.31 76.06 84.002 89.502 93.275">this work</tspan></text>
 </g>
 <g clip-path="url(#clip_16)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-483.2" x="57.525 63.520006 66.523 72.023 75.76301 78.76601">Florid</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-505.7" x="98.8"> </tspan></text>
 </g>
 <g clip-path="url(#clip_17)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-483.2" x="84.3">a</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-505.7" x="101.55 105.829 111.329 114.079 119.579 125.079 130.57901 133.32901 136.07901 139.04901 144.54901 149.54302 152.29302 156.033 161.02701 166.02101 171.268 176.26201 180.002 182.752 185.249 190.243 195.237 200.737 203.487 208.987 214.487 217.237 222.484 227.478 232.472 237.972 240.469 245.463 250.963 256.463 259.213 264.713 269.46504 274.459 278.199 280.949 283.95204 289.45204 294.446 302.94905 305.69905 309.19703 314.69703 318.437 321.187 326.687 332.187 337.687 341.427 345.706 350.667 353.67 357.41">so you, the reader, can go back and hear them for yourself.</tspan></text>
 </g>
 <g clip-path="url(#clip_18)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-483.2" x="89.3"> </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-505.7" x="360.45"> </tspan></text>
 </g>
 <g clip-path="url(#clip_19)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-483.2" x="92.05 99.299 104.799 107.802 110.805 115.799 121.299 126.29301 129.043 132.046 137.546 140.296 147.017 152.033 160.53601 166.03601 169.03902 174.03302 176.78302 183.50402 188.52002 192.01802 195.75801 200.51001 205.50402 210.49802 213.24802 215.99802 221.99301 224.99602 230.49602 234.23601 237.23902 242.73902 247.73302 250.48302 253.23302 257.51203 260.48204 265.98204 271.48204 276.98204 279.98506 285.48506 290.98506 293.73506 300.98405 306.48405 314.98707 323.49009 328.99009 334.49009 337.4931 342.4871 347.48109 350.4841 353.48713 358.98713 364.48713">College in Temple Terrace, Florida, studying Communication </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-505.7" x="362.98 366.72 369.47">I, </tspan></text>
 </g>
 <g clip-path="url(#clip_20)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-470.45" x="57.525 62.519 68.019 73.519">and </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-493.2" x="57.525 60.528 66.028 71.022 74.76201 79.75601 83.49602 88.74302 92.483028 97.47703">therefore,</tspan></text>
 </g>
 <g clip-path="url(#clip_21)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-470.45" x="76.3 83.549 86.552 92.052 95.055 98.058 103.052 108.046009">Biblical</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-493.2" x="100.3"> </tspan></text>
 </g>
 <g clip-path="url(#clip_22)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-470.45" x="111.07"> </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-493.2" x="103.05 110.80501 115.79901 121.29901 124.30201 127.05201 130.05503 135.55503 138.30503 143.80503 148.79903 152.53902 156.81803 162.31803 167.54303 172.53704 175.54004 178.54305 184.04305 186.79305 189.79605 195.29605 200.29006 205.79006 211.29006">want to personally thank </tspan></text>
 </g>
 <g clip-path="url(#clip_23)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-470.45" x="113.83 119.825 122.827999 128.328 133.828 136.83101 141.82501 146.10402 148.85402 151.60402 159.54602">Studies. He</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-style="italic"><tspan y="-493.2" x="214.13 219.12401 224.62401 230.12401 235.11801 237.86801 245.11702 250.61702 255.864 260.85798 263.861 269.361 274.861">Jady Copeland</tspan></text>
 </g>
 <g clip-path="url(#clip_24)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-470.45" x="164.6"> </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-493.2" x="280.42 283.17">, </tspan></text>
 </g>
 <g clip-path="url(#clip_25)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-470.45" x="167.35 170.35">is</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-style="italic"><tspan y="-493.2" x="285.92 291.915 296.909 301.90299 304.4 313.63999 316.643 319.64604 325.14604 333.13203 338.63203">Lee Wildman</tspan></text>
 </g>
 <g clip-path="url(#clip_26)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-470.45" x="174.6"> </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-493.2" x="344.2">,</tspan></text>
 </g>
 <g clip-path="url(#clip_27)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-470.45" x="177.35 182.34401 187.84401 190.59401 195.58802 201.08802 206.08202 211.58202 216.82901 221.82302 224.82602 227.82903 232.10803 235.07804 237.82804 242.82204 245.82505 248.57505 251.57805 257.07807 262.07206 264.82206 271.54307 276.55906 281.80607 286.80006 289.55006 297.53605 300.53907 306.03907 310.31806 315.81806 321.31806 324.06806 329.02906 334.52906 340.02906 343.76905 348.76304 354.26304 357.01304 360.01606 365.51606">an evangelist at the Lake Gibson church in </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-493.2" x="346.95"> </tspan></text>
 </g>
 <g clip-path="url(#clip_28)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-457.7" x="57.525 64.246 69.26201 74.76201 79.75601 82.75901 87.75301 93.25301 98.75301 101.50301">Lakeland, </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-style="italic"><tspan y="-493.2" x="349.7 357.686 363.186 367.465 372.426">Gary </tspan></text>
 </g>
 <g clip-path="url(#clip_29)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-457.7" x="104.3 110.295 113.298 118.798 122.538 125.541 131.041">Florida</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-style="italic"><tspan y="-480.45" x="57.525 64.246 67.304 71.528 77.028 82.022">Fisher</tspan></text>
 </g>
 <g clip-path="url(#clip_30)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-457.7" x="136.08 138.83 141.58 149.335 154.32901 157.07901 162.57901 167.57302 171.85202 174.60202 179.82703 184.82103 189.81504 195.31504 198.06504 201.06804 205.82004 210.81404 215.80805 221.30805 224.31105 229.81105 235.31105 238.06105 241.06406 246.56406 251.55806 254.30806 259.80805 265.30805 269.58705 274.81205 279.80604 282.80906 285.55906 289.29905 294.79905 298.53904">. He has been teaching the gospel for </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-480.45" x="86.3">,</tspan></text>
 </g>
 <g clip-path="url(#clip_31)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-457.7" x="301.42 306.92 309.41703 314.91703 319.911 324.905 328.645">5 years</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-480.45" x="89.05"> </tspan></text>
 </g>
 <g clip-path="url(#clip_32)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-457.7" x="332.95 335.7">, </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-style="italic"><tspan y="-480.45" x="91.8 98.521 104.021 109.521 114.53701 117.28701 124.53601 130.03601 135.53601 138.53902 142.81803 147.77902 150.78203">Andy Cantrell</tspan></text>
 </g>
 <g clip-path="url(#clip_33)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-445.17" x="57.525 60.528 66.028 71.022 74.025 79.525 85.025 88.028 93.528 99.028 101.778 109.764 115.264 119.004009 124.504009 127.507 133.007 138.507 141.257 149.24301 152.24602 155.24903 160.74903 163.49903 170.74803 176.24803 181.24204 186.74204 189.49204 196.74105 202.24105 207.74105 212.73505 216.47504 219.22504 222.22805 227.72805 230.47805 237.19904 240.25704 243.22704 246.23004 250.50905 256.00904 258.97904 261.98207 264.98509 269.97908 272.72908 275.47908 285.25807 288.22807 292.50706 296.73106 302.23106 307.73106 311.72404 314.72706 317.47706 320.22706 325.72706 331.22706 334.96705 337.97007 343.47007 348.97007 351.72007 354.72309 360.22309 365.21708">including working with Ryan Boyer in Ellisville, Missouri, during the </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-480.45" x="153.85">,</tspan></text>
 </g>
 <g clip-path="url(#clip_34)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-432.42" x="57.525 61.804 67.304 75.774 84.277 89.271 93.01101 95.76101 101.26101 105.001018 107.751018 113.251018 118.751018 124.251018">summer of 2024</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-480.45" x="156.6"> </tspan></text>
 </g>
 <g clip-path="url(#clip_35)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-432.42" x="129.83 132.83">; </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-480.45" x="159.35">&#x2026;</tspan></text>
 </g>
 <g clip-path="url(#clip_36)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-432.42" x="135.58 143.56601 149.06601 152.806 158.306 161.309 166.809 172.309 175.059 178.06201 183.56201 186.31201 194.29802 199.05002 202.79001 206.53 209.533 213.81201 219.31201 224.81201 228.51902 234.01902 236.76902 239.51902 245.514 250.50801 256.008 261.508 265.787 271.287 274.257 279.757 284.75099 290.25099 293.254">working in Harrisburg, Pennsylvania</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-480.45" x="170.35"> </tspan></text>
 </g>
 <g clip-path="url(#clip_37)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-432.42" x="298.42 301.17">, </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-480.45" x="173.1 176.84 182.34 186.07999 188.82999 191.833 197.333 202.327 205.33 209.06999 211.81999 214.823 223.326 231.82901 236.82302 242.32302 246.60202 251.56302 254.31302 262.299 267.54603 271.286 276.786 279.536 284.53 290.03 295.53 298.28 303.527 308.521 311.271 316.771 319.521 324.51499 328.79399 331.54399 335.25099">for their immense work and help as I </tspan></text>
 </g>
 <g clip-path="url(#clip_38)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-432.42" x="303.92 309.16703 314.66703 318.407 321.41004 326.91004">during</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-467.7" x="57.525 62.519 68.019 76.521999 82.021999 85.024997 88.02799 93.021999 98.521999 101.271999 104.274997 109.774997 112.77799 117.05699 119.80699 124.768 130.268 138.77101 147.27402 152.26802 157.76802 160.77103 165.76503 169.50502 175.00502 177.75502 180.50502 190.99903 194.00203 197.00504 202.50504 208.00504 213.50504 216.50804 219.25804 222.26105 227.76105 232.75505 235.75806 239.49805 242.24805 245.25106 250.75106 255.03006 258.00007 263.50007 269.00007 272.00309 274.75309 279.74708 285.24708 290.74708 293.49708 296.5001 301.49409 306.2461 310.9981 316.4981 319.50114 325.00114 330.50114 333.25114 336.00114 339.74113 342.49113 350.4771 355.9771 361.4771 364.48014 369.98014">compiled this commentary. Without their insight and teaching, I would </tspan></text>
 </g>
 <g clip-path="url(#clip_39)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-432.42" x="332.45"> </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-455.2" x="57.525 63.025 68.525 71.528 74.278 78.018009 83.01201 88.00601 91.00901 93.75901 98.75301 103.03201 105.50701 110.501018 116.001018 121.501018 125.24102 128.24404 133.74404 138.73804 144.23804 147.24105 149.99105 155.49105 160.99105 166.49105 169.49405 172.49706 176.77606 182.27606 185.24607 190.74607 196.24607 198.99607 201.99907 207.49907 210.50208">not feel as confident publishing this</tspan></text>
 </g>
 <g clip-path="url(#clip_40)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-432.42" x="335.2 338.20304 343.70304 348.69703">the </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-455.2" x="214.88"> </tspan></text>
 </g>
 <g clip-path="url(#clip_41)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-419.92" x="57.525 61.804 67.304 75.774 84.277 89.271 93.01101 95.76101 101.26101 105.001018 107.751018 113.251018 118.751018 124.251018 129.751 132.501 140.48702 143.49002 146.49303 151.99303">summer of 2025 with </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-455.2" x="217.63 223.13 228.63 234.13">book</tspan></text>
 </g>
 <g clip-path="url(#clip_42)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-419.92" x="154.85 160.845 165.839 171.339 174.34201 177.34502 180.09502 186.09001 194.59302 199.58702 202.59003 206.86904 211.83003">Scott Smelser</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-455.2" x="239.65">.</tspan></text>
 </g>
 <g clip-path="url(#clip_43)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-419.92" x="215.63"> </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-455.2" x="242.4"> </tspan></text>
 </g>
 <g clip-path="url(#clip_44)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-419.92" x="218.38 223.37401 228.87401 234.37401 237.12401 243.119 246.12201 251.11602 256.61604 262.11604 267.11003 272.61003 275.36003 282.609 288.109 293.609 297.888">and Stephen Rouse</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-442.42" x="93.55"> </tspan></text>
 </g>
 <g clip-path="url(#clip_45)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-419.92" x="302.92 305.92304 308.67304 313.42506 318.92506 324.42506 327.17506 335.16105 340.66105 344.40104 349.90104 352.90406 358.40406 363.90406">; and working </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-429.92" x="93.55"> </tspan></text>
 </g>
 <g clip-path="url(#clip_46)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-407.17" x="57.525 65.511 68.514 71.517 77.017 79.767 87.753 93.253 98.753 104.253 107.003 114.252 119.246 124.746 127.749 131.489 136.483 139.48601">with Andy Cantrell</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="14" font-family="Times New Roman" font-weight="bold"><tspan y="-414.42" x="216.88"> </tspan></text>
 </g>
 <g clip-path="url(#clip_47)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-407.17" x="142.58 145.33">, </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="14" font-family="Times New Roman" font-weight="bold"><tspan y="-414.42" x="360.95"> </tspan></text>
 </g>
-<g clip-path="url(#clip_48)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-407.17" x="148.1 155.34902 160.34302 163.34603 168.34003 173.84003 176.59003 184.57604 189.57004 195.07004 197.82004 202.81404 205.81705">Caleb Daniels</tspan></text>
-</g>
-<g clip-path="url(#clip_49)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-407.17" x="210.13 212.88 215.63 220.62401 226.12401 231.62401 234.37401 241.62302 244.62602 249.62003 255.12003 257.87004 264.59104 269.60704 275.10704 280.60704 283.61006 289.11006">, and Rick Lanning</tspan></text>
-</g>
-<g clip-path="url(#clip_50)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-407.17" x="294.67"> </tspan></text>
-</g>
-<g clip-path="url(#clip_51)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-407.17" x="297.42 300.42304 305.92304 308.42005 316.40605 321.40003 329.38603 332.13603 340.122 345.622 350.86903 355.863 358.613">in New Hope, </tspan></text>
-</g>
-<g clip-path="url(#clip_52)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-394.42" x="57.525 67.304 70.274 75.774 81.274 86.268009 90.547008 96.047008 99.017009">Minnesota</tspan></text>
-</g>
-<g clip-path="url(#clip_53)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-394.42" x="104.05">,</tspan></text>
-</g>
-<g clip-path="url(#clip_54)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-394.42" x="106.83"> </tspan></text>
-</g>
-<g clip-path="url(#clip_55)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-394.42" x="109.58 115.08 120.58 124.32001 127.323009 132.823 138.323 141.073 144.076 149.576 154.57 157.32 161.59902 167.09902 175.56902 184.07202 189.06603 192.80602 195.55602 201.05602 204.796 207.546 213.046 218.546 224.046">during the summer of 2026</tspan></text>
-</g>
-<g clip-path="url(#clip_56)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-394.42" x="229.63 232.38 235.13 242.88501 247.87902 250.62902 255.38101 260.375 265.875 268.625 274.125 279.119 281.616 285.356 290.108 295.102 300.09599 305.343 310.095 315.595 318.345 323.339 326.342">. He can be reached at </tspan></text>
-</g>
-<g clip-path="url(#clip_57)">
-<text fill="#191919" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-381.65" x="57.525 63.025 68.019008 73.519008 79.019008 82.75901 87.75301 96.25601 101.50301 111.74402 117.24402 125.74702 130.74102 133.74402 136.74703 139.49703 144.49103 149.99103">haubfam2@gmail.com</tspan></text>
-</g>
-<g clip-path="url(#clip_58)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-381.65" x="158.6">.</tspan></text>
-</g>
-<g clip-path="url(#clip_59)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-381.65" x="161.1"> </tspan></text>
-</g>
-<path transform="matrix(1,0,0,-1,0,595.25)" d="M57.525 379.9H158.60501V380.4H57.525Z" fill="#191919" fill-rule="evenodd"/>
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-30.2" x="207">6</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-30.2" x="207">4</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="7.6" font-family="Arial" font-weight="bold"><tspan y="-551.25" x="57.6 63.0872 67.3128 71.5384 76.1744 80.8104 86.7156 88.8208 93.0464 97.6824 102.318408 106.54401 113.30041 117.52601 122.16201 124.69281">Acknowledgements</tspan></text>
 </g>
 </svg>

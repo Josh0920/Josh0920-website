@@ -7,18 +7,22 @@
 <path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
 </clipPath>
 <clipPath id="clip_3">
+<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
+</clipPath>
+<clipPath id="clip_4">
 <path transform="matrix(1,0,0,-1,0,595.25)" d="M1.1 .00030518H418.9V594.1503H1.1Z" clip-rule="evenodd"/>
 </clipPath>
 </defs>
 <g>
 <g clip-path="url(#clip_1)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="12" font-family="Aptos"><tspan y="-547.97" x="75.55"> </tspan></text>
 </g>
 <g clip-path="url(#clip_2)">
 </g>
 <g clip-path="url(#clip_3)">
+</g>
+<g clip-path="url(#clip_4)">
 <g transform="matrix(.5003593,0,0,.49644477,1.1,1.0999756)">
-<image id="image_4" width="835" height="1547" xlink:href="data:image/jpeg;base64,
+<image id="image_5" width="835" height="1547" xlink:href="data:image/jpeg;base64,
 /9j/4AAQSkZJRgABAQEBSgFKAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkS
 Ew8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJ
 CQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIy

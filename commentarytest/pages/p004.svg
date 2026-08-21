@@ -6,12 +6,16 @@
 <clipPath id="clip_2">
 <path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
 </clipPath>
+<clipPath id="clip_3">
+<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
+</clipPath>
 </defs>
 <g>
 <g clip-path="url(#clip_1)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="12" font-family="Aptos"><tspan y="-547.97" x="75.55"> </tspan></text>
 </g>
 <g clip-path="url(#clip_2)">
+</g>
+<g clip-path="url(#clip_3)">
 </g>
 </g>
 </svg>
