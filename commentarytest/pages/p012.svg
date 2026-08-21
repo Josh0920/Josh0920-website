@@ -174,6 +174,9 @@
 <clipPath id="clip_58">
 <path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
 </clipPath>
+<clipPath id="clip_59">
+<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
+</clipPath>
 </defs>
 <g>
 <g clip-path="url(#clip_1)">
@@ -347,6 +350,9 @@
 </g>
 <g clip-path="url(#clip_58)">
 <text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-381.65" x="158.6">.</tspan></text>
+</g>
+<g clip-path="url(#clip_59)">
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-381.65" x="161.1"> </tspan></text>
 </g>
 <path transform="matrix(1,0,0,-1,0,595.25)" d="M57.525 379.9H158.60501V380.4H57.525Z" fill="#191919" fill-rule="evenodd"/>
 </g>
