@@ -54,16 +54,13 @@
 </defs>
 <g>
 <g clip-path="url(#clip_1)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-548.97" x="358.45"> </tspan></text>
 </g>
 <g clip-path="url(#clip_2)">
 </g>
 <g clip-path="url(#clip_3)">
 <g clip-path="url(#clip_4)">
-
 </g>
 <g clip-path="url(#clip_5)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-548.97" x="376.48"> </tspan></text>
 </g>
 </g>
 <g clip-path="url(#clip_6)">
@@ -102,5 +99,8 @@
 <g clip-path="url(#clip_17)">
 <text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-460.45" x="93.55 100.271 105.28701 110.78701">Text</tspan></text>
 </g>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-30.2" x="204.25 209.75">43</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="7.6" font-family="Arial" font-weight="bold"><tspan y="-551.25" x="57.6 59.7052 64.3412 66.872 71.0976 74.054 78.69 82.9156 85.020809 87.12601 92.18761 96.41321 98.51841 103.15441 107.38001 112.016017 116.241619">Internal&#x00a0;Evidence</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="7.6" font-family="Arial" font-weight="bold"><tspan y="-551.25" x="221.3127 225.1127 230.1743 232.2795 239.03589 243.67189 248.30789 250.41309 255.47469 259.7003 262.23109 266.45668 269.41307 271.51826 273.62345 277.84904 279.95423 284.5902 289.2262 293.86219 298.49818 301.02897 305.25456 309.48014 312.43653 316.6621 320.8877 325.52369 328.05448 330.15968 334.38526 339.02125 343.65724 345.76243 349.988 354.624 359.25999 363.48558 366.01637 368.12156 372.34715">&#x201c;Simon&#x00a0;Peter,&#x00a0;a&#x00a0;bond&#x00ad;servant&#x00a0;and&#x00a0;apostle&#x201d;</tspan></text>
 </g>
 </svg>

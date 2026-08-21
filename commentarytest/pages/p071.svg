@@ -273,16 +273,13 @@
 </defs>
 <g>
 <g clip-path="url(#clip_1)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-548.97" x="358.45"> </tspan></text>
 </g>
 <g clip-path="url(#clip_2)">
 </g>
 <g clip-path="url(#clip_3)">
 <g clip-path="url(#clip_4)">
-
 </g>
 <g clip-path="url(#clip_5)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-548.97" x="376.48"> </tspan></text>
 </g>
 </g>
 <g clip-path="url(#clip_6)">
@@ -511,25 +508,45 @@
 <path transform="matrix(1,0,0,-1,0,595.25)" d="M196.38 332.65H197.88V334.15H196.38Z" fill-rule="evenodd"/>
 <path transform="matrix(1,0,0,-1,0,595.25)" d="M197.88 332.65H354.71003V334.15H197.88Z" fill-rule="evenodd"/>
 <g clip-path="url(#clip_84)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman" font-style="italic"><tspan y="-325.13" x="57.525 60.269006 64.269008 66.509 70.509 73.509 79.261 83.261 85.501 87.741 91.741 95.741 97.741 99.980998 102.980998 106.980998 112.732997 114.732997 119.72499 123.72499 127.22099 130.221 134.221 138.221 141.221 145.221 147.221 152.70899 156.20499 159.20499 161.44499 163.685 167.181 169.181 173.181 177.181 181.181 183.181 188.173 191.173 196.421 198.66101 202.66101 204.90102 210.14902 213.64502 216.64502 218.88503 221.12503 224.62104 226.62104 228.86104 234.10904 237.60504 240.60504 242.84505 245.08506">Information from Eberhard Nestle and Erwin Nestle, Nestle</tspan></text>
 </g>
 <g clip-path="url(#clip_85)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman" font-style="italic"><tspan y="-325.13" x="248.9">-</tspan></text>
 </g>
 <g clip-path="url(#clip_86)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman" font-style="italic"><tspan y="-325.13" x="251.65 256.642 258.882 262.882 266.882 270.882 273.62599 275.62599 280.87397 285.36997 291.12199 293.12199 298.11399 302.11399 306.11399 310.11399 313.11399 317.11399 319.35398 323.35398 326.35398 328.35398 333.60197 336.60197 338.84196 341.08195 343.32194 346.81794 350.81794 353.81794 355.81794 358.05793 361.55393 365.55393 367.55393">Aland: NTG Apparatus Criticus, ed. </tspan></text>
 </g>
 <g clip-path="url(#clip_87)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman" font-style="italic"><tspan y="-314.63" x="57.525 62.517004 66.517 69.517 73.517 77.517 80.517 84.517 86.517 91.508998 93.74899 97.74899 101.74899 105.74899 107.74899 111.244998 113.48499 115.48499 119.48499 121.72499 123.72499 125.72499 127.72499 131.72499 135.72499 137.72499 139.72499 142.72499 146.221 149.717 151.957 155.957 158.197 161.69301 164.69301 166.93302 170.42902 172.42902 177.42102 181.42102 183.66103 185.90103 189.90103 193.90103 197.39704 199.39704 201.39704 204.14104 208.14104 210.38105 214.38105 216.62105 218.86106 222.86106 226.86106 229.86106 232.10106 234.84506 236.84506 242.59706 246.09307 250.09307 252.33307 255.33307 258.82908 262.82908 266.32508 268.32508 273.31709 275.55708 279.55708 283.05308 285.29307 289.29307 292.78907 296.02906 299.52507 301.76506 304.00505 307.00505 310.74903 314.74903 318.74903 320.989 323.229 325.229 327.229 331.229 335.229 339.229 343.229 345.973 347.973 349.973 353.973 357.973 361.973">Barbara Aland et al., 28. revidierte Auflage. (Stuttgart: Deutsche Bibelgesellschaft, 2012), 708.</tspan></text>
 </g>
 <g clip-path="url(#clip_88)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman"><tspan y="-314.63" x="364.23"> </tspan></text>
 </g>
 <g clip-path="url(#clip_89)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-301.38" x="57.525"> </tspan></text>
 </g>
 <g clip-path="url(#clip_90)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-301.38" x="201.63"> </tspan></text>
 </g>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-30.2" x="204.25 209.75">65</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="7.6" font-family="Arial" font-weight="bold"><tspan y="-551.25" x="57.6 61.8256 64.3564">1:3</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="7.6" font-family="Arial" font-weight="bold"><tspan y="-551.25" x="329.40119 333.62678 335.73197 340.79359 345.01918 347.54997 351.77555 354.73194 356.83714 361.0627 363.5935 367.8191 372.04469">2&#x00a0;Peter&#x00a0;1:1&#x2013;4</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman" font-style="italic"><tspan y="-325.13" x="57.53 60.194 64.194 66.41 70.41 73.522 79.298007 83.298007 85.51401 87.73001 91.73001">Information</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman" font-style="italic"><tspan y="-325.13" x="98.530399 100.7464 103.8584 107.8584">from</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman" font-style="italic"><tspan y="-325.13" x="116.42142 121.301418 125.301418 128.84542 131.95742 135.95742 139.95742 143.06941">Eberhard</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman" font-style="italic"><tspan y="-325.13" x="149.86322 155.19123 158.73523 161.84723 164.06324 166.27924">Nestle</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman" font-style="italic"><tspan y="-325.13" x="172.63706 176.63706 180.63706">and</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman" font-style="italic"><tspan y="-325.13" x="187.4148 192.2948 195.4068 200.7348 202.9508">Erwin</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman" font-style="italic"><tspan y="-325.13" x="209.75113 215.07913 218.62314 221.73514 223.95114 226.16715 229.71115">Nestle,</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman" font-style="italic"><tspan y="-325.13" x="234.52498 239.85298 243.39699 246.50899 248.72499 250.941 254.485 257.149 262.029 264.245 268.245 272.245 276.245">Nestle&#x00ad;Aland:</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman" font-style="italic"><tspan y="-325.13" x="281.7363 287.0643 291.5123">NTG</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman" font-style="italic"><tspan y="-325.13" x="300.07655 304.95655 308.95655 312.95655 316.95655 320.06855 324.06855 326.28456 330.28456">Apparatus</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman" font-style="italic"><tspan y="-325.13" x="336.19023 341.51823 344.63023 346.84623 349.06224 351.27824 354.82225 358.82225 361.93424">Criticus,</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman" font-style="italic"><tspan y="-325.13" x="366.7492 370.2932 374.2932">ed.</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman" font-style="italic"><tspan y="-315.91" x="57.53 62.41 66.41 69.522 73.522 77.522 80.634">Barbara</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman" font-style="italic"><tspan y="-315.91" x="86.64328 91.52328 93.73928 97.73928 101.73928">Aland</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman" font-style="italic"><tspan y="-315.91" x="107.752658 111.29665">et</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman" font-style="italic"><tspan y="-315.91" x="115.52609 119.52609 121.742099 123.742099">al.,</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman" font-style="italic"><tspan y="-315.91" x="127.74875 131.74875 135.74875">28.</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman" font-style="italic"><tspan y="-315.91" x="139.74875 142.86075 146.40476 149.94876 152.16477 156.16477 158.38077 161.92478 165.03678 167.25278">revidierte</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman" font-style="italic"><tspan y="-315.91" x="172.8464 177.72641 181.72641 183.94242 186.15842 190.15842 194.15842 197.70243">Auflage.</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman" font-style="italic"><tspan y="-315.91" x="201.72922 204.39322 208.39322 210.60923 214.60923 216.82523 219.04123 223.04123 227.04123 230.15323 232.36923">(Stuttgart:</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman" font-style="italic"><tspan y="-315.91" x="237.06125 242.83725 246.38126 250.38126 252.59726 255.70926 259.25328 263.25328">Deutsche</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman" font-style="italic"><tspan y="-315.91" x="268.82688 273.70689 275.92289 279.92289 283.4669 285.6829 289.6829 293.2269 296.3389 299.8829 302.0989 304.3149 307.4269 310.97093 314.97093 318.97093 321.18693 323.40293">Bibelgesellschaft,</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman" font-style="italic"><tspan y="-315.91" x="327.47923 331.47923 335.47923 339.47923 343.47923 346.14323">2012),</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman" font-style="italic"><tspan y="-315.91" x="350.14329 354.14329 358.14329 362.14329">708.</tspan></text>
 </g>
 </svg>

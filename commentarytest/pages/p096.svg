@@ -327,16 +327,13 @@
 </defs>
 <g>
 <g clip-path="url(#clip_1)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="10" font-family="Times New Roman"><tspan y="-549.97" x="358.45"> </tspan></text>
 </g>
 <g clip-path="url(#clip_2)">
 </g>
 <g clip-path="url(#clip_3)">
 <g clip-path="url(#clip_4)">
-
 </g>
 <g clip-path="url(#clip_5)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="10" font-family="Times New Roman"><tspan y="-549.97" x="376.48"> </tspan></text>
 </g>
 </g>
 <g clip-path="url(#clip_6)">
@@ -361,7 +358,7 @@
 <text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-474.2" x="97.55"> </tspan></text>
 </g>
 <g clip-path="url(#clip_13)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-style="italic"><tspan y="-474.2" x="129.58 136.82901 142.32901 147.32302 152.82302 160.80902 166.04502 172.04001 177.03401 181.31302 184.28302 189.78302 197.76903 202.76303 208.26303 211.26604 216.76604 224.75205 229.98804 237.97405 242.25305 247.75305 252.47206 257.46604">Novum Testamentum Graece</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-style="italic"><tspan y="-474.2" x="129.58 136.82901 142.32901 147.32302 152.82302 160.80902 166.04503 172.04003 177.03403 181.31304 184.28304 189.78304 197.76905 202.76305 208.26305 211.26605 216.76605 224.75206 229.98807 237.97408 242.25308 247.75308 252.47209 257.46607">Novum Testamentum Graece</tspan></text>
 </g>
 <g clip-path="url(#clip_14)">
 <text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-474.2" x="262.65 265.4 270.636 276.136 281.636 284.639 290.139 295.133 298.873 303.86698 309.36698 312.11698 317.11097 322.10496 327.60496 330.35496 335.59095 341.58595 344.58897 350.08897 353.09199 356.095 361.595 366.589 370.32899 373.332 376.33503">. 28th rev. ed. Stuttgart: </tspan></text>
@@ -434,7 +431,7 @@
 <text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-346.9" x="97.55"> </tspan></text>
 </g>
 <g clip-path="url(#clip_39)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-style="italic"><tspan y="-346.9" x="129.58 135.575 141.075 146.069 151.305 159.291 163.57 168.531 173.52501 178.51902 183.755 191.00402 195.99802 203.24703 208.48303 214.47803 219.47203 223.75104 226.72104 232.22104 240.20705 245.20105 250.70105">The Greek New Testament</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-style="italic"><tspan y="-346.9" x="129.58 135.575 141.075 146.069 151.30501 159.29102 163.57003 168.53102 173.52503 178.51903 183.75504 191.00405 195.99805 203.24706 208.48307 214.47806 219.47206 223.75107 226.72107 232.22107 240.20708 245.20108 250.70108">The Greek New Testament</tspan></text>
 </g>
 <g clip-path="url(#clip_40)">
 <text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-346.9" x="253.9 256.65 261.886 267.386 271.12599 276.62599 281.86198 286.85597 292.35597 295.10597 300.34196 306.33695 309.33998 314.83998 317.843 320.846 326.346 331.34 335.08 338.083 341.08604 346.32203 354.308 359.808 362.81105 365.81407 370.80805 376.30805">. 3rd ed. Stuttgart: United </tspan></text>
@@ -631,5 +628,7 @@
 </g>
 <g clip-path="url(#clip_108)">
 </g>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-30.2" x="204.25 209.75">90</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="7.6" font-family="Arial" font-weight="bold"><tspan y="-551.25" x="57.6 64.7668 69.4028 72.3592 76.5848 80.8104 82.9156 88.4028 90.508 93.0388 97.264408">Works&#x00a0;Cited</tspan></text>
 </g>
 </svg>

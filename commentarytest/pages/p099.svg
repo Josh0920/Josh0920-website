@@ -396,16 +396,13 @@
 </defs>
 <g>
 <g clip-path="url(#clip_1)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-548.97" x="358.45"> </tspan></text>
 </g>
 <g clip-path="url(#clip_2)">
 </g>
 <g clip-path="url(#clip_3)">
 <g clip-path="url(#clip_4)">
-
 </g>
 <g clip-path="url(#clip_5)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-548.97" x="376.48"> </tspan></text>
 </g>
 </g>
 <g clip-path="url(#clip_6)">
@@ -460,7 +457,7 @@
 <g clip-path="url(#clip_23)">
 </g>
 <g clip-path="url(#clip_24)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-style="italic"><tspan y="-451.7" x="129.58 137.56601 140.56902 145.56302 148.56603 151.56903 157.06903 162.56903 168.06903 172.34804 177.30904 184.29404 189.79404 192.79705 199.78205 202.78505 208.28505 213.27906 220.26406 227.51306 232.50707 239.75608 246.99408 252.98908 257.98307 262.26206 265.23207 270.73207 278.71806 283.71205 289.21205 292.21507 299.20005 307.18605 311.46504 316.42604 323.411 328.911 331.91404 338.89903 341.90205 347.40205 352.39604 359.381 367.367 370.37004 376.11204">Dictionary of the New Testament Use of the Old </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-style="italic"><tspan y="-451.7" x="129.58 137.56601 140.56902 145.56302 148.56603 151.56903 157.06903 162.56903 168.06903 172.34804 177.30904 184.29404 189.79404 192.79705 199.78205 202.78505 208.28505 213.27906 220.26406 227.51306 232.50707 239.75608 246.99408 252.98908 257.98307 262.26206 265.23207 270.73207 278.71806 283.71205 289.21205 292.21507 299.20008 307.18608 311.46507 316.42607 323.41108 328.91108 331.9141 338.8991 341.90214 347.40214 352.39613 359.3811 367.3671 370.37013 376.11213">Dictionary of the New Testament Use of the Old </tspan></text>
 </g>
 <g clip-path="url(#clip_25)">
 </g>
@@ -763,5 +760,7 @@
 </g>
 <g clip-path="url(#clip_131)">
 </g>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-30.2" x="204.25 209.75">93</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="7.6" font-family="Arial" font-weight="bold"><tspan y="-551.25" x="331.96174 339.12855 343.76454 346.72093 350.9465 355.1721 357.27729 362.7645 364.8697 367.40049 371.62608">Works&#x00a0;Cited</tspan></text>
 </g>
 </svg>

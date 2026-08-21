@@ -414,16 +414,13 @@
 </defs>
 <g>
 <g clip-path="url(#clip_1)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-548.97" x="358.45"> </tspan></text>
 </g>
 <g clip-path="url(#clip_2)">
 </g>
 <g clip-path="url(#clip_3)">
 <g clip-path="url(#clip_4)">
-
 </g>
 <g clip-path="url(#clip_5)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-548.97" x="376.48"> </tspan></text>
 </g>
 </g>
 <g clip-path="url(#clip_6)">
@@ -809,5 +806,8 @@
 <g clip-path="url(#clip_137)">
 <text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="10" font-family="Times New Roman" font-style="italic"><tspan y="-166.08" x="201.63"> </tspan></text>
 </g>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-30.2" x="204.25 209.75">31</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="7.6" font-family="Arial" font-weight="bold"><tspan y="-551.25" x="57.6 62.6616 66.8872 71.1128 75.7488 80.3848 85.020809 87.12601 92.18761 96.41321 98.94401 103.16961">Second&#x00a0;Peter</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="7.6" font-family="Arial" font-weight="bold"><tspan y="-551.25" x="205.68595 210.74755 214.97315 219.19875 223.83475 226.79116 231.01676 235.65276 239.87836 242.40917 244.51436 249.15036 253.78636 258.01197 260.11717 265.60438 270.24037 276.99678 283.75318 288.38917 293.02516 295.13035 299.35594 303.5815 306.1123 308.2175 312.8535 317.48948 319.59468 324.23066 326.76145 328.86665 333.09223 335.19743 339.423 344.059 348.69499 350.80018 355.02577 357.13096 362.19258 366.41816 368.94895 373.17454">Excursus:&#x00a0;The&#x00a0;Communication&#x00a0;of&#x00a0;1&#x00a0;and&#x00a0;2&#x00a0;Peter</tspan></text>
 </g>
 </svg>

@@ -417,16 +417,13 @@
 </defs>
 <g>
 <g clip-path="url(#clip_1)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-548.97" x="358.45"> </tspan></text>
 </g>
 <g clip-path="url(#clip_2)">
 </g>
 <g clip-path="url(#clip_3)">
 <g clip-path="url(#clip_4)">
-
 </g>
 <g clip-path="url(#clip_5)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-548.97" x="376.48"> </tspan></text>
 </g>
 </g>
 <g clip-path="url(#clip_6)">
@@ -638,7 +635,7 @@
 <text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-334.65" x="97.55"> </tspan></text>
 </g>
 <g clip-path="url(#clip_77)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-style="italic"><tspan y="-334.65" x="129.58 135.08 146.069 152.79 157.806 160.809 165.80301 170.08202 181.03801 187.759 192.533 197.52701 203.02701 208.52701 212.80602 215.77602 221.27602 226.27002 230.54903 235.51003 241.01003 243.76003 254.74903 260.74403 266.24403 271.74403 277.24403 282.74403 288.24403 291.984 302.97303 308.96803 313.962 319.462 324.962 330.462 333.212 338.206 349.195 355.91603 360.195 365.189 369.468 373.692">2 Peter Reconsidered. London: Tyndale Press.</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-style="italic"><tspan y="-334.65" x="129.58 135.08 146.069 152.79 157.806 160.809 165.80301 170.08202 181.03803 187.75902 192.53302 197.52703 203.02703 208.52703 212.80603 215.77603 221.27603 226.27004 230.54904 235.51004 241.01004 243.76004 254.74904 260.74406 266.24406 271.74406 277.24406 282.74406 288.24406 291.98405 302.97306 308.96806 313.96205 319.46205 324.96205 330.46205 333.21205 338.20603 349.19505 355.91606 360.19505 365.18904 369.46803 373.69203">2 Peter Reconsidered. London: Tyndale Press.</tspan></text>
 </g>
 <g clip-path="url(#clip_78)">
 <text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-style="italic"><tspan y="-334.65" x="376.48"> </tspan></text>
@@ -740,7 +737,7 @@
 <text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-179.08" x="97.55"> </tspan></text>
 </g>
 <g clip-path="url(#clip_113)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-style="italic"><tspan y="-179.08" x="129.58 135.08 140.31601 147.037 152.05301 155.05602 160.05002 164.32903 168.03603 173.27204 179.99303 185.49303 190.76203 194.50202 200.00202 203.00502 207.28403 212.78403 218.28403 223.78403 228.74503 231.74803 234.75104 240.25104 245.75104 250.98703 256.48704 261.98704 267.48704 272.72303 279.97203 285.47203 293.458 301.444 306.438 311.938 314.941 320.441 324.445">1 Peter: An Introduction and Commentary</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-style="italic"><tspan y="-179.08" x="129.58 135.08 140.31601 147.037 152.05301 155.05602 160.05002 164.32903 168.03603 173.27204 179.99303 185.49303 190.76203 194.50202 200.00202 203.00502 207.28403 212.78403 218.28403 223.78403 228.74503 231.74803 234.75104 240.25104 245.75104 250.98705 256.48707 261.98707 267.48707 272.72306 279.97206 285.47206 293.45805 301.44404 306.43803 311.93803 314.94105 320.44105 324.44505">1 Peter: An Introduction and Commentary</tspan></text>
 </g>
 <g clip-path="url(#clip_114)">
 <text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-179.08" x="329.7 332.45 337.686 344.935 349.929 355.429 358.179 363.41499 368.40898 373.90898 376.40599">. Rev. ed. </tspan></text>
@@ -810,5 +807,7 @@
 </g>
 <g clip-path="url(#clip_138)">
 </g>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-30.2" x="204.25 209.75">92</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="7.6" font-family="Arial" font-weight="bold"><tspan y="-551.25" x="57.6 64.7668 69.4028 72.3592 76.5848 80.8104 82.9156 88.4028 90.508 93.0388 97.264408">Works&#x00a0;Cited</tspan></text>
 </g>
 </svg>
