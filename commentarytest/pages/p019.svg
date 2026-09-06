@@ -88,7 +88,7 @@
 <path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
 </clipPath>
 <clipPath id="clip_30">
-<path transform="matrix(1,0,0,-1,0,595.25)" d="M.00001251 0H419.5V595.25H.00001251Z" clip-rule="evenodd"/>
+<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
 </clipPath>
 <clipPath id="clip_31">
 <path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
@@ -166,7 +166,7 @@
 <path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
 </clipPath>
 <clipPath id="clip_56">
-<path transform="matrix(1,0,0,-1,0,595.25)" d="M.00001251 0H419.5V595.25H.00001251Z" clip-rule="evenodd"/>
+<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
 </clipPath>
 <clipPath id="clip_57">
 <path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
@@ -232,7 +232,7 @@
 <path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
 </clipPath>
 <clipPath id="clip_78">
-<path transform="matrix(1,0,0,-1,0,595.25)" d="M.00001251 0H419.5V595.25H.00001251Z" clip-rule="evenodd"/>
+<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
 </clipPath>
 <clipPath id="clip_79">
 <path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
@@ -253,7 +253,7 @@
 <path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
 </clipPath>
 <clipPath id="clip_85">
-<path transform="matrix(1,0,0,-1,0,595.25)" d="M.00001251 0H419.5V595.25H.00001251Z" clip-rule="evenodd"/>
+<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
 </clipPath>
 <clipPath id="clip_86">
 <path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
@@ -279,283 +279,413 @@
 <clipPath id="clip_93">
 <path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
 </clipPath>
+<clipPath id="clip_94">
+<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
+</clipPath>
+<clipPath id="clip_95">
+<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
+</clipPath>
+<clipPath id="clip_96">
+<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
+</clipPath>
+<clipPath id="clip_97">
+<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
+</clipPath>
+<clipPath id="clip_98">
+<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
+</clipPath>
+<clipPath id="clip_99">
+<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
+</clipPath>
+<clipPath id="clip_100">
+<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
+</clipPath>
+<clipPath id="clip_101">
+<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
+</clipPath>
+<clipPath id="clip_102">
+<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
+</clipPath>
+<clipPath id="clip_103">
+<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
+</clipPath>
+<clipPath id="clip_104">
+<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
+</clipPath>
+<clipPath id="clip_105">
+<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
+</clipPath>
+<clipPath id="clip_106">
+<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
+</clipPath>
+<clipPath id="clip_107">
+<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
+</clipPath>
+<clipPath id="clip_108">
+<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
+</clipPath>
+<clipPath id="clip_109">
+<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
+</clipPath>
+<clipPath id="clip_110">
+<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
+</clipPath>
+<clipPath id="clip_111">
+<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
+</clipPath>
+<clipPath id="clip_112">
+<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
+</clipPath>
+<clipPath id="clip_113">
+<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
+</clipPath>
+<clipPath id="clip_114">
+<path transform="matrix(1,0,0,-1,0,595.25)" d="M.000006251 0H419.5V595.25H.000006251Z" clip-rule="evenodd"/>
+</clipPath>
 </defs>
 <g>
 <g clip-path="url(#clip_1)">
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="7.5" font-family="Arial" font-weight="bold"><tspan y="-553.47" x="57.525"> </tspan></text>
 </g>
 <g clip-path="url(#clip_2)">
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="7.5" font-family="Arial" font-weight="bold"><tspan y="-553.47" x="291.42 296.91004 298.91255 303.41255 305.41505 307.41755 312.15754 316.65754 319.65007 323.89509 328.39509 332.89509 337.1401 339.1426 341.6401 346.1401 349.13264 351.13514 355.38017 357.38267 362.38517 366.62269 369.12019 373.3652">Bibliography for 1 Peter</tspan></text>
 </g>
 <g clip-path="url(#clip_3)">
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="7.5" font-family="Arial" font-weight="bold"><tspan y="-553.47" x="376.48"> </tspan></text>
 </g>
 <g clip-path="url(#clip_4)">
-<text fill="#ffffff" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="1" font-family="Calibri"><tspan y="-540.47" x="57.525"> </tspan></text>
 </g>
 <g clip-path="url(#clip_5)">
-<text fill="#ffffff" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="1" font-family="Calibri"><tspan y="-540.47" x="57.775"> </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-30.275" x="211.38 216.88">11</tspan></text>
 </g>
 <g clip-path="url(#clip_6)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="14" font-family="Times New Roman" font-weight="bold"><tspan y="-518.97" x="182.85 192.104 199.104 205.32 213.104 219.32 224.83602 232.62001">Excursus</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-30.275" x="222.38"> </tspan></text>
 </g>
 <g clip-path="url(#clip_7)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="14" font-family="Times New Roman" font-weight="bold"><tspan y="-518.97" x="238.15"> </tspan></text>
+<text fill="#ffffff" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="1" font-family="Calibri"><tspan y="-540.47" x="57.525"> </tspan></text>
 </g>
 <g clip-path="url(#clip_8)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="14" font-family="Times New Roman" font-weight="bold"><tspan y="-518.97" x="240.9">A</tspan></text>
+<text fill="#ffffff" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="1" font-family="Calibri"><tspan y="-540.47" x="57.775"> </tspan></text>
 </g>
 <g clip-path="url(#clip_9)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="14" font-family="Times New Roman" font-weight="bold"><tspan y="-518.97" x="250.9"> </tspan></text>
+<text fill="#ffffff" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="1" font-family="Calibri"><tspan y="-539.47" x="57.525 58.025 58.274003 58.774003 59.023004 59.272005 59.772005 60.271005 60.521005 61.020006 61.520006 62.020006 62.519006 62.768007 63.018007 63.518007 63.768007 64.017009 64.517009 64.76601 65.26601 65.76401 66.01601 66.76501">Bibliography for 1 Peter</tspan></text>
 </g>
 <g clip-path="url(#clip_10)">
-<text fill="#ffffff" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="1" font-family="Calibri"><tspan y="-508.73" x="57.525 58.024003 58.523004 59.022005 59.522005 59.772005 60.271005 60.771005 61.270006 61.520006 61.769006 62.268007 62.768007 63.266008 63.51701 64.01701 64.51701 65.26701 66.01701 66.51701 67.01701 67.266017 67.76501 68.264 68.5425 68.764 69.264 69.764 70.013 70.513 70.763 71.012 71.512 71.761 72.259998 72.759998 73.259998 73.508998 74.008998 74.257999 74.757999 75.256 75.507999 76.006">Excursus: The Communication of 1 and 2 Peter</tspan></text>
+<text fill="#ffffff" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="1" font-family="Calibri"><tspan y="-539.47" x="67.3"> </tspan></text>
 </g>
 <g clip-path="url(#clip_11)">
-<text fill="#ffffff" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="1" font-family="Calibri"><tspan y="-508.73" x="76.55"> </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="14" font-family="Times New Roman" font-weight="bold"><tspan y="-507.98" x="144.08 153.334 157.324 165.108 169.056 173.046 180.046 187.046 193.26201 200.26201 208.046 215.83 222.83 226.33 231.03401 238.03401 244.04001 247.54001 254.54001 258.04 266.538 272.754 277.28999">Bibliography for 1 Pete</tspan></text>
 </g>
 <g clip-path="url(#clip_12)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="14" font-family="Times New Roman" font-style="italic"><tspan y="-495.45" x="68.55 76.33401 83.33401 89.55001 93.05001 102.304019 109.304019 119.30002 129.29602 136.29602 143.29602 147.28603 153.50203 160.50203 164.52004 168.51004 175.51004 182.51004 186.01004 193.01004 197.00005 200.50005 207.50005 211.00005 218.00005 225.00005 232.00005 235.50005 242.50005">The Communication of 1 and 2 </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="14" font-family="Times New Roman" font-weight="bold"><tspan y="-507.98" x="283.67">r</tspan></text>
 </g>
 <g clip-path="url(#clip_13)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="14" font-family="Times New Roman" font-style="italic"><tspan y="-495.45" x="246.15 254.648 260.86399 264.882 271.098">Peter</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="14" font-family="Times New Roman" font-weight="bold"><tspan y="-507.98" x="289.67"> </tspan></text>
 </g>
 <g clip-path="url(#clip_14)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="14" font-family="Times New Roman" font-style="italic"><tspan y="-495.45" x="276.42 281.152 284.652 294.648 301.648 310.902 314.402 324.398 328.388 332.378 336.36799 342.374 347.862 354.078 361.078 365.096">: How Different </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-488.2" x="57.525 64.774 69.768009 75.268009 80.26201 85.76201 91.26201 96.25601 104.75901 107.50901 110.25901 117.50801 120.25801 123.00801 127.28701 130.03702 132.78702 136.49402 141.99402 147.49402 152.99402 158.49402 162.23401 164.98401">Bauckham, R. J. (1983). </tspan></text>
 </g>
 <g clip-path="url(#clip_15)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="14" font-family="Times New Roman" font-style="italic"><tspan y="-479.45" x="185.6 194.098 199.58602 205.80202 209.30202 217.08602 224.08602 230.30202 236.57402">Are They?</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-style="italic"><tspan y="-488.2" x="167.6 172.59401 178.09401 183.59401">Jude</tspan></text>
 </g>
 <g clip-path="url(#clip_16)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="9" font-family="Times New Roman" font-style="italic"><tspan y="-484.45" x="243.65">*</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-style="italic"><tspan y="-488.2" x="188.6">&#x2013;</tspan></text>
 </g>
 <g clip-path="url(#clip_17)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="14" font-family="Times New Roman" font-weight="bold" font-style="italic"><tspan y="-479.45" x="248.15"> </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-style="italic"><tspan y="-488.2" x="194.13 199.63 202.38 208.881 213.875 216.878 221.87201">2 Peter</tspan></text>
 </g>
 <g clip-path="url(#clip_18)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-454.2" x="57.525 65.511 71.011 76.005008 79.74501 82.49501 85.49801 88.50101 97.004009 101.99801 104.74801 107.49801 110.50101 116.00101 120.99501 123.49201 128.48601 133.98601 136.98902 142.48902 147.98902 151.729 156.00801 161.50801 164.47801 169.97801 172.72801 177.72202 180.72502 185.71903 188.72203 197.22504 201.50405 204.25405 209.75405 213.46105 216.21105 220.49005 225.45105 230.69805 235.69205 239.43204 244.42604 247.42905 250.17905 257.93403 262.928 270.914 273.664 280.165 285.159 289.438 292.408 297.40199 305.905 310.657 316.157 319.16004 321.91004 327.41004 332.91004 338.41004 343.91004 348.18904 350.93904 356.43904 361.40003 366.90003 371.894">Over time, the authorship claims of several New Testament books have </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-488.2" x="226.13"> </tspan></text>
 </g>
 <g clip-path="url(#clip_19)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-439.42" x="57.525 62.519 68.019 76.521999 81.516 84.266 87.269 92.769 95.771999 101.271999 104.021999 109.521999 115.021999 120.016 124.295 127.265 130.268 135.768 141.268 144.018 146.768 154.75402 158.494 161.244 166.238 169.24102 172.24402 174.99402 177.99703 183.49703 188.49103 191.24103 194.24404 199.23804 202.24105 205.24405 209.99605 213.73604 218.01505 220.76505 225.72605 228.72905 231.73206 235.47205 238.47505 243.97505 249.47505 252.47806 257.47206 262.97206 265.72206 268.72508 274.22508 276.97508 282.97007 287.96406 293.46406 296.46708 299.21708 301.96708 307.46708 312.96708 315.9701 321.4701 324.2201 328.49909 333.46009 338.96009 343.95408 349.45408 352.20408 357.19807 360.69606 365.69004">come into question. Of all the letters attributed to Paul, only seven are </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-488.2" x="228.88 232.378 242.87201 248.37201 252.112 257.612 260.362 267.611 270.614 276.114 279.11705 282.12007 287.11405 292.10804 295.11106 297.86106 305.11006 310.61006 319.11308 327.6161 332.61009 338.11009 341.1131 346.1071 349.84709 355.34709 358.09709">(Word Biblical Commentary, </tspan></text>
 </g>
 <g clip-path="url(#clip_20)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-424.92" x="57.525 62.519 68.019 73.519 77.798 80.768 86.268 91.262 95.00201 99.99601 105.49601 108.24601 113.74601 119.24601 121.99601 126.27501 131.77501 139.992 144.98601 147.73601 152.01502 156.97602 162.47602 167.97602 170.97902 175.97303 179.71302 183.99202 186.74202 189.71202 195.21202 197.96202 203.20902 208.20302 210.95302 216.45302 221.44702 226.94702 232.44702 235.45003 240.95003 245.94403 248.69403 251.44403 256.94404 259.44105 264.43504 269.93504 275.43504 278.18504 283.68504 286.43504 292.43003 297.424 300.42704 305.42103 309.161 311.65803 316.652 320.392 325.386 327.883 332.87699 341.38 346.88 352.38 357.88 360.63 363.63304 369.13304 374.127">considered by some scholars to be genuine. 1 and 2 Peter are among the </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-473.7" x="93.55 101.536 107.036 110.039 112.789 115.539 121.039 126.539 130.27899 133.02899 135.77899 146.273 151.773 155.51299 161.01299 163.76299 171.012 176.512 182.012 187.512 191.791">Vol. 50). Word Books.</tspan></text>
 </g>
 <g clip-path="url(#clip_21)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-410.42" x="57.525 63.025 66.028 71.528 76.522 80.26201 83.01201 88.00601 93.50601 98.75301 103.74702 108.02602 110.99602 113.999019 119.499019 124.999019 129.99301 135.49301 140.48702 143.23702 146.24002 151.23403 154.23703 157.24004 161.99204 165.73203 170.01103 172.76103 175.51103 185.97203 191.47203 196.97203 199.72203 207.70804 211.44803 216.94803 219.69803 224.69203 227.44203 230.44504 235.94504 240.93904">other &#x201c;questioned&#x201d; letters. Who wrote thes</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-473.7" x="194.38"> </tspan></text>
 </g>
 <g clip-path="url(#clip_22)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-410.42" x="245.4 250.394 253.144 256.147 264.133 269.633 272.383 275.133 280.12699 283.13 286.13304 291.127 294.867 299.146 304.107 306.604 314.59 317.59303 323.09303 325.84303 331.34303 336.84303 341.837 344.587 350.087 355.081 358.82099 363.09999 368.59999 374.09999">e two letters? Did one person </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-459.2" x="57.525 64.774 69.768009 74.047008 77.017009 79.767009 82.517009 89.23801 91.98801 94.73801 98.51101 104.01101 109.51101 115.01101 120.51101 124.251018 127.001018 129.751 134.74501 140.24501 142.99501 148.99 153.98401 156.98702 161.73902 165.479 168.229 173.223 178.723 184.223 186.973 189.97602 195.47602 200.47002 203.22002 208.72002 214.22002 218.49903 223.72403 228.71804 231.72104 234.47104 237.47405 241.21404 246.20804 251.70804 254.71105 257.71406 260.71708 266.21708 271.71708 274.46708 279.46107">Best, E. (1970). &#x201c;1 Peter and the gospel tradition.&#x201d; </tspan></text>
 </g>
 <g clip-path="url(#clip_23)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-395.92" x="57.525 65.511 69.25101 72.254009 75.257 80.25101 83.00101 88.50101 94.00101 97.004009 102.504009 105.254009 110.754009 114.49401 117.24401 125.23001 130.22402 134.50302 137.25302 140.22303 143.22603 145.97603 148.97904 156.96504 162.46504 165.21504 169.49405 174.45505 179.70204 184.69605 188.43604 193.43004 196.18004 201.17404 203.92404 206.92705 212.42705 217.92705 220.93006 226.43006 229.43306 234.93306 240.43306 245.42707 248.43007 252.70908 257.67008 260.42008 267.66908 273.16908 276.1721 281.6721 284.4221 289.41609 293.15608 298.15007 300.64707 305.64106 308.64408 311.6471 315.3871 318.3901 323.8901 329.3901 332.39314 337.38713 342.88713 345.63713 348.64015 354.14015">write both or was it two separate individuals? Both are attributed to </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-style="italic"><tspan y="-459.2" x="282.43 289.679 294.67298 301.92198 304.67198 310.66697 315.66096 319.93995 322.90995 328.40995 336.39595 341.38993 346.88993 349.89295">New Testament </tspan></text>
 </g>
 <g clip-path="url(#clip_24)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-381.4" x="57.525 63.520006 68.51401 71.517009 76.51101 80.251018 83.001018 85.751018 91.251018 96.751018 99.75401 102.50401 108.00401 111.00701 116.50701 119.25701 124.75701 129.751 132.501 138.001 142.99501 148.49501 151.24501 154.24802 159.74802 164.74202 173.24503 175.99503 178.74503 183.99202 188.98603 194.48603 199.48003 202.23003 205.23303 210.73303 215.72704 224.23004 226.98004 232.22704 237.22104 242.72104 248.22104 253.21504 258.71504 261.46504 264.21504 269.71504 273.45503 276.20503 281.70503 287.20503 289.95503 292.95805 298.20506 303.19905 308.69905 311.19606 315.47505 318.44505 326.94807 332.44807 335.45109 340.95109 343.70109 349.20109 354.70109 357.7041 363.2041">Peter, but did he pen them, have them penned, or do they simply hold </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-style="italic"><tspan y="-444.67" x="93.55 99.05 102.053 107.553 113.053 116.056 121.05 125.329 128.07901 130.82901 136.32901">Studies, 16</tspan></text>
 </g>
 <g clip-path="url(#clip_25)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-366.9" x="57.525 63.025 66.028 70.307 73.057 78.018009 83.518009 86.521 92.021 97.521 101.26101 104.26401 107.267009 112.767009 117.76101 120.51101 127.76001 130.76302 135.75702 141.25702 146.25102 149.99102 155.49102 158.24102 165.49002 170.48403 175.73102 180.72502 186.22502 191.72502 196.71903 205.22203 207.97203 215.95804 219.69803 222.70104 225.70404 230.69805 234.97705 237.72705 240.20206 245.19606 248.93605 251.93906 254.68906 259.44108 264.43507 269.93507 272.68507 276.96406 281.68305 285.42304 290.41703 293.42005 298.92005 301.67005 307.17005 311.92207 314.67207 318.95106 323.91206 326.91508 332.41508 335.16508 338.1681 343.6681 348.66209 351.6651 354.4151 357.41813 361.1581 363.9081 369.4081">his authority? Richard Bauckham writes, &#x201c;It can safely be said that if 1 </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-444.67" x="141.83 144.58 147.33 152.83">, 95</tspan></text>
 </g>
 <g clip-path="url(#clip_26)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-352.15" x="57.525 62.519 68.019 73.519 76.269 81.769 84.519 90.51399 95.507999 98.510997 103.505 107.245 109.995 115.242008">and 2 Peter ha</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-444.67" x="158.35">-</tspan></text>
 </g>
 <g clip-path="url(#clip_27)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-352.15" x="120.33 125.83 128.58 134.08 139.074 144.06801 149.56801 152.065 157.059 162.559 168.059 173.559 179.059 187.56201 193.06201 198.56201 202.84102 205.59102 211.09102 216.59102 221.55202 227.05202 235.55503 240.54903 246.04903 249.05204 253.33104 256.08106 258.83106 264.33106 269.83106 272.58106 278.08106 283.58106 288.54206 291.03907 299.02507 304.52507 310.02507 313.02809 318.52809 321.27809 326.77809 331.77207 337.27207 342.26606">d been anonymous documents, no one would have </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-444.67" x="162.1 167.6 173.1 178.6">113.</tspan></text>
 </g>
 <g clip-path="url(#clip_28)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-337.65" x="57.525 60.528 66.028 71.528 77.028 82.528 88.028 91.031 93.781 99.281 103.021 105.771 110.76501 113.768009 116.771 120.51101 123.51401 129.014 134.514 137.51702 140.52002 146.02002 151.52002 154.27002 157.27303 162.77303 167.76703 176.27004 179.02004 182.02304 187.52304 190.27304 195.26705 198.01705 202.29605 205.26605 210.76605 216.26605 219.26906 224.26306 227.01306 232.00707 237.50707 240.51007 246.01007 251.51007">thought of attributing them to a single author</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-444.67" x="181.35"> </tspan></text>
 </g>
 <g clip-path="url(#clip_29)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-337.65" x="255.4 258.15">.&#x201d;</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-430.17" x="57.525 64.774 70.274 75.774 81.274 86.774 91.768009 95.50801 98.25801 101.00801 108.99401 111.74401 114.49401 122.48001 125.23001 127.98001 131.72 137.22 142.72 148.22 153.467 157.20699 159.95699 162.70699 169.42798 174.92798 179.94399 182.69399 185.69699 191.19699 196.69699 201.691 207.191 209.941 214.935 220.435 225.935 230.929 235.20801 239.43202 242.18202 247.68202 251.42201 254.17201 259.672 262.422 268.417 273.41099 276.16099 281.15498 284.89497 287.64497 290.64799 296.14799 298.89799 304.39799 307.14799 313.14299 318.13697 321.13999 326.13398 329.87397 332.62397 335.37397 339.11396 344.61396 347.11097 355.09696 357.84696 360.59696 364.87596 367.62596">Boobyer, G. H. (1959). The indebtedness of 2 Peter to 1 Peter. In A. J. </tspan></text>
 </g>
 <g clip-path="url(#clip_30)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="7" font-family="Times New Roman"><tspan y="-341.65" x="262.9">1</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-415.42" x="93.55 100.799 103.549 106.299 114.285 117.288 122.788 128.288 131.291 136.791 141.07 143.82 147.52701 154.248 159.748 162.498 166.271 169.021">B. Higgins (Ed.), </tspan></text>
 </g>
 <g clip-path="url(#clip_31)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-337.65" x="266.4"> </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-style="italic"><tspan y="-415.42" x="171.85 179.09902 184.09302 191.34203 194.09203 200.08702 205.08103 209.36003 212.33003 217.83003 225.81604 230.81005 236.31005 239.31305 242.06305 247.05706 251.33606 255.56008 261.06007 266.05406 270.33305 274.04005 276.79005 282.29005 285.29307 290.79307 296.29307 299.29609 304.29008 308.56907 311.31907 314.28907 319.78907 322.53907 330.52507 335.27708 343.26307 348.51008 352.78907 357.75007 360.50007 366.00007 369.00309">New Testament essays: Studies in memory of </tspan></text>
 </g>
 <g clip-path="url(#clip_32)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-337.65" x="269.15 276.399 281.899 284.902 287.652 290.65504 294.93403 297.68403 304.90003 309.894 315.63603 320.63 326.13 331.63 336.624 345.127">But is Bauckham </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-style="italic"><tspan y="-400.92" x="93.55 99.545 105.045 110.545 118.531 124.031 128.31 131.06 140.267 145.767 148.77 151.77301 156.76702 161.04602 163.79602 173.00302 178.50302 184.00302 188.28203 193.78203 199.28203 202.03203 204.78203 210.28203 215.78203 221.28203">Thomas Walter Manson, 1893</tspan></text>
 </g>
 <g clip-path="url(#clip_33)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-323.13" x="57.525 62.519 68.019 71.759 75.257 80.25101 85.24501 88.24801 93.24201 95.73901 106.23302 111.73302 114.736019 117.73901 122.73302 125.48302 128.48603 133.98603 138.98003 141.73003 147.23003 152.47702 157.47103 161.75003 164.72003 167.72304 173.22304 178.72304 181.47304 186.97304 190.71303 193.46303 198.45703 203.95703 206.96004 212.46004 217.96004 221.70003 225.97904 231.47904 234.44904 239.94904 242.69904 247.45104 252.44504 257.94505 263.44505 268.94505 271.94807 274.69807 280.19807 285.19206 287.94206 292.22105 297.72105 300.69105 306.19105 310.94306 316.44306">correct? While the question of authorship cannot be solved </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-style="italic"><tspan y="-400.92" x="226.88">&#x2013;</tspan></text>
 </g>
 <g clip-path="url(#clip_34)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-style="italic"><tspan y="-323.13" x="319.45 323.729 329.229 332.199 337.193 340.196">solely</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-style="italic"><tspan y="-400.92" x="232.38 237.88 243.38 248.88">1958</tspan></text>
 </g>
 <g clip-path="url(#clip_35)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-323.13" x="345.2"> </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-400.92" x="254.4"> </tspan></text>
 </g>
 <g clip-path="url(#clip_36)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-323.13" x="347.95 353.45 358.95 361.7 364.70304 370.20304 375.19703">on the </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-400.92" x="257.15 260.88999 266.38999 271.88999 274.63999 277.38999 282.88999">(pp. 34</tspan></text>
 </g>
 <g clip-path="url(#clip_37)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-308.63" x="57.525 63.025 68.019008 72.298007 75.268009 79.547008 82.297008 87.797008 91.504009 94.254009 97.257 102.757 107.75101 110.50101 118.48701 123.48101 128.98102 131.73102 137.23102 142.73102 145.73403 151.23403 153.98403 156.98703 161.98104 164.98404 167.98705 172.73905 176.47904 180.75804 183.50804 188.46904 193.96904 202.47205 210.97505 216.47505 221.97505 224.97806 229.97206 234.96607 237.71607 242.71007 245.46007 248.21007 251.21308 256.71308 261.70707 265.98606 270.94706 273.69706 276.70008 284.68608 290.18608 292.93608 295.9391 300.93309 303.9361 306.93913 311.69114 315.43113 319.7101 322.4601 327.4211 332.4151 337.9151 340.6651 345.9121 350.9061">basis of the way both letters communicate, these two letters can be </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-400.92" x="288.42">&#x2013;</tspan></text>
 </g>
 <g clip-path="url(#clip_38)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-294.13" x="57.525 61.804 67.304 72.804 80.746 86.246 88.996 92.054 97.554 100.304 105.804 110.76501 113.51501 119.01501 124.00901 129.003 134.503 137.50601 143.00601 145.503 150.49701 155.99701 161.49701 166.99701 171.99102 176.98502 179.73502 184.72902 190.22902 192.97902 195.98203 201.48203 204.23203 207.23503 215.73804 221.23804 226.73804 230.47803 233.48104 238.47504 243.97504 246.97805 249.72805 257.71406 262.70805 268.20805 272.48704 275.23704 283.17903 288.67903 291.73704 296.69804 302.19804 304.94804 308.95204 314.45204 319.95204 325.45204 330.446 334.725 337.695 341.974 344.724 347.694 353.194 358.188 363.688">shown to be deeply connected in important ways which suggests they </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-400.92" x="293.92 299.42 304.92 308.66 311.41 314.16 323.939 328.9 334.147 339.141 344.641 349.393 353.672 356.642 361.636 365.37599">53). Manchester </tspan></text>
 </g>
 <g clip-path="url(#clip_39)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-279.38" x="57.525 66.028 71.022 76.522 79.272 84.772 89.76601 92.51601 96.25601 99.99602 105.49602 113.999019 116.49602 121.49002 124.24002 128.51903 131.48903 136.98903 142.48903 145.49204 150.48604 153.23604 157.51505 163.01505 168.51505 172.22205 176.97405 181.96805">may be from a single source.</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-386.4" x="93.55 101.536 107.036 110.039 115.539 120.533008 124.27301 128.55202 131.52202 134.52503 140.02503 142.77503 148.77002 152.51001 157.50402 161.78302 166.00704">University Press.</tspan></text>
 </g>
 <g clip-path="url(#clip_40)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-279.38" x="184.6"> </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-386.4" x="168.85"> </tspan></text>
 </g>
 <g clip-path="url(#clip_41)">
-<text fill="#ffffff" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="1" font-family="Calibri"><tspan y="-262.35" x="57.525 58.024003 58.524003 59.022005 59.273008 59.525007 60.023008 60.273008 60.771009 61.023008 61.523008 62.022008 62.271009 62.520009 63.01901 63.26801 64.018009 64.267009 64.51601 65.015 65.265 65.514 65.7925 66.014 66.512 67.013 67.263 67.512 68.012 68.261 68.553 68.761 69.259 69.511 70.26 70.76 71.258998 71.756999 72.257999 72.507999 72.756999 73.25599 73.75599 74.25599 74.50499 75.00499 75.50499 76.00499 76.50499 77.00299 77.50399 77.78249 78.00399 78.50399 79.00399">The Internal Similarities, Differences, and Connections</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-371.9" x="57.525 65.511 70.505008 73.508 76.511 82.011 87.511 90.261 93.011 103.505008 106.255008 109.005008 113.284008 116.034008 118.784008 122.491008 127.991008 133.491 138.991 144.491 148.23099 150.98099 153.47798 158.47199 165.19298 170.69298 175.70899 178.45899 181.46199 186.96199 189.965 194.717 198.45699 203.95699 207.45499 212.44899 215.452 220.446 223.449 226.45201 231.95201 237.45201 240.20201 245.70201 249.442 252.192 257.69203 260.44203 266.437 271.431 274.43403 279.428 283.168 285.918 291.418 294.168 299.668 305.168 307.665 312.41703 317.91703 323.41703 326.16703 331.66703 334.41703 339.91703 342.92005 345.67005 348.67308 351.6761 357.1761 362.6761 365.6791">Dalton, W. J. (1979). &#x201c;The interpretation of 1 Peter 3,19 and 4,6: light </tspan></text>
 </g>
 <g clip-path="url(#clip_42)">
-<text fill="#ffffff" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="1" font-family="Calibri"><tspan y="-262.35" x="79.55"> </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-357.4" x="93.55 97.29001 101.030017 106.530017 115.03301 117.78301 123.28301 126.03301 132.02802 137.02202 140.02503 145.01903 148.75902 151.25601 156.25002">from 2 Peter.&#x201d; </tspan></text>
 </g>
 <g clip-path="url(#clip_43)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-weight="bold"><tspan y="-251.85" x="87.55 94.799 100.794 105.788 108.538 112.817 118.79 122.53001 127.52401 132.518 138.513 144.013 147.016 149.766 155.761 158.764 168.004 171.007 174.01001 179.51001 184.50402 187.50702 191.24701 194.25002 199.24402 203.52303 206.27303 209.02303 216.96503 220.02303 223.73003 227.47002 232.46402 237.21602 242.21002 248.20502 253.19902 258.193 262.472 265.222 267.972 273.472 279.44499 285.43998 288.18998 296.17597 301.67597 307.67097 313.66596 318.65995 323.65394 327.39393 330.39695 335.89695 341.89195">The Internal Similarities, Differences, and Connections</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-style="italic"><tspan y="-357.4" x="159.1 165.821 168.879 174.379 177.349 180.352 185.34601">Biblica</tspan></text>
 </g>
 <g clip-path="url(#clip_44)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-weight="bold"><tspan y="-251.85" x="346.45"> </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-357.4" x="190.88 193.63">, </tspan></text>
 </g>
 <g clip-path="url(#clip_45)">
-<text fill="#ffffff" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="1" font-family="Calibri"><tspan y="-246.85" x="57.525 58.024003 58.273004 58.523004 59.022005 59.272005 59.521005 60.021005 60.519006 60.771005 61.269006">First Peter</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-style="italic"><tspan y="-357.4" x="196.38 201.88">60</tspan></text>
 </g>
 <g clip-path="url(#clip_46)">
-<text fill="#ffffff" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="1" font-family="Calibri"><tspan y="-246.85" x="61.775"> </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-357.4" x="207.38 210.13 212.88 218.38 223.88">, 547</tspan></text>
 </g>
 <g clip-path="url(#clip_47)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-weight="bold" font-style="italic"><tspan y="-224.35" x="75.55 79.8">I.</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-357.4" x="229.38">&#x2013;</tspan></text>
 </g>
 <g clip-path="url(#clip_48)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Arial" font-weight="bold" font-style="italic"><tspan y="-224.35" x="82.55"> </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-357.4" x="234.9 240.4 245.9">55.</tspan></text>
 </g>
 <g clip-path="url(#clip_49)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-weight="bold" font-style="italic"><tspan y="-224.35" x="111.58 118.829 121.832 126.111 130.335 133.33802 136.08802 142.809 147.82501 150.82802 155.82202">First Peter</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-357.4" x="248.65"> </tspan></text>
 </g>
 <g clip-path="url(#clip_50)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-weight="bold" font-style="italic"><tspan y="-224.35" x="160.1"> </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-342.9" x="57.525 65.511 69.25101 74.003009 78.99701 84.49701 87.24701 89.99701 99.77601 102.52601 105.27601 108.98301 114.48301 119.98301 125.48301 130.983 134.72299 137.47299">Green, M. (1987). </tspan></text>
 </g>
 <g clip-path="url(#clip_51)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-201.82" x="57.525 61.804 67.304 71.528 76.522 82.022 87.522 90.272 100.051 105.01201 110.51201 116.01201 119.752017 122.502017 128.00202 133.50202 136.50502 141.49903 145.77803 148.52803 151.49803 156.99803 161.99204 164.99504 167.74504 170.24204 175.23604 181.95703 187.45703 192.47304 195.22304 199.50205 202.47205 207.97205 210.97505 215.96906 218.71906 224.21906 227.95905 230.70905 236.20905 238.95905 244.95404 247.70404 250.45404 253.45705 257.73606 260.48606 265.44706 268.45008 273.2021 278.19609 281.69407 286.68806 290.42805 293.17805 298.17204 303.67204 309.17204 311.66905 315.94804 318.91804 327.42106 332.92106 335.92408 340.91807 344.65806 347.40806 350.41108 355.91108 360.90507 366.40507">Joseph Mayor notes that, &#x201c;The style of 1 P. is clearer and simpler than </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-style="italic"><tspan y="-342.9" x="140.33 145.83 148.58 155.081 160.075 163.078 168.072 172.35102 175.10102 180.60102 186.10102 191.60102 194.35102 199.31201 204.81201 210.059 215.05301 218.793 221.543 228.26399 233.76399 236.51399 239.57199 245.07199 248.04199 252.321 257.82099 263.32099 268.82099 273.78199 276.785 279.78804 285.28804 290.78804 293.53804 299.03804 304.53804 310.03804 312.53504 317.52903 323.02903 331.015 339.001 343.995 349.495 352.49803 357.99803 362.002">2 Peter and Jude: An introduction and commentary</tspan></text>
 </g>
 <g clip-path="url(#clip_52)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-187.32" x="57.525 60.528 66.028 71.022 74.025 76.775 82.275 86.01501 88.76501 94.26501 97.01501 103.01 105.76 108.51 111.26 116.76 122.26 125.263 128.013 131.016 136.516 141.51001 145.25 150.244 152.994 155.99701 160.27602 163.02602 168.52602 174.02602 176.99602 179.74602 182.74903 188.24903 193.24303 196.24604 198.99604 203.99004 209.49004 214.48404 218.76305 227.23305 229.98305 235.48305 240.47705 243.48006 251.23506 256.22904 261.22303 266.72303 269.47303 272.47605 277.97605 282.97004 291.47306 294.22306 302.20906 307.70906 310.45906 315.45304 320.95304 323.70304 327.98204 333.48204 341.95204 346.946">that of 2 P., but there is not that chasm between them which some </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-342.9" x="367.22"> </tspan></text>
 </g>
 <g clip-path="url(#clip_53)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-172.57" x="57.525 65.511 71.011 76.511 79.514 85.014 87.764 90.767 94.507 100.007 102.757 105.76 111.26 114.01 122.513 127.507 133.007 138.001 140.751 146.251 151.751">would try to make out</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-328.15" x="93.55 97.29001 104.01101 109.51101 115.01101 120.51101 125.527019 128.53003 133.52404 136.27404 144.02904 149.02304 157.00905 159.75905 166.26004 171.25405 175.53305 178.50305 183.49706 192.00006 196.99407 202.49407 205.49707 208.24707 215.49608 220.99608 229.49909 238.00209 242.9961 248.4961 251.4991 256.49308 260.23307 263.23609 268.23008 272.50907 275.25907 278.00907 285.95106 291.45106 294.50907 297.25907 300.00907 305.50907 310.73408 314.47407 317.22407 319.97407 323.71406 329.21406 332.21708 336.9691 340.70909 348.46406 353.45805 357.19804 361.47703 364.44703 367.45005 372.95005">(Tyndale New Testament Commentaries, Vol. 18). InterVarsity </tspan></text>
 </g>
 <g clip-path="url(#clip_54)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-172.57" x="154.85">.</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-313.63" x="93.55 99.545 103.285 108.27901 112.55801 116.782009">Press.</tspan></text>
 </g>
 <g clip-path="url(#clip_55)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-172.57" x="157.6">&#x201d;</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-313.63" x="119.57"> </tspan></text>
 </g>
 <g clip-path="url(#clip_56)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="7" font-family="Times New Roman"><tspan y="-176.58" x="162.35">2</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-299.13" x="57.525 68.525 79.525">&#x2014;&#x2014;&#x2014;</tspan></text>
 </g>
 <g clip-path="url(#clip_57)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-172.57" x="165.85"> </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-299.13" x="90.55 93.3">. </tspan></text>
 </g>
 <g clip-path="url(#clip_58)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-172.57" x="168.6 176.58602 181.58002 184.33002 189.32402 194.82402 200.32402 203.32703 206.33003 211.83003 217.33003 222.32404 226.60305 229.35305 232.10305 236.82205 244.80806 249.08707 251.83707 254.80707 260.30708 263.05708 266.0601 271.5601 276.55409 279.30409 284.80409 289.08308 294.04408 296.79408 302.29408 306.03407 308.78407 311.53407 317.03407 322.02806 324.77806 329.77204 333.51203 336.51506 339.51808 344.51206 347.26206 352.25605 355.00605">He continues, &#x201c;As to the use of the article, </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-299.13" x="96.05 99.79001 105.29001 110.79001 116.29001 121.79001 125.530017 128.28002">(1960). </tspan></text>
 </g>
 <g clip-path="url(#clip_59)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-158.07" x="57.525 60.528 66.028 71.022 76.522 79.272 83.01201 88.51201 91.26201 96.25601 101.75601 107.25601 110.00601 115.50601 118.25601 124.25101 129.24501 132.24802 137.00002 140.74 144.48 147.23 150.728 155.722 160.001 164.962 173.46501 178.96501 181.96802 186.96202 189.71202 195.21202 200.45902 205.45302 208.20302 213.19702 218.69702 224.19702 227.20003 232.70003 237.45203 241.19202 243.94202 252.44503 257.945 261.685 266.679 269.429 272.432 277.67903 282.673 288.173 290.923 295.917 301.417 306.917 309.414 314.914 317.91703 323.41703 328.411 332.151 334.901 340.401 345.901 351.401 356.901 359.651 365.151 368.891">they [1 and 2 Peter] resemble one another more than any other book of </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-style="italic"><tspan y="-299.13" x="131.08 136.58 139.33 146.051 151.067 153.817 158.811 163.09001 165.84001 172.561 177.55501 182.54901 188.04901 193.54901 197.82802 200.79802 206.04502 211.03902 215.31803 220.27902">2 Peter Reconsidered</tspan></text>
 </g>
 <g clip-path="url(#clip_60)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="12" font-family="Calibri"><tspan y="-121.3" x="201.63"> </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-299.13" x="225.88 228.63 231.38 238.101 243.601 249.101 254.601 260.101 265.601 268.65904 271.40904 278.13005 283.63005 289.13005 294.63005 299.62403 302.37403 307.368 309.86503 315.86003 319.6 324.594 328.873">. London: Tyndale Press</tspan></text>
 </g>
-<path transform="matrix(1,0,0,-1,0,595.25)" d="M57.525 123.55H201.625V124.3H57.525Z" fill-rule="evenodd"/>
 <g clip-path="url(#clip_61)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman"><tspan y="-110.8" x="71.55 75.55 77.55 83.302 86.046009 88.286 92.286 94.526 98.526 102.022 104.262 106.502 110.502 112.502 118.254 120.998 123.238 125.478 127.717998 131.21399 135.21399 137.21399 140.70999 143.70999 145.70999 149.206 151.206 155.206 158.702 162.702 166.198 168.942 170.942 172.942 176.182 180.182 183.182 187.182 191.182 194.67801 196.67801 203.67801 205.67801 207.67801 213.43001 216.92601 220.92601 224.92601 226.92601 228.92601 232.42201 237.41402 241.41402 244.91002 246.91002 252.15802 256.15803 262.398 268.638 272.638 276.638 278.878 282.374 285.87 288.11 290.34999 294.34999 298.34999 300.34999 304.34999 307.09397 309.09397 313.09397 315.09397 318.58998 322.58998 326.82997 328.82997 332.82997 334.82997 339.32597 342.82197 345.06196 348.55796 351.30195 353.54194 355.54194 361.29396 365.29396 371.04597">* Originally written as a paper, Joshua M. Haub, &#x201c;The Communication of 1 and 2 Peter: How </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-299.13" x="333.2">.</tspan></text>
 </g>
 <g clip-path="url(#clip_62)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman"><tspan y="-101.55" x="57.525 63.277006 65.517009 68.26101 71.00501 74.501018 77.24502 80.74102 84.74102 86.98102 88.98102 94.73302 97.47702 100.97302 102.97302 107.96502 111.96502 115.46102 119.21302 122.95702 126.453029 128.45304 131.19704 135.19704 139.19704 143.19704 147.19704 151.19704 153.43704 155.67705 158.67705 162.67705 166.17305 170.17305 172.17305 175.17305 178.66905 182.66905 184.90906 188.90906 191.65306 193.65306 197.65306 201.14907 205.14907 208.64507 211.38907 213.38907 215.38907 219.88507 222.12508 226.12508 228.86908 231.10909 235.10909 238.60509 240.60509 245.85309 249.85309 252.0931 254.3331 257.8291 261.8291 265.3251 267.3251 269.3251 273.3251 277.3251 281.3251 285.3251 288.0691 290.0691 292.0691">Different Are They?&#x201d; (unpublished senior paper, Florida College, 2026), 1</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-299.13" x="335.95"> </tspan></text>
 </g>
 <g clip-path="url(#clip_63)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman"><tspan y="-101.55" x="296.42">&#x2013;</tspan></text>
+<text fill="#467886" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-284.63" x="93.55 99.05 102.053 105.056 110.556 114.835 117.805 120.808 123.811 129.311 132.31401 138.05602 141.05902 144.06203 149.05603 154.05004 157.05304 161.33205 164.30205 169.80205 175.30205 178.30506 183.29906 187.57807 190.32807 195.82807 199.53507 205.03507 207.78507 213.28507 218.78507 221.78807 227.28807 232.78807 236.52806 239.53107 242.53408 248.03408 251.03708 256.53709 262.03709 267.03108 270.0341 275.02809 278.76808 284.26808 289.76808 293.50807 298.26008 303.25407 308.75407 311.50407 317.00407 322.50407">https://biblicalstudies.org.uk/pdf/tp/2peter_green.pdf</tspan></text>
 </g>
 <g clip-path="url(#clip_64)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman"><tspan y="-101.55" x="300.42 304.42 308.42 310.42 312.17204 314.91603 317.156 319.156 323.156 326.652 329.652 331.652 335.652 339.148 342.644 346.644 348.644 352.14 356.14 359.63603 363.63603 365.876 369.372 373.372">26. It has been adapted </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-284.63" x="326.45">.</tspan></text>
 </g>
 <g clip-path="url(#clip_65)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman"><tspan y="-92.3" x="57.525 60.269006 64.269008 67.01301 69.01301 71.253009 75.253009 77.493007 80.493007 82.493007 85.989009 89.989009 96.229007 102.469 105.965007 109.965007 112.205 115.701007 118.44501 122.44501 124.44501 126.44501 130.94101 134.94101 137.68502 139.68502 143.68502 147.18102 151.18102 154.67702 157.42102 159.42102 162.91703 166.91703 169.15703 171.39704 173.63704 177.63704 181.63704 183.63704 185.63704 188.63704 192.13304 195.62905">for this commentary. For paper edition, see </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-284.63" x="328.95"> </tspan></text>
 </g>
+<path transform="matrix(1,0,0,-1,0,595.25)" d="M93.55 282.88H326.45V283.38H93.55Z" fill="#467886" fill-rule="evenodd"/>
 <g clip-path="url(#clip_66)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman"><tspan y="-92.3" x="197.88 201.88 204.12001 206.36002 210.36002 213.36002 215.60002 217.84003 220.08003 222.32004 226.32004 229.32004 233.32004 237.32004 240.81604 244.81604 248.31204 252.31204 256.31205 258.31205 261.80805 265.80805 272.04804 274.28804 278.28804 281.78404 284.02403 287.52003 290.264 292.504 296 300 306.24 312.47999 316.47999 320.47999 322.71998 326.21598 329.71199 331.95198 334.19197 338.19197">https://joshuahaub.com/peter/communication</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-270.13" x="57.525 65.511 69.25101 74.75101 80.25101 85.24501 93.74801 96.49801 99.24801 109.74201 112.49201 114.98901 122.97501 125.72501 128.475 132.215 137.715 143.215 148.715 154.215 157.95499 160.70499">Grudem, W. A. (2024). </tspan></text>
 </g>
 <g clip-path="url(#clip_67)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman"><tspan y="-92.3" x="342.45">-</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-style="italic"><tspan y="-270.13" x="163.6 169.1 171.85 178.351 183.345 186.348 191.34201 195.62102 199.32802 202.07802 208.79901 214.29901 217.04901 220.10701 225.60701 228.57701 232.85602 238.35602 243.85602 249.35602 254.31702 257.32005 260.32307 265.82307 271.32307 274.07307 279.57307 285.07307 290.57307 293.32307 298.31706 303.56407 311.31904 319.30503 324.299 329.799 332.80204 338.30204 342.58103">1 Peter: An introduction and commentary</tspan></text>
 </g>
 <g clip-path="url(#clip_68)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman"><tspan y="-92.3" x="345.2 349.2">of</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-270.13" x="347.7"> </tspan></text>
 </g>
 <g clip-path="url(#clip_69)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman"><tspan y="-92.3" x="351.95">-</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-270.13" x="350.45 354.19 361.439 366.43299 371.93299 374.68299">(Rev. </tspan></text>
 </g>
 <g clip-path="url(#clip_70)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman"><tspan y="-92.3" x="354.7">1</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-255.35" x="93.55 98.54401 104.04401 106.79401 109.54401 112.29401 119.01501 124.51501 130.01502 135.51502 140.53102 143.53403 148.52803 151.02503 159.01103 164.00504 171.99105 174.74105 181.24204 186.23604 190.51505 193.48505 198.47905 206.98206 211.97606 217.47606 220.47907 223.22907 230.47808 235.97808 244.48108 252.98409 257.97807 263.47807 266.48109 271.47508 275.21507 278.21809 283.21208 287.49107 290.24107 292.71607 300.70207 306.20207 309.20509 311.95509 314.70509 320.20509 325.70509 329.44508 332.19508 334.94508 338.68507 346.44004 352.43504">ed., Tyndale New Testament Commentaries, Vol. 17). IVP </tspan></text>
 </g>
 <g clip-path="url(#clip_71)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman"><tspan y="-92.3" x="358.7">-</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-240.85" x="93.55 101.536 106.53001 111.52401 116.77101 121.765018 130.26802 133.27103 138.26503">Academic.</tspan></text>
 </g>
 <g clip-path="url(#clip_72)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman"><tspan y="-92.3" x="361.45 364.946 368.946">and</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-style="italic"><tspan y="-240.85" x="140.83"> </tspan></text>
 </g>
 <g clip-path="url(#clip_73)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman"><tspan y="-92.3" x="372.97">-</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-226.35" x="57.525 65.511 71.011 76.511 82.011 85.75101 91.25101 94.00101 96.75101 104.00001 106.75001 109.50001 117.48601 120.23601 122.98601 126.72601 132.22602 137.72602 143.22602 148.72602 152.466 155.216 157.713 162.707 164.687 172.69499 177.44699 181.18698 186.68698 191.68099 194.43099 201.68 207.18 210.91999 213.92299 218.202 221.172 224.175 226.155 228.905 231.93 237.43 240.18 243.91999 246.66999 252.66498 257.65898 260.662 265.65599 269.39598 272.399 275.149 278.152 283.652 288.646 291.64903 295.389 298.139 301.14204 309.39204 314.89204 317.89506 320.89808 325.89207 330.88606 333.88908 336.8921 342.3921 347.8921 352.17109">Gundry, R. H. (1966). &#x201c;'Verba Christi' in I Peter: their implications </tspan></text>
 </g>
 <g clip-path="url(#clip_74)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman"><tspan y="-83.025" x="57.525">2</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-211.85" x="93.55 98.54401 104.04401 109.54401 114.53801 119.29001 123.030017 128.53002 131.53302 137.03302 142.53302 145.28302 148.28603 153.78603 158.78003 161.53003 166.52404 172.02404 175.02704 180.52704 186.02704 189.76703 194.04604 199.54604 202.51604 208.01604 210.76604 216.26604 220.00603 222.50302 226.24301 228.99301 234.988 239.98201 242.98502 247.97902 251.71901 254.216 259.21 264.71 270.21 272.96 275.963 281.463 286.457 288.954 293.948 299.448 302.45103 307.95103 312.945 318.445 321.44804 324.45106 329.44505 332.44807 335.45109 340.95109 343.70109 349.20109 352.94108 355.69108 358.6941 364.1941 369.18809">concerning the authorship of I Peter and the authenticity of the </tspan></text>
 </g>
 <g clip-path="url(#clip_75)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman"><tspan y="-83.025" x="61.525">-</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-197.32" x="93.55 99.05 104.55 108.829 114.329 119.29001 122.29301 125.04301 128.04602 131.78601 136.78002 142.28002 145.28302 148.28603 151.28903 156.78903 162.28903 165.03903 170.03304">gospel tradition.&#x201d; </tspan></text>
 </g>
 <g clip-path="url(#clip_76)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman"><tspan y="-83.025" x="64.3 68.3 71.796009 74.036 77.532009 80.27601 82.51601 84.51601">peter/. </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-style="italic"><tspan y="-197.32" x="172.85 180.09902 185.09302 192.34203 195.09203 201.08702 206.08103 210.36003 213.33003 218.83003 226.81604 231.81005 237.31005 240.31305 243.06305 248.56305 251.56606 257.06605 262.56605 265.56907 270.56306 274.84205 277.59205 280.34205 285.84205">New Testament Studies, 13</tspan></text>
 </g>
 <g clip-path="url(#clip_77)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman"><tspan y="-83.025" x="86.55"> </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-197.32" x="291.42 294.17 296.92 302.42 307.92">, 336</tspan></text>
 </g>
 <g clip-path="url(#clip_78)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman"><tspan y="-73.775" x="71.55">1</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-197.32" x="313.43">&#x2013;</tspan></text>
 </g>
 <g clip-path="url(#clip_79)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman"><tspan y="-73.775" x="75.55 77.55">. </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-197.32" x="318.95 324.45 329.95 335.45">350.</tspan></text>
 </g>
 <g clip-path="url(#clip_80)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman"><tspan y="-73.775" x="79.55 84.798007 87.038 90.534008 94.534008 98.03001 100.77401 104.77401 106.77401 110.01401 112.01401 114.01401 119.26201 122.75801 126.75801 130.25402 134.25402 138.25402 141.75002 147.99002">Richard J. Bauckham,</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-197.32" x="338.2"> </tspan></text>
 </g>
 <g clip-path="url(#clip_81)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman"><tspan y="-73.775" x="150.1"> </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-182.82" x="57.525 65.511 71.011 74.014 79.514 83.254009 86.257 91.25101 94.00101 96.75101 104.73701 107.48701 110.23701 113.97701 119.47701 124.97701 130.47702 135.72402 139.464 142.214">Guthrie, D. (1990). </tspan></text>
 </g>
 <g clip-path="url(#clip_82)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman" font-style="italic"><tspan y="-73.775" x="152.1 155.59601 159.59601 163.59601 167.09201 169.09201 171.09201 175.09201 177.09201 182.08402 185.58002 187.82003 191.31603">Jude, 2 Peter</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-style="italic"><tspan y="-182.82" x="145.08 152.32901 157.32302 164.57202 167.32202 173.31702 178.31102 182.59003 185.56003 191.06003 199.04604 204.04004 209.54004 212.54305 215.29305 218.29605 223.79605 226.79906 231.07807 236.57807 242.07807 247.57807 252.53907 255.54207 258.54508 264.04508">New Testament introduction</tspan></text>
 </g>
 <g clip-path="url(#clip_83)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman"><tspan y="-73.775" x="194.38 196.38 198.62001 206.11602 211.36402 216.61202 218.61202 222.61202 226.61202 228.61202 231.35602 238.85202 242.34803 245.84403 249.84403 251.84403 253.84403 258.83604 264.58805 266.82804 268.82804 276.32405 280.32405 283.06803 287.06803 289.06803 294.316 298.316 302.316 306.556 309.556 311.556 313.556 317.556 321.556 325.556 329.796 332.53999 334.53999 336.53999 340.53999 344.53999 348.53999">, WBC 50 (Waco, TX: Word Books, 1983), 145.</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-182.82" x="269.65"> </tspan></text>
 </g>
 <g clip-path="url(#clip_84)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman"><tspan y="-73.775" x="350.7"> </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-182.82" x="272.4 276.13999 281.63999 284.643 290.143 292.893 297.887 303.387 306.137 309.87699 312.374 315.124 318.86399 324.36399 327.367 332.361 336.10099 343.85597 348.84996 352.58995 356.86894 359.83894 362.84196 368.34196">(4th ed.). InterVarsity </tspan></text>
 </g>
 <g clip-path="url(#clip_85)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman"><tspan y="-64.775" x="71.55">2</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-168.07" x="93.55 99.545 103.285 108.27901 112.55801 116.782009">Press.</tspan></text>
 </g>
 <g clip-path="url(#clip_86)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman"><tspan y="-64.775" x="75.55 77.55">. </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-168.07" x="119.57"> </tspan></text>
 </g>
 <g clip-path="url(#clip_87)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman"><tspan y="-64.775" x="79.55 82.79 86.79 89.79 93.286 97.286 101.286 103.286 108.534008 110.534008 112.534008 119.534008 123.03001 127.03001 131.03 133.774">Joseph B. Mayor,</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-153.57" x="57.525 65.511 70.505008 74.24501 82.74801 88.24801 93.74801 96.49801 99.24801 109.02701 111.77701 114.52701 120.50001 123.25001 126.00001 129.74 135.24 140.74 146.24 151.74 155.48 158.23 160.98 165.974 170.253 175.753 180.97801 185.97202 188.72202 193.71602 199.21602 204.71602 207.46602 210.46903 215.96903 220.96303 223.71303 229.70803 234.46002 239.45403 244.95403 250.45403 255.95403 258.70405 265.20506 270.19905 273.20207 276.20509 281.19908 284.93907 287.68907 293.18907 296.92906 299.67906 305.67405 310.42607 313.42909 318.42308 322.16307 324.91307 329.90705 332.65705 336.39704 341.89704 344.39405 352.38005 355.13005 357.88005 365.86604 368.61604">Harmon, M. S. (2023). &#x201c;Jude and the Second Letter of Peter.&#x201d; In G. K. </tspan></text>
 </g>
 <g clip-path="url(#clip_88)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman"><tspan y="-64.775" x="135.83"> </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-139.05" x="93.55 100.799 105.79301 110.78701 113.79001 118.78401 121.53401 124.28401 132.27002 135.02002 137.77002 145.75603 148.50603 151.25603 158.50504 163.25704 166.99703 171.27603 176.77603 182.27603 185.02603 187.77603 194.99204 197.74204 200.49204 207.21303 209.96303 212.71303 220.73203 223.73503 228.72904 234.22904 239.72904 242.47904 245.22904 253.73204 256.48207 264.46806 267.21806 269.96806 277.95405 280.70405 283.45405 291.209 296.203 300.482 305.443 308.446 311.44905 314.45207 317.20207 320.94206 327.66307 333.16307 337.44206 340.19206 343.93205 346.68205">Beale, D. A. Carson, B. L. Gladd, &#x0026; A. D. Naselli (Eds.), </tspan></text>
 </g>
 <g clip-path="url(#clip_89)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman" font-style="italic"><tspan y="-64.775" x="137.83 142.326 146.326 149.822 151.822 156.81401 160.81401 163.05402 166.05402 168.29402 170.53403 174.03003 176.03003 180.03003 182.27004 184.27004 188.27004 190.51004 192.51004 194.51004 198.00605 202.00605 206.00605 209.50205 211.50205 215.50205 219.50205 223.50205 225.50205 227.74205 231.74205 235.23805 237.23805 241.23805 244.73406 248.23006 252.23006 256.23005 260.23005 262.23005 267.22206 271.22206 273.46205 276.46205 278.70204 280.94203 284.43803 286.43803 290.43803 292.678 294.678 298.678 300.918 302.918 304.918 309.91 313.406 315.646 319.142 322.142 324.886 327.12599 332.878 335.878 339.374 342.87 346.366 348.366 352.862 356.358 359.854 362.094">The Epistle of St. Jude and the Second Epistle of St. Peter: Greek Text </tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman" font-style="italic"><tspan y="-124.55" x="93.55 101.536 104.539 109.533008 112.536 115.539 121.039 126.539 132.039 136.31801 141.279 144.029 149.529 152.53202 155.28202 158.28502 163.78502 168.77902 171.52902 178.77803 183.77204 191.02104 193.77104 199.76604 204.76004 209.03905 212.00905 217.50905 225.49506 230.48906 235.98906 238.99207 241.74207 247.24207 251.52108 256.48207 259.23207 264.73207 267.73509 270.48509 273.4881 278.9881 283.9821 286.7321 294.71809 297.7211 303.2211 305.9711 311.9661 316.96009 321.23908 324.20909 329.70909 337.69508 342.68907 347.93608">Dictionary of the New Testament use of the Old Testament</tspan></text>
 </g>
 <g clip-path="url(#clip_90)">
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-124.55" x="351.2"> </tspan></text>
 </g>
 <g clip-path="url(#clip_91)">
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-124.55" x="353.95 357.69 363.19 368.69 371.44">(pp. </tspan></text>
 </g>
 <g clip-path="url(#clip_92)">
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-110.05" x="93.55 99.05 104.55">412</tspan></text>
 </g>
 <g clip-path="url(#clip_93)">
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-110.05" x="110.07">-</tspan></text>
 </g>
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-30.2" x="204.25 209.75">11</tspan></text>
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="7.6" font-family="Arial" font-weight="bold"><tspan y="-551.25" x="57.6 62.236 64.3412 67.2976 71.5232 74.054 76.1592 81.2208 85.4464 87.9772 92.202808">First&#x00a0;Peter</tspan></text>
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="7.6" font-family="Arial" font-weight="bold"><tspan y="-551.25" x="205.68595 210.74755 214.97315 219.19875 223.83475 226.79116 231.01676 235.65276 239.87836 242.40917 244.51436 249.15036 253.78636 258.01197 260.11717 265.60438 270.24037 276.99678 283.75318 288.38917 293.02516 295.13035 299.35594 303.5815 306.1123 308.2175 312.8535 317.48948 319.59468 324.23066 326.76145 328.86665 333.09223 335.19743 339.423 344.059 348.69499 350.80018 355.02577 357.13096 362.19258 366.41816 368.94895 373.17454">Excursus:&#x00a0;The&#x00a0;Communication&#x00a0;of&#x00a0;1&#x00a0;and&#x00a0;2&#x00a0;Peter</tspan></text>
+<g clip-path="url(#clip_94)">
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-110.05" x="113.83 119.33 123.07001 125.82001 128.57 135.81902 140.81302 146.31302 151.06502 154.80501 157.55501 165.54102 170.29302 175.28702 180.78702 185.78102 194.28403 197.28704 202.28104">5). Baker Academic.</tspan></text>
+</g>
+<g clip-path="url(#clip_95)">
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-110.05" x="204.88"> </tspan></text>
+</g>
+<g clip-path="url(#clip_96)">
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-95.3" x="57.525 65.511 70.505008 76.005008 81.505008 84.255008 87.005008 91.284008 96.784008 101.008 106.508 112.008 117.00201 119.75201 129.531 132.281 135.031 139.51902 146.24 151.74 156.74501 159.49501 166.74402 172.24402 180.74703 189.25003 194.75003 200.25003 203.25304 208.24704 213.24105 216.24405 219.24706 224.74706 230.24706 232.99706 238.49706 242.23705 244.98705 250.48705 252.98404 257.97804 263.47804 268.97804 271.72804 277.22804 279.97804 285.97303 290.967 293.97004 298.96403 302.704 305.70704 308.20405 316.19004 321.69004 329.67604 332.42604 340.41203 343.41505 347.15504 350.653 355.647 359.387 364.38099 369.88099 372.884">Haub, Joshua M. "The Communication of 1 and 2 Peter: How Different </tspan></text>
+</g>
+<g clip-path="url(#clip_97)">
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-80.775" x="93.55 101.536 105.27601 110.27001 113.02001 119.74101 125.02101 130.01502 135.51502 140.50902 144.99703 147.74703 155.74402 161.24402 166.74402 172.24402 177.74402 180.74703 183.75003 188.02904 193.52904 198.49004 203.99004">Are They?" Unpublished </tspan></text>
+</g>
+<g clip-path="url(#clip_98)">
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-80.775" x="206.88 210.88402 215.87802 221.37802 224.38103 229.88103">senior</tspan></text>
+</g>
+<g clip-path="url(#clip_99)">
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-80.775" x="233.65"> </tspan></text>
+</g>
+<g clip-path="url(#clip_100)">
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-80.775" x="236.4 241.9 246.894 252.14099 257.13499 260.87498 263.62498 266.37498 272.36997 275.373 280.873 284.61299 287.616 293.116 298.11 300.86 308.10899 313.60899 316.612 319.61503 324.609 330.109 335.103 337.853 340.603 345.85 351.35 356.85 362.35">paper, Florida College, 2026.</tspan></text>
+</g>
+<g clip-path="url(#clip_101)">
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-80.775" x="365.23"> </tspan></text>
+</g>
+<g clip-path="url(#clip_102)">
+<text fill="#467886" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-66.275" x="93.55 99.05 102.053 105.056 110.556 114.835 117.805 120.808 123.811 126.813999 132.556 136.835 142.335 147.835 152.796 158.296 163.29001 168.79001 174.29001 177.04001 182.03401 187.53401 196.03702 199.04003 204.54003 209.53403 212.53704 217.53104 221.27103 224.02103 229.01503 234.51503 243.01804 251.52104 257.02107 262.52107 265.52409 270.51808 275.51206 278.51509 281.5181 287.0181">https://joshuahaub.com/peter/communication</tspan></text>
+</g>
+<g clip-path="url(#clip_103)">
+<text fill="#467886" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-66.275" x="292.67">-</tspan></text>
+</g>
+<g clip-path="url(#clip_104)">
+<text fill="#467886" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-66.275" x="296.42 301.92">of</tspan></text>
+</g>
+<g clip-path="url(#clip_105)">
+<text fill="#467886" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-66.275" x="305.42">-</tspan></text>
+</g>
+<g clip-path="url(#clip_106)">
+<text fill="#467886" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-66.275" x="309.18">1</tspan></text>
+</g>
+<g clip-path="url(#clip_107)">
+<text fill="#467886" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-66.275" x="314.68">-</tspan></text>
+</g>
+<g clip-path="url(#clip_108)">
+<text fill="#467886" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-66.275" x="318.42 323.414 328.914">and</tspan></text>
+</g>
+<g clip-path="url(#clip_109)">
+<text fill="#467886" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-66.275" x="334.2">-</tspan></text>
+</g>
+<g clip-path="url(#clip_110)">
+<text fill="#467886" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-66.275" x="337.95">2</tspan></text>
+</g>
+<g clip-path="url(#clip_111)">
+<text fill="#467886" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-66.275" x="343.45">-</tspan></text>
+</g>
+<g clip-path="url(#clip_112)">
+<text fill="#467886" xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-66.275" x="346.95 352.45 357.444 360.44703 365.441 369.181">peter/</tspan></text>
+</g>
+<g clip-path="url(#clip_113)">
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-66.275" x="372.23 374.98">. </tspan></text>
+</g>
+<g clip-path="url(#clip_114)">
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="11" font-family="Times New Roman"><tspan y="-66.275" x="377.47"> </tspan></text>
+</g>
+<path transform="matrix(1,0,0,-1,0,595.25)" d="M93.55 64.525H372.22004V65.025H93.55Z" fill="#467886" fill-rule="evenodd"/>
 </g>
 </svg>
