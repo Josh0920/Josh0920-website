@@ -249,6 +249,46 @@
     }
     .podcast-img:hover{ transform: translateY(-2px); }
 
+    /* Podcast episodes, read live from the show's feed */
+    .pod{ display:flex; flex-direction:column; gap:10px; }
+    .pod-now{ display:flex; gap:12px; align-items:center; }
+    .pod-art{
+      width:64px; height:64px; flex:none; display:block; object-fit:cover;
+      border-radius:10px; border:1px solid var(--rule); box-shadow: var(--shadow-soft);
+    }
+    .pod-meta{ min-width:0; }
+    .pod-kicker, .pod-list-head{
+      font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted);
+    }
+    .pod-ep-title{ font-family:var(--serif); font-size:15px; font-weight:700; line-height:1.3; color:var(--ink); margin-top:2px; }
+    .pod-ep-sub{ font-size:12px; color:var(--muted); margin-top:2px; font-variant-numeric: tabular-nums; }
+    .pod-audio{ display:block; width:100%; height:36px; }
+    [data-theme="dark"] .pod-audio{ color-scheme: dark; }
+    .pod-list-head{ margin-top:2px; }
+    .pod-list{
+      list-style:none; margin:0; padding:2px 0; max-height:248px; overflow-y:auto;
+      overscroll-behavior: contain;
+      border-top:1px solid var(--rule); border-bottom:1px solid var(--rule);
+    }
+    .pod-list li + li{ border-top:1px solid var(--soft); }
+    .pod-ep{
+      all:unset; box-sizing:border-box; font:inherit; cursor:pointer;
+      display:grid; grid-template-columns:16px 1fr; gap:8px; width:100%;
+      padding:8px 6px; border-radius:8px;
+    }
+    .pod-ep:hover{ background:var(--soft); }
+    .pod-ep:focus-visible{ outline:2px solid var(--accent); outline-offset:-2px; }
+    .pod-ep-ic{ font-size:10px; line-height:18px; text-align:center; color:var(--accent); }
+    .pod-ep-t{ display:block; font-size:13px; line-height:1.35; color:var(--ink); }
+    .pod-ep-d{ display:block; font-size:11.5px; color:var(--muted); margin-top:1px; font-variant-numeric: tabular-nums; }
+    .pod-ep[aria-current="true"] .pod-ep-t{ color:var(--accent); font-weight:600; }
+    .pod-all{ font-size:13px; font-weight:600; color:var(--accent); text-decoration:none; }
+    .pod-all:hover{ text-decoration:underline; }
+    .pod[data-state="error"] .pod-audio,
+    .pod[data-state="error"] .pod-list,
+    .pod[data-state="error"] .pod-list-head{ display:none; }
+    .pod[data-state="loading"] .pod-audio{ opacity:.45; pointer-events:none; }
+
     /* ===== Main split: library (left) + sidebar (right) ===== */
     .split{
       display:grid;
@@ -1112,12 +1152,23 @@
       <aside class="sidebar-stack">
         <div class="card">
           <h2 class="podcast-title" id="podcastTitle">The "What Does It Say?" Podcast</h2>
-          <a href="https://creators.spotify.com/pod/profile/whatdoesitsay/" target="_blank" rel="noopener noreferrer">
-            <img class="podcast-img" src="./ab6765630000ba8ae3f49b0a8f0157a58ad2f1a6.jfif" alt="Podcast cover" />
-          </a>
+          <div class="pod" id="pod" data-state="loading">
+            <div class="pod-now">
+              <img class="pod-art" src="./ab6765630000ba8ae3f49b0a8f0157a58ad2f1a6.jfif" alt="" width="64" height="64" />
+              <div class="pod-meta" aria-live="polite">
+                <div class="pod-kicker" id="podKicker">Latest episode</div>
+                <div class="pod-ep-title" id="podNowTitle">Loading episodes…</div>
+                <div class="pod-ep-sub" id="podNowSub"></div>
+              </div>
+            </div>
+            <audio class="pod-audio" id="podAudio" controls preload="none" aria-label="Podcast player"></audio>
+            <div class="pod-list-head" id="podListHead"></div>
+            <ul class="pod-list" id="podList" aria-labelledby="podListHead"></ul>
+          </div>
           <p id="podcastDesc" style="color:var(--muted); font-size:13px; margin-top:10px; line-height:1.6;">
             In my Podcast, I aim to provide you, the listener, with a detailed account of what the Scripture says, so that in your study, you may have more than just your own ideas to consult.
           </p>
+          <a class="pod-all" id="podAll" href="https://open.spotify.com/show/7CQP1xRqmL7YvKWc9DEWhM" target="_blank" rel="noopener noreferrer">All episodes on Spotify →</a>
         </div>
 
         <div class="card aside">
@@ -1444,17 +1495,6 @@
         tags: ["Discipleship", "Devotional", "Scripture"],
         excerpt: "A reflection on the danger of adding to Biblical illustrations — whether Calvinist or otherwise. Let the Scripture speak for itself; don't supplement it with what it does not say.",
         href: "articles/on-calvinism-stick-with-scripture/"
-      },
-
-      {
-        id: "commentaries-and-scripture",
-        type: "Articles",
-        title: "Commentaries and Scripture",
-        date: "2025-06-13",
-        featured: false,
-        tags: ["Discipleship", "Scripture", "Devotional"],
-        excerpt: "Commentaries can be helpful tools, but they are not above Scripture. Even the Pharisees were experts who missed Jesus — trust Scripture over scholars.",
-        href: "articles/commentaries-and-scripture/"
       },
 
       {
@@ -2056,11 +2096,6 @@ footer_right: "A Él sea la gloria",
         title: "Sobre el Calvinismo: Mantente en la Escritura",
         excerpt: "Una reflexión sobre el peligro de añadir a las ilustraciones bíblicas. Deja que la Escritura hable por sí misma; no la complementes con lo que no dice.",
         href: "articles/on-calvinism-stick-with-scripture/es/"
-      },
-      "commentaries-and-scripture": {
-        title: "Los comentarios y la Escritura",
-        excerpt: "Los comentarios pueden ser herramientas útiles, pero no están por encima de la Escritura. Incluso los fariseos eran expertos que se perdieron a Jesús — confía en la Escritura más que en los eruditos.",
-        href: "articles/commentaries-and-scripture/es/"
       },
       "not-paying-attention-to-commandments-of-men": {
         title: "No prestando atención a mandamientos de hombres",
@@ -3364,6 +3399,121 @@ renderGrid();
                              "meta", "kicker", "featured", "ref-auto"]
       }
     };
+  </script>
+  <script>
+  /* Podcast card: the episode list is read live from the show's RSS feed.
+     The feed answers with Access-Control-Allow-Origin: *, so a visitor's browser
+     can read it directly, and a new episode appears here as soon as the feed
+     lists it. Feed text is only ever set as textContent, never as HTML. If the
+     feed cannot be read, the card keeps the "All episodes on Spotify" link. */
+  (function(){
+    const FEED = "https://anchor.fm/s/e546a164/podcast/rss";
+    const SHOW = "What Does It Say?";
+    const ART  = new URL("./ab6765630000ba8ae3f49b0a8f0157a58ad2f1a6.jfif", document.baseURI).href;
+    const L = {
+      en: { latest:"Latest episode", now:"Now playing", loading:"Loading episodes…",
+            error:"Episodes couldn’t load right now.", all:"All episodes on Spotify →",
+            count:n => n + " episodes", hr:"hr", locale:"en-US" },
+      es: { latest:"Último episodio", now:"Reproduciendo", loading:"Cargando episodios…",
+            error:"No se pudieron cargar los episodios.", all:"Todos los episodios en Spotify →",
+            count:n => n + " episodios", hr:"h", locale:"es-419" }
+    };
+    const $ = id => document.getElementById(id);
+    const root = $("pod"), audio = $("podAudio"), list = $("podList");
+    if (!root || !audio || !list) return;
+
+    let eps = [], cur = 0, started = false;
+    const S = () => L[document.documentElement.getAttribute("lang") === "es" ? "es" : "en"];
+
+    function fmtDate(d){
+      return isNaN(d) ? "" : d.toLocaleDateString(S().locale, { month:"short", day:"numeric", year:"numeric" });
+    }
+    function fmtDur(raw){
+      if (!raw) return "";
+      const parts = String(raw).trim().split(":").map(Number);
+      if (parts.some(isNaN)) return "";
+      const mins = Math.round(parts.reduce((a, b) => a * 60 + b, 0) / 60);
+      const h = Math.floor(mins / 60), m = mins % 60;
+      return h ? h + " " + S().hr + " " + m + " min" : mins + " min";
+    }
+    const subline = ep => [fmtDate(ep.date), fmtDur(ep.dur)].filter(Boolean).join(" · ");
+
+    function paint(){
+      const s = S();
+      $("podAll").textContent = s.all;
+      root.dataset.state = eps.length ? "ready" : root.dataset.state;
+      if (root.dataset.state === "loading"){
+        $("podKicker").textContent = s.latest; $("podNowTitle").textContent = s.loading; $("podNowSub").textContent = "";
+        return;
+      }
+      if (root.dataset.state === "error"){
+        $("podKicker").textContent = ""; $("podNowTitle").textContent = s.error; $("podNowSub").textContent = "";
+        return;
+      }
+      const ep = eps[cur];
+      $("podKicker").textContent = (cur === 0 && !started) ? s.latest : s.now;
+      $("podNowTitle").textContent = ep.title;
+      $("podNowSub").textContent = subline(ep);
+      $("podListHead").textContent = s.count(eps.length);
+      [...list.children].forEach((li, i) => {
+        const b = li.firstChild, on = i === cur;
+        b.setAttribute("aria-current", on ? "true" : "false");
+        b.querySelector(".pod-ep-ic").textContent = on ? (audio.paused ? "▶" : "❚❚") : "";
+        b.querySelector(".pod-ep-d").textContent = subline(eps[i]);
+      });
+    }
+
+    function select(i, play){
+      cur = i;
+      audio.src = eps[i].url;
+      if (play){ started = true; audio.play().catch(() => {}); }
+      if ("mediaSession" in navigator){
+        navigator.mediaSession.metadata = new MediaMetadata({
+          title: eps[i].title, artist: SHOW, artwork: [{ src: ART, type: "image/jpeg" }]
+        });
+      }
+      paint();
+    }
+
+    function build(){
+      list.textContent = "";
+      eps.forEach((ep, i) => {
+        const li = document.createElement("li");
+        const b = document.createElement("button");
+        b.type = "button"; b.className = "pod-ep";
+        const ic = document.createElement("span"); ic.className = "pod-ep-ic"; ic.setAttribute("aria-hidden", "true");
+        const txt = document.createElement("span");
+        const t = document.createElement("span"); t.className = "pod-ep-t"; t.textContent = ep.title;
+        const d = document.createElement("span"); d.className = "pod-ep-d";
+        txt.append(t, d); b.append(ic, txt); li.append(b); list.append(li);
+        b.addEventListener("click", () => {
+          if (i === cur && audio.src){ audio.paused ? audio.play().catch(() => {}) : audio.pause(); started = true; }
+          else select(i, true);
+        });
+      });
+    }
+
+    ["play", "pause", "ended"].forEach(ev => audio.addEventListener(ev, () => { if (ev === "play") started = true; paint(); }));
+    new MutationObserver(paint).observe(document.documentElement, { attributes:true, attributeFilter:["lang"] });
+
+    paint();
+    const ctl = new AbortController(); setTimeout(() => ctl.abort(), 12000);
+    fetch(FEED, { signal: ctl.signal })
+      .then(r => { if (!r.ok) throw new Error("feed " + r.status); return r.text(); })
+      .then(xml => {
+        const doc = new DOMParser().parseFromString(xml, "application/xml");
+        eps = [...doc.getElementsByTagName("item")].map(it => {
+          const one = tag => (it.getElementsByTagName(tag)[0] || {}).textContent || "";
+          const enc = it.getElementsByTagName("enclosure")[0];
+          return { title: one("title").trim(), date: new Date(one("pubDate")),
+                   dur: one("itunes:duration"), url: enc ? enc.getAttribute("url") || "" : "" };
+        }).filter(ep => ep.title && /^https:\/\//.test(ep.url));
+        eps.sort((a, b) => (b.date - a.date) || 0);
+        if (!eps.length) throw new Error("no episodes");
+        build(); select(0, false);
+      })
+      .catch(() => { root.dataset.state = "error"; paint(); });
+  })();
   </script>
   <script src="scripture-context.js"></script>
   <script src="RefTagger.js"></script>
