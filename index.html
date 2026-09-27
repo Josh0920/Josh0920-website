@@ -2047,6 +2047,7 @@
         results_label: "results",
         empty_title: "No results.",
         view_all: "View all {n}",
+        show_fewer: "Show fewer",
         empty_desc: "Try removing filters or searching a different term.",
         about_heading: "About",
         about_text:
@@ -2099,6 +2100,7 @@ footer_right: "To Him Be the Glory",
         results_label: "resultados",
         empty_title: "No hay resultados.",
         view_all: "Ver los {n}",
+        show_fewer: "Mostrar menos",
         empty_desc: "Prueba quitar filtros o buscar otro término.",
         about_heading: "Acerca de",
         about_text:
@@ -2973,12 +2975,18 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
       // narrow or reorder the library — a type, a search, a tag, another sort —
       // shows every match, so the limit can never hide a result.
       const landing = state.type === "All" && !state.query.trim() && !state.tag && state.sort === "newest";
-      const limited = landing && !state.showAll && sorted.length > LATEST_COUNT;
+      const expandable = landing && sorted.length > LATEST_COUNT;
+      const limited = expandable && !state.showAll;
       const shown = limited ? sorted.slice(0, LATEST_COUNT) : sorted;
       const vaWrap = document.getElementById("viewAllWrap");
       if (vaWrap) {
-        vaWrap.hidden = !limited;
-        if (limited) document.getElementById("viewAllBtn").textContent = t("view_all").replace("{n}", sorted.length) + " \u2192";
+        // One button, both ways: "View all" opens the library, "Show fewer" folds it back.
+        vaWrap.hidden = !expandable;
+        const vaBtn = document.getElementById("viewAllBtn");
+        vaBtn.textContent = limited
+          ? t("view_all").replace("{n}", sorted.length) + " \u2192"
+          : t("show_fewer") + " \u2191";
+        vaBtn.setAttribute("aria-expanded", String(!limited));
       }
 
       els.resultsCount.textContent = sorted.length;
@@ -3211,8 +3219,20 @@ els.langToggle.addEventListener("click", ()=>{
 });
 
     document.getElementById("viewAllBtn").addEventListener("click", ()=>{
-      state.showAll = true;
+      const collapsing = state.showAll;
+      state.showAll = !state.showAll;
       renderGrid();
+      // Folding the list from its foot would leave the reader far below the
+      // four items that remain; bring them back, from the first, just under the
+      // sticky top bar so it does not cover them.
+      if (collapsing) {
+        const calm = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const bar = [...document.querySelectorAll("header")].find(h =>
+          h.offsetParent !== null && /sticky|fixed/.test(getComputedStyle(h).position));
+        const grid = document.getElementById("grid");
+        grid.style.scrollMarginTop = ((bar ? bar.getBoundingClientRect().height : 0) + 14) + "px";
+        grid.scrollIntoView({ block: "start", behavior: calm ? "auto" : "smooth" });
+      }
     });
 
     els.searchInput.addEventListener("input", (e)=>{
