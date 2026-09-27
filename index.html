@@ -793,6 +793,98 @@
       }
     }
 
+    /* ===== Article reading view =====
+       Articles open in the same full-screen reader as the PDF papers. With no
+       PDF to sit beside, they used to land in the PDF layout's side panel,
+       widened to 760px: a white box with its own scrollbar in the middle of
+       the screen, in 15px sans. Here the whole view scrolls, and the article
+       is set as a page, in the serif and size the article pages themselves use,
+       on a column about 66 characters wide. */
+    .modal-body.no-pdf{
+      display:block;
+      overflow-y:auto;
+      overscroll-behavior: contain;
+    }
+    .modal-body.no-pdf .modal-sidebar{
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 56px 30px 104px;
+      background: transparent;
+      border: 0;
+      overflow: visible;
+    }
+    .modal-body.no-pdf .modal-sidebar h1{
+      margin: 0 0 12px;
+      font-size: clamp(30px, 4.2vw, 42px);
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -.4px;
+      text-wrap: balance;
+    }
+    .modal-body.no-pdf .modal-sidebar .sub{
+      font-family: var(--sans);
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
+    .modal-body.no-pdf .modal-sidebar #modalTags{
+      margin-bottom: 0 !important;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .modal-body.no-pdf .modal-sidebar .body{
+      margin-top: 32px;
+      font-family: var(--serif);
+      font-size: 19px;
+      line-height: 1.75;
+      color: var(--ink);
+    }
+    .modal-body.no-pdf .modal-sidebar .body p{ margin: 0 0 1.15em; line-height: inherit; }
+    .modal-body.no-pdf .modal-sidebar .body h2,
+    .modal-body.no-pdf .modal-sidebar .body h3{
+      font-family: var(--serif); font-weight: 800; line-height: 1.25;
+      margin: 1.8em 0 .55em; text-wrap: balance;
+    }
+    .modal-body.no-pdf .modal-sidebar .body h2{ font-size: 26px; }
+    .modal-body.no-pdf .modal-sidebar .body h3{ font-size: 21px; }
+    .modal-body.no-pdf .modal-sidebar .body a{
+      color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px;
+    }
+    .modal-body.no-pdf .modal-sidebar .body ul,
+    .modal-body.no-pdf .modal-sidebar .body ol{ margin: 0 0 1.15em; padding-left: 1.3em; }
+    .modal-body.no-pdf .modal-sidebar .body li{ margin: .35em 0; }
+    .modal-body.no-pdf .modal-sidebar .body blockquote{
+      margin: 1.6em 0;
+      padding: 14px 22px;
+      font-size: 18px;
+      line-height: 1.7;
+      border-left-width: 3px;
+      border-radius: 0 10px 10px 0;
+    }
+    .modal-body.no-pdf .modal-sidebar .body blockquote p:last-child{ margin-bottom: 0; }
+    .modal-body.no-pdf .modal-sidebar .body footer{
+      margin-top: 44px;
+      font-family: var(--sans);
+    }
+    .modal-body.no-pdf .comments-section{ margin-top: 56px; padding-top: 28px; }
+
+    /* How far through the article the reader is: a hairline under the top bar. */
+    .modal header{ position: relative; }
+    .read-progress{
+      position: absolute; left: 0; right: 0; bottom: -1px; height: 2px;
+      background: var(--accent);
+      transform-origin: 0 50%; transform: scaleX(0);
+      pointer-events: none;
+    }
+    .read-progress[hidden]{ display: none; }
+
+    @media (max-width: 620px){
+      .modal-body.no-pdf .modal-sidebar{ padding: 28px 20px 72px; }
+      .modal-body.no-pdf .modal-sidebar h1{ font-size: 28px; }
+      .modal-body.no-pdf .modal-sidebar .body{ font-size: 18px; line-height: 1.7; margin-top: 24px; }
+      .modal-body.no-pdf .modal-sidebar #modalTags{ padding-bottom: 20px; }
+      .modal-body.no-pdf .modal-sidebar .body blockquote{ padding: 12px 16px; font-size: 17px; }
+    }
+
     .mobile-pdf-btn{
       display: none;
       align-items: center;
@@ -1233,6 +1325,7 @@
           <button class="btn" id="copyLinkBtn">Copy Link</button>
           <button class="btn danger" id="closeBtn">Close</button>
         </div>
+        <div class="read-progress" id="readProgress" aria-hidden="true" hidden></div>
       </header>
       <div class="modal-body" id="modalBodyWrap">
         <div class="modal-pdf" id="modalPdf"></div>
@@ -2582,6 +2675,7 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
       modalSub: document.getElementById("modalSub"),
       modalBody: document.getElementById("modalBody"),
       modalBodyWrap: document.getElementById("modalBodyWrap"),
+      readProgress: document.getElementById("readProgress"),
       modalPdf: document.getElementById("modalPdf"),
       modalTags: document.getElementById("modalTags"),
       modalType: document.getElementById("modalType"),
@@ -2871,6 +2965,8 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
       const item = CONTENT.find(x=>x.id === id);
       if (!item) return;
 
+      els.readProgress.style.transform = "scaleX(0)";
+
       // In ES mode, use Spanish href if available
       const esData = CONTENT_ES[item.id];
       const localizedHref = (state.lang === "es" && esData && esData.href) ? esData.href : item.href;
@@ -2887,8 +2983,7 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
 
       const featuredLabel = (state.lang === "es") ? "Destacado" : "Featured";
       els.modalSub.textContent =
-        `${formatDate(item.date || "")} • ${item.featured ? (featuredLabel + " • ") : ""}` +
-        `${(item.tags || []).map(tg => localizeTag(tg, item)).join(" • ")}`;
+        formatDate(item.date || "") + (item.featured ? " • " + featuredLabel : "");
 
       els.modalTags.innerHTML = (item.tags || []).map(t =>
         `<span class="tag">${escapeHtml(localizeTag(t, item))}</span>`
@@ -2907,6 +3002,7 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
         }
         els.modalPdf.style.display = "flex";
         els.modalBodyWrap.classList.remove("no-pdf");
+        els.readProgress.hidden = true;
         els.downloadBtn.href = item.pdfHref;
         els.downloadBtn.style.display = "inline-flex";
         els.mobilePdfBtn.href = item.pdfHref;
@@ -2917,6 +3013,7 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
         els.modalPdf.innerHTML = "";
         els.modalPdf.style.display = "none";
         els.modalBodyWrap.classList.add("no-pdf");
+        els.readProgress.hidden = false;
         els.downloadBtn.href = "#";
         els.downloadBtn.style.display = "none";
         els.mobilePdfBtn.classList.add("hidden");
@@ -2965,12 +3062,25 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
       }
 
       els.overlay.classList.add("show");
+      // Open every document at its top, not wherever the last one was left.
+      // Only once the reader is shown: a hidden element ignores scrollTop.
+      els.modalBodyWrap.scrollTop = 0;
+      const side = els.modalBodyWrap.querySelector(".modal-sidebar");
+      if (side) side.scrollTop = 0;
       document.body.style.overflow = "hidden";
       history.replaceState(null, "", canonicalPath(item, localizedHref));
 
       // Load comments for this document
       renderComments(item.id);
     }
+
+    // The article view scrolls as a whole; the hairline under the top bar shows how far in.
+    document.getElementById("modalBodyWrap").addEventListener("scroll", function(){
+      const bar = document.getElementById("readProgress");
+      if (!bar || bar.hidden) return;
+      const max = this.scrollHeight - this.clientHeight;
+      bar.style.transform = "scaleX(" + (max > 0 ? Math.min(1, this.scrollTop / max) : 0) + ")";
+    }, { passive: true });
 
     function closeReader(){
       els.overlay.classList.remove("show");
