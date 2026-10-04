@@ -814,6 +814,55 @@
       }
     }
 
+    /* Download menu for slide decks: one button, three formats */
+    .dl-menu{ position: relative; display: inline-flex; }
+    .dl-menu[hidden]{ display: none; }
+    .dl-pop{
+      position: absolute; right: 0; top: calc(100% + 6px); z-index: 40;
+      min-width: 220px; padding: 6px;
+      background: var(--paper); border: 1px solid var(--rule); border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.14);
+      display: flex; flex-direction: column;
+    }
+    .dl-pop[hidden]{ display: none; }
+    .dl-pop a{
+      display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
+      padding: 9px 10px; border-radius: 6px;
+      color: var(--ink); text-decoration: none; font-size: 14px;
+    }
+    .dl-pop a span{ color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+    .dl-pop a:hover, .dl-pop a:focus-visible{ background: var(--soft); outline: none; }
+
+    /* Contents of a slide deck: one line per class, the current one marked */
+    .slides-contents{ display: block; margin: 6px 0 22px; }   /* not the site's top-bar nav */
+    .slides-contents[hidden]{ display: none; }
+    .slides-contents h2{
+      margin: 0 0 8px; font-size: 11px; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .slides-contents ol{ list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); }
+    .slides-contents li{ border-bottom: 1px solid var(--rule); }
+    .slides-contents button{
+      appearance: none; width: 100%; display: grid; grid-template-columns: 1fr auto; gap: 2px 12px;
+      padding: 10px 2px; border: 0; background: none; text-align: left; cursor: pointer; color: var(--ink);
+      font: inherit;
+    }
+    .slides-contents .sc-label{ font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: .02em; }
+    .slides-contents .sc-name{ grid-column: 1; font-size: 14px; line-height: 1.35; }
+    .slides-contents .sc-range{ grid-column: 2; grid-row: 1 / span 2; align-self: center; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+    .slides-contents button:hover .sc-name{ color: var(--accent); }
+    .slides-contents button:focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+    .slides-contents li.is-current .sc-label{ color: var(--accent); }
+    .slides-contents li.is-current .sc-name{ font-weight: 650; }
+
+    /* Slides: the deck's viewer fills the pane a PDF would use. On phones,
+       where the PDF pane is hidden, it sits above the title and comments. */
+    .modal-pdf .slides-host{ flex:1 1 auto; min-width:0; min-height:0; }
+    @media (max-width: 620px){
+      .modal-body.has-slides .modal-pdf{ display:flex !important; }
+      .modal-body.has-slides .slides-host{ height:min(80vh, calc((100vw - 24px) * .5625 + 70px)); }
+    }
+
     /* ===== Article reading view =====
        Articles open in the same full-screen reader as the PDF papers. With no
        PDF to sit beside, they used to land in the PDF layout's side panel,
@@ -1346,6 +1395,13 @@
         </div>
         <div style="display:flex; gap:8px; flex-wrap:wrap; flex-shrink:0;">
           <a class="btn" id="downloadBtn" href="#" download title="Download PDF" style="display:none;">Download PDF</a>
+          <div class="dl-menu" id="slidesDl" hidden>
+            <button type="button" class="btn" id="slidesDlBtn" aria-haspopup="menu" aria-expanded="false" aria-controls="slidesDlPop">
+              <span id="slidesDlLabel">Download Slideshow</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="dl-pop" id="slidesDlPop" role="menu" hidden></div>
+          </div>
           <button class="btn" id="copyLinkBtn">Copy Link</button>
           <button class="btn danger" id="closeBtn">Close</button>
         </div>
@@ -1357,6 +1413,10 @@
           <h1 id="modalTitle"></h1>
           <div class="sub" id="modalSub"></div>
           <div class="tags" id="modalTags" style="margin-bottom:12px;"></div>
+          <nav class="slides-contents" id="slidesContents" hidden aria-labelledby="slidesContentsHead">
+            <h2 id="slidesContentsHead">Contents</h2>
+            <ol id="slidesContentsList"></ol>
+          </nav>
           <a class="mobile-pdf-btn" id="mobilePdfBtn" target="_blank" rel="noopener noreferrer">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
             Open PDF
@@ -1424,6 +1484,24 @@
         tags: ["Genesis", "Old Testament", "Chronology", "Hebrew"],
         excerpt: "A chronological chart calculating the ages of Abraham, Sarah, Ishmael, Isaac, Jacob, Joseph, Benjamin, Manasseh, and Ephraim based on the Genesis text.",
         href: "articles/ages-in-genesis/"
+      },
+
+      {
+        id: "nt-canon",
+        type: "Notes",
+        title: "The Canon of the New Testament",
+        date: "2026-10-03",
+        featured: false,
+        tags: ["New Testament", "Canon", "Church History", "Athanasius"],
+        excerpt: "Class slides on how the New Testament canon took shape, based on Bruce Metzger\u2019s standard work: what \u201ccanon\u201d means, Athanasius\u2019s list of 367, and the debate from John Toland to Adolf Harnack.",
+        // A PowerPoint deck: plays in the reader's slide viewer (notes/slides.js),
+        // built from the .pptx by slides-build/build_slides.py.
+        slides: "notes/nt-canon/",
+        downloads: [
+          { label: "PowerPoint", ext: ".pptx", href: "notes/nt-canon/NT Canon.pptx" },
+          { label: "Keynote", ext: ".key", href: "notes/nt-canon/NT Canon.key" },
+          { label: "PDF", ext: ".pdf", href: "notes/nt-canon/NT Canon.pdf" }
+        ]
       },
 
       {
@@ -2047,6 +2125,9 @@
         results_label: "results",
         empty_title: "No results.",
         view_all: "View all {n}",
+        download_slideshow: "Download Slideshow",
+        contents: "Contents",
+        slides_range: "Slides {r}",
         show_fewer: "Show fewer",
         empty_desc: "Try removing filters or searching a different term.",
         about_heading: "About",
@@ -2100,6 +2181,9 @@ footer_right: "To Him Be the Glory",
         results_label: "resultados",
         empty_title: "No hay resultados.",
         view_all: "Ver los {n}",
+        download_slideshow: "Descargar presentación",
+        contents: "Contenido",
+        slides_range: "Diapositivas {r}",
         show_fewer: "Mostrar menos",
         empty_desc: "Prueba quitar filtros o buscar otro término.",
         about_heading: "Acerca de",
@@ -2429,6 +2513,8 @@ const TAGS_ES = {
   "Authorship": "Autoría",
   "Epistles": "Epístolas",
   "Church History": "Historia de la Iglesia",
+  "Canon": "Canon",
+  "Athanasius": "Atanasio",
   "Reformation": "Reforma",
   "Baptism": "Bautismo",
   "Martin Luther": "Martín Lutero",
@@ -2605,9 +2691,18 @@ function localizeType(type){
   return (tr && tr.excerpt) ? tr.excerpt : (item.excerpt || "");
 }
 
+    // The open slide deck's viewer, if any (notes/slides.js), and its loader.
+    let slidesViewer = null, slidesAssets = null;
+
     function applyLanguage(){
       // document language
       document.documentElement.setAttribute("lang", state.lang === "es" ? "es" : "en");
+      if (slidesViewer) slidesViewer.setLang(state.lang);
+      document.getElementById("slidesDlLabel").textContent = t("download_slideshow");
+      document.getElementById("slidesContentsHead").textContent = t("contents");
+      document.querySelectorAll("#slidesContentsList .sc-range").forEach(el => {
+        el.textContent = t("slides_range").replace("{r}", el.textContent.replace(/^\D+/, ""));
+      });
 
       // top nav
       els.filterAll.textContent = t("nav_all");
@@ -3042,8 +3137,37 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
       const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
                     (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 
+      // A slide deck plays where a PDF would sit; its viewer loads on first use.
+      if (slidesViewer) { slidesViewer.destroy(); slidesViewer = null; }
+      setSlidesDownloads([]);
+      renderSlidesContents(null);
+      els.modalBodyWrap.classList.toggle("has-slides", !!item.slides);
+      if (item.slides) {
+        els.modalPdf.innerHTML = "";
+        els.modalPdf.style.display = "flex";
+        els.modalBodyWrap.classList.remove("no-pdf");
+        els.readProgress.hidden = true;
+        els.downloadBtn.href = "#";
+        els.downloadBtn.style.display = "none";
+        setSlidesDownloads(item.downloads || []);
+        els.mobilePdfBtn.classList.add("hidden");
+        els.modalBody.innerHTML = "";
+        const host = document.createElement("div");
+        host.className = "slides-host";
+        els.modalPdf.appendChild(host);
+        loadSlideViewer().then(() => {
+          if (!host.isConnected || slidesViewer) return;
+          slidesViewer = window.SlideViewer.mount(host, {
+            base: item.slides, lang: state.lang,
+            onReady: deck => renderSlidesContents(deck),
+            onSlide: i => markSlidesContents(i)
+          });
+        }).catch(() => {
+          host.textContent = state.lang === "es" ? "No se pudieron cargar las diapositivas." : "The slides couldn\u2019t load.";
+        });
+      }
       // PDF pane
-      if (item.pdfHref) {
+      else if (item.pdfHref) {
         if (isIOS) {
           renderPdfJs(item.pdfHref, els.modalPdf);
         } else {
@@ -3131,7 +3255,102 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
       bar.style.transform = "scaleX(" + (max > 0 ? Math.min(1, this.scrollTop / max) : 0) + ")";
     }, { passive: true });
 
+    /* "Download Slideshow": the deck in each format it is published in. */
+    function setSlidesDownloads(list){
+      const wrap = document.getElementById("slidesDl");
+      const pop = document.getElementById("slidesDlPop");
+      closeSlidesMenu();
+      pop.innerHTML = list.map(d =>
+        `<a role="menuitem" href="${escapeHtml(d.href)}" download>${escapeHtml(d.label)}<span>${escapeHtml(d.ext)}</span></a>`
+      ).join("");
+      document.getElementById("slidesDlLabel").textContent = t("download_slideshow");
+      wrap.hidden = !list.length;
+    }
+    function closeSlidesMenu(focusButton){
+      const pop = document.getElementById("slidesDlPop"), btn = document.getElementById("slidesDlBtn");
+      if (pop.hidden) return false;
+      pop.hidden = true;
+      btn.setAttribute("aria-expanded", "false");
+      if (focusButton) btn.focus();
+      return true;
+    }
+    document.getElementById("slidesDlBtn").addEventListener("click", (e)=>{
+      e.stopPropagation();
+      const pop = document.getElementById("slidesDlPop");
+      if (!pop.hidden) { closeSlidesMenu(); return; }
+      pop.hidden = false;
+      e.currentTarget.setAttribute("aria-expanded", "true");
+      const first = pop.querySelector("a");
+      if (first) first.focus();
+    });
+    document.getElementById("slidesDlPop").addEventListener("keydown", (e)=>{
+      const links = Array.from(e.currentTarget.querySelectorAll("a"));
+      const at = links.indexOf(document.activeElement);
+      if (e.key === "ArrowDown") { e.preventDefault(); links[(at + 1) % links.length].focus(); }
+      if (e.key === "ArrowUp") { e.preventDefault(); links[(at - 1 + links.length) % links.length].focus(); }
+    });
+    document.getElementById("slidesDlPop").addEventListener("click", ()=> closeSlidesMenu());
+    document.addEventListener("click", (e)=>{
+      if (!e.target.closest || !e.target.closest("#slidesDl")) closeSlidesMenu();
+    });
+
+    /* Contents: one entry per class, read from the deck's title slides. */
+    function renderSlidesContents(deck){
+      const nav = document.getElementById("slidesContents");
+      const list = document.getElementById("slidesContentsList");
+      const secs = (deck && deck.sections) || [];
+      nav.hidden = secs.length < 2;
+      document.getElementById("slidesContentsHead").textContent = t("contents");
+      list.innerHTML = secs.map((sec, n) => {
+        const end = n + 1 < secs.length ? secs[n + 1].start : deck.slides.length;
+        const m = /^([^:]+):\s*(.+)$/.exec(sec.title);
+        const label = m ? m[1] : "", name = m ? m[2] : sec.title;
+        const range = sec.start + 1 === end ? String(end) : `${sec.start + 1}\u2013${end}`;
+        return `<li data-start="${sec.start}" data-end="${end}"><button type="button" data-go="${sec.start}">
+          ${label ? `<span class="sc-label">${escapeHtml(label)}</span>` : ""}
+          <span class="sc-name">${escapeHtml(name)}</span>
+          <span class="sc-range">${escapeHtml(t("slides_range").replace("{r}", range))}</span>
+        </button></li>`;
+      }).join("");
+      list.querySelectorAll("[data-go]").forEach(b => b.addEventListener("click", ()=>{
+        if (!slidesViewer) return;
+        slidesViewer.goTo(parseInt(b.dataset.go, 10));
+        // on a phone the slides sit above this list; bring them back into view
+        const host = document.querySelector(".slides-host");
+        if (host && host.getBoundingClientRect().bottom < 0) host.scrollIntoView({ block: "start", behavior: "smooth" });
+      }));
+      if (slidesViewer) markSlidesContents(slidesViewer.state.slide);
+    }
+    function markSlidesContents(i){
+      document.querySelectorAll("#slidesContentsList li").forEach(li => {
+        const on = i >= +li.dataset.start && i < +li.dataset.end;
+        li.classList.toggle("is-current", on);
+        const b = li.querySelector("button");
+        if (on) b.setAttribute("aria-current", "true"); else b.removeAttribute("aria-current");
+      });
+    }
+
+    function loadSlideViewer(){
+      if (window.SlideViewer) return Promise.resolve();
+      if (!slidesAssets) slidesAssets = new Promise((resolve, reject) => {
+        const css = document.createElement("link");
+        css.rel = "stylesheet";
+        css.href = "notes/slides.css";
+        document.head.appendChild(css);
+        const js = document.createElement("script");
+        js.src = "notes/slides.js";
+        js.onload = resolve;
+        js.onerror = () => { slidesAssets = null; reject(); };
+        document.head.appendChild(js);
+      });
+      return slidesAssets;
+    }
+
     function closeReader(){
+      if (slidesViewer) { slidesViewer.destroy(); slidesViewer = null; }
+      setSlidesDownloads([]);
+      renderSlidesContents(null);
+      els.modalBodyWrap.classList.remove("has-slides");
       els.overlay.classList.remove("show");
       document.body.style.overflow = "";
       // Clean up iframes to stop any media/loading
@@ -3146,6 +3365,7 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
        have no page of their own, so they get /papers/<id>/ and 404.html hands
        the path back to us. */
     function canonicalPath(item, localizedHref){
+      if (item.slides) return "/" + String(item.slides).replace(/^\/+/, "");
       const href = localizedHref || item.href;
       return href ? "/" + String(href).replace(/^\/+/, "")
                   : "/papers/" + encodeURIComponent(item.id) + "/";
@@ -3184,6 +3404,8 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
       if (m && openIfKnown(m[1])) return;
       /* Only reachable when an article path was restored from 404.html — the
          real page normally answers /articles/<id>/ directly. */
+      m = path.match(/\/notes\/([^\/]+)\/?$/);
+      if (m && openIfKnown(m[1])) return;
       m = path.match(/\/articles\/([^\/]+)\/(?:es\/)?$/);
       if (m) openIfKnown(m[1]);
     }
@@ -3255,7 +3477,9 @@ els.langToggle.addEventListener("click", ()=>{
       if (e.target === els.overlay) closeReader();
     });
     document.addEventListener("keydown", (e)=>{
-      if (e.key === "Escape" && els.overlay.classList.contains("show")) closeReader();
+      if (e.key === "Escape" && closeSlidesMenu(true)) return;
+      if (e.key === "Escape" && els.overlay.classList.contains("show")
+          && !document.fullscreenElement && !document.querySelector(".sv-pseudo-full")) closeReader();
     });
 
     els.copyLinkBtn.addEventListener("click", async ()=>{

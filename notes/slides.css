@@ -1,0 +1,163 @@
+/* Slide viewer (notes/slides.js). Quiet by design: the slide on the page's
+   own ground, one slim toolbar under it, the site's tokens for both themes.
+   Full screen switches to a black surround with the toolbar floating over
+   the slide until the pointer rests. */
+.sv{
+  --sv-ground: var(--bg, #fbfbf8);
+  --sv-ink: var(--ink, #101418);
+  --sv-muted: var(--muted, #5b6470);
+  --sv-rule: var(--rule, #e3e5e8);
+  --sv-soft: var(--soft, #f1f2f4);
+  --sv-accent: var(--accent, #1f4bd8);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  background: var(--sv-ground);
+  color: var(--sv-ink);
+  font-family: var(--sans, system-ui, -apple-system, "Segoe UI", sans-serif);
+  outline: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.sv-stage{
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px 28px 20px;
+}
+.sv-col{ display: flex; flex-direction: column; flex: none; }
+
+.sv-frame{
+  position: relative;
+  flex: none;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid var(--sv-rule);
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(16, 20, 24, .06), 0 8px 24px rgba(16, 20, 24, .08);
+  cursor: pointer;
+  touch-action: pan-y;
+}
+.sv-canvas{
+  position: absolute;
+  left: 0; top: 0;
+  width: 960px; height: 540px;
+  transform-origin: 0 0;
+}
+.sv-slide, .sv-morph{ position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+.sv-morph{ pointer-events: none; }
+.sv-shape{ position: absolute; transform-origin: 0 0; }
+.sv-layer{ position: absolute; display: block; max-width: none; pointer-events: none; }
+.sv-clip{ position: absolute; overflow: hidden; transform-origin: 0 0; }
+.sv-link{ position: absolute; display: block; cursor: pointer; border-radius: 2px; }
+.sv-link:focus-visible{ outline: 2px solid var(--sv-accent); outline-offset: 1px; }
+.sv-status{
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  color: #6b7280; font-size: 14px; pointer-events: none;
+}
+.sv-status:empty{ display: none; }
+
+/* Toolbar */
+.sv-bar{
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 48px;
+  padding-top: 8px;
+}
+.sv-btn{
+  appearance: none;
+  flex: none;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--sv-muted);
+  cursor: pointer;
+  transition: background-color .15s ease, color .15s ease;
+}
+.sv-btn svg{ width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.sv-btn:hover:not(:disabled){ background: var(--sv-soft); color: var(--sv-ink); }
+.sv-btn:focus-visible{ outline: 2px solid var(--sv-accent); outline-offset: 1px; }
+.sv-btn:disabled{ opacity: .35; cursor: default; }
+
+.sv-rail{
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  height: 34px;
+  margin: 0 10px;
+  cursor: pointer;
+}
+.sv-rail-track{
+  position: relative;
+  width: 100%;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--sv-rule);
+}
+.sv-rail-fill{
+  position: absolute; left: 0; top: 0; bottom: 0;
+  border-radius: 2px;
+  background: var(--sv-accent);
+  transition: width .25s ease;
+}
+.sv-mark{
+  position: absolute;
+  top: -3px;
+  width: 2px; height: 9px;
+  margin-left: -1px;
+  border-radius: 1px;
+  background: var(--sv-muted);
+  opacity: .55;
+}
+.sv-rail:hover .sv-rail-track{ height: 5px; }
+.sv-count{
+  flex: none;
+  min-width: 52px;
+  padding: 0 6px;
+  text-align: right;
+  font-size: 13px;
+  color: var(--sv-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.sv-sr{ position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Full screen */
+.sv.sv-is-full{
+  --sv-ground: #000;
+  --sv-ink: #f2f3f5;
+  --sv-muted: #b9bec7;
+  --sv-rule: rgba(255, 255, 255, .25);
+  --sv-soft: rgba(255, 255, 255, .12);
+}
+.sv.sv-is-full .sv-stage{ padding: 0; }
+.sv.sv-is-full .sv-frame{ border: 0; border-radius: 0; box-shadow: none; }
+.sv.sv-is-full .sv-bar{
+  position: absolute; left: 0; right: 0; bottom: 0;
+  height: auto;
+  padding: 24px 20px 14px;
+  background: linear-gradient(to top, rgba(0, 0, 0, .65), rgba(0, 0, 0, 0));
+  transition: opacity .3s ease;
+}
+.sv.sv-is-full.sv-idle .sv-bar{ opacity: 0; }
+.sv.sv-is-full.sv-idle{ cursor: none; }
+.sv.sv-pseudo-full{ position: fixed; inset: 0; z-index: 2147483000; width: auto; height: auto; }
+
+@media (max-width: 620px){
+  .sv-stage{ padding: 12px 12px 6px; }
+  .sv-rail{ margin: 0 6px; }
+}
+@media (prefers-reduced-motion: reduce){
+  .sv-btn, .sv-rail-fill, .sv.sv-is-full .sv-bar{ transition: none; }
+}
