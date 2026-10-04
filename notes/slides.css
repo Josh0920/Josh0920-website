@@ -161,3 +161,64 @@
 @media (prefers-reduced-motion: reduce){
   .sv-btn, .sv-rail-fill, .sv.sv-is-full .sv-bar{ transition: none; }
 }
+
+/* Layers drawn inline (see loadLayer in slides.js) */
+svg.sv-layer{ overflow: hidden; }
+
+/* Scroll view: the slides one under another, read like the PDF */
+.sv-scroll{
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  outline: none;
+}
+.sv-scroll[hidden], .sv-stage[hidden]{ display: none; }
+.sv-scroll-bar{
+  position: sticky; top: 0; z-index: 2;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 10px 20px;
+  background: color-mix(in srgb, var(--sv-ground) 92%, transparent);
+  border-bottom: 1px solid var(--sv-rule);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+}
+.sv-btn.sv-btn-text{
+  width: auto; padding: 0 12px 0 10px; gap: 7px;
+  border: 1px solid var(--sv-rule); border-radius: 999px;
+  font: inherit; font-size: 13px; color: var(--sv-ink);
+}
+.sv-scroll-count{ font-size: 13px; color: var(--sv-muted); font-variant-numeric: tabular-nums; }
+.sv-pages{
+  display: flex; flex-direction: column; align-items: center; gap: 26px;
+  padding: 24px 28px 48px;
+}
+.sv-page{ margin: 0; width: 100%; max-width: 1000px; scroll-margin-top: 64px; }
+.sv-page-frame{
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid var(--sv-rule);
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(16, 20, 24, .06), 0 6px 18px rgba(16, 20, 24, .06);
+}
+.sv-page-canvas{
+  position: absolute; left: 0; top: 0;
+  width: 960px; height: 540px;
+  transform-origin: 0 0;
+  transform: scale(var(--sv-page-scale, 1));
+}
+.sv-page figcaption{
+  margin-top: 8px;
+  font-size: 12px; color: var(--sv-muted);
+  font-variant-numeric: tabular-nums;
+}
+.sv.sv-is-full .sv-scroll-bar{ background: rgba(0, 0, 0, .7); }
+
+@media (max-width: 620px){
+  /* On a phone the reader itself scrolls; let the pages flow in it */
+  .sv.sv-scroll-mode .sv-scroll{ overflow: visible; }
+  .sv-pages{ padding: 14px 12px 32px; gap: 18px; }
+  .sv-scroll-bar{ padding: 8px 12px; }
+}

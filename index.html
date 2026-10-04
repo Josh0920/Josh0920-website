@@ -861,6 +861,9 @@
     @media (max-width: 620px){
       .modal-body.has-slides .modal-pdf{ display:flex !important; }
       .modal-body.has-slides .slides-host{ height:min(80vh, calc((100vw - 24px) * .5625 + 70px)); }
+      /* Scrolling through the slides: the pages flow in the reader's own scroll */
+      .modal-body.has-slides.slides-scroll .modal-pdf{ overflow:visible; min-height:auto; }
+      .modal-body.has-slides.slides-scroll .slides-host{ height:auto; }
     }
 
     /* ===== Article reading view =====
@@ -3142,6 +3145,7 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
       setSlidesDownloads([]);
       renderSlidesContents(null);
       els.modalBodyWrap.classList.toggle("has-slides", !!item.slides);
+      els.modalBodyWrap.classList.remove("slides-scroll");
       if (item.slides) {
         els.modalPdf.innerHTML = "";
         els.modalPdf.style.display = "flex";
@@ -3160,7 +3164,8 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
           slidesViewer = window.SlideViewer.mount(host, {
             base: item.slides, lang: state.lang,
             onReady: deck => renderSlidesContents(deck),
-            onSlide: i => markSlidesContents(i)
+            onSlide: i => markSlidesContents(i),
+            onMode: m => els.modalBodyWrap.classList.toggle("slides-scroll", m === "scroll")
           });
         }).catch(() => {
           host.textContent = state.lang === "es" ? "No se pudieron cargar las diapositivas." : "The slides couldn\u2019t load.";
@@ -3330,15 +3335,17 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
       });
     }
 
+    // Bump when notes/slides.js or slides.css change, so no one keeps an old copy.
+    const SLIDES_VERSION = "2026-10-04f";
     function loadSlideViewer(){
       if (window.SlideViewer) return Promise.resolve();
       if (!slidesAssets) slidesAssets = new Promise((resolve, reject) => {
         const css = document.createElement("link");
         css.rel = "stylesheet";
-        css.href = "notes/slides.css";
+        css.href = "notes/slides.css?v=" + SLIDES_VERSION;
         document.head.appendChild(css);
         const js = document.createElement("script");
-        js.src = "notes/slides.js";
+        js.src = "notes/slides.js?v=" + SLIDES_VERSION;
         js.onload = resolve;
         js.onerror = () => { slidesAssets = null; reject(); };
         document.head.appendChild(js);
@@ -3350,7 +3357,7 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
       if (slidesViewer) { slidesViewer.destroy(); slidesViewer = null; }
       setSlidesDownloads([]);
       renderSlidesContents(null);
-      els.modalBodyWrap.classList.remove("has-slides");
+      els.modalBodyWrap.classList.remove("has-slides", "slides-scroll");
       els.overlay.classList.remove("show");
       document.body.style.overflow = "";
       // Clean up iframes to stop any media/loading

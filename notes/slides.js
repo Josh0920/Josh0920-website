@@ -16,7 +16,10 @@
      speed, over the object's on-screen bounds;
    - text that re-wraps moves word by word, not as a block.
 
-   SlideViewer.mount(element, {base, lang, pdf}) → {destroy, setLang}
+   It can also lay the deck out as pages to scroll through, like the PDF.
+
+   SlideViewer.mount(element, {base, lang, start, onReady, onSlide, onMode})
+     → {destroy, setLang, next, prev, goTo, setMode, sections, state}
 */
 (function () {
   "use strict";
@@ -130,10 +133,12 @@
   const STR = {
     en: { prev: "Previous", next: "Next", slides: "Slides", full: "Full screen", exitFull: "Exit full screen",
           slide: "Slide", of: "of", hint: "Click the slide or press → to advance", loading: "Loading slides…",
-          failed: "The slides couldn't load. Try reloading the page.", end: "End of slides" },
+          failed: "The slides couldn't load. Try reloading the page.", end: "End of slides",
+          scroll: "Scroll through the slides", present: "Present", page: "page" },
     es: { prev: "Anterior", next: "Siguiente", slides: "Diapositivas", full: "Pantalla completa", exitFull: "Salir de pantalla completa",
           slide: "Diapositiva", of: "de", hint: "Haz clic en la diapositiva o pulsa → para avanzar", loading: "Cargando diapositivas…",
-          failed: "No se pudieron cargar las diapositivas. Vuelve a cargar la página.", end: "Fin de las diapositivas" },
+          failed: "No se pudieron cargar las diapositivas. Vuelve a cargar la página.", end: "Fin de las diapositivas",
+          scroll: "Desplazarse por las diapositivas", present: "Presentar", page: "página" },
   };
 
   const ICON = {
@@ -141,6 +146,8 @@
     next: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>',
     full: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>',
     exitFull: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>',
+    scroll: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="8" rx="1"/><rect x="5" y="13" width="14" height="8" rx="1"/></svg>',
+    present: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M12 16v4M8 20h8"/></svg>',
   };
 
   const reducedMotion = () => window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -170,9 +177,17 @@
               <div class="sv-rail-track"><div class="sv-rail-fill"></div></div>
             </div>
             <span class="sv-count"></span>
+            <button type="button" class="sv-btn sv-mode-btn">${ICON.scroll}</button>
             <button type="button" class="sv-btn sv-full-btn">${ICON.full}</button>
           </div>
         </div>
+      </div>
+      <div class="sv-scroll" hidden tabindex="0">
+        <div class="sv-scroll-bar">
+          <button type="button" class="sv-btn sv-btn-text sv-present-btn">${ICON.present}<span></span></button>
+          <span class="sv-scroll-count"></span>
+        </div>
+        <div class="sv-pages"></div>
       </div>
       <div class="sv-sr" aria-live="polite"></div>`;
 
@@ -180,6 +195,8 @@
     const stage = q(".sv-stage"), col = q(".sv-col"), frame = q(".sv-frame"), canvas = q(".sv-canvas"), status = q(".sv-status");
     const countEl = q(".sv-count"), srEl = q(".sv-sr"), rail = q(".sv-rail"), railFill = q(".sv-rail-fill");
     const prevBtn = q(".sv-prev"), nextBtn = q(".sv-next"), fullBtn = q(".sv-full-btn"), bar = q(".sv-bar");
+    const modeBtn = q(".sv-mode-btn"), scrollEl = q(".sv-scroll"), pagesEl = q(".sv-pages");
+    const presentBtn = q(".sv-present-btn"), scrollCount = q(".sv-scroll-count");
 
     let deck = null, view = null, cur = { i: 0, k: 0 }, run = null, advTimer = null, busy = false, destroyed = false;
     const statesCache = {};
@@ -193,6 +210,11 @@
       fullBtn.title = (isFull ? t("exitFull") : t("full")) + " (F)";
       fullBtn.innerHTML = isFull ? ICON.exitFull : ICON.full;
       frame.title = t("hint");
+      modeBtn.setAttribute("aria-label", t("scroll")); modeBtn.title = t("scroll");
+      presentBtn.querySelector("span").textContent = t("present");
+      presentBtn.title = t("present");
+      paintScrollCount();
+      figs.forEach(caption);
       rail.setAttribute("aria-label", t("slides"));
       root.setAttribute("aria-label", (deck && deck.title) || t("slides"));
       if (!deck) status.textContent = t("loading");
@@ -239,16 +261,87 @@
       el.style.width = w + "px"; el.style.height = h + "px";
     }
 
+    /* Layers are drawn into the page as SVG, not as <img> pictures. Chrome
+       paints an SVG picture slightly off its box — about 0.8pt on a wide one —
+       which opened a step where slide 17's tick meets the timeline bar. Inline
+       SVG lands where PowerPoint put it. Only whole pages of text (the
+       Athanasius letter, ~650 KB) stay pictures, to keep those slides light;
+       nothing abuts them, so the fraction of a point cannot show. */
+    const INLINE_MAX = 200000;
+    const svgTemplates = new Map();       // key → parsed <svg>, or null to use <img>
+    const svgPending = new Map();
+    function loadLayer(key) {
+      if (!svgPending.has(key)) {
+        svgPending.set(key, fetch(src(key))
+          .then(r => (r.ok ? r.text() : null))
+          .then(text => {
+            if (!text || text.length > INLINE_MAX) { svgTemplates.set(key, null); return; }
+            // Every layer names its clip paths and glyphs "clip_1", "font_…";
+            // prefix them so one layer's ids cannot answer another's references.
+            const pre = "L" + key + "-";
+            text = text.replace(/\bid="([^"]+)"/g, `id="${pre}$1"`)
+                       .replace(/url\(#([^)]+)\)/g, `url(#${pre}$1)`)
+                       .replace(/href="#([^"]+)"/g, `href="#${pre}$1"`);
+            const tpl = document.createElement("template");
+            tpl.innerHTML = text.trim();
+            const el = tpl.content.querySelector("svg");
+            if (el) { el.setAttribute("aria-hidden", "true"); el.setAttribute("focusable", "false"); }
+            svgTemplates.set(key, el || null);
+          })
+          .catch(() => svgTemplates.set(key, null)));
+      }
+      return svgPending.get(key);
+    }
+    function slideKeys(i) {
+      const keys = new Set();
+      for (const sh of deck.slides[i].shapes) {
+        for (const k of [sh.all, sh.base].concat(sh.layers.map(l => l.key))) if (k) keys.add(k);
+      }
+      return Array.from(keys);
+    }
+    function loadSlide(i) {
+      const all = Promise.all(slideKeys(i).map(loadLayer));
+      return Promise.race([all, new Promise(r => setTimeout(r, 4000))]);
+    }
+
+    // A layer can be on the page several times (a hidden view, morph copies,
+    // the scroll pages). url(#…) finds the first copy in the page, and a mask
+    // or clip path whose copy sits in a hidden view draws nothing — so each
+    // copy gets its own. Glyph <use> links work from any copy; left alone.
+    let svgCopies = 0;
+    function uniqueIds(el) {
+      const suf = "-" + (++svgCopies).toString(36), used = new Set();
+      for (const n of el.querySelectorAll("[clip-path],[mask],[filter],[fill^='url('],[stroke^='url(']")) {
+        for (const a of ["clip-path", "mask", "filter", "fill", "stroke"]) {
+          const v = n.getAttribute(a);
+          if (v && v.startsWith("url(#")) {
+            const id = v.slice(5, -1);
+            used.add(id);
+            n.setAttribute(a, `url(#${id}${suf})`);
+          }
+        }
+      }
+      if (used.size) for (const n of el.querySelectorAll("[id]")) if (used.has(n.id)) n.id += suf;
+    }
+
     function layerImg(key) {
       const m = deck.layers[key];
-      const img = document.createElement("img");
-      img.className = "sv-layer";
-      img.alt = "";
-      img.draggable = false;
-      img.decoding = "async";
-      img.src = src(key);
-      place(img, m.x, m.y, m.w, m.h);
-      return img;
+      const tpl = svgTemplates.get(key);
+      let el;
+      if (tpl) {
+        el = tpl.cloneNode(true);
+        uniqueIds(el);
+        el.setAttribute("class", "sv-layer");
+      } else {
+        el = document.createElement("img");
+        el.className = "sv-layer";
+        el.alt = "";
+        el.draggable = false;
+        el.decoding = "async";
+        el.src = src(key);
+      }
+      place(el, m.x, m.y, m.w, m.h);
+      return el;
     }
 
     /* One piece of a text layer — a word, a run, a band of lines — cut out so
@@ -261,11 +354,7 @@
       const wrap = document.createElement("div");
       wrap.className = "sv-clip";
       place(wrap, at.x + x0, at.y + y0, w, h);
-      const img = document.createElement("img");
-      img.className = "sv-layer";
-      img.alt = "";
-      img.draggable = false;
-      img.src = src(key);
+      const img = layerImg(key);
       place(img, m.x - x0, m.y - y0, m.w, m.h);
       wrap.appendChild(img);
       wrap._origin = { x: at.x + rect[0], y: at.y + rect[1], h: rect[3] - rect[1] };
@@ -471,16 +560,12 @@
       srEl.textContent = `${t("slide")} ${cur.i + 1} ${t("of")} ${deck.slides.length}. ${s.text.replace(/\s+/g, " ")}`;
     }
 
-    const fetched = new Set();
     function prefetch(i) {
       if (!deck || i < 0 || i >= deck.slides.length) return;
-      for (const sh of deck.slides[i].shapes) {
-        for (const key of [sh.all, sh.base].concat(sh.layers.map(l => l.key))) {
-          if (!key || fetched.has(key)) continue;
-          fetched.add(key);
-          const im = new Image();
-          im.src = src(key);
-        }
+      for (const key of slideKeys(i)) {
+        loadLayer(key).then(() => {
+          if (svgTemplates.get(key) === null) { const im = new Image(); im.src = src(key); }
+        });
       }
     }
 
@@ -499,6 +584,8 @@
     async function cutTo(i, where, forward) {
       clearTimeout(advTimer);
       busy = true;
+      await loadSlide(i);
+      if (destroyed) return;
       const v = buildView(i);
       const st = where === "end" ? v.states[v.states.length - 1] : v.states[0];
       applyState(v, st);
@@ -518,6 +605,8 @@
     async function morphTo(j) {
       clearTimeout(advTimer);
       busy = true;
+      await loadSlide(j);
+      if (destroyed) return;
       const A = view, B = buildView(j);
       const tr = B.s.transition, D = tr.dur;
       const aState = A.states[A.states.length - 1];
@@ -665,7 +754,9 @@
     }
 
     function goTo(i) {
-      if (!deck || busy) return;
+      if (!deck) return;
+      if (mode === "scroll") { scrollToSlide(Math.max(0, Math.min(deck.slides.length - 1, i)), true); return; }
+      if (busy) return;
       if (run) run.finish();
       cutTo(Math.max(0, Math.min(deck.slides.length - 1, i)), "start", true);
     }
@@ -679,6 +770,7 @@
       if (editable(document.activeElement) || e.metaKey || e.ctrlKey || e.altKey) return;
       const k = e.key;
       if (k === "Escape" && root.classList.contains("sv-pseudo-full")) { e.preventDefault(); setFull(false); return; }
+      if (mode === "scroll") return;          // the page scrolls; arrows and space do their usual thing
       if (["ArrowRight", "ArrowDown", "PageDown", " ", "Enter", "n", "N"].includes(k)) {
         if (k === "Enter" && document.activeElement && document.activeElement.closest && document.activeElement.closest("button, a")) return;
         e.preventDefault(); next();
@@ -767,6 +859,155 @@
       if (root.classList.contains("sv-is-full")) idle = setTimeout(() => root.classList.add("sv-idle"), 2500);
     });
 
+    /* -- the scroll view: every slide as it rests, one under another, like
+          the PDF — each slide's last state, plus a page before any click that
+          hides or covers something (deck.json "pages"). Pages are drawn from
+          the same layers as the player, and only as they near the screen. */
+    let mode = "present", pagesBuilt = false, pageObs = null, inView = 0;
+    let figs = [], spyRoot, spyTarget = null, spyRaf = 0;
+
+    function buildPages() {
+      if (pagesBuilt || !deck) return;
+      pagesBuilt = true;
+      const frag = document.createDocumentFragment();
+      deck.slides.forEach((s, i) => {
+        const ks = s.pages && s.pages.length ? s.pages : [s.steps.length];
+        ks.forEach((k, n) => {
+          const fig = document.createElement("figure");
+          fig.className = "sv-page";
+          fig.dataset.slide = i;
+          fig.dataset.state = k;
+          fig.dataset.page = n + 1;
+          fig.dataset.pages = ks.length;
+          fig.innerHTML = `<div class="sv-page-frame"><div class="sv-page-canvas"></div></div><figcaption></figcaption>`;
+          caption(fig);
+          frag.appendChild(fig);
+        });
+      });
+      pagesEl.appendChild(frag);
+      figs = [...pagesEl.querySelectorAll(".sv-page")];
+      watchPages();
+    }
+
+    function caption(fig) {
+      const n = +fig.dataset.pages;
+      fig.querySelector("figcaption").textContent = `${t("slide")} ${+fig.dataset.slide + 1}` +
+        (n > 1 ? ` \u00b7 ${t("page")} ${fig.dataset.page} ${t("of")} ${n}` : "");
+    }
+
+    // What actually scrolls the pages: the viewer's own pane, or on phones the
+    // reader around it (null = the page itself).
+    function scrollRoot() {
+      if (getComputedStyle(scrollEl).overflowY !== "visible") return scrollEl;
+      for (let el = root.parentElement; el && el !== document.body && el !== document.documentElement; el = el.parentElement) {
+        const o = getComputedStyle(el).overflowY;
+        if (o === "auto" || o === "scroll") return el;
+      }
+      return null;
+    }
+
+    // Draw pages as they come within ~900px, and keep the count on the slide
+    // whose page crosses a line a third of the way down the visible area.
+    function watchPages() {
+      const r = scrollRoot();
+      if (pageObs && r === spyRoot) return;
+      if (pageObs) pageObs.disconnect();
+      if (spyTarget) spyTarget.removeEventListener("scroll", onPagesScroll);
+      spyRoot = r;
+      pageObs = new IntersectionObserver(entries => {
+        for (const en of entries) if (en.isIntersecting) fillPage(en.target);
+      }, { root: r, rootMargin: "900px 0px" });
+      for (const f of figs) if (!f._filled) pageObs.observe(f);
+      spyTarget = r || window;
+      spyTarget.addEventListener("scroll", onPagesScroll, { passive: true });
+    }
+    function onPagesScroll() {
+      if (!spyRaf) spyRaf = requestAnimationFrame(() => { spyRaf = 0; spy(); });
+    }
+    function spy() {
+      if (mode !== "scroll" || !figs.length) return;
+      const box = spyRoot ? spyRoot.getBoundingClientRect() : { top: 0, height: innerHeight };
+      const top = Math.max(box.top, 0) + q(".sv-scroll-bar").offsetHeight;
+      const line = top + (box.top + box.height - top) / 3;
+      let at = +figs[0].dataset.slide;
+      for (const f of figs) {
+        if (f.getBoundingClientRect().top > line) break;
+        at = +f.dataset.slide;
+      }
+      if (at === inView) return;
+      inView = at;
+      paintScrollCount();
+      if (opts.onSlide && inView !== lastReported) { lastReported = inView; opts.onSlide(inView, deck); }
+    }
+
+    async function fillPage(fig) {
+      if (fig._filled) return;
+      fig._filled = true;
+      pageObs.unobserve(fig);
+      const i = +fig.dataset.slide, k = +fig.dataset.state;
+      await loadSlide(i);
+      if (destroyed) return;
+      const v = buildView(i);
+      applyState(v, v.states[Math.min(k, v.states.length - 1)]);
+      fig.querySelector(".sv-page-canvas").appendChild(v.el);
+    }
+
+    function fitPages() {
+      const f = pagesEl.querySelector(".sv-page-frame");
+      if (f && deck) root.style.setProperty("--sv-page-scale", String(f.clientWidth / deck.w));
+      if (pagesBuilt && mode === "scroll") watchPages();
+    }
+    const pro = new ResizeObserver(fitPages);
+    pro.observe(scrollEl);
+
+    function paintScrollCount() {
+      if (deck) scrollCount.textContent = `${t("slide")} ${inView + 1} ${t("of")} ${deck.slides.length}`;
+    }
+
+    function scrollToSlide(i, smooth) {
+      const fig = pagesEl.querySelector(`.sv-page[data-slide="${i}"]`);
+      if (!fig) return;
+      const behavior = smooth && !reducedMotion() ? "smooth" : "auto";
+      if (getComputedStyle(scrollEl).overflowY === "visible") {
+        // the page around the viewer scrolls (phones); .sv-page's scroll-margin clears the bar
+        fig.scrollIntoView({ block: "start", behavior });
+        return;
+      }
+      const barH = q(".sv-scroll-bar").offsetHeight;
+      const top = scrollEl.scrollTop + fig.getBoundingClientRect().top - scrollEl.getBoundingClientRect().top;
+      scrollEl.scrollTo({ top: top - barH - 12, behavior });
+    }
+
+    function setMode(m) {
+      if (!deck || m === mode) return;
+      if (m === "scroll") {
+        if (run) run.finish();
+        clearTimeout(advTimer);
+        const at = cur.i;
+        mode = "scroll";
+        root.classList.add("sv-scroll-mode");
+        stage.hidden = true;
+        scrollEl.hidden = false;
+        buildPages();
+        watchPages();
+        requestAnimationFrame(() => { fitPages(); scrollToSlide(at, false); inView = at; paintScrollCount(); });
+        scrollEl.focus({ preventScroll: true });
+      } else {
+        mode = "present";
+        root.classList.remove("sv-scroll-mode");
+        scrollEl.hidden = true;
+        stage.hidden = false;
+        requestAnimationFrame(fit);
+        if (inView !== cur.i) cutTo(inView, "start", false);
+        else paintCount();
+        root.focus({ preventScroll: true });
+      }
+      try { localStorage.setItem("sv-mode", mode); } catch (e) {}
+      if (opts.onMode) opts.onMode(mode);
+    }
+    modeBtn.addEventListener("click", () => setMode("scroll"));
+    presentBtn.addEventListener("click", () => setMode("present"));
+
     /* -- load */
     paintLabels();
     fetch(base + "deck.json")
@@ -780,7 +1021,8 @@
         if (opts.onReady) opts.onReady(d);
         paintLabels();
         prefetch(0);
-        cutTo(Math.max(0, Math.min(d.slides.length - 1, (opts.start || 1) - 1)), "start", true);
+        cutTo(Math.max(0, Math.min(d.slides.length - 1, (opts.start || 1) - 1)), "start", true)
+          .then(() => { let m = null; try { m = localStorage.getItem("sv-mode"); } catch (e) {} if (m === "scroll") setMode("scroll"); });
       })
       .catch(() => { status.textContent = t("failed"); });
 
@@ -791,6 +1033,10 @@
         clearTimeout(advTimer);
         clearTimeout(idle);
         ro.disconnect();
+        pro.disconnect();
+        if (pageObs) pageObs.disconnect();
+        if (spyTarget) spyTarget.removeEventListener("scroll", onPagesScroll);
+        cancelAnimationFrame(spyRaf);
         document.removeEventListener("keydown", onKey);
         document.removeEventListener("fullscreenchange", onFullChange);
         document.removeEventListener("webkitfullscreenchange", onFullChange);
@@ -806,7 +1052,8 @@
       next, prev, goTo,
       _run: () => run,
       get sections() { return deck ? deck.sections || [] : []; },
-      get state() { return { slide: cur.i, step: cur.k, animating: !!run }; },
+      get state() { return { slide: mode === "scroll" ? inView : cur.i, step: cur.k, animating: !!run, mode }; },
+      setMode,
     };
   }
 
