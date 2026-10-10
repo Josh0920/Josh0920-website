@@ -344,6 +344,21 @@
       return el;
     }
 
+    /* Put a layer at its place in a shape whose box was moved to whole
+       points by (-fx, -fy): an inline drawing gets a whole-point box and its
+       content is shifted by what is left over; a picture keeps the fraction. */
+    function snapLayer(el, m, fx, fy) {
+      const x = fx + m.x, y = fy + m.y;
+      if (el.tagName.toLowerCase() !== "svg") { place(el, x, y, m.w, m.h); return; }
+      const ix = Math.floor(x), iy = Math.floor(y);
+      const w = Math.ceil(x - ix + m.w), h = Math.ceil(y - iy + m.h);
+      const vb = (el.getAttribute("viewBox") || `0 0 ${m.w} ${m.h}`).split(/[\s,]+/).map(Number);
+      const sx = vb[2] / m.w, sy = vb[3] / m.h;   // viewBox units per canvas point
+      el.setAttribute("viewBox", `${vb[0] - (x - ix) * sx} ${vb[1] - (y - iy) * sy} ${w * sx} ${h * sy}`);
+      el.setAttribute("preserveAspectRatio", "none");
+      place(el, ix, iy, w, h);
+    }
+
     /* One piece of a text layer — a word, a run, a band of lines — cut out so
        it can travel on its own path. rect is [x0,y0,x1,y1] in the object's
        frame; the piece is placed at frame + rect. */
@@ -369,10 +384,18 @@
       for (const sh of s.shapes) {
         const d = document.createElement("div");
         d.className = "sv-shape";
-        place(d, sh.box.x, sh.box.y, sh.box.w, sh.box.h);
+        // Everything sits on whole canvas points. A browser rounds each box
+        // to the screen's pixels before the slide is scaled up, so two
+        // objects that meet in PowerPoint (slide 24's tick and timeline bar)
+        // could round apart and show a step. The leftover fraction is moved
+        // inside each drawing, where nothing is rounded.
+        const ox = Math.floor(sh.box.x), oy = Math.floor(sh.box.y);
+        const fx = sh.box.x - ox, fy = sh.box.y - oy;
+        place(d, ox, oy, sh.box.w, sh.box.h);
         const layers = {}, links = [];
         for (const L of sh.layers) {
           const img = layerImg(L.key);
+          snapLayer(img, deck.layers[L.key], fx, fy);
           d.appendChild(img);
           layers[L.lid] = img;
           for (const ln of deck.layers[L.key].links || []) {
@@ -382,7 +405,7 @@
             a.target = "_blank";
             a.rel = "noopener noreferrer";
             a.setAttribute("aria-label", ln.uri);
-            place(a, ln.x, ln.y, ln.w, ln.h);
+            place(a, fx + ln.x, fy + ln.y, ln.w, ln.h);
             a._lid = L.lid;
             d.appendChild(a);
             links.push(a);
@@ -410,7 +433,9 @@
         for (const { e, b } of evs) {
           if (b.kind === "set" && b.attr === "style.visibility") {
             for (const l of e.layers) b.to === "visible" ? hidden.delete(l) : hidden.add(l);
-          } else if (b.kind === "animMotion") {
+          } else if (b.kind === "animMotion" && !b.autoRev) {
+            // a motion path carries the object on from where it is; one set to
+            // auto-reverse comes back and leaves it where it was
             const end = pathFn(b.path)(1), was = motion[e.shape] || [0, 0];
             motion[e.shape] = [was[0] + end[0] * deck.w, was[1] + end[1] * deck.h];
           }
@@ -506,9 +531,22 @@
       const v = view, s = v.s, st = s.steps[k];
       applyState(v, v.states[k]);
       const tracks = [];
+      // where each motion path starts: after the paths before it in this click
+      const startOf = new Map(), carried = {};
+      const moves = [];
+      for (const e of st.effects) for (const b of e.beh) if (b.kind === "animMotion") moves.push({ t0: e.t + b.t, e, b });
+      moves.sort((x, y) => x.t0 - y.t0);
+      for (const m of moves) {
+        const was = carried[m.e.shape] || v.states[k].motion[m.e.shape] || [0, 0];
+        startOf.set(m.b, was);
+        if (!m.b.autoRev) {
+          const end = pathFn(m.b.path)(1);
+          carried[m.e.shape] = [was[0] + end[0] * deck.w, was[1] + end[1] * deck.h];
+        }
+      }
       for (const e of st.effects) {
         for (const b of e.beh) {
-          const t0 = e.t + b.t, dur = Math.max(0, b.dur);
+          const t0 = e.t + b.t, dur = Math.max(0, b.dur) * (b.autoRev ? 2 : 1);
           if (b.kind === "set" && b.attr === "style.visibility") {
             tracks.push({ t0, dur: 0, fn: () => { for (const l of e.layers) setVisible(v, l, b.to === "visible"); } });
           } else if (b.kind === "animEffect") {
@@ -519,10 +557,11 @@
           } else if (b.kind === "animMotion") {
             const sh = v.shapes[e.shape];
             if (!sh) continue;
-            const path = pathFn(b.path), was = v.states[k].motion[e.shape] || [0, 0];
+            const path = pathFn(b.path), was = startOf.get(b) || [0, 0];
             const a = e.accel || b.accel || 0, d = e.decel || b.decel || 0;
             tracks.push({ t0, dur, fn: p => {
-              const pt = path(warp(p, a, d));
+              const q = b.autoRev ? (p < 0.5 ? 2 * p : 2 - 2 * p) : p;   // out and back
+              const pt = path(warp(q, a, d));
               sh.el.style.transform = `translate(${was[0] + pt[0] * deck.w}px, ${was[1] + pt[1] * deck.h}px)`;
             } });
           }
