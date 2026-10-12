@@ -756,15 +756,12 @@
 <text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="7.5" font-family="Arial" font-weight="bold"><tspan y="-553.47" x="208.38"> </tspan></text>
 </g>
 <g clip-path="url(#clip_3)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="7.5" font-family="Arial" font-weight="bold"><tspan y="-553.47" x="229.88 234.38 236.3825 238.88 243.125 246.1175 250.36249 254.60749 258.8525 260.855 262.8575 267.3575 269.36003 275.11253 279.35755 281.36006 283.36256 285.36506 289.61009 293.8551 296.3526 298.3551 303.84513 308.34513 313.0851 315.08763 319.58763 321.59013 326.59263 330.83015 333.32765 337.57267 340.5652 342.5677 348.0577 352.30274 356.54777 361.04777 363.05027 367.2953 371.7953 376.2953">Literacy in Galilee: Could Peter Read and </tspan></text>
 </g>
 <g clip-path="url(#clip_4)">
 </g>
 <g clip-path="url(#clip_5)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="7.5" font-family="Arial" font-weight="bold"><tspan y="-544.97" x="57.525 64.52251 67.51501 69.51751 72.01501 76.26">Write?</tspan></text>
 </g>
 <g clip-path="url(#clip_6)">
-<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="7.5" font-family="Arial" font-weight="bold"><tspan y="-544.97" x="80.8"> </tspan></text>
 </g>
 <g clip-path="url(#clip_7)">
 </g>
@@ -1495,5 +1492,8 @@
 <g clip-path="url(#clip_249)">
 <text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="8" font-family="Times New Roman"><tspan y="-55.525" x="194.38"> </tspan></text>
 </g>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="7.5" font-family="Arial" font-weight="bold"><tspan y="-553.47" x="312.2895 316.8645 318.94203 321.4395 325.60954 328.52705 332.69706 336.86708">Literacy</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="7.5" font-family="Arial" font-weight="bold"><tspan y="-553.47" x="343.1391 345.2166">in</tspan></text>
+<text xml:space="preserve" transform="matrix(1 0 -0 1 0 595.25)" font-size="7.5" font-family="Arial" font-weight="bold"><tspan y="-553.47" x="351.88789 357.7154 361.8854 363.96293 366.04045 368.11796 372.28797">Galilee</tspan></text>
 </g>
 </svg>
