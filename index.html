@@ -3750,6 +3750,8 @@ renderGrid();
     }
 
     // PDF.js renderer for iOS (Safari can't scroll PDFs in iframes)
+    // PDF.js resolves a relative path against the address bar, not <base>; a
+    // shared link opens a paper at /peter/<id>/, so resolve it as the page does.
     async function renderPdfJs(pdfUrl, container) {
       container.innerHTML = '<p style="color:var(--muted);font-style:italic;padding:20px;text-align:center;">Loading PDF…</p>';
 
@@ -3768,7 +3770,7 @@ renderGrid();
 
       let pdf;
       try {
-        pdf = await window.pdfjsLib.getDocument(pdfUrl).promise;
+        pdf = await window.pdfjsLib.getDocument(new URL(pdfUrl, document.baseURI).href).promise;
       } catch(e) {
         container.innerHTML = '<p style="color:var(--muted);font-style:italic;padding:20px;text-align:center;">Could not load PDF.</p>';
         return;
