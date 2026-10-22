@@ -707,6 +707,9 @@
     .overlay.own-page .dl-menu,
     .overlay.own-page #copyLinkBtn,
     .overlay.own-page .read-progress{ display:none !important; }
+    /* ...and, beside Close, a switch to the page's other language (Joshua,
+       2026-10-22: "so i can flip between english and spanish versions") */
+    #ownLangBtn[hidden]{ display:none; }
 
     /* Split layout: PDF left, info/comments right */
     .modal-body{
@@ -1439,6 +1442,7 @@
             <div class="dl-pop" id="slidesDlPop" role="menu" hidden></div>
           </div>
           <button class="btn" id="copyLinkBtn">Copy Link</button>
+          <button type="button" class="btn" id="ownLangBtn" hidden>Español (LatAm)</button>
           <button class="btn danger" id="closeBtn">Close</button>
         </div>
         <div class="read-progress" id="readProgress" aria-hidden="true" hidden></div>
@@ -3177,6 +3181,10 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
       // A page designed to stand on its own fills the reader; only Close shows.
       const ownPage = !!(item.ownPage && localizedHref);
       els.overlay.classList.toggle("own-page", ownPage);
+      const ownLang = document.getElementById("ownLangBtn");
+      ownLang.hidden = !(ownPage && esData && esData.href);
+      ownLang.textContent = (state.lang === "es") ? t("lang_btn_when_es") : t("lang_btn_when_en");
+      ownLang.dataset.id = item.id;
       document.getElementById("ownPageHost").innerHTML = ownPage
         ? `<iframe src="${escapeHtml(localizedHref + item.ownPage)}" title="${escapeHtml(getLocalizedTitle(item))}"></iframe>` : "";
       if (ownPage) {
@@ -3431,6 +3439,7 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
       els.modalBodyWrap.classList.remove("has-slides", "slides-scroll");
       els.overlay.classList.remove("show", "own-page");
       document.getElementById("ownPageHost").innerHTML = "";
+      document.getElementById("ownLangBtn").hidden = true;
       document.body.style.overflow = "";
       // Clean up iframes to stop any media/loading
       els.modalPdf.innerHTML = "";
@@ -3558,6 +3567,14 @@ els.langToggle.addEventListener("click", ()=>{
     });
 
     els.closeBtn.addEventListener("click", closeReader);
+    // The whole site changes language, as with the toggle in the top bar, and
+    // the page reopens in it.
+    document.getElementById("ownLangBtn").addEventListener("click", (e)=>{
+      state.lang = (state.lang === "en") ? "es" : "en";
+      applyLanguage();
+      renderGrid();
+      openReader(e.currentTarget.dataset.id);
+    });
     els.overlay.addEventListener("click", (e)=>{
       if (e.target === els.overlay) closeReader();
     });

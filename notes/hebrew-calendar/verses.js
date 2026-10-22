@@ -67,6 +67,7 @@
         clearTimeout(timer);
         timer = setTimeout(function () {
           var next = copyOf(live);
+          closeNote();                       // its number has just been replaced
           shown.parentNode.replaceChild(next, shown);
           shown = next;
           if (window.rescanScripture) window.rescanScripture(shown);
@@ -74,6 +75,46 @@
       }).observe(live, { childList: true, subtree: true, characterData: true });
     });
   }
+
+  /* Notes. An entry's explanation opens from the small number beside its day
+     ("10?¹", Joshua 2026-10-22), like a footnote. The panel on screen is the
+     copy above, which React does not drive, so the note is opened here: one
+     pop-up for the page, filled from the number's data-note, its references
+     linked like the rest. */
+  var pop = null, popFor = null;
+  function closeNote() {
+    if (pop) pop.hidden = true;
+    if (popFor) popFor.setAttribute("aria-expanded", "false");
+    popFor = null;
+  }
+  function openNote(btn) {
+    if (!pop) {
+      pop = document.createElement("div");
+      pop.className = "cal-pop";
+      pop.setAttribute("role", "note");
+      document.body.appendChild(pop);
+      var st = document.createElement("style");
+      st.textContent = ".cal-pop{position:absolute;z-index:50;box-sizing:border-box;width:min(380px, calc(100vw - 24px));" +
+        "background:#FBF9F3;border:1px solid #1C1B19;padding:12px 14px;font-size:16px;line-height:1.45;color:#1C1B19;" +
+        "box-shadow:0 8px 28px rgba(28,27,25,.18)}.cal-pop[hidden]{display:none}" +
+        ".cal-note:focus-visible{outline:2px solid #A8261B;outline-offset:1px}";
+      document.head.appendChild(st);
+    }
+    pop.textContent = btn.getAttribute("data-note") || "";
+    pop.hidden = false;
+    popFor = btn;
+    btn.setAttribute("aria-expanded", "true");
+    var r = btn.getBoundingClientRect(), w = pop.offsetWidth;
+    pop.style.left = Math.max(12, Math.min(r.left + scrollX - 8, scrollX + innerWidth - w - 12)) + "px";
+    pop.style.top = (r.bottom + scrollY + 6) + "px";
+    if (window.rescanScripture) window.rescanScripture(pop);
+  }
+  document.addEventListener("click", function (e) {
+    var btn = e.target.closest && e.target.closest(".cal-note");
+    if (btn) { e.preventDefault(); if (popFor === btn) closeNote(); else openNote(btn); return; }
+    if (pop && !pop.hidden && !(e.target.closest && e.target.closest(".cal-pop"))) closeNote();
+  });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeNote(); });
 
   /* On a touch screen the first tap on a reference only shows its verses
      (RefTagger opens the pop-up on the hover a tap sets off); a second tap on
