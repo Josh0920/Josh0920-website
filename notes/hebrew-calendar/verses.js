@@ -70,7 +70,7 @@
           shown.parentNode.replaceChild(next, shown);
           shown = next;
           if (window.rescanScripture) window.rescanScripture(shown);
-        }, 40);
+        }, 120);           // typing in the search: link once it settles
       }).observe(live, { childList: true, subtree: true, characterData: true });
     });
   }

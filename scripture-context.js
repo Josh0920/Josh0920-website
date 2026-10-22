@@ -191,7 +191,11 @@
     names.forEach(function (n) { lookup[n[0].toLowerCase()] = n[1]; });
     return {
       lookup: lookup,
-      bookRe: new RegExp("\\b(" + alt + ")\\b", "g"),
+      /* Not \b: it counts accented letters as word breaks, so "Éx", "Josué"
+         and "Gá" were never seen as book names and a Spanish reference with
+         no book named before it went unlinked. (No lookbehind: older iPhones
+         reject it, and with it the whole script.) */
+      bookRe: new RegExp("(?:^|[^A-Za-z\\u00C0-\\u024F0-9_])(" + alt + ")(?![A-Za-z\\u00C0-\\u024F0-9_])", "g"),
       refRe: new RegExp("(?:(" + alt + ")\\.?\\s+)?" +
         "(\\d{1,3}):(\\d{1,3})(?:\\s*[\u2013\u2014-]\\s*(?:(\\d{1,3}):)?(\\d{1,3}))?", "g")
     };
