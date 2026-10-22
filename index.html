@@ -690,6 +690,24 @@
       max-width: 50vw;
     }
 
+    /* A Note designed as a page of its own (ownPage): it fills the reader
+       exactly as designed, and of the reader's controls only Close stays,
+       floating at the top right (Joshua, 2026-10-21). */
+    .own-page-host{ display:none; flex:1; min-height:0; }
+    .own-page-host iframe{ width:100%; height:100%; border:0; display:block; }
+    .overlay.own-page .modal{ position:relative; }
+    .overlay.own-page .own-page-host{ display:block; }
+    .overlay.own-page .modal-body{ display:none; }
+    .overlay.own-page .modal header{
+      position:absolute; top:12px; right:16px; z-index:2;
+      padding:0; border:0; background:none;
+    }
+    .overlay.own-page .modal-header-left,
+    .overlay.own-page #downloadBtn,
+    .overlay.own-page .dl-menu,
+    .overlay.own-page #copyLinkBtn,
+    .overlay.own-page .read-progress{ display:none !important; }
+
     /* Split layout: PDF left, info/comments right */
     .modal-body{
       flex:1;
@@ -1425,6 +1443,7 @@
         </div>
         <div class="read-progress" id="readProgress" aria-hidden="true" hidden></div>
       </header>
+      <div class="own-page-host" id="ownPageHost"></div>
       <div class="modal-body" id="modalBodyWrap">
         <div class="modal-pdf" id="modalPdf"></div>
         <div class="modal-sidebar">
@@ -1502,6 +1521,22 @@
         tags: ["Genesis", "Old Testament", "Chronology", "Hebrew"],
         excerpt: "A chronological chart calculating the ages of Abraham, Sarah, Ishmael, Isaac, Jacob, Joseph, Benjamin, Manasseh, and Ephraim based on the Genesis text.",
         href: "articles/ages-in-genesis/"
+      },
+
+      {
+        id: "hebrew-calendar",
+        type: "Notes",
+        title: "The Hebrew Calendar",
+        date: "2026-10-21",
+        featured: false,
+        tags: ["Old Testament", "Feasts", "Chronology", "Hebrew"],
+        excerpt: "Every feast, fast and dated event in the Old Testament, set like a clock: the first month at one o\u2019clock, the twelfth at the top (Exod 12:2).",
+        // An interactive page made in Joshua's design tool, saved as one
+        // self-contained file (the design unpacks itself when it opens). He
+        // wants it to look exactly as designed: ownPage is that file, beside
+        // the share page at href, and it fills the reader with only Close.
+        href: "notes/hebrew-calendar/",
+        ownPage: "calendar.html"
       },
 
       {
@@ -2255,6 +2290,11 @@ footer_right: "A Él sea la gloria",
         excerpt: "Un cuadro cronológico que calcula las edades de Abraham, Sara, Ismael, Isaac, Jacob, José, Benjamín, Manasés y Efraín según el texto de Génesis.",
         href: "articles/ages-in-genesis/es/"
       },
+      "hebrew-calendar": {
+        title: "El calendario hebreo",
+        excerpt: "Cada fiesta, ayuno y suceso fechado del Antiguo Testamento, dispuesto como un reloj: el primer mes a la una, el duodécimo arriba (Éx 12:2).",
+        href: "notes/hebrew-calendar/es/"
+      },
       "genesis-34-dinah": {
         title: "¿Qué pasó en Génesis 34? ¿Fue Dina violada o fue consensuado?",
         excerpt: "Un examen de las dos interpretaciones principales sobre lo que le sucedió a Dina en Génesis 34: ¿fue violada por Siquem o fue una relación consensuada?"
@@ -2589,6 +2629,7 @@ const TAGS_ES = {
   "Jonah": "Jonás",
   "Peter": "Pedro",
   "Chronology": "Cronología",
+  "Feasts": "Fiestas",
   "Acts": "Hechos",
   "Pentecost": "Pentecostés",
   "Great Commission": "La Gran Comisión"
@@ -3133,6 +3174,21 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
       const esData = CONTENT_ES[item.id];
       const localizedHref = (state.lang === "es" && esData && esData.href) ? esData.href : item.href;
 
+      // A page designed to stand on its own fills the reader; only Close shows.
+      const ownPage = !!(item.ownPage && localizedHref);
+      els.overlay.classList.toggle("own-page", ownPage);
+      document.getElementById("ownPageHost").innerHTML = ownPage
+        ? `<iframe src="${escapeHtml(localizedHref + item.ownPage)}" title="${escapeHtml(getLocalizedTitle(item))}"></iframe>` : "";
+      if (ownPage) {
+        if (slidesViewer) { slidesViewer.destroy(); slidesViewer = null; }
+        els.modalPdf.innerHTML = "";
+        els.modalBody.innerHTML = "";
+        els.overlay.classList.add("show");
+        document.body.style.overflow = "hidden";
+        history.replaceState(null, "", canonicalPath(item, localizedHref));
+        return;
+      }
+
       // Standalone page (HTML article) — open in modal with comments instead of new tab
       // (href items have no PDF, so they get the no-pdf layout)
 
@@ -3373,7 +3429,8 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
       setSlidesDownloads([]);
       renderSlidesContents(null);
       els.modalBodyWrap.classList.remove("has-slides", "slides-scroll");
-      els.overlay.classList.remove("show");
+      els.overlay.classList.remove("show", "own-page");
+      document.getElementById("ownPageHost").innerHTML = "";
       document.body.style.overflow = "";
       // Clean up iframes to stop any media/loading
       els.modalPdf.innerHTML = "";
@@ -3426,7 +3483,13 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
       if (m && openIfKnown(m[1])) return;
       /* Only reachable when an article path was restored from 404.html — the
          real page normally answers /articles/<id>/ directly. */
-      m = path.match(/\/notes\/([^\/]+)\/?$/);
+      m = path.match(/\/notes\/([^\/]+)\/?(es\/?)?$/);
+      if (m && m[2] && CONTENT_ES[m[1]] && state.lang !== "es") {
+        // a Spanish link opens the library in Spanish
+        state.lang = "es";
+        applyLanguage();
+        renderGrid();
+      }
       if (m && openIfKnown(m[1])) return;
       m = path.match(/\/articles\/([^\/]+)\/(?:es\/)?$/);
       if (m) openIfKnown(m[1]);
