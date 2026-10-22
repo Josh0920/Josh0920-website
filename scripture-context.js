@@ -106,20 +106,22 @@
   ];
 
 
-  /* Spanish book names → the canonical English name. Biblia resolves
+  /* Spanish book names → the canonical English name. The short NBLA forms
+     (Gn, Lv, Nm, 1 S, 1 R, Dn) are the ones the Hebrew Calendar note uses.
+     Biblia resolves
      references by English name regardless of the translation served, so the
      NBLA text is fetched with an English reference. */
   var BOOKS_ES = [
-    ["Genesis", ["Génesis", "Genesis", "Gén", "Gen"]],
+    ["Genesis", ["Génesis", "Genesis", "Gén", "Gen", "Gn"]],
     ["Exodus", ["Éxodo", "Exodo", "Éx", "Ex"]],
-    ["Leviticus", ["Levítico", "Levitico", "Lev"]],
-    ["Numbers", ["Números", "Numeros", "Núm", "Num"]],
+    ["Leviticus", ["Levítico", "Levitico", "Lev", "Lv"]],
+    ["Numbers", ["Números", "Numeros", "Núm", "Num", "Nm"]],
     ["Deuteronomy", ["Deuteronomio", "Deut", "Dt"]],
     ["Joshua", ["Josué", "Josue", "Jos"]],
     ["Judges", ["Jueces", "Jue"]],
     ["Ruth", ["Rut"]],
-    ["1 Samuel", ["1 Samuel", "1 Sam"]], ["2 Samuel", ["2 Samuel", "2 Sam"]],
-    ["1 Kings", ["1 Reyes", "1 Re"]], ["2 Kings", ["2 Reyes", "2 Re"]],
+    ["1 Samuel", ["1 Samuel", "1 Sam", "1 S"]], ["2 Samuel", ["2 Samuel", "2 Sam", "2 S"]],
+    ["1 Kings", ["1 Reyes", "1 Re", "1 R"]], ["2 Kings", ["2 Reyes", "2 Re", "2 R"]],
     ["1 Chronicles", ["1 Crónicas", "1 Cronicas", "1 Cr"]],
     ["2 Chronicles", ["2 Crónicas", "2 Cronicas", "2 Cr"]],
     ["Ezra", ["Esdras", "Esd"]], ["Nehemiah", ["Nehemías", "Nehemias", "Neh"]],
@@ -131,7 +133,7 @@
     ["Isaiah", ["Isaías", "Isaias", "Is"]],
     ["Jeremiah", ["Jeremías", "Jeremias", "Jer"]],
     ["Lamentations", ["Lamentaciones", "Lam"]],
-    ["Ezekiel", ["Ezequiel", "Ez"]], ["Daniel", ["Daniel", "Dan"]],
+    ["Ezekiel", ["Ezequiel", "Ez"]], ["Daniel", ["Daniel", "Dan", "Dn"]],
     ["Hosea", ["Oseas", "Os"]], ["Joel", ["Joel"]], ["Amos", ["Amós", "Amos"]],
     ["Obadiah", ["Abdías", "Abdias", "Abd"]], ["Jonah", ["Jonás", "Jonas"]],
     ["Micah", ["Miqueas", "Miq"]], ["Nahum", ["Nahúm", "Nahum"]],
@@ -214,7 +216,8 @@
   /* The (?!\d) matters: \d{1,3} is greedy, so against ", 12:10" it first tries
      "12", fails the colon guard, then backtracks to "1" — which passes, and a
      chapter reference gets silently linked as a stray verse. */
-  var CONT_RE = /,\s*(\d{1,3})(?!\d)(?!\s*[:.]\s*\d)/g;
+  /* A continuation may be a range of its own: "Éx 12:1-14, 21-28". */
+  var CONT_RE = /,\s*(\d{1,3})(?:\s*[-\u2013]\s*(\d{1,3}))?(?!\d)(?!\s*[:.]\s*\d)/g;
 
   var VERSION_RE = new RegExp(
     "(?:\\b|^)(" + Object.keys(VERSIONS)
@@ -403,9 +406,11 @@
         CONT_RE.lastIndex = cursor;
         var c;
         while ((c = CONT_RE.exec(text)) && c.index === cursor) {
-          if (+c[1] > 176) break;
-          out.appendChild(document.createTextNode(c[0].slice(0, c[0].indexOf(c[1]))));
-          out.appendChild(placeholder(useBook, lastCh + ":" + c[1], c[1], ver));
+          if (+c[1] > 176 || (c[2] && +c[2] > 176)) break;
+          var at = c[0].indexOf(c[1]);
+          out.appendChild(document.createTextNode(c[0].slice(0, at)));
+          out.appendChild(placeholder(useBook, lastCh + ":" + c[1] + (c[2] ? "-" + c[2] : ""),
+                                      c[0].slice(at), ver));
           cursor = c.index + c[0].length;
           linked++;
           CONT_RE.lastIndex = cursor;
