@@ -133,14 +133,23 @@
       day.querySelector(".cal-day-x").addEventListener("click", closeDay);
       document.body.appendChild(day);
       var st = document.createElement("style");
-      st.textContent = ".cal-day-pop{position:absolute;z-index:40;box-sizing:border-box;width:min(400px, calc(100vw - 24px));" +
-        "max-height:min(70vh, 560px);overflow:auto;background:#FBF9F3;border:1px solid #1C1B19;padding:0 14px 4px;" +
-        "color:#1C1B19;font-family:'EB Garamond', Georgia, serif;font-size:18px;line-height:1.45;box-shadow:0 8px 28px rgba(28,27,25,.18)}" +
+      // compact: the list's rows at a smaller size (Joshua, 2026-10-22: "make
+      // the drop down window smaller in size, right now it is huge and bulky")
+      var row = ".cal-day-pop [data-key]";
+      st.textContent = ".cal-day-pop{position:absolute;z-index:40;box-sizing:border-box;width:min(300px, calc(100vw - 24px));" +
+        "max-height:min(50vh, 380px);overflow:auto;background:#FBF9F3;border:1px solid #1C1B19;padding:0 10px 2px;" +
+        "color:#1C1B19;font-family:'EB Garamond', Georgia, serif;font-size:14px;line-height:1.3;box-shadow:0 6px 18px rgba(28,27,25,.16)}" +
         ".cal-day-pop[hidden]{display:none}" +
-        ".cal-day-head{position:sticky;top:0;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:12px;" +
-        "background:#FBF9F3;border-bottom:1.5px solid #1C1B19;font-size:20px;font-weight:500;padding:8px 0 6px}" +
-        ".cal-day-x{min-width:40px;min-height:40px;margin-right:-10px;background:none;border:0;font-size:28px;line-height:1;color:#1C1B19;cursor:pointer}" +
-        ".cal-day-pop [data-key]:last-child{border-bottom:0 !important}" +
+        ".cal-day-head{position:sticky;top:0;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:8px;" +
+        "background:#FBF9F3;border-bottom:1px solid #1C1B19;font-size:15px;font-weight:500;padding:3px 0 2px}" +
+        ".cal-day-x{min-width:32px;min-height:32px;margin-right:-8px;background:none;border:0;font-size:20px;line-height:1;color:#1C1B19;cursor:pointer}" +
+        row + "{grid-template-columns:34px minmax(0, 1fr) !important;gap:6px !important;padding:7px 0 !important}" +
+        row + " span{font-size:13.5px !important;line-height:1.3 !important}" +
+        row + " > span:first-child{font-size:14px !important}" +
+        row + " > div > div:first-child > span:first-child{font-size:15px !important}" +
+        row + " [lang=he]{font-size:14px !important}" +
+        row + " .cal-note{font-size:10px !important}" +
+        row + ":last-child{border-bottom:0 !important}" +
         "[data-cell][data-open]{outline:2px solid #A8261B;outline-offset:-1px}";
       document.head.appendChild(st);
     }
