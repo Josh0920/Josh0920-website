@@ -68,6 +68,7 @@
         timer = setTimeout(function () {
           var next = copyOf(live);
           closeNote();                       // its number has just been replaced
+          closeDay();                        // and the rows the day showed
           shown.parentNode.replaceChild(next, shown);
           shown = next;
           if (window.rescanScripture) window.rescanScripture(shown);
@@ -109,12 +110,91 @@
     pop.style.top = (r.bottom + scrollY + 6) + "px";
     if (window.rescanScripture) window.rescanScripture(pop);
   }
+  /* The month view (Joshua, 2026-10-22: "maybe making every dot a popup
+     window"). A dot opens its entry, a day (or "Day not given") everything on
+     it. The entries are the list's own rows, taken from the live panel by
+     data-key, so they read as in the list and are linked like it. */
+  var ES = location.pathname.indexOf("/es/") !== -1;
+  var day = null, dayBody = null, dayHead = null, dayFor = null;
+  function closeDay() {
+    if (day) day.hidden = true;
+    if (dayFor) dayFor.removeAttribute("data-open");
+    dayFor = null;
+  }
+  function openDay(btn, keys, byKeyboard) {
+    if (!day) {
+      day = document.createElement("div");
+      day.className = "cal-day-pop";
+      day.setAttribute("role", "dialog");
+      day.innerHTML = '<div class="cal-day-head"><span></span><button type="button" class="cal-day-x">×</button></div><div></div>';
+      dayHead = day.firstChild.firstChild;
+      dayBody = day.lastChild;
+      day.querySelector(".cal-day-x").setAttribute("aria-label", ES ? "Cerrar" : "Close");
+      day.querySelector(".cal-day-x").addEventListener("click", closeDay);
+      document.body.appendChild(day);
+      var st = document.createElement("style");
+      st.textContent = ".cal-day-pop{position:absolute;z-index:40;box-sizing:border-box;width:min(400px, calc(100vw - 24px));" +
+        "max-height:min(70vh, 560px);overflow:auto;background:#FBF9F3;border:1px solid #1C1B19;padding:0 14px 4px;" +
+        "color:#1C1B19;font-family:'EB Garamond', Georgia, serif;font-size:18px;line-height:1.45;box-shadow:0 8px 28px rgba(28,27,25,.18)}" +
+        ".cal-day-pop[hidden]{display:none}" +
+        ".cal-day-head{position:sticky;top:0;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:12px;" +
+        "background:#FBF9F3;border-bottom:1.5px solid #1C1B19;font-size:20px;font-weight:500;padding:8px 0 6px}" +
+        ".cal-day-x{min-width:40px;min-height:40px;margin-right:-10px;background:none;border:0;font-size:28px;line-height:1;color:#1C1B19;cursor:pointer}" +
+        ".cal-day-pop [data-key]:last-child{border-bottom:0 !important}" +
+        "[data-cell][data-open]{outline:2px solid #A8261B;outline-offset:-1px}";
+      document.head.appendChild(st);
+    }
+    var live = document.querySelector("section[data-live]");
+    dayBody.textContent = "";
+    keys.forEach(function (k) {
+      var row = live && live.querySelector('[data-key="' + k + '"]');
+      if (row) dayBody.appendChild(row.cloneNode(true));
+    });
+    markBooks(dayBody);
+    dayHead.textContent = btn.getAttribute("data-head") || "";
+    closeDay();
+    day.hidden = false;
+    dayFor = btn.closest("[data-cell]") || btn;
+    dayFor.setAttribute("data-open", "");
+    // under the day, or over it if there is more room there; on a small screen
+    // it fits the room it has and scrolls inside
+    day.style.maxHeight = "";
+    var r = dayFor.getBoundingClientRect(), w = day.offsetWidth, h = day.offsetHeight;
+    var below = innerHeight - r.bottom - 18, above = r.top - 18, top;
+    if (h <= below || (below >= above && below >= 220)) {
+      if (h > below) day.style.maxHeight = below + "px";
+      top = r.bottom + scrollY + 6;
+    } else if (h <= above || above >= 220) {
+      if (h > above) { day.style.maxHeight = above + "px"; h = above; }
+      top = r.top + scrollY - 6 - h;
+    } else {
+      top = scrollY + Math.max(12, innerHeight - h - 12);
+    }
+    day.style.left = Math.max(12, Math.min(r.left + scrollX, scrollX + innerWidth - w - 12)) + "px";
+    day.style.top = top + "px";
+    day.scrollTop = 0;
+    if (window.rescanScripture) window.rescanScripture(dayBody);
+    if (byKeyboard) day.querySelector(".cal-day-x").focus();
+  }
+
   document.addEventListener("click", function (e) {
-    var btn = e.target.closest && e.target.closest(".cal-note");
+    var t = e.target.closest ? e.target : e.target.parentElement;
+    var btn = t.closest(".cal-note");
     if (btn) { e.preventDefault(); if (popFor === btn) closeNote(); else openNote(btn); return; }
-    if (pop && !pop.hidden && !(e.target.closest && e.target.closest(".cal-pop"))) closeNote();
+    if (pop && !pop.hidden && !t.closest(".cal-pop")) closeNote();
+    var dot = t.closest(".cal-dot"), cell = !dot && t.closest(".cal-day");
+    if (dot || cell) {
+      var keys = dot ? [dot.getAttribute("data-key")] : (cell.getAttribute("data-keys") || "").split(" ");
+      openDay(dot || cell, keys, e.detail === 0);
+      return;
+    }
+    if (day && !day.hidden && !t.closest(".cal-day-pop") && !t.closest(".cal-pop")) closeDay();
   });
-  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeNote(); });
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Escape") return;
+    if (pop && !pop.hidden) { closeNote(); return; }
+    if (day && !day.hidden) { var back = dayFor; closeDay(); var b = back && back.querySelector(".cal-day"); if (b) b.focus(); }
+  });
 
   /* On a touch screen the first tap on a reference only shows its verses
      (RefTagger opens the pop-up on the hover a tap sets off); a second tap on
