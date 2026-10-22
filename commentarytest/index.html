@@ -2023,3 +2023,24 @@ pvRender = function(){
 </script>
 <script src="../scripture-context.js"></script>
 <script src="../RefTagger.js"></script>
+<script>
+  /* On a touch screen the first tap on a Scripture reference only shows its
+     verses (RefTagger opens the pop-up on the hover a tap sets off); a second
+     tap on the same reference opens it at biblia.com (Joshua, 2026-10-21, as
+     on the Hebrew Calendar). Armed on pointerdown rather than click: iOS
+     already swallows the click of a first tap that opens a hover pop-up, so
+     counting clicks would take three taps. */
+  (function () {
+    var touch = false, armed = null, follow = false;
+    document.addEventListener("pointerdown", function (e) {
+      var a = e.target.closest && e.target.closest("a.rtBibleRef");
+      touch = e.pointerType === "touch";
+      follow = touch && !!a && armed === a;
+      armed = touch && a ? a : null;
+    }, true);
+    document.addEventListener("click", function (e) {
+      var a = e.target.closest && e.target.closest("a.rtBibleRef");
+      if (a && touch && !follow) e.preventDefault();
+    }, true);
+  })();
+</script>

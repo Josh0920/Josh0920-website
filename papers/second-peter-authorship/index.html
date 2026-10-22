@@ -29,8 +29,14 @@
 <script>
 /* The paper opens in the library's reader, so hand off to it the same way
    404.html used to: stash the path, then replace this entry in history. The
-   library restores the URL, leaving the shared link in the address bar. */
+   library restores the URL, leaving the shared link in the address bar.
+   Link-preview fetchers stay on this page: Apple's (Messages, iMessage) runs
+   this script while it builds a preview, and on the library it read the
+   library's own title and picture instead of this item's. It names itself
+   as facebookexternalhit/Twitterbot, like most of the others. */
 (function () {
+  if (/facebookexternalhit|facebot|twitterbot|slackbot|discordbot|whatsapp|telegrambot|linkedinbot|pinterest|redditbot|applebot|googlebot|bingbot|embedly|iframely|skypeuripreview|bot\/|crawler|spider/i
+      .test(navigator.userAgent)) return;
   try {
     sessionStorage.setItem("spaPath", "/papers/second-peter-authorship/" + window.location.search);
   } catch (e) {
