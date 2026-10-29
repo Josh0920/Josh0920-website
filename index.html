@@ -722,22 +722,28 @@
     }
     .reader-back[hidden]{ display:none; }
     .reader-back:hover{ text-decoration: underline; text-underline-offset: 3px; }
-    .class-page{ display:flex; flex-direction:column; gap: 22px; }
-    .modal-body.no-pdf .modal-sidebar .body .class-page > p{ margin: 0; }
-    .modal-body.no-pdf .modal-sidebar .body .class-page .lesson h2{ margin: 0 0 10px; }
-    .modal-body.no-pdf .modal-sidebar .body .class-page .lesson ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap: 8px; }
-    .modal-body.no-pdf .modal-sidebar .body .class-page a.lesson-item{
-      display:flex; align-items:baseline; gap: 14px;
-      padding: 12px 14px; border: 1px solid var(--rule); border-radius: 10px;
-      color: var(--ink); text-decoration:none; background: color-mix(in srgb, var(--paper) 92%, var(--bg));
-      transition: border-color .12s ease;
+    /* The class page is set like the home page, not like an article: Slides
+       and Handouts under section heads, the items as the library's own cards,
+       their formats as tags (Joshua: "copy your main page style"). */
+    .modal-body.no-pdf .modal-sidebar .body .class-page{
+      display:flex; flex-direction:column; gap: 34px;
+      font-family: var(--sans); font-size: 14px; line-height: 1.5;
     }
-    .modal-body.no-pdf .modal-sidebar .body .class-page a.lesson-item:hover{
-      border-color: color-mix(in srgb, var(--accent) 45%, var(--rule));
+    .modal-body.no-pdf .modal-sidebar .body .class-page .class-intro{
+      margin: 0; color: var(--muted); font-size: 15px; line-height: 1.6;
     }
-    .class-page .lesson-title{ flex: none; font-weight: 600; }
-    .class-page .lesson-formats{ flex: 1; min-width:0; font-size: .85em; color: var(--muted); }
-    .class-page .lesson-go{ flex:none; color: var(--accent); }
+    .modal-body.no-pdf .modal-sidebar .body .class-page .section-head h2{
+      margin: 0; font-size: 20px; font-weight: 900; line-height: 1.3;
+    }
+    .modal-body.no-pdf .modal-sidebar .body .class-page a.item{
+      color: var(--ink); text-decoration: none;
+    }
+    .modal-body.no-pdf .modal-sidebar .body .class-page a.item:focus-visible{
+      outline: 2px solid var(--accent); outline-offset: 2px;
+    }
+    @media (max-width: 620px){
+      .modal-body.no-pdf .modal-sidebar .body .class-page{ gap: 28px; }
+    }
 
     /* Split layout: PDF left, info/comments right */
     .modal-body{
@@ -2285,6 +2291,7 @@
         download_handout: "Download Handout",
         kind_slides: "Slides",
         kind_handout: "Handout",
+        kind_handouts: "Handouts",
         contents: "Contents",
         slides_range: "Slides {r}",
         show_fewer: "Show fewer",
@@ -2344,6 +2351,7 @@ footer_right: "To Him Be the Glory",
         download_handout: "Descargar folleto",
         kind_slides: "Diapositivas",
         kind_handout: "Folleto",
+        kind_handouts: "Folletos",
         contents: "Contenido",
         slides_range: "Diapositivas {r}",
         show_fewer: "Mostrar menos",
@@ -3478,26 +3486,29 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
       bar.style.transform = "scaleX(" + (max > 0 ? Math.min(1, this.scrollTop / max) : 0) + ")";
     }, { passive: true });
 
-    /* A class's page: its lessons in order, each with its slides and
-       handouts. Every item is a real link to its own URL, opened here in
-       the reader. */
+    /* A class's page: a Slides section and a Handouts section (Joshua,
+       2026-10-29), each card named by its lesson. Every item is a real link
+       to its own URL, opened here in the reader. */
     function classPage(item){
       const items = CONTENT.filter(c => c.parent === item.id);
-      const lessons = [];
-      for (const c of items) {
-        let l = lessons.find(x => x.title === c.lesson);
-        if (!l) lessons.push(l = { title: c.lesson, items: [] });
-        l.items.push(c);
-      }
-      const lessonEs = id => (CONTENT_ES[id] && CONTENT_ES[id].lesson) || null;
+      const lesson = c => (state.lang === "es" && CONTENT_ES[c.id] && CONTENT_ES[c.id].lesson) || c.lesson || getLocalizedTitle(c);
+      // the home page's card, with the item's formats where its tags would be
+      const card = c => `<a class="item" href="${escapeHtml(canonicalPath(c))}" data-open="${escapeHtml(c.id)}">
+          <div>
+            <div class="badge"><strong>${escapeHtml(t(c.kind === "Slides" ? "kind_slides" : "kind_handout"))}</strong> \u00b7 ${escapeHtml(formatDate(c.date || ""))}</div>
+            <div class="title">${escapeHtml(lesson(c))}</div>
+            <div class="excerpt">${escapeHtml(getLocalizedExcerpt(c))}</div>
+          </div>
+          <div class="meta"><div class="tags">${(c.downloads || []).map(d => `<span class="tag">${escapeHtml(d.label)}</span>`).join("")}</div></div>
+        </a>`;
+      const sections = [["kind_slides", "Slides"], ["kind_handouts", "Handout"]]
+        .map(([head, kind]) => [head, items.filter(c => c.kind === kind)])
+        .filter(([, list]) => list.length);
       return `<div class="class-page">
-        <p>${escapeHtml(getLocalizedExcerpt(item))}</p>
-        ${lessons.map(l => `<section class="lesson">
-          <h2>${escapeHtml(state.lang === "es" ? (lessonEs(l.items[0].id) || l.title) : l.title)}</h2>
-          <ul>${l.items.map(c => `<li><a class="lesson-item" href="${escapeHtml(canonicalPath(c))}" data-open="${escapeHtml(c.id)}">
-            <span class="lesson-title">${escapeHtml(t(c.kind === "Slides" ? "kind_slides" : "kind_handout"))}</span>
-            <span class="lesson-formats">${escapeHtml((c.downloads || []).map(d => d.label).join(" \u00b7 "))}</span>
-            <span class="lesson-go" aria-hidden="true">\u2192</span></a></li>`).join("")}</ul>
+        <p class="class-intro">${escapeHtml(getLocalizedExcerpt(item))}</p>
+        ${sections.map(([head, list]) => `<section>
+          <div class="section-head"><h2>${escapeHtml(t(head))}</h2></div>
+          <div class="grid">${list.map(card).join("")}</div>
         </section>`).join("")}
       </div>`;
     }
