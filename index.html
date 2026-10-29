@@ -713,6 +713,32 @@
        2026-10-22: "so i can flip between english and spanish versions") */
     #ownLangBtn[hidden]{ display:none; }
 
+    /* A class (Notes that hold other Notes, e.g. Matthew): its card opens a
+       page of lessons, each listing its slides and handouts; an item opened
+       from it carries a link back (Joshua, 2026-10-29). */
+    .reader-back{
+      border:0; background:none; padding:0; cursor:pointer;
+      font: inherit; font-size: 13px; color: var(--accent); white-space:nowrap;
+    }
+    .reader-back[hidden]{ display:none; }
+    .reader-back:hover{ text-decoration: underline; text-underline-offset: 3px; }
+    .class-page{ display:flex; flex-direction:column; gap: 22px; }
+    .modal-body.no-pdf .modal-sidebar .body .class-page > p{ margin: 0; }
+    .modal-body.no-pdf .modal-sidebar .body .class-page .lesson h2{ margin: 0 0 10px; }
+    .modal-body.no-pdf .modal-sidebar .body .class-page .lesson ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap: 8px; }
+    .modal-body.no-pdf .modal-sidebar .body .class-page a.lesson-item{
+      display:flex; align-items:baseline; gap: 14px;
+      padding: 12px 14px; border: 1px solid var(--rule); border-radius: 10px;
+      color: var(--ink); text-decoration:none; background: color-mix(in srgb, var(--paper) 92%, var(--bg));
+      transition: border-color .12s ease;
+    }
+    .modal-body.no-pdf .modal-sidebar .body .class-page a.lesson-item:hover{
+      border-color: color-mix(in srgb, var(--accent) 45%, var(--rule));
+    }
+    .class-page .lesson-title{ flex: none; font-weight: 600; }
+    .class-page .lesson-formats{ flex: 1; min-width:0; font-size: .85em; color: var(--muted); }
+    .class-page .lesson-go{ flex:none; color: var(--accent); }
+
     /* Split layout: PDF left, info/comments right */
     .modal-body{
       flex:1;
@@ -1431,6 +1457,7 @@
     <div class="modal">
       <header>
         <div class="modal-header-left">
+          <button type="button" class="reader-back" id="readerBack" hidden></button>
           <h3 id="modalType">Reader</h3>
           <h2 class="modal-title-inline" id="modalTitleBar"></h2>
         </div>
@@ -1560,6 +1587,76 @@
           { label: "PowerPoint", ext: ".pptx", href: "notes/nt-canon/NT Canon.pptx" },
           { label: "Keynote", ext: ".key", href: "notes/nt-canon/NT Canon.key" },
           { label: "PDF", ext: ".pdf", href: "notes/nt-canon/NT Canon.pdf" }
+        ]
+      },
+
+      {
+        id: "matthew",
+        type: "Notes",
+        title: "Matthew",
+        date: "2026-10-29",
+        featured: false,
+        tags: ["Matthew", "New Testament", "Gospels"],
+        excerpt: "Class material on the Gospel of Matthew: slides and handouts, lesson by lesson.",
+        // A class (Joshua, 2026-10-29): this card opens a page of its lessons
+        // at /notes/matthew/. Each lesson's slides and handouts are the
+        // entries that follow (parent: "matthew"); they stay off the grid and
+        // open from that page, each at its own URL under /notes/matthew/.
+        path: "notes/matthew/",
+        collection: true
+      },
+      {
+        id: "matthew-structure-slides",
+        parent: "matthew",
+        lesson: "The Structure of Matthew",
+        kind: "Slides",
+        type: "Notes",
+        title: "The Structure of Matthew",
+        date: "2026-10-29",
+        featured: false,
+        tags: ["Matthew", "New Testament", "Gospels"],
+        excerpt: "Class slides: Matthew 1\u20135 read as a new Torah, and the five discourses of Jesus with the story sections around them.",
+        slides: "notes/matthew/slides/structure/",
+        downloads: [
+          { label: "PowerPoint", ext: ".pptx", href: "notes/matthew/slides/structure/Structure of Matthew.pptx" },
+          { label: "Keynote", ext: ".key", href: "notes/matthew/slides/structure/Structure of Matthew.key" },
+          { label: "PDF", ext: ".pdf", href: "notes/matthew/slides/structure/Structure of Matthew.pdf" }
+        ]
+      },
+      {
+        id: "matthew-structure-handout",
+        parent: "matthew",
+        lesson: "The Structure of Matthew",
+        kind: "Handout",
+        type: "Notes",
+        title: "The Structure of Matthew: Handout",
+        date: "2026-10-29",
+        featured: false,
+        tags: ["Matthew", "New Testament", "Gospels"],
+        excerpt: "A two-page outline: Matthew 1\u20135 and the Torah, the five discourses, and the story sections between them.",
+        pdfHref: "notes/matthew/handouts/structure/Structure of Matthew Handout.pdf",
+        path: "notes/matthew/handouts/structure/",
+        downloads: [
+          { label: "PDF", ext: ".pdf", href: "notes/matthew/handouts/structure/Structure of Matthew Handout.pdf" },
+          { label: "Word", ext: ".docx", href: "notes/matthew/handouts/structure/Structure of Matthew Handout.docx" }
+        ]
+      },
+      {
+        id: "matthew-8-9-handout",
+        parent: "matthew",
+        lesson: "Matthew 8\u20139",
+        kind: "Handout",
+        type: "Notes",
+        title: "Matthew 8\u20139: Handout",
+        date: "2026-10-29",
+        featured: false,
+        tags: ["Matthew", "New Testament", "Gospels", "Miracles"],
+        excerpt: "Jesus with the people: the healings of Matthew 8\u20139, and who believes and who does not.",
+        pdfHref: "notes/matthew/handouts/8-9/Matthew 8-9 Handout.pdf",
+        path: "notes/matthew/handouts/8-9/",
+        downloads: [
+          { label: "PDF", ext: ".pdf", href: "notes/matthew/handouts/8-9/Matthew 8-9 Handout.pdf" },
+          { label: "Word", ext: ".docx", href: "notes/matthew/handouts/8-9/Matthew 8-9 Handout.docx" }
         ]
       },
 
@@ -2185,6 +2282,9 @@
         empty_title: "No results.",
         view_all: "View all {n}",
         download_slideshow: "Download Slideshow",
+        download_handout: "Download Handout",
+        kind_slides: "Slides",
+        kind_handout: "Handout",
         contents: "Contents",
         slides_range: "Slides {r}",
         show_fewer: "Show fewer",
@@ -2241,6 +2341,9 @@ footer_right: "To Him Be the Glory",
         empty_title: "No hay resultados.",
         view_all: "Ver los {n}",
         download_slideshow: "Descargar presentación",
+        download_handout: "Descargar folleto",
+        kind_slides: "Diapositivas",
+        kind_handout: "Folleto",
         contents: "Contenido",
         slides_range: "Diapositivas {r}",
         show_fewer: "Mostrar menos",
@@ -2279,6 +2382,22 @@ footer_right: "A Él sea la gloria",
 
     // Spanish titles/excerpts (titles must end with "(En inglés)" in ES mode)
     const CONTENT_ES = {
+      "matthew": {
+        title: "Mateo",
+        excerpt: "Material de clase sobre el Evangelio de Mateo: diapositivas y folletos, lección por lección."
+      },
+      "matthew-structure-slides": {
+        title: "La estructura de Mateo", lesson: "La estructura de Mateo",
+        excerpt: "Diapositivas de clase: Mateo 1\u20135 leído como una nueva Torá, y los cinco discursos de Jesús con las secciones narrativas que los rodean."
+      },
+      "matthew-structure-handout": {
+        title: "La estructura de Mateo: folleto", lesson: "La estructura de Mateo",
+        excerpt: "Un esquema de dos páginas: Mateo 1\u20135 y la Torá, los cinco discursos y las secciones narrativas entre ellos."
+      },
+      "matthew-8-9-handout": {
+        title: "Mateo 8\u20139: folleto", lesson: "Mateo 8\u20139",
+        excerpt: "Jesús con el pueblo: las sanidades de Mateo 8\u20139, y quién cree y quién no."
+      },
       "john-7-53-8-11": {
         title: "¿Forma parte Juan 7:53–8:11 del texto original de Juan?",
         excerpt: "Un análisis de crítica textual de Juan 7:53–8:11 y su evidencia externa a partir de los testigos manuscritos y los primeros Padres de la Iglesia."
@@ -2598,6 +2717,7 @@ const TAGS_ES = {
   "Podcast": "Pódcast",
   "Faith": "Fe",
   "Miracles": "Milagros",
+  "Gospels": "Evangelios",
   "Zephaniah": "Sofonías",
   "Sin": "Pecado",
   "Philippians": "Filipenses",
@@ -2662,6 +2782,7 @@ const TAGS_ES = {
   "Parábolas": "Parables",
   "Fe": "Faith",
   "Milagros": "Miracles",
+  "Evangelios": "Gospels",
   "Pecado": "Sin",
   "Filipenses": "Philippians",
   "Humildad": "Humility",
@@ -2763,7 +2884,7 @@ function localizeType(type){
       // document language
       document.documentElement.setAttribute("lang", state.lang === "es" ? "es" : "en");
       if (slidesViewer) slidesViewer.setLang(state.lang);
-      document.getElementById("slidesDlLabel").textContent = t("download_slideshow");
+      document.getElementById("slidesDlLabel").textContent = t(typeof downloadsLabel === "string" ? downloadsLabel : "download_slideshow");
       document.getElementById("slidesContentsHead").textContent = t("contents");
       document.querySelectorAll("#slidesContentsList .sc-range").forEach(el => {
         el.textContent = t("slides_range").replace("{r}", el.textContent.replace(/^\D+/, ""));
@@ -2911,6 +3032,7 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
 
     function contentMatches(item) {
       const q = normalize(state.query).trim();
+      if (item.parent) return false;            // a class's items open from the class
       if (state.type !== "All" && item.type !== state.type) return false;
       if (state.tag && !(item.tags || []).includes(state.tag)) return false;
       // Spanish-only originals (no English counterpart) are hidden in EN mode
@@ -2925,7 +3047,8 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
   item.excerpt,
   item.body,
   (item.tags || []).join(" "),
-  (item.tags || []).map(tg => localizeTag(tg, item)).join(" ")
+  (item.tags || []).map(tg => localizeTag(tg, item)).join(" "),
+  item.collection ? CONTENT.filter(c => c.parent === item.id).map(c => [c.title, c.lesson, getLocalizedTitle(c)].join(" ")).join(" ") : ""
 ].join(" | "));
 
       return hay.includes(q);
@@ -3204,7 +3327,14 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
 
       const locTitle = getLocalizedTitle(item);
 
-      // Populate header
+      // Populate header; an item of a class links back to it
+      const parentItem = item.parent ? CONTENT.find(x => x.id === item.parent) : null;
+      const back = document.getElementById("readerBack");
+      back.hidden = !parentItem;
+      if (parentItem) {
+        back.textContent = "\u2190 " + getLocalizedTitle(parentItem);
+        back.dataset.id = parentItem.id;
+      }
       els.modalType.textContent = localizeType(item.type);
       els.modalTitleBar.textContent = locTitle;
       els.modalTitle.textContent = locTitle;
@@ -3268,6 +3398,11 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
         els.mobilePdfBtn.classList.remove("hidden");
         els.mobilePdfBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg> ' + (state.lang === "es" ? "Abrir PDF" : "Open PDF");
         els.modalBody.innerHTML = "";
+        // a handout offers its formats in the download menu
+        if (item.downloads && item.downloads.length) {
+          els.downloadBtn.style.display = "none";
+          setSlidesDownloads(item.downloads, "download_handout");
+        }
       } else {
         els.modalPdf.innerHTML = "";
         els.modalPdf.style.display = "none";
@@ -3315,6 +3450,8 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
             .catch(() => {
               els.modalBody.innerHTML = `<iframe src="${escapeHtml(localizedHref)}" style="width:100%;height:60vh;border:none;border-radius:10px;"></iframe>`;
             });
+        } else if (item.collection) {
+          els.modalBody.innerHTML = classPage(item);
         } else {
           els.modalBody.innerHTML = item.body || "";
         }
@@ -3341,15 +3478,51 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
       bar.style.transform = "scaleX(" + (max > 0 ? Math.min(1, this.scrollTop / max) : 0) + ")";
     }, { passive: true });
 
-    /* "Download Slideshow": the deck in each format it is published in. */
-    function setSlidesDownloads(list){
+    /* A class's page: its lessons in order, each with its slides and
+       handouts. Every item is a real link to its own URL, opened here in
+       the reader. */
+    function classPage(item){
+      const items = CONTENT.filter(c => c.parent === item.id);
+      const lessons = [];
+      for (const c of items) {
+        let l = lessons.find(x => x.title === c.lesson);
+        if (!l) lessons.push(l = { title: c.lesson, items: [] });
+        l.items.push(c);
+      }
+      const lessonEs = id => (CONTENT_ES[id] && CONTENT_ES[id].lesson) || null;
+      return `<div class="class-page">
+        <p>${escapeHtml(getLocalizedExcerpt(item))}</p>
+        ${lessons.map(l => `<section class="lesson">
+          <h2>${escapeHtml(state.lang === "es" ? (lessonEs(l.items[0].id) || l.title) : l.title)}</h2>
+          <ul>${l.items.map(c => `<li><a class="lesson-item" href="${escapeHtml(canonicalPath(c))}" data-open="${escapeHtml(c.id)}">
+            <span class="lesson-title">${escapeHtml(t(c.kind === "Slides" ? "kind_slides" : "kind_handout"))}</span>
+            <span class="lesson-formats">${escapeHtml((c.downloads || []).map(d => d.label).join(" \u00b7 "))}</span>
+            <span class="lesson-go" aria-hidden="true">\u2192</span></a></li>`).join("")}</ul>
+        </section>`).join("")}
+      </div>`;
+    }
+    document.getElementById("modalBody").addEventListener("click", (e)=>{
+      const a = e.target.closest && e.target.closest("a[data-open]");
+      if (!a || e.metaKey || e.ctrlKey || e.shiftKey) return;
+      e.preventDefault();
+      openReader(a.dataset.open);
+    });
+    document.getElementById("readerBack").addEventListener("click", (e)=>{
+      openReader(e.currentTarget.dataset.id);
+    });
+
+    /* "Download Slideshow": the deck in each format it is published in.
+       A handout uses the same menu under its own label. */
+    var downloadsLabel = "download_slideshow";      // var: applyLanguage may run first
+    function setSlidesDownloads(list, label){
       const wrap = document.getElementById("slidesDl");
       const pop = document.getElementById("slidesDlPop");
       closeSlidesMenu();
       pop.innerHTML = list.map(d =>
         `<a role="menuitem" href="${escapeHtml(d.href)}" download>${escapeHtml(d.label)}<span>${escapeHtml(d.ext)}</span></a>`
       ).join("");
-      document.getElementById("slidesDlLabel").textContent = t("download_slideshow");
+      downloadsLabel = label || "download_slideshow";
+      document.getElementById("slidesDlLabel").textContent = t(downloadsLabel);
       wrap.hidden = !list.length;
     }
     function closeSlidesMenu(focusButton){
@@ -3417,7 +3590,7 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
     }
 
     // Bump when notes/slides.js or slides.css change, so no one keeps an old copy.
-    const SLIDES_VERSION = "2026-10-10a";
+    const SLIDES_VERSION = "2026-10-29a";
     function loadSlideViewer(){
       if (window.SlideViewer) return Promise.resolve();
       if (!slidesAssets) slidesAssets = new Promise((resolve, reject) => {
@@ -3442,6 +3615,7 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
       els.overlay.classList.remove("show", "own-page");
       document.getElementById("ownPageHost").innerHTML = "";
       document.getElementById("ownLangBtn").hidden = true;
+      document.getElementById("readerBack").hidden = true;
       document.body.style.overflow = "";
       // Clean up iframes to stop any media/loading
       els.modalPdf.innerHTML = "";
@@ -3456,6 +3630,7 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
        the path back to us. */
     function canonicalPath(item, localizedHref){
       if (item.slides) return "/" + String(item.slides).replace(/^\/+/, "");
+      if (item.path) return "/" + String(item.path).replace(/^\/+/, "");   // a class and its handouts
       const href = localizedHref || item.href;
       return href ? "/" + String(href).replace(/^\/+/, "")
                   : "/papers/" + encodeURIComponent(item.id) + "/";
@@ -3490,6 +3665,10 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
       if (location.hash) history.replaceState(null, "", location.pathname + location.search);
 
       const path = decodeURIComponent(location.pathname);
+      // an item with a URL of its own (a class, its slides and handouts)
+      const slash = v => v.replace(/\/+$/, "") + "/";
+      const own = CONTENT.find(x => (x.path || x.slides) && slash("/" + String(x.path || x.slides).replace(/^\/+/, "")) === slash(path));
+      if (own) { openReader(own.id); return; }
       let m = path.match(/\/papers\/([^\/]+)\/?$/);
       if (m && openIfKnown(m[1])) return;
       /* Only reachable when an article path was restored from 404.html — the

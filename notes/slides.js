@@ -12,8 +12,13 @@
    - an object that has no partner fades out between 2.5% and 26.5% of the
      morph, easing in;
    - a new object stays hidden until 44.5% and then fades in, easing out;
-   - Wipe (filter "wipe(down)") uncovers from the bottom edge up, at an even
-     speed, over the object's on-screen bounds;
+   - Wipe uncovers from the edge its filter names ("wipe(down)": the bottom
+     edge up; "wipe(left)": the left edge across) at an even speed, over the
+     object's on-screen bounds, behind a soft edge 16% of its size (10-90%
+     ramp about 11%; measured on the Matthew deck's wipes, 2026-10-29);
+   - an object paired with an out-of-sight copy on the other slide (a point,
+     clear text) shrinks into it, text by its font size, fading as it goes,
+     both on the morph's curve (Matthew deck 17→18);
    - text that re-wraps moves word by word, not as a block.
 
    It can also lay the deck out as pages to scroll through, like the PDF.
@@ -58,6 +63,7 @@
   const MORPH = cubicBezier(0.25, 0.15, 0.35, 1);
   const FADE_OUT = { from: 0.025, to: 0.265, ease: cubicBezier(0.4, 0, 1, 1) };
   const FADE_IN = { from: 0.445, to: 1.0, ease: cubicBezier(0.2, 0.4, 0.4, 1) };
+  const WIPE_BAND = 0.16;                 // a wipe's soft edge, as a share of the object's size
 
   function windowed(p, w) {
     return w.ease(Math.min(1, Math.max(0, (p - w.from) / (w.to - w.from))));
@@ -464,7 +470,7 @@
         for (const lid in sh.layers) {
           const img = sh.layers[lid];
           img.style.opacity = "";
-          img.style.clipPath = "";
+          img.style.maskImage = img.style.webkitMaskImage = "";
           img.style.visibility = st.hidden.has(lid) ? "hidden" : "visible";
         }
         for (const a of sh.links) a.style.visibility = st.hidden.has(a._lid) ? "hidden" : "visible";
@@ -519,9 +525,14 @@
       }
       const m = /^wipe\((\w+)\)/.exec(filter);
       if (m) {
-        const cut = ((1 - shown) * 100).toFixed(3) + "%";
-        const inset = { down: `${cut} 0 0 0`, up: `0 0 ${cut} 0`, right: `0 ${cut} 0 0`, left: `0 0 0 ${cut}` }[m[1]] || `${cut} 0 0 0`;
-        img.style.clipPath = shown >= 1 ? "" : `inset(${inset})`;
+        // The filter names the edge the wipe starts from ("wipe(left)" is
+        // PowerPoint's "From Left"). A soft band WIPE_BAND of the object's size
+        // crosses it at an even speed, entering and leaving fully.
+        if (shown >= 1) { img.style.maskImage = img.style.webkitMaskImage = ""; return; }
+        const dir = { down: "to top", up: "to bottom", left: "to right", right: "to left" }[m[1]] || "to top";
+        const c = -WIPE_BAND / 2 + (1 + WIPE_BAND) * shown;
+        img.style.maskImage = img.style.webkitMaskImage =
+          `linear-gradient(${dir}, #000 ${((c - WIPE_BAND / 2) * 100).toFixed(3)}%, transparent ${((c + WIPE_BAND / 2) * 100).toFixed(3)}%)`;
         return;
       }
       img.style.opacity = shown >= 1 ? "" : String(shown);    // unknown effect: fade
@@ -615,6 +626,7 @@
     }
 
     function show(v, st) {
+      frame.style.background = v.s.bg || "";      // a slide whose ground differs from the deck's
       applyState(v, st);
       canvas.replaceChildren(v.el);
       view = v;
@@ -737,6 +749,31 @@
             });
           }
         }
+      }
+      /* An object whose partner on the other slide is kept out of sight (a
+         point-sized copy with clear text or fill) morphs into it: it shrinks
+         into that box — text by its font size, about the box's centre — and
+         fades, both on the morph's curve, as PowerPoint's movie shows. */
+      const toward = (el, home, gh, e) => {
+        const g = lerpBox(home, gh.to, e);
+        if (gh.k) {
+          // text scales by its font size about the box's centre
+          const s = lerp(1, gh.k, e), cx = g.x + g.w / 2, cy = g.y + g.h / 2;
+          el.style.transform = `translate(${cx - s * home.w / 2 - home.x}px, ${cy - s * home.h / 2 - home.y}px) scale(${s})`;
+        } else setGeom(el, home, g, true);
+      };
+      for (const g of tr.ghosts || []) {
+        const a = A.shapes[g.a];
+        if (!a) continue;
+        const ga = geomA(g.a);
+        track(p => { const e = MORPH(p); toward(a.el, ga, g, e); a.el.style.opacity = String(1 - e); });
+      }
+      for (const g of tr.ghostsIn || []) {
+        const b = B.shapes[g.b];
+        if (!b) continue;
+        const gb = b.sh.box;
+        b.el.style.opacity = "0";
+        track(p => { const e = MORPH(p); toward(b.el, gb, g, 1 - e); b.el.style.opacity = String(e); });
       }
       for (const uid of tr.outA || []) {
         const a = A.shapes[uid];
@@ -988,6 +1025,7 @@
       if (destroyed) return;
       const v = buildView(i);
       applyState(v, v.states[Math.min(k, v.states.length - 1)]);
+      if (v.s.bg) fig.querySelector(".sv-page-frame").style.background = v.s.bg;
       fig.querySelector(".sv-page-canvas").appendChild(v.el);
     }
 
@@ -1054,6 +1092,10 @@
       .then(d => {
         if (destroyed) return;
         deck = d;
+        // The slide's ground: white unless the deck says otherwise (the
+        // Matthew deck is black, from its master). The layers are drawn on
+        // no fill, so this is what shows behind them.
+        if (d.bg) root.style.setProperty("--sv-slide-bg", d.bg);
         status.textContent = "";
         paintMarks();
         fit();
