@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mateo — Josué Haub</title>
+<meta name="description" content="Material de clase sobre el Evangelio de Mateo: diapositivas y folletos, lección por lección.">
+<link rel="canonical" href="https://joshuahaub.com/notes/matthew/es/">
+<link rel="alternate" hreflang="en" href="https://joshuahaub.com/notes/matthew/">
+<link rel="alternate" hreflang="es" href="https://joshuahaub.com/notes/matthew/es/">
+<link rel="icon" href="/favicon.ico?v=jmh" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=jmh">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Joshua's Bible Library">
+<meta property="og:locale" content="es_LA">
+<meta property="og:title" content="Mateo">
+<meta property="og:description" content="Material de clase sobre el Evangelio de Mateo: diapositivas y folletos, lección por lección.">
+<meta property="og:url" content="https://joshuahaub.com/notes/matthew/es/">
+<meta property="og:image" content="https://joshuahaub.com/og/matthew.png?v=e6562ab2">
+<meta property="og:image:secure_url" content="https://joshuahaub.com/og/matthew.png?v=e6562ab2">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Matthew">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mateo">
+<meta name="twitter:description" content="Material de clase sobre el Evangelio de Mateo: diapositivas y folletos, lección por lección.">
+<meta name="twitter:image" content="https://joshuahaub.com/og/matthew.png?v=e6562ab2">
+<script>
+/* The site's theme: the library keeps the visitor's choice in localStorage. */
+try { if (localStorage.getItem("theme") === "dark") document.documentElement.setAttribute("data-theme", "dark"); } catch (e) {}
+</script>
+<style>
+
+:root{
+  --bg:#fbfbf8; --paper:#fff; --ink:#101418; --ink-2:#2b323b; --muted:#586171; --dot:#9aa1ad;
+  --line:rgba(16,20,24,.1); --rule:rgba(16,20,24,.12); --pill:rgba(16,20,24,.14);
+  --field:rgba(16,20,24,.16); --key:rgba(16,20,24,.25); --hair:rgba(16,20,24,.08); --soft:rgba(16,20,24,.06);
+  --accent:#1f4bd8; --accent-hover:#1639a8; --accent-2:#0b7a5a; --on-accent:#fff;
+  --lift:0 10px 28px rgba(16,20,24,.06);
+  --panel:#101418; --panel-ink:#fbfbf8; --panel-muted:#c9ced6;
+  --sans:ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --serif:ui-serif, Georgia, "Times New Roman", serif;
+  --mono:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+[data-theme="dark"]{
+  --bg:#0f1216; --paper:#12161c; --ink:#e9edf3; --ink-2:#cfd5de; --muted:#a6afbf; --dot:#6b7484;
+  --line:rgba(233,237,243,.12); --rule:rgba(233,237,243,.14); --pill:rgba(233,237,243,.18);
+  --field:rgba(233,237,243,.2); --key:rgba(233,237,243,.3); --hair:rgba(233,237,243,.09); --soft:rgba(233,237,243,.08);
+  --accent:#86a3ff; --accent-hover:#a9bfff; --accent-2:#7bd8b5; --on-accent:#0f1216;
+  --lift:0 18px 40px rgba(0,0,0,.40);
+  --panel:#e9edf3; --panel-ink:#0f1216; --panel-muted:#3a4250;
+  color-scheme: dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg)}
+a{color:var(--accent)} a:hover{color:var(--accent-hover)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+p,h1,h2,h3{margin:0}
+.page{min-height:100vh;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-text-size-adjust:100%}
+.wrap{max-width:1140px;margin:0 auto;padding-left:32px;padding-right:32px}
+
+/* the site's top bar */
+.site{border-bottom:1px solid var(--line);background:var(--bg)}
+.site-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:14px;padding-bottom:14px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
+.brand:hover{color:var(--ink)}
+.brand img{width:44px;height:44px;border-radius:50%;object-fit:cover;display:block}
+.brand-text{display:flex;flex-direction:column;line-height:1.25}
+.brand-title{font-weight:700;font-size:15px}
+.brand-sub{font-size:12px;color:var(--muted)}
+.nav{display:flex;gap:4px;flex-wrap:wrap;align-items:center}
+.navlink{display:inline-flex;align-items:center;min-height:40px;padding:0 12px;border-radius:8px;color:var(--muted);text-decoration:none;font-size:14px}
+.navlink:hover{color:var(--ink);background:var(--soft)}
+.navlink[aria-current="page"]{color:var(--ink);font-weight:600;box-shadow:inset 0 -2px 0 var(--accent);border-radius:0}
+.theme-btn,.copy-btn{min-height:40px;padding:0 14px;border:1px solid var(--pill);border-radius:999px;background:var(--paper);color:var(--ink);font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.theme-btn{margin-left:6px}
+.theme-btn:hover,.copy-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* hero */
+.hero-sec{padding-top:28px;padding-bottom:48px}
+.crumbs-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:44px}
+.crumbs{font-size:13px;color:var(--muted);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.crumbs a{color:var(--muted);text-decoration:none}
+.crumbs a:hover{color:var(--ink)}
+.crumbs [aria-current]{color:var(--ink);font-weight:600}
+.copy-btn{display:inline-flex;align-items:center;gap:8px}
+.hero{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:56px;align-items:end}
+.eyebrow{margin:0 0 14px;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--serif);font-size:88px;line-height:.95;font-weight:800;letter-spacing:-.02em}
+.lede{margin-top:22px;max-width:34ch;font-family:var(--serif);font-size:22px;line-height:1.45;color:var(--ink-2)}
+.facts{display:flex;align-items:center;gap:10px 18px;flex-wrap:wrap;margin-top:24px;font-size:13px;color:var(--muted)}
+.dot{width:4px;height:4px;border-radius:50%;background:var(--dot)}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.tag{padding:5px 10px;border-radius:6px;background:var(--soft);color:var(--ink);text-decoration:none;font-family:var(--mono);font-size:12px}
+.tag:hover{color:var(--accent)}
+.start{display:block;text-decoration:none;color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:24px;box-shadow:var(--lift);transition:border-color .12s ease}
+.start:hover{color:var(--ink);border-color:color-mix(in srgb, var(--accent) 45%, var(--rule))}
+.start-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.start-title{margin-top:10px;font-family:var(--serif);font-size:24px;font-weight:800;line-height:1.2}
+.start-text{margin-top:10px;font-size:14px;color:var(--muted)}
+.start-go{display:inline-flex;align-items:center;gap:6px;margin-top:18px;font-size:14px;font-weight:600;color:var(--accent)}
+
+/* the shape of the book */
+.map-sec{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--paper)}
+.map-wrap{padding-top:40px;padding-bottom:44px}
+.map-head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.map-head h2{font-family:var(--serif);font-size:26px;font-weight:800}
+.map-head p{margin-top:6px;font-size:14px;color:var(--muted);max-width:60ch}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.legend > span{display:inline-flex;align-items:center;gap:6px}
+.key{width:14px;height:14px;border-radius:3px}
+.key-narr{background:var(--paper);border:1px solid var(--key)}
+.key-disc{background:var(--accent)}
+.key-mark{height:3px;background:var(--accent-2)}
+.map{display:grid;grid-template-columns:repeat(28,minmax(0,1fr));gap:4px;list-style:none;margin:0;padding:0}
+.map li{display:flex;flex-direction:column;gap:4px}
+.ch{display:flex;align-items:center;justify-content:center;height:48px;border-radius:6px;font-size:13px}
+.ch-disc{background:var(--accent);color:var(--on-accent);font-weight:700}
+.ch-narr{background:var(--bg);border:1px solid var(--field);color:var(--ink-2);font-weight:600}
+.ch-mark{height:3px;border-radius:2px}
+.ch-mark.on{background:var(--accent-2)}
+.disc{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;list-style:none;margin:28px 0 0;padding:0}
+.disc li{padding:14px 16px;border-radius:10px;background:var(--bg);border:1px solid var(--line)}
+.disc-ref{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--muted)}
+.disc-name{margin-top:6px;font-family:var(--serif);font-size:17px;font-weight:800;line-height:1.25}
+.disc-end{margin-top:4px;font-size:12px;color:var(--muted)}
+
+/* lessons */
+.body-sec{padding-top:56px;padding-bottom:72px}
+.body{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:48px;align-items:start}
+.main-col{display:flex;flex-direction:column;gap:20px}
+.lessons-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.lessons-head h2{font-family:var(--serif);font-size:30px;font-weight:800}
+.lessons-head span{font-size:13px;color:var(--muted)}
+.lesson{background:var(--paper);border:1px solid var(--rule);border-radius:14px;overflow:hidden}
+.lesson-head{display:flex;gap:20px;padding:24px 24px 20px;align-items:flex-start}
+.lesson-num{flex:none;font-family:var(--serif);font-size:40px;line-height:1;font-weight:800;color:var(--accent)}
+.lesson-titles{min-width:0}
+.lesson-titles h3{font-family:var(--serif);font-size:22px;font-weight:800;line-height:1.25}
+.lesson-titles p{margin-top:4px;font-size:13px;color:var(--muted)}
+.lesson-body{border-top:1px solid var(--hair)}
+.mat{display:grid;grid-template-columns:120px minmax(0,1fr) auto;gap:20px;align-items:center;padding:18px 24px}
+.mat-next{border-top:1px solid var(--soft)}
+.mat-kind{display:inline-flex;align-items:center;gap:8px;color:var(--ink);text-decoration:none;font-family:var(--mono);font-size:11px;letter-spacing:.1em;font-weight:700}
+.mat-kind:hover{color:var(--accent)}
+.mat-text{font-size:14px;color:var(--ink-2)}
+.fmts{display:flex;gap:6px;flex-wrap:wrap}
+.fmt{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 12px;border:1px solid var(--pill);border-radius:999px;background:var(--paper);color:var(--ink);text-decoration:none;font-size:13px;font-weight:600}
+.fmt:hover{border-color:var(--accent);color:var(--accent)}
+
+/* comments: the library's (Supabase), in the design's form */
+.comments{margin-top:36px}
+.comments h2{margin:0 0 14px;font-family:var(--serif);font-size:24px;font-weight:800}
+.cm-list{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
+.cm-list:empty{display:none}
+.cm{background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:16px 18px}
+.cm-meta{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;font-size:13px}
+.cm-name{font-weight:700}
+.cm-date{color:var(--muted)}
+.cm-text{margin-top:6px;font-size:15px;color:var(--ink-2);overflow-wrap:anywhere}
+.cm-text p{margin:0 0 .5em}
+.cm-replies{margin-top:12px;padding-left:16px;border-left:2px solid var(--rule);display:flex;flex-direction:column;gap:12px}
+.cm-reply-btn{margin-top:8px;padding:0;border:0;background:none;color:var(--muted);font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.cm-reply-btn:hover{color:var(--accent)}
+.cm-form{display:flex;flex-direction:column;gap:10px;background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:18px}
+.cm-form label{font-size:13px;font-weight:600}
+.cm-form input,.cm-form textarea{font:inherit;font-size:15px;padding:12px;border:1px solid var(--field);border-radius:10px;background:var(--bg);color:var(--ink)}
+.cm-form textarea{resize:vertical}
+.cm-form .reply-row{display:flex;flex-direction:column;gap:8px}
+.cm-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.cm-foot span{font-size:13px;color:var(--muted)}
+.cm-foot button,.cm-reply-form button{min-height:44px;padding:0 20px;border:0;border-radius:999px;background:var(--ink);color:var(--bg);font:inherit;font-size:14px;font-weight:600;cursor:pointer}
+.cm-foot button:disabled,.cm-reply-form button:disabled{opacity:.6;cursor:default}
+.cm-reply-form{margin-top:10px;display:flex;flex-direction:column;gap:8px}
+.cm-reply-form[hidden]{display:none}
+.cm-reply-form input,.cm-reply-form textarea{font:inherit;font-size:15px;padding:10px 12px;border:1px solid var(--field);border-radius:10px;background:var(--bg);color:var(--ink)}
+.cm-reply-form button{align-self:flex-end;min-height:40px}
+
+/* sidebar */
+.side{display:flex;flex-direction:column;gap:16px}
+.box{background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:20px}
+.box-h{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.stats{margin:14px 0 0;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 12px;font-size:14px}
+.stats dt{color:var(--muted)}
+.stats dd{margin:0;font-weight:700;font-variant-numeric:tabular-nums}
+.free{background:var(--panel);color:var(--panel-ink);border-radius:14px;padding:20px}
+.free-h{font-family:var(--serif);font-size:19px;font-weight:700;line-height:1.35}
+.free-p{margin-top:8px;font-size:14px;color:var(--panel-muted)}
+.keep{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-direction:column}
+.keep a{display:flex;justify-content:space-between;min-height:44px;align-items:center;text-decoration:none;color:var(--ink);font-size:14px;font-weight:600;border-bottom:1px solid var(--hair)}
+.keep li:last-child a{border-bottom:0}
+.keep a:hover{color:var(--accent)}
+
+.site-foot{border-top:1px solid var(--line)}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-top:24px;padding-bottom:32px;font-size:13px;color:var(--muted)}
+.foot a{color:var(--muted)}
+.foot-motto{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--ink-2)}
+
+@media (max-width:960px){
+  .hero{grid-template-columns:minmax(0,1fr);gap:28px}
+  .body{grid-template-columns:minmax(0,1fr)}
+  .map{grid-template-columns:repeat(14,minmax(0,1fr))}
+  .disc{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:640px){
+  .wrap{padding-left:16px;padding-right:16px}
+  .map{grid-template-columns:repeat(7,minmax(0,1fr))}
+  .disc{grid-template-columns:minmax(0,1fr)}
+  .mat{grid-template-columns:minmax(0,1fr);gap:10px}
+  h1{font-size:56px}
+  .brand-sub{display:none}
+}
+@media (prefers-reduced-motion:reduce){ .start{transition:none} }
+
+</style>
+</head>
+<body>
+<div class="page">
+
+<header class="site">
+<div class="wrap site-bar">
+<a class="brand" href="/" data-lib="{}">
+<img src="/IMG_6142.jpeg" alt="" width="44" height="44">
+<span class="brand-text">
+<span class="brand-title">Josué Haub — Material Bíblico</span>
+<span class="brand-sub">Notas • Trabajos • Artículos</span>
+</span>
+</a>
+<nav aria-label="Library sections" class="nav">
+<a class="navlink" href="/" data-lib="{&quot;type&quot;: &quot;All&quot;}">Todo</a>
+<a class="navlink" href="/" data-lib="{&quot;type&quot;: &quot;Notes&quot;}" aria-current="page">Notas</a>
+<a class="navlink" href="/" data-lib="{&quot;type&quot;: &quot;Papers&quot;}">Trabajos</a>
+<a class="navlink" href="/" data-lib="{&quot;type&quot;: &quot;Articles&quot;}">Artículos</a>
+<a class="navlink" href="/notes/matthew/" hreflang="en">English</a>
+<button type="button" class="theme-btn" id="themeBtn" title="Cambiar tema">Tema</button>
+</nav>
+</div>
+</header>
+
+<main>
+<section class="wrap hero-sec">
+<div class="crumbs-row">
+<nav aria-label="Breadcrumb" class="crumbs">
+<a href="/" data-lib="{}">Biblioteca</a>
+<span aria-hidden="true">/</span>
+<a href="/" data-lib="{&quot;type&quot;: &quot;Notes&quot;}">Notas</a>
+<span aria-hidden="true">/</span>
+<span aria-current="page">Mateo</span>
+</nav>
+<button type="button" class="copy-btn" id="copyBtn" data-url="https://joshuahaub.com/notes/matthew/es/">
+<svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>
+<span>Copiar enlace</span>
+</button>
+</div>
+
+<div class="hero">
+<div>
+<p class="eyebrow">Notas · Material de clase</p>
+<h1>Mateo</h1>
+<p class="lede">Material de clase sobre el Evangelio de Mateo: diapositivas y folletos, lección por lección.</p>
+<div class="facts">
+<span>Actualizado el 29 oct 2026</span>
+<span aria-hidden="true" class="dot"></span>
+<span>2 lecciones</span>
+<span aria-hidden="true" class="dot"></span>
+<span>1 presentación · 2 folletos</span>
+</div>
+<div class="tags">
+<a class="tag" href="/" data-lib="{&quot;tag&quot;: &quot;Matthew&quot;}">Mateo</a>
+<a class="tag" href="/" data-lib="{&quot;tag&quot;: &quot;New Testament&quot;}">Nuevo Testamento</a>
+<a class="tag" href="/" data-lib="{&quot;tag&quot;: &quot;Gospels&quot;}">Evangelios</a>
+</div>
+</div>
+
+<a class="start" href="/notes/matthew/slides/structure/" data-lib="{}">
+<p class="start-eyebrow">Empieza aquí · Lección 01</p>
+<p class="start-title">La estructura de Mateo</p>
+<p class="start-text">Mateo 1–5 leído como una nueva Torá, y los cinco discursos de Jesús con las secciones narrativas que los rodean.</p>
+<span class="start-go">Abrir las diapositivas
+<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+</span>
+</a>
+</div>
+</section>
+
+<section aria-labelledby="map-h" class="map-sec">
+<div class="wrap map-wrap">
+<div class="map-head">
+<div>
+<h2 id="map-h">La forma del libro</h2>
+<p>Veintiocho capítulos: cinco bloques de enseñanza, cada uno cerrado con «cuando Jesús terminó», con la historia contada entre ellos.</p>
+</div>
+<div class="legend">
+<span><span aria-hidden="true" class="key key-narr"></span>Narración</span>
+<span><span aria-hidden="true" class="key key-disc"></span>Discurso</span>
+<span><span aria-hidden="true" class="key key-mark"></span>Tiene folleto</span>
+</div>
+</div>
+<ol class="map" aria-label="Capítulos de Mateo">
+<li><span class="ch ch-narr" aria-label="Capítulo 1, narración">1</span><span aria-hidden="true" class="ch-mark"></span></li>
+<li><span class="ch ch-narr" aria-label="Capítulo 2, narración">2</span><span aria-hidden="true" class="ch-mark"></span></li>
+<li><span class="ch ch-narr" aria-label="Capítulo 3, narración">3</span><span aria-hidden="true" class="ch-mark"></span></li>
+<li><span class="ch ch-narr" aria-label="Capítulo 4, narración">4</span><span aria-hidden="true" class="ch-mark"></span></li>
+<li><span class="ch ch-disc" aria-label="Capítulo 5, discurso">5</span><span aria-hidden="true" class="ch-mark"></span></li>
+<li><span class="ch ch-disc" aria-label="Capítulo 6, discurso">6</span><span aria-hidden="true" class="ch-mark"></span></li>
+<li><span class="ch ch-disc" aria-label="Capítulo 7, discurso">7</span><span aria-hidden="true" class="ch-mark"></span></li>
+<li><span class="ch ch-narr" aria-label="Capítulo 8, narración, tiene folleto">8</span><span aria-hidden="true" class="ch-mark on"></span></li>
+<li><span class="ch ch-narr" aria-label="Capítulo 9, narración, tiene folleto">9</span><span aria-hidden="true" class="ch-mark on"></span></li>
+<li><span class="ch ch-disc" aria-label="Capítulo 10, discurso">10</span><span aria-hidden="true" class="ch-mark"></span></li>
+<li><span class="ch ch-narr" aria-label="Capítulo 11, narración">11</span><span aria-hidden="true" class="ch-mark"></span></li>
+<li><span class="ch ch-narr" aria-label="Capítulo 12, narración">12</span><span aria-hidden="true" class="ch-mark"></span></li>
+<li><span class="ch ch-disc" aria-label="Capítulo 13, discurso">13</span><span aria-hidden="true" class="ch-mark"></span></li>
+<li><span class="ch ch-narr" aria-label="Capítulo 14, narración">14</span><span aria-hidden="true" class="ch-mark"></span></li>
+<li><span class="ch ch-narr" aria-label="Capítulo 15, narración">15</span><span aria-hidden="true" class="ch-mark"></span></li>
+<li><span class="ch ch-narr" aria-label="Capítulo 16, narración">16</span><span aria-hidden="true" class="ch-mark"></span></li>
+<li><span class="ch ch-narr" aria-label="Capítulo 17, narración">17</span><span aria-hidden="true" class="ch-mark"></span></li>
+<li><span class="ch ch-disc" aria-label="Capítulo 18, discurso">18</span><span aria-hidden="true" class="ch-mark"></span></li>
+<li><span class="ch ch-narr" aria-label="Capítulo 19, narración">19</span><span aria-hidden="true" class="ch-mark"></span></li>
+<li><span class="ch ch-narr" aria-label="Capítulo 20, narración">20</span><span aria-hidden="true" class="ch-mark"></span></li>
+<li><span class="ch ch-narr" aria-label="Capítulo 21, narración">21</span><span aria-hidden="true" class="ch-mark"></span></li>
+<li><span class="ch ch-narr" aria-label="Capítulo 22, narración">22</span><span aria-hidden="true" class="ch-mark"></span></li>
+<li><span class="ch ch-narr" aria-label="Capítulo 23, narración">23</span><span aria-hidden="true" class="ch-mark"></span></li>
+<li><span class="ch ch-disc" aria-label="Capítulo 24, discurso">24</span><span aria-hidden="true" class="ch-mark"></span></li>
+<li><span class="ch ch-disc" aria-label="Capítulo 25, discurso">25</span><span aria-hidden="true" class="ch-mark"></span></li>
+<li><span class="ch ch-narr" aria-label="Capítulo 26, narración">26</span><span aria-hidden="true" class="ch-mark"></span></li>
+<li><span class="ch ch-narr" aria-label="Capítulo 27, narración">27</span><span aria-hidden="true" class="ch-mark"></span></li>
+<li><span class="ch ch-narr" aria-label="Capítulo 28, narración">28</span><span aria-hidden="true" class="ch-mark"></span></li>
+</ol>
+<ol class="disc">
+<li>
+<p class="disc-ref">I · MT 5–7</p>
+<p class="disc-name">Sermón del Monte</p>
+<p class="disc-end">Termina en 7:28</p>
+</li>
+<li>
+<p class="disc-ref">II · MT 10</p>
+<p class="disc-name">El envío de los Doce</p>
+<p class="disc-end">Termina en 11:1</p>
+</li>
+<li>
+<p class="disc-ref">III · MT 13</p>
+<p class="disc-name">Parábolas del reino</p>
+<p class="disc-end">Termina en 13:53</p>
+</li>
+<li>
+<p class="disc-ref">IV · MT 18</p>
+<p class="disc-name">La vida en comunidad</p>
+<p class="disc-end">Termina en 19:1</p>
+</li>
+<li>
+<p class="disc-ref">V · MT 24–25</p>
+<p class="disc-name">Discurso del monte de los Olivos</p>
+<p class="disc-end">Termina en 26:1</p>
+</li>
+</ol>
+</div>
+</section>
+
+<section class="wrap body-sec">
+<div class="body">
+<div class="main-col">
+<div class="lessons-head">
+<h2>Lecciones</h2>
+<span>Las más recientes al final</span>
+</div>
+
+<article class="lesson" aria-labelledby="l1">
+<div class="lesson-head">
+<span aria-hidden="true" class="lesson-num">01</span>
+<div class="lesson-titles">
+<h3 id="l1">La estructura de Mateo</h3>
+<p>Todo el libro · 29 oct 2026</p>
+</div>
+</div>
+<div class="lesson-body">
+<div class="mat">
+<a class="mat-kind" href="/notes/matthew/slides/structure/" data-lib="{}">
+<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M12 16v4"/><path d="M8 20h8"/></svg>DIAPOSITIVAS</a>
+<p class="mat-text">Mateo 1–5 leído como una nueva Torá, y los cinco discursos de Jesús con las secciones narrativas que los rodean.</p>
+<div class="fmts">
+<a class="fmt" href="/notes/matthew/slides/structure/Structure%20of%20Matthew.pptx">PowerPoint</a>
+<a class="fmt" href="/notes/matthew/slides/structure/Structure%20of%20Matthew.key">Keynote</a>
+<a class="fmt" href="/notes/matthew/slides/structure/Structure%20of%20Matthew.pdf">PDF</a>
+</div>
+</div>
+<div class="mat mat-next">
+<a class="mat-kind" href="/notes/matthew/handouts/structure/" data-lib="{}">
+<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6"/><path d="M9 17h6"/></svg>FOLLETO</a>
+<p class="mat-text">Un esquema de dos páginas: Mateo 1–5 y la Torá, los cinco discursos y las secciones narrativas entre ellos.</p>
+<div class="fmts">
+<a class="fmt" href="/notes/matthew/handouts/structure/Structure%20of%20Matthew%20Handout.pdf">PDF</a>
+<a class="fmt" href="/notes/matthew/handouts/structure/Structure%20of%20Matthew%20Handout.docx">Word</a>
+</div>
+</div>
+</div>
+</article>
+<article class="lesson" aria-labelledby="l2">
+<div class="lesson-head">
+<span aria-hidden="true" class="lesson-num">02</span>
+<div class="lesson-titles">
+<h3 id="l2">Mateo 8–9</h3>
+<p>Mt 8:1–9:38 · 29 oct 2026</p>
+</div>
+</div>
+<div class="lesson-body">
+<div class="mat">
+<a class="mat-kind" href="/notes/matthew/handouts/8-9/" data-lib="{}">
+<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6"/><path d="M9 17h6"/></svg>FOLLETO</a>
+<p class="mat-text">Jesús con el pueblo: las sanidades de Mateo 8–9, y quién cree y quién no.</p>
+<div class="fmts">
+<a class="fmt" href="/notes/matthew/handouts/8-9/Matthew%208-9%20Handout.pdf">PDF</a>
+<a class="fmt" href="/notes/matthew/handouts/8-9/Matthew%208-9%20Handout.docx">Word</a>
+</div>
+</div>
+</div>
+</article>
+
+<section aria-labelledby="cm-h" class="comments">
+<h2 id="cm-h">Comentarios</h2>
+<div id="cmList" class="cm-list" aria-live="polite"></div>
+<form id="cmForm" class="cm-form">
+<label for="cm">Comparte un pensamiento o una pregunta</label>
+<input id="cmName" type="text" maxlength="80" autocomplete="name" placeholder="Tu nombre" aria-label="Tu nombre">
+<textarea id="cm" rows="3" placeholder="Escribe un comentario…"></textarea>
+<div class="cm-foot">
+<span id="cmStatus">Aún no hay comentarios. Sé el primero en compartir tus pensamientos.</span>
+<button type="submit" id="cmPost">Publicar comentario</button>
+</div>
+</form>
+</section>
+</div>
+
+<aside class="side">
+<div class="box">
+<h2 class="box-h">En esta nota</h2>
+<dl class="stats">
+<dt>Lecciones</dt><dd>2</dd>
+<dt>Presentaciones</dt><dd>1</dd>
+<dt>Folletos</dt><dd>2</dd>
+<dt>Última actualización</dt><dd>29 oct 2026</dd>
+</dl>
+</div>
+<div class="free">
+<p class="free-h">Todo esto es gratis.</p>
+<p class="free-p">Úsalo como te sirva: en clase, en un estudio bíblico o por tu cuenta.</p>
+</div>
+<div class="box">
+<h2 class="box-h">Sigue estudiando</h2>
+<ul class="keep">
+<li><a href="/" data-lib="{&quot;type&quot;: &quot;Notes&quot;}">Todas las notas<span aria-hidden="true">→</span></a></li>
+<li><a href="/textualcriticism/">Crítica textual<span aria-hidden="true">→</span></a></li>
+<li><a href="/peter/">1 y 2 Pedro<span aria-hidden="true">→</span></a></li>
+</ul>
+</div>
+</aside>
+</div>
+</section>
+</main>
+
+<footer class="site-foot">
+<div class="wrap foot">
+<span>© 2026 Josué Haub</span>
+<span class="foot-motto">A Él sea la gloria</span>
+<a href="mailto:contact@joshuahaub.com">contact@joshuahaub.com</a>
+</div>
+</footer>
+</div>
+<script>
+
+(function () {
+  var LANG = "es", DOC = "matthew", T = {"copy": "Copiar enlace", "copied": "Enlace copiado", "comment_empty": "Aún no hay comentarios. Sé el primero en compartir tus pensamientos.", "reply": "Responder", "post_reply": "Publicar respuesta", "post": "Publicar comentario", "loading": "Cargando comentarios…", "load_fail": "No se pudieron cargar los comentarios.", "post_fail": "No se pudo publicar tu comentario. Inténtalo de nuevo.", "need_name": "Escribe tu nombre y un comentario.", "name_ph": "Tu nombre", "text_ph": "Escribe un comentario…", "comments_n": ["{n} comentario", "{n} comentarios"]};
+
+  /* Theme: the same switch and key as the library. */
+  document.getElementById("themeBtn").addEventListener("click", function () {
+    var dark = document.documentElement.getAttribute("data-theme") !== "dark";
+    if (dark) document.documentElement.setAttribute("data-theme", "dark");
+    else document.documentElement.removeAttribute("data-theme");
+    try { localStorage.setItem("theme", dark ? "dark" : "light"); } catch (e) {}
+  });
+
+  /* Links into the library carry the view they ask for (a type, a tag, the
+     language) in sessionStorage, which the library reads once on load, so its
+     address stays "/". */
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest("a[data-lib]");
+    if (!a) return;
+    var view = {};
+    try { view = JSON.parse(a.getAttribute("data-lib")) || {}; } catch (err) {}
+    if (LANG === "es") view.lang = "es";
+    try { sessionStorage.setItem("libraryView", JSON.stringify(view)); } catch (err) {}
+  });
+
+  /* Copy link */
+  var copyBtn = document.getElementById("copyBtn");
+  copyBtn.addEventListener("click", function () {
+    var label = copyBtn.querySelector("span");
+    var done = function () {
+      label.textContent = T.copied;
+      setTimeout(function () { label.textContent = T.copy; }, 2000);
+    };
+    var url = copyBtn.getAttribute("data-url");
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(done, function () { prompt("", url); });
+    else prompt("", url);
+  });
+
+  /* Comments: the library's store, under this class's id, so they are the
+     same comments the class had in the reader. */
+  var SB = "https://anhcdgfwwpyfgcxmbneu.supabase.co/rest/v1";
+  var KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFuaGNkZ2Z3d3B5ZmdjeG1ibmV1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzMjk5NTksImV4cCI6MjA5MDkwNTk1OX0.wjfns8LwUN9r-AM_g-qmnysV9DrFYunjghH9bmLzwP4";
+  var list = document.getElementById("cmList"), status = document.getElementById("cmStatus");
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+  /* Comments are stored as HTML (the library's editor allows bold, italic,
+     links and lists). Parsed in an inert document, so nothing in them loads
+     or runs, then reduced to those tags. */
+  var OK = { B: 1, I: 1, U: 1, STRONG: 1, EM: 1, BR: 1, UL: 1, OL: 1, LI: 1, DIV: 1, P: 1 };
+  function clean(htmlText) {
+    var doc = new DOMParser().parseFromString("<div>" + htmlText + "</div>", "text/html");
+    var root = doc.body.firstChild;
+    (function walk(node) {
+      Array.prototype.slice.call(node.children).forEach(function (el) {
+        if (/^(SCRIPT|STYLE|IFRAME|OBJECT|EMBED|TEMPLATE)$/.test(el.tagName)) { el.remove(); return; }
+        walk(el);
+        var href = el.tagName === "A" ? el.getAttribute("href") || "" : "";
+        if (href && /^https?:\/\//i.test(href)) {
+          Array.prototype.slice.call(el.attributes).forEach(function (at) { el.removeAttribute(at.name); });
+          el.setAttribute("href", href); el.setAttribute("target", "_blank"); el.setAttribute("rel", "noopener noreferrer");
+        } else if (OK[el.tagName]) {
+          Array.prototype.slice.call(el.attributes).forEach(function (at) { el.removeAttribute(at.name); });
+        } else {
+          while (el.firstChild) el.parentNode.insertBefore(el.firstChild, el);
+          el.remove();
+        }
+      });
+    })(root);
+    return root.innerHTML;
+  }
+  function asHtml(text) { return esc(text.trim()).replace(/\r?\n/g, "<br>"); }
+  function when(iso) {
+    try {
+      var p = iso.slice(0, 10).split("-");
+      return new Date(+p[0], p[1] - 1, +p[2]).toLocaleDateString(LANG === "es" ? "es" : "en-US", { year: "numeric", month: "short", day: "numeric" });
+    } catch (e) { return ""; }
+  }
+  function count(n) { return (n === 1 ? T.comments_n[0] : T.comments_n[1]).replace("{n}", n); }
+
+  function sb(path, opts) {
+    opts = opts || {};
+    var url = SB + path, headers = {};
+    if (!opts.method) url += (url.indexOf("?") < 0 ? "?" : "&") + "apikey=" + KEY;   // a simple request: no preflight
+    else headers = { apikey: KEY, Authorization: "Bearer " + KEY, "Content-Type": "application/json", Prefer: "return=representation" };
+    return fetch(url, { method: opts.method || "GET", headers: headers, body: opts.body, credentials: "omit" })
+      .then(function (r) { if (!r.ok) throw new Error(r.statusText); return r.text(); })
+      .then(function (s) { return s ? JSON.parse(s) : null; });
+  }
+  function post(name, body, parent) {
+    var payload = { document_id: DOC, name: name, body: body };
+    if (parent) payload.parent_id = parent;
+    return sb("/comments", { method: "POST", body: JSON.stringify(payload) });
+  }
+
+  function one(c, replies) {
+    var inner = '<div class="cm-meta"><span class="cm-name">' + esc(c.name) + '</span><span class="cm-date">' + esc(when(c.created_at || "")) + "</span></div>" +
+      '<div class="cm-text">' + clean(c.body) + "</div>";
+    if (!replies) return '<div class="cm-r">' + inner + "</div>";
+    return '<div class="cm" id="comment-' + c.id + '">' + inner +
+      '<button type="button" class="cm-reply-btn" data-reply="' + c.id + '">' + esc(T.reply) + "</button>" +
+      '<div class="cm-reply-form" id="reply-' + c.id + '" hidden>' +
+      '<input type="text" maxlength="80" autocomplete="name" placeholder="' + esc(T.name_ph) + '" aria-label="' + esc(T.name_ph) + '">' +
+      '<textarea rows="2" placeholder="' + esc(T.text_ph) + '" aria-label="' + esc(T.text_ph) + '"></textarea>' +
+      '<button type="button" data-send="' + c.id + '">' + esc(T.post_reply) + "</button></div>" +
+      (replies.length ? '<div class="cm-replies">' + replies.map(function (r) { return one(r); }).join("") + "</div>" : "") +
+      "</div>";
+  }
+
+  function load() {
+    status.textContent = T.loading;
+    return sb("/comments?document_id=eq." + encodeURIComponent(DOC) + "&order=created_at.asc").then(function (rows) {
+      rows = rows || [];
+      var top = rows.filter(function (c) { return !c.parent_id; });
+      list.innerHTML = top.map(function (c) {
+        return one(c, rows.filter(function (r) { return r.parent_id === c.id; }));
+      }).join("");
+      status.textContent = top.length ? count(top.length) : T.comment_empty;
+    }, function () { status.textContent = T.load_fail; });
+  }
+
+  document.getElementById("cmForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var name = document.getElementById("cmName"), text = document.getElementById("cm"), btn = document.getElementById("cmPost");
+    if (!name.value.trim() || !text.value.trim()) { status.textContent = T.need_name; (name.value.trim() ? text : name).focus(); return; }
+    btn.disabled = true;
+    post(name.value.trim(), asHtml(text.value)).then(function () {
+      text.value = "";
+      return load();
+    }, function () { status.textContent = T.post_fail; }).then(function () { btn.disabled = false; });
+  });
+
+  list.addEventListener("click", function (e) {
+    var open = e.target.closest("[data-reply]");
+    if (open) {
+      var form = document.getElementById("reply-" + open.getAttribute("data-reply"));
+      form.hidden = !form.hidden;
+      if (!form.hidden) form.querySelector("input").focus();
+      return;
+    }
+    var send = e.target.closest("[data-send]");
+    if (!send) return;
+    var wrap = send.parentNode, name = wrap.querySelector("input"), text = wrap.querySelector("textarea");
+    if (!name.value.trim() || !text.value.trim()) { (name.value.trim() ? text : name).focus(); return; }
+    send.disabled = true;
+    post(name.value.trim(), asHtml(text.value), +send.getAttribute("data-send")).then(load, function () {
+      send.disabled = false;
+      alert(T.post_fail);
+    });
+  });
+
+  load();
+})();
+
+</script>
+</body>
+</html>
