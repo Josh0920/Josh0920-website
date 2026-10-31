@@ -881,6 +881,26 @@
     .dl-pop a span{ color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
     .dl-pop a:hover, .dl-pop a:focus-visible{ background: var(--soft); outline: none; }
 
+    /* An item's files as buttons in the sidebar, beside the top bar's menu, so
+       a deck or handout opens or downloads in one tap (Joshua, 2026-10-31:
+       "make more things clickable", for NT Canon as for Matthew). */
+    .reader-files{ margin: 6px 0 20px; }
+    .reader-files[hidden]{ display: none; }
+    .reader-files h2{
+      margin: 0 0 8px; font-size: 11px; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .reader-files .rf-list{ display: flex; flex-wrap: wrap; gap: 6px; }
+    .reader-files a{
+      display: inline-flex; align-items: baseline; gap: 6px; padding: 9px 14px;
+      border: 1px solid var(--rule); border-radius: 999px; background: var(--paper);
+      color: var(--ink); text-decoration: none; font-size: 13px; font-weight: 600;
+      transition: border-color .12s ease, color .12s ease;
+    }
+    .reader-files a span{ color: var(--muted); font-size: 12px; font-weight: 500; }
+    .reader-files a:hover{ border-color: var(--accent); color: var(--accent); }
+    .reader-files a:focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; }
+
     /* Contents of a slide deck: one line per class, the current one marked */
     .slides-contents{ display: block; margin: 6px 0 22px; }   /* not the site's top-bar nav */
     .slides-contents[hidden]{ display: none; }
@@ -1467,6 +1487,10 @@
           <h1 id="modalTitle"></h1>
           <div class="sub" id="modalSub"></div>
           <div class="tags" id="modalTags" style="margin-bottom:12px;"></div>
+          <div class="reader-files" id="readerFiles" hidden>
+            <h2 id="readerFilesHead">Files</h2>
+            <div class="rf-list" id="readerFilesList"></div>
+          </div>
           <nav class="slides-contents" id="slidesContents" hidden aria-labelledby="slidesContentsHead">
             <h2 id="slidesContentsHead">Contents</h2>
             <ol id="slidesContentsList"></ol>
@@ -2268,6 +2292,7 @@
         download_slideshow: "Download Slideshow",
         download_handout: "Download Handout",
         contents: "Contents",
+        files: "Files",
         slides_range: "Slides {r}",
         show_fewer: "Show fewer",
         empty_desc: "Try removing filters or searching a different term.",
@@ -2325,6 +2350,7 @@ footer_right: "To Him Be the Glory",
         download_slideshow: "Descargar presentación",
         download_handout: "Descargar folleto",
         contents: "Contenido",
+        files: "Archivos",
         slides_range: "Diapositivas {r}",
         show_fewer: "Mostrar menos",
         empty_desc: "Prueba quitar filtros o buscar otro término.",
@@ -3479,6 +3505,12 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
       downloadsLabel = label || "download_slideshow";
       document.getElementById("slidesDlLabel").textContent = t(downloadsLabel);
       wrap.hidden = !list.length;
+      // the same files as buttons in the sidebar; a PDF opens in a new tab
+      document.getElementById("readerFilesHead").textContent = t("files");
+      document.getElementById("readerFilesList").innerHTML = list.map(d =>
+        `<a href="${escapeHtml(d.href)}" ${/\.pdf$/i.test(d.ext) ? 'target="_blank" rel="noopener"' : "download"}>${escapeHtml(d.label)}<span>${escapeHtml(d.ext)}</span></a>`
+      ).join("");
+      document.getElementById("readerFiles").hidden = !list.length;
     }
     function closeSlidesMenu(focusButton){
       const pop = document.getElementById("slidesDlPop"), btn = document.getElementById("slidesDlBtn");
