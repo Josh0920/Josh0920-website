@@ -92,6 +92,8 @@ h1{font-family:var(--serif);font-size:88px;line-height:.95;font-weight:800;lette
 .lede{margin-top:22px;max-width:34ch;font-family:var(--serif);font-size:22px;line-height:1.45;color:var(--ink-2)}
 .facts{display:flex;align-items:center;gap:10px 18px;flex-wrap:wrap;margin-top:24px;font-size:13px;color:var(--muted)}
 .dot{width:4px;height:4px;border-radius:50%;background:var(--dot)}
+.fact{color:inherit;text-decoration:underline;text-decoration-color:var(--field);text-underline-offset:3px}
+.fact:hover{color:var(--accent);text-decoration-color:currentColor}
 .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
 .tag{padding:5px 10px;border-radius:6px;background:var(--soft);color:var(--ink);text-decoration:none;font-family:var(--mono);font-size:12px}
 .tag:hover{color:var(--accent)}
@@ -119,6 +121,9 @@ h1{font-family:var(--serif);font-size:88px;line-height:.95;font-weight:800;lette
 .ch{display:flex;align-items:center;justify-content:center;height:48px;border-radius:6px;font-size:13px}
 .ch-disc{background:var(--accent);color:var(--on-accent);font-weight:700}
 .ch-narr{background:var(--bg);border:1px solid var(--field);color:var(--ink-2);font-weight:600}
+.ch-link{text-decoration:none;transition:transform .12s ease, border-color .12s ease}
+.ch-link.ch-narr{border-color:var(--accent-2);color:var(--ink)}
+.ch-link:hover{transform:translateY(-2px);border-color:var(--accent);color:var(--accent)}
 .ch-mark{height:3px;border-radius:2px}
 .ch-mark.on{background:var(--accent-2)}
 .disc{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;list-style:none;margin:28px 0 0;padding:0}
@@ -131,7 +136,7 @@ h1{font-family:var(--serif);font-size:88px;line-height:.95;font-weight:800;lette
 .body-sec{padding-top:56px;padding-bottom:72px}
 .body{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:48px;align-items:start}
 .main-col{display:flex;flex-direction:column;gap:20px}
-.lessons-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.lessons-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;scroll-margin-top:16px}
 .lessons-head h2{font-family:var(--serif);font-size:30px;font-weight:800}
 .lessons-head span{font-size:13px;color:var(--muted)}
 .lesson{background:var(--paper);border:1px solid var(--rule);border-radius:14px;overflow:hidden}
@@ -139,16 +144,25 @@ h1{font-family:var(--serif);font-size:88px;line-height:.95;font-weight:800;lette
 .lesson-num{flex:none;font-family:var(--serif);font-size:40px;line-height:1;font-weight:800;color:var(--accent)}
 .lesson-titles{min-width:0}
 .lesson-titles h3{font-family:var(--serif);font-size:22px;font-weight:800;line-height:1.25}
+.lesson-titles h3 a{color:var(--ink);text-decoration:none}
+.lesson-titles h3 a:hover{color:var(--accent);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
 .lesson-titles p{margin-top:4px;font-size:13px;color:var(--muted)}
 .lesson-body{border-top:1px solid var(--hair)}
-.mat{display:grid;grid-template-columns:120px minmax(0,1fr) auto;gap:20px;align-items:center;padding:18px 24px}
+.mat{position:relative;display:grid;grid-template-columns:120px minmax(0,1fr) auto;gap:20px;align-items:center;padding:18px 24px;cursor:pointer;transition:background-color .12s ease}
+.mat:hover{background:var(--bg)}
+.mat-kind::after{content:"";position:absolute;inset:0}
+.mat-kind:focus-visible{outline:none}
+.mat:has(.mat-kind:focus-visible){outline:2px solid var(--accent);outline-offset:-2px}
+.mat:last-child{border-radius:0 0 13px 13px}
 .mat-next{border-top:1px solid var(--soft)}
 .mat-kind{display:inline-flex;align-items:center;gap:8px;color:var(--ink);text-decoration:none;font-family:var(--mono);font-size:11px;letter-spacing:.1em;font-weight:700}
-.mat-kind:hover{color:var(--accent)}
+.mat:hover .mat-kind{color:var(--accent)}
 .mat-text{font-size:14px;color:var(--ink-2)}
-.fmts{display:flex;gap:6px;flex-wrap:wrap}
+.fmts{position:relative;z-index:1;display:flex;gap:6px;flex-wrap:wrap}
 .fmt{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 12px;border:1px solid var(--pill);border-radius:999px;background:var(--paper);color:var(--ink);text-decoration:none;font-size:13px;font-weight:600}
 .fmt:hover{border-color:var(--accent);color:var(--accent)}
+.fmt-view{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.fmt-view:hover{background:var(--accent-hover);border-color:var(--accent-hover);color:var(--on-accent)}
 
 /* comments: the library's (Supabase), in the design's form */
 .comments{margin-top:36px}
@@ -185,6 +199,8 @@ h1{font-family:var(--serif);font-size:88px;line-height:.95;font-weight:800;lette
 .stats{margin:14px 0 0;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 12px;font-size:14px}
 .stats dt{color:var(--muted)}
 .stats dd{margin:0;font-weight:700;font-variant-numeric:tabular-nums}
+.stats dd a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--field);text-underline-offset:3px}
+.stats dd a:hover{color:var(--accent);text-decoration-color:currentColor}
 .free{background:var(--panel);color:var(--panel-ink);border-radius:14px;padding:20px}
 .free-h{font-family:var(--serif);font-size:19px;font-weight:700;line-height:1.35}
 .free-p{margin-top:8px;font-size:14px;color:var(--panel-muted)}
@@ -212,7 +228,8 @@ h1{font-family:var(--serif);font-size:88px;line-height:.95;font-weight:800;lette
   h1{font-size:56px}
   .brand-sub{display:none}
 }
-@media (prefers-reduced-motion:reduce){ .start{transition:none} }
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} .start,.mat,.ch-link{transition:none} .ch-link:hover{transform:none} }
 
 </style>
 </head>
@@ -263,9 +280,9 @@ h1{font-family:var(--serif);font-size:88px;line-height:.95;font-weight:800;lette
 <div class="facts">
 <span>Updated Oct 29, 2026</span>
 <span aria-hidden="true" class="dot"></span>
-<span>2 lessons</span>
+<span><a class="fact" href="#lessons">2 lessons</a></span>
 <span aria-hidden="true" class="dot"></span>
-<span>1 slide deck · 2 handouts</span>
+<span><a class="fact" href="/notes/matthew/slides/structure/" data-lib="{}">1 slide deck</a> · <a class="fact" href="#lessons">2 handouts</a></span>
 </div>
 <div class="tags">
 <a class="tag" href="/" data-lib="{&quot;tag&quot;: &quot;Matthew&quot;}">Matthew</a>
@@ -306,8 +323,8 @@ h1{font-family:var(--serif);font-size:88px;line-height:.95;font-weight:800;lette
 <li><span class="ch ch-disc" aria-label="Chapter 5, discourse">5</span><span aria-hidden="true" class="ch-mark"></span></li>
 <li><span class="ch ch-disc" aria-label="Chapter 6, discourse">6</span><span aria-hidden="true" class="ch-mark"></span></li>
 <li><span class="ch ch-disc" aria-label="Chapter 7, discourse">7</span><span aria-hidden="true" class="ch-mark"></span></li>
-<li><span class="ch ch-narr" aria-label="Chapter 8, narrative, has a handout">8</span><span aria-hidden="true" class="ch-mark on"></span></li>
-<li><span class="ch ch-narr" aria-label="Chapter 9, narrative, has a handout">9</span><span aria-hidden="true" class="ch-mark on"></span></li>
+<li><a class="ch ch-narr ch-link" href="/notes/matthew/handouts/8-9/" data-lib="{}" aria-label="Chapter 8, narrative, has a handout (opens the handout)">8</a><span aria-hidden="true" class="ch-mark on"></span></li>
+<li><a class="ch ch-narr ch-link" href="/notes/matthew/handouts/8-9/" data-lib="{}" aria-label="Chapter 9, narrative, has a handout (opens the handout)">9</a><span aria-hidden="true" class="ch-mark on"></span></li>
 <li><span class="ch ch-disc" aria-label="Chapter 10, discourse">10</span><span aria-hidden="true" class="ch-mark"></span></li>
 <li><span class="ch ch-narr" aria-label="Chapter 11, narrative">11</span><span aria-hidden="true" class="ch-mark"></span></li>
 <li><span class="ch ch-narr" aria-label="Chapter 12, narrative">12</span><span aria-hidden="true" class="ch-mark"></span></li>
@@ -361,7 +378,7 @@ h1{font-family:var(--serif);font-size:88px;line-height:.95;font-weight:800;lette
 <section class="wrap body-sec">
 <div class="body">
 <div class="main-col">
-<div class="lessons-head">
+<div class="lessons-head" id="lessons">
 <h2>Lessons</h2>
 <span>Newest last</span>
 </div>
@@ -370,26 +387,28 @@ h1{font-family:var(--serif);font-size:88px;line-height:.95;font-weight:800;lette
 <div class="lesson-head">
 <span aria-hidden="true" class="lesson-num">01</span>
 <div class="lesson-titles">
-<h3 id="l1">The Structure of Matthew</h3>
+<h3 id="l1"><a href="/notes/matthew/slides/structure/" data-lib="{}">The Structure of Matthew</a></h3>
 <p>Whole book · Oct 29, 2026</p>
 </div>
 </div>
 <div class="lesson-body">
 <div class="mat">
-<a class="mat-kind" href="/notes/matthew/slides/structure/" data-lib="{}">
+<a class="mat-kind" href="/notes/matthew/slides/structure/" data-lib="{}" aria-label="Open the slides: The Structure of Matthew">
 <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M12 16v4"/><path d="M8 20h8"/></svg>SLIDES</a>
 <p class="mat-text">Matthew 1–5 read as a new Torah, and the five discourses of Jesus with the story sections around them.</p>
 <div class="fmts">
+<a class="fmt fmt-view" href="/notes/matthew/slides/structure/" data-lib="{}" aria-label="Open the slides: The Structure of Matthew">View</a>
 <a class="fmt" href="/notes/matthew/slides/structure/Structure%20of%20Matthew.pptx">PowerPoint</a>
 <a class="fmt" href="/notes/matthew/slides/structure/Structure%20of%20Matthew.key">Keynote</a>
 <a class="fmt" href="/notes/matthew/slides/structure/Structure%20of%20Matthew.pdf">PDF</a>
 </div>
 </div>
 <div class="mat mat-next">
-<a class="mat-kind" href="/notes/matthew/handouts/structure/" data-lib="{}">
+<a class="mat-kind" href="/notes/matthew/handouts/structure/" data-lib="{}" aria-label="Open the handout: The Structure of Matthew">
 <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6"/><path d="M9 17h6"/></svg>HANDOUT</a>
 <p class="mat-text">A two-page outline: Matthew 1–5 and the Torah, the five discourses, and the story sections between them.</p>
 <div class="fmts">
+<a class="fmt fmt-view" href="/notes/matthew/handouts/structure/" data-lib="{}" aria-label="Open the handout: The Structure of Matthew">View</a>
 <a class="fmt" href="/notes/matthew/handouts/structure/Structure%20of%20Matthew%20Handout.pdf">PDF</a>
 <a class="fmt" href="/notes/matthew/handouts/structure/Structure%20of%20Matthew%20Handout.docx">Word</a>
 </div>
@@ -400,16 +419,17 @@ h1{font-family:var(--serif);font-size:88px;line-height:.95;font-weight:800;lette
 <div class="lesson-head">
 <span aria-hidden="true" class="lesson-num">02</span>
 <div class="lesson-titles">
-<h3 id="l2">Matthew 8–9</h3>
+<h3 id="l2"><a href="/notes/matthew/handouts/8-9/" data-lib="{}">Matthew 8–9</a></h3>
 <p>Matt 8:1–9:38 · Oct 29, 2026</p>
 </div>
 </div>
 <div class="lesson-body">
 <div class="mat">
-<a class="mat-kind" href="/notes/matthew/handouts/8-9/" data-lib="{}">
+<a class="mat-kind" href="/notes/matthew/handouts/8-9/" data-lib="{}" aria-label="Open the handout: Matthew 8–9">
 <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6"/><path d="M9 17h6"/></svg>HANDOUT</a>
 <p class="mat-text">Jesus with the people: the healings of Matthew 8–9, and who believes and who does not.</p>
 <div class="fmts">
+<a class="fmt fmt-view" href="/notes/matthew/handouts/8-9/" data-lib="{}" aria-label="Open the handout: Matthew 8–9">View</a>
 <a class="fmt" href="/notes/matthew/handouts/8-9/Matthew%208-9%20Handout.pdf">PDF</a>
 <a class="fmt" href="/notes/matthew/handouts/8-9/Matthew%208-9%20Handout.docx">Word</a>
 </div>
@@ -436,9 +456,9 @@ h1{font-family:var(--serif);font-size:88px;line-height:.95;font-weight:800;lette
 <div class="box">
 <h2 class="box-h">In this note</h2>
 <dl class="stats">
-<dt>Lessons</dt><dd>2</dd>
-<dt>Slide decks</dt><dd>1</dd>
-<dt>Handouts</dt><dd>2</dd>
+<dt>Lessons</dt><dd><a href="#lessons">2</a></dd>
+<dt>Slide decks</dt><dd><a href="/notes/matthew/slides/structure/" data-lib="{}">1</a></dd>
+<dt>Handouts</dt><dd><a href="#lessons">2</a></dd>
 <dt>Last updated</dt><dd>Oct 29, 2026</dd>
 </dl>
 </div>
