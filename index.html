@@ -3376,7 +3376,10 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
         els.readProgress.hidden = true;
         els.downloadBtn.href = "#";
         els.downloadBtn.style.display = "none";
-        setSlidesDownloads(item.downloads || []);
+        // NT Canon keeps its files in the top bar's menu only (Joshua,
+        // 2026-10-31: they "already exist at the top"); a class's decks show
+        // them in the sidebar too
+        setSlidesDownloads(item.downloads || [], undefined, !!item.parent);
         els.mobilePdfBtn.classList.add("hidden");
         els.modalBody.innerHTML = "";
         const host = document.createElement("div");
@@ -3413,7 +3416,7 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
         // a handout offers its formats in the download menu
         if (item.downloads && item.downloads.length) {
           els.downloadBtn.style.display = "none";
-          setSlidesDownloads(item.downloads, "download_handout");
+          setSlidesDownloads(item.downloads, "download_handout", true);
         }
       } else {
         els.modalPdf.innerHTML = "";
@@ -3495,7 +3498,7 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
     /* "Download Slideshow": the deck in each format it is published in.
        A handout uses the same menu under its own label. */
     var downloadsLabel = "download_slideshow";      // var: applyLanguage may run first
-    function setSlidesDownloads(list, label){
+    function setSlidesDownloads(list, label, inSidebar){
       const wrap = document.getElementById("slidesDl");
       const pop = document.getElementById("slidesDlPop");
       closeSlidesMenu();
@@ -3505,7 +3508,8 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
       downloadsLabel = label || "download_slideshow";
       document.getElementById("slidesDlLabel").textContent = t(downloadsLabel);
       wrap.hidden = !list.length;
-      // the same files as buttons in the sidebar; a PDF opens in a new tab
+      // the same files as buttons in the sidebar, where asked; a PDF opens in a new tab
+      if (!inSidebar) list = [];
       document.getElementById("readerFilesHead").textContent = t("files");
       document.getElementById("readerFilesList").innerHTML = list.map(d =>
         `<a href="${escapeHtml(d.href)}" ${/\.pdf$/i.test(d.ext) ? 'target="_blank" rel="noopener"' : "download"}>${escapeHtml(d.label)}<span>${escapeHtml(d.ext)}</span></a>`
