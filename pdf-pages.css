@@ -5,7 +5,7 @@
    Colours come from the page's own tokens (--accent, --paper, --rule …). */
 :root{ --hv-pane: #eeeee9; }
 [data-theme="dark"]{ --hv-pane: #0a0d10; }
-.modal-pdf.hv-host{ position: relative; display: block; background: var(--hv-pane); }
+.modal-pdf.hv-host{ position: relative; display: block; background: var(--hv-pane); container-type: inline-size; }
 .hv-scroll{
   position: absolute; inset: 0; overflow: auto; box-sizing: border-box;
   padding: 32px 24px 112px; overscroll-behavior: contain;
@@ -68,8 +68,12 @@
 @media (max-width: 620px){
   .modal-body.has-pages .modal-pdf.hv-host{ display: block !important; height: 78vh; }
   .modal-body.has-pages .mobile-pdf-btn{ display: none !important; }
-  .has-pages .hv-scroll{ padding: 16px 12px 88px; }
   .has-pages .hv-float{ bottom: 14px; }
+}
+/* A narrow pages pane (a phone, or a tablet beside the sidebar) gets a
+   smaller toolbar, so it never runs past the pane's edge. */
+@container (max-width: 520px){
+  .hv-scroll{ padding: 16px 12px 88px; }
   .hv-tb{ width: 38px; height: 38px; }
   .hv-count{ min-width: 44px; }
   .hv-zoom{ width: 46px; }
