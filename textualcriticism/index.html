@@ -10,6 +10,9 @@
   <title>Textual Criticism | Joshua's Bible Library</title>
   <link rel="icon" href="/favicon.ico?v=jmh" sizes="any">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=jmh">
+  <!-- the site's PDF reader, shared with the library -->
+  <link rel="stylesheet" href="/pdf-pages.css?v=2026-10-31a">
+  <script src="/pdf-pages.js?v=2026-10-31a"></script>
   <meta name="description" content="A collection of textual-critical studies on disputed New Testament passages — examining manuscript evidence, Church Fathers, and the original text." />
   <!-- share-card -->
   <meta property="og:type" content="article">
@@ -444,8 +447,10 @@
           <div class="comments-section" id="commentsSection">
             <h3>Comments</h3>
             <form class="comment-form" id="commentForm">
+              <label class="cf-label" for="commentName">Your name</label>
               <input type="text" id="commentName" placeholder="Your name" required maxlength="80" />
-              <div class="comment-editor" id="commentText" contenteditable="true" role="textbox" aria-multiline="true" data-placeholder="Share your thoughts..."></div>
+              <label class="cf-label" id="commentTextLabel">Comment</label>
+              <div class="comment-editor" id="commentText" contenteditable="true" role="textbox" aria-multiline="true" aria-labelledby="commentTextLabel" data-placeholder="Share your thoughts..."></div>
               <button type="submit" id="commentSubmitBtn">Post Comment</button>
             </form>
             <div class="comment-list" id="commentList"></div>
@@ -489,8 +494,7 @@
     const copyLinkBtn  = document.getElementById("copyLinkBtn");
     const closeBtn     = document.getElementById("closeBtn");
 
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-                  (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    let pdfView = null;            // the PDF reader (pdf-pages.js)
 
     function openReader(id) {
       const paper = PAPERS[id];
@@ -499,18 +503,21 @@
       modalType.textContent = "Paper";
       modalTitleBar.textContent = paper.title;
       modalTitle.textContent = paper.title;
-      modalSub.textContent = paper.date + " • " + paper.tags.join(" • ");
+      modalSub.textContent = paper.date;
       modalTags.innerHTML = paper.tags.map(t => `<span class="tag">${t}</span>`).join("");
 
-      if (isIOS) {
-        renderPdfJs(paper.pdfHref, modalPdf);
-      } else {
-        modalPdf.innerHTML = `<iframe src="${paper.pdfHref}" title="${paper.title}"></iframe>`;
-      }
-      modalPdf.style.display = "flex";
+      // Joshua's PDF reader (his design "Handout Reader Cleanup", 2026-10-31;
+      // "do the same for the papers"): the pages drawn on a grey ground
+      if (pdfView) pdfView.destroy();
+      pdfView = window.PdfPages.mount(modalPdf, paper.pdfHref, {
+        strings: { loading: "Loading paper\u2026", label: "Paper pages", fail: "The paper couldn\u2019t load." },
+        onPages: n => { modalSub.textContent = paper.date + " \u00b7 " + n + (n === 1 ? " page" : " pages"); }
+      });
+      modalPdf.style.display = "block";
+      document.getElementById("modalBodyWrap").classList.add("has-pages");
       downloadBtn.href = paper.pdfHref;
       mobilePdfBtn.href = paper.pdfHref;
-      mobilePdfBtn.classList.add("visible");
+      mobilePdfBtn.classList.remove("visible");     // the pages show on a phone too
 
       overlay.classList.add("show");
       document.body.style.overflow = "hidden";
@@ -520,6 +527,7 @@
     }
 
     function closeReader() {
+      if (pdfView) { pdfView.destroy(); pdfView = null; }
       overlay.classList.remove("show");
       document.body.style.overflow = "";
       modalPdf.innerHTML = "";
@@ -842,45 +850,6 @@
         setTimeout(() => copyLinkBtn.textContent = "Copy Link", 900);
       } catch { alert("Copy failed — please copy the URL manually."); }
     });
-
-    // PDF.js resolves a relative path against the address bar, not <base>; a
-    // shared link opens a paper at /peter/<id>/, so resolve it as the page does.
-    async function renderPdfJs(pdfUrl, container) {
-      container.innerHTML = '<p style="color:var(--muted);font-style:italic;padding:20px;text-align:center;">Loading PDF…</p>';
-      if (!window.pdfjsLib) {
-        await new Promise((resolve, reject) => {
-          const s = document.createElement("script");
-          s.src = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";
-          s.onload = resolve; s.onerror = reject;
-          document.head.appendChild(s);
-        });
-        window.pdfjsLib.GlobalWorkerOptions.workerSrc =
-          "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
-      }
-      let pdf;
-      try { pdf = await window.pdfjsLib.getDocument(new URL(pdfUrl, document.baseURI).href).promise; }
-      catch(e) { container.innerHTML = '<p style="color:var(--muted);font-style:italic;padding:20px;text-align:center;">Could not load PDF.</p>'; return; }
-      const wrap = document.createElement("div");
-      wrap.style.cssText = "overflow-y:auto;height:100%;display:flex;flex-direction:column;gap:8px;padding:8px;box-sizing:border-box;background:var(--bg);";
-      container.innerHTML = "";
-      container.appendChild(wrap);
-      const dpr = window.devicePixelRatio || 1;
-      for (let i = 1; i <= pdf.numPages; i++) {
-        const page = await pdf.getPage(i);
-        const cw = container.clientWidth || 600;
-        const vp = page.getViewport({ scale: 1 });
-        const scale = (cw - 16) / vp.width * dpr;
-        const scaled = page.getViewport({ scale });
-        const canvas = document.createElement("canvas");
-        canvas.width = scaled.width; canvas.height = scaled.height;
-        canvas.style.width = (cw - 16) + "px";
-        canvas.style.height = Math.round(scaled.height / dpr) + "px";
-        canvas.style.display = "block"; canvas.style.borderRadius = "4px";
-        canvas.style.boxShadow = "0 1px 4px rgba(0,0,0,.18)";
-        wrap.appendChild(canvas);
-        await page.render({ canvasContext: canvas.getContext("2d"), viewport: scaled }).promise;
-      }
-    }
 
     // Open from URL hash on load
     /* Papers have no page of their own, so /textualcriticism/<id>/ is served by 404.html,
