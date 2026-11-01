@@ -3332,6 +3332,7 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
       });
     }
 
+    const LIBRARY_TITLE = document.title;       // "Joshua’s Bible Library"
     function openReader(id){
       const item = CONTENT.find(x=>x.id === id);
       if (!item) return;
@@ -3347,6 +3348,10 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
       // In ES mode, use Spanish href if available
       const esData = CONTENT_ES[item.id];
       const localizedHref = (state.lang === "es" && esData && esData.href) ? esData.href : item.href;
+
+      // The tab shows what is open (Safari shows only the site's name in its
+      // address bar, so the title is what tells the reader where they are).
+      document.title = getLocalizedTitle(item) + " | " + LIBRARY_TITLE;
 
       // A page designed to stand on its own fills the reader; only Close shows.
       const ownPage = !!(item.ownPage && localizedHref);
@@ -3643,6 +3648,7 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
       els.modalPdf.innerHTML = "";
       els.modalBody.innerHTML = "";
       history.replaceState(null, "", "/" + location.search);
+      document.title = LIBRARY_TITLE;
     }
 
     /* Clean, shareable URL for an item — no "#".
