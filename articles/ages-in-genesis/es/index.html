@@ -87,6 +87,20 @@
       .event-age { width: 70px; font-size: 12px; }
     }
   </style>
+  <!-- library-handoff -->
+  <script>
+  /* Opened as a page, this article hands off to the library's reader: the
+     path is stashed and the library restores it, so the address stays this
+     one. Link-preview fetchers stay here (Apple's runs scripts too). */
+  (function () {
+    if (/facebookexternalhit|facebot|twitterbot|slackbot|discordbot|whatsapp|telegrambot|linkedinbot|pinterest|redditbot|applebot|googlebot|bingbot|embedly|iframely|skypeuripreview|bot\/|crawler|spider/i
+        .test(navigator.userAgent)) return;
+    try { sessionStorage.setItem("spaPath", location.pathname + location.search); }
+    catch (e) { return; }                  /* private mode: this page is still readable */
+    location.replace("/");
+  })();
+  </script>
+  <!-- /library-handoff -->
 </head>
 <body>
   <div class="wrap">

@@ -3693,8 +3693,8 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
       if (own) { openReader(own.id); return; }
       let m = path.match(/\/papers\/([^\/]+)\/?$/);
       if (m && openIfKnown(m[1])) return;
-      /* Only reachable when an article path was restored from 404.html — the
-         real page normally answers /articles/<id>/ directly. */
+      /* A Note's share page hands its address to us; its /es/ address opens
+         the library in Spanish. */
       m = path.match(/\/notes\/([^\/]+)\/?(es\/?)?$/);
       if (m && m[2] && CONTENT_ES[m[1]] && state.lang !== "es") {
         // a Spanish link opens the library in Spanish
@@ -3703,7 +3703,15 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
         renderGrid();
       }
       if (m && openIfKnown(m[1])) return;
-      m = path.match(/\/articles\/([^\/]+)\/(?:es\/)?$/);
+      // An article's own page hands its address to us (build_article_cards.py),
+      // so a copied link opens in the reader it was copied from; its /es/
+      // address opens the library in Spanish.
+      m = path.match(/\/articles\/([^\/]+)\/(es\/)?$/);
+      if (m && m[2] && CONTENT_ES[m[1]] && state.lang !== "es") {
+        state.lang = "es";
+        applyLanguage();
+        renderGrid();
+      }
       if (m) openIfKnown(m[1]);
     }
 
