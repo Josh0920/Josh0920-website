@@ -79,14 +79,14 @@ p,h1,h2,h3{margin:0}
 .theme-btn:hover,.copy-btn:hover{border-color:var(--accent);color:var(--accent)}
 
 /* hero */
-.hero-sec{padding-top:28px;padding-bottom:48px}
+.hero-sec{padding-top:28px;padding-bottom:12px}
 .crumbs-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:44px}
 .crumbs{font-size:13px;color:var(--muted);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .crumbs a{color:var(--muted);text-decoration:none}
 .crumbs a:hover{color:var(--ink)}
 .crumbs [aria-current]{color:var(--ink);font-weight:600}
 .copy-btn{display:inline-flex;align-items:center;gap:8px}
-.hero{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:56px;align-items:end}
+.hero{max-width:760px}
 .eyebrow{margin:0 0 14px;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 h1{font-family:var(--serif);font-size:88px;line-height:.95;font-weight:800;letter-spacing:-.02em}
 .lede{margin-top:22px;max-width:34ch;font-family:var(--serif);font-size:22px;line-height:1.45;color:var(--ink-2)}
@@ -97,43 +97,10 @@ h1{font-family:var(--serif);font-size:88px;line-height:.95;font-weight:800;lette
 .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
 .tag{padding:5px 10px;border-radius:6px;background:var(--soft);color:var(--ink);text-decoration:none;font-family:var(--mono);font-size:12px}
 .tag:hover{color:var(--accent)}
-.start{display:block;text-decoration:none;color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:24px;box-shadow:var(--lift);transition:border-color .12s ease}
-.start:hover{color:var(--ink);border-color:color-mix(in srgb, var(--accent) 45%, var(--rule))}
-.start-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:700}
-.start-title{margin-top:10px;font-family:var(--serif);font-size:24px;font-weight:800;line-height:1.2}
-.start-text{margin-top:10px;font-size:14px;color:var(--muted)}
-.start-go{display:inline-flex;align-items:center;gap:6px;margin-top:18px;font-size:14px;font-weight:600;color:var(--accent)}
 
-/* the shape of the book */
-.map-sec{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--paper)}
-.map-wrap{padding-top:40px;padding-bottom:44px}
-.map-head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:20px}
-.map-head h2{font-family:var(--serif);font-size:26px;font-weight:800}
-.map-head p{margin-top:6px;font-size:14px;color:var(--muted);max-width:60ch}
-.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
-.legend > span{display:inline-flex;align-items:center;gap:6px}
-.key{width:14px;height:14px;border-radius:3px}
-.key-narr{background:var(--paper);border:1px solid var(--key)}
-.key-disc{background:var(--accent)}
-.key-mark{height:3px;background:var(--accent-2)}
-.map{display:grid;grid-template-columns:repeat(28,minmax(0,1fr));gap:4px;list-style:none;margin:0;padding:0}
-.map li{display:flex;flex-direction:column;gap:4px}
-.ch{display:flex;align-items:center;justify-content:center;height:48px;border-radius:6px;font-size:13px}
-.ch-disc{background:var(--accent);color:var(--on-accent);font-weight:700}
-.ch-narr{background:var(--bg);border:1px solid var(--field);color:var(--ink-2);font-weight:600}
-.ch-link{text-decoration:none;transition:transform .12s ease, border-color .12s ease}
-.ch-link.ch-narr{border-color:var(--accent-2);color:var(--ink)}
-.ch-link:hover{transform:translateY(-2px);border-color:var(--accent);color:var(--accent)}
-.ch-mark{height:3px;border-radius:2px}
-.ch-mark.on{background:var(--accent-2)}
-.disc{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;list-style:none;margin:28px 0 0;padding:0}
-.disc li{padding:14px 16px;border-radius:10px;background:var(--bg);border:1px solid var(--line)}
-.disc-ref{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--muted)}
-.disc-name{margin-top:6px;font-family:var(--serif);font-size:17px;font-weight:800;line-height:1.25}
-.disc-end{margin-top:4px;font-size:12px;color:var(--muted)}
 
 /* lessons */
-.body-sec{padding-top:56px;padding-bottom:72px}
+.body-sec{padding-top:32px;padding-bottom:72px}
 .body{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:48px;align-items:start}
 .main-col{display:flex;flex-direction:column;gap:20px}
 .lessons-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;scroll-margin-top:16px}
@@ -216,21 +183,20 @@ h1{font-family:var(--serif);font-size:88px;line-height:.95;font-weight:800;lette
 .foot-motto{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--ink-2)}
 
 @media (max-width:960px){
-  .hero{grid-template-columns:minmax(0,1fr);gap:28px}
+  /* the buttons go under the description, so it keeps its width */
+  .mat{grid-template-columns:110px minmax(0,1fr);row-gap:12px}
+  .fmts{grid-column:2}
   .body{grid-template-columns:minmax(0,1fr)}
-  .map{grid-template-columns:repeat(14,minmax(0,1fr))}
-  .disc{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (max-width:640px){
   .wrap{padding-left:16px;padding-right:16px}
-  .map{grid-template-columns:repeat(7,minmax(0,1fr))}
-  .disc{grid-template-columns:minmax(0,1fr)}
   .mat{grid-template-columns:minmax(0,1fr);gap:10px}
+  .fmts{grid-column:auto}
   h1{font-size:56px}
   .brand-sub{display:none}
 }
 html{scroll-behavior:smooth}
-@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} .start,.mat,.ch-link{transition:none} .ch-link:hover{transform:none} }
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} .mat{transition:none} }
 
 </style>
 </head>
@@ -291,88 +257,6 @@ html{scroll-behavior:smooth}
 <a class="tag" href="/" data-lib="{&quot;tag&quot;: &quot;Gospels&quot;}">Evangelios</a>
 </div>
 </div>
-
-<a class="start" href="/notes/matthew/slides/structure/" data-lib="{}">
-<p class="start-eyebrow">Empieza aquí · Lección 01</p>
-<p class="start-title">La estructura de Mateo</p>
-<p class="start-text">Mateo 1–5 leído como una nueva Torá, y los cinco discursos de Jesús con las secciones narrativas que los rodean.</p>
-<span class="start-go">Abrir las diapositivas
-<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
-</span>
-</a>
-</div>
-</section>
-
-<section aria-labelledby="map-h" class="map-sec">
-<div class="wrap map-wrap">
-<div class="map-head">
-<div>
-<h2 id="map-h">La forma del libro</h2>
-<p>Veintiocho capítulos: cinco bloques de enseñanza, cada uno cerrado con «cuando Jesús terminó», con la historia contada entre ellos.</p>
-</div>
-<div class="legend">
-<span><span aria-hidden="true" class="key key-narr"></span>Narración</span>
-<span><span aria-hidden="true" class="key key-disc"></span>Discurso</span>
-<span><span aria-hidden="true" class="key key-mark"></span>Tiene folleto</span>
-</div>
-</div>
-<ol class="map" aria-label="Capítulos de Mateo">
-<li><span class="ch ch-narr" aria-label="Capítulo 1, narración">1</span><span aria-hidden="true" class="ch-mark"></span></li>
-<li><span class="ch ch-narr" aria-label="Capítulo 2, narración">2</span><span aria-hidden="true" class="ch-mark"></span></li>
-<li><span class="ch ch-narr" aria-label="Capítulo 3, narración">3</span><span aria-hidden="true" class="ch-mark"></span></li>
-<li><span class="ch ch-narr" aria-label="Capítulo 4, narración">4</span><span aria-hidden="true" class="ch-mark"></span></li>
-<li><span class="ch ch-disc" aria-label="Capítulo 5, discurso">5</span><span aria-hidden="true" class="ch-mark"></span></li>
-<li><span class="ch ch-disc" aria-label="Capítulo 6, discurso">6</span><span aria-hidden="true" class="ch-mark"></span></li>
-<li><span class="ch ch-disc" aria-label="Capítulo 7, discurso">7</span><span aria-hidden="true" class="ch-mark"></span></li>
-<li><a class="ch ch-narr ch-link" href="/notes/matthew/handouts/8-9/" data-lib="{}" aria-label="Capítulo 8, narración, tiene folleto (abre el folleto)">8</a><span aria-hidden="true" class="ch-mark on"></span></li>
-<li><a class="ch ch-narr ch-link" href="/notes/matthew/handouts/8-9/" data-lib="{}" aria-label="Capítulo 9, narración, tiene folleto (abre el folleto)">9</a><span aria-hidden="true" class="ch-mark on"></span></li>
-<li><span class="ch ch-disc" aria-label="Capítulo 10, discurso">10</span><span aria-hidden="true" class="ch-mark"></span></li>
-<li><span class="ch ch-narr" aria-label="Capítulo 11, narración">11</span><span aria-hidden="true" class="ch-mark"></span></li>
-<li><span class="ch ch-narr" aria-label="Capítulo 12, narración">12</span><span aria-hidden="true" class="ch-mark"></span></li>
-<li><span class="ch ch-disc" aria-label="Capítulo 13, discurso">13</span><span aria-hidden="true" class="ch-mark"></span></li>
-<li><span class="ch ch-narr" aria-label="Capítulo 14, narración">14</span><span aria-hidden="true" class="ch-mark"></span></li>
-<li><span class="ch ch-narr" aria-label="Capítulo 15, narración">15</span><span aria-hidden="true" class="ch-mark"></span></li>
-<li><span class="ch ch-narr" aria-label="Capítulo 16, narración">16</span><span aria-hidden="true" class="ch-mark"></span></li>
-<li><span class="ch ch-narr" aria-label="Capítulo 17, narración">17</span><span aria-hidden="true" class="ch-mark"></span></li>
-<li><span class="ch ch-disc" aria-label="Capítulo 18, discurso">18</span><span aria-hidden="true" class="ch-mark"></span></li>
-<li><span class="ch ch-narr" aria-label="Capítulo 19, narración">19</span><span aria-hidden="true" class="ch-mark"></span></li>
-<li><span class="ch ch-narr" aria-label="Capítulo 20, narración">20</span><span aria-hidden="true" class="ch-mark"></span></li>
-<li><span class="ch ch-narr" aria-label="Capítulo 21, narración">21</span><span aria-hidden="true" class="ch-mark"></span></li>
-<li><span class="ch ch-narr" aria-label="Capítulo 22, narración">22</span><span aria-hidden="true" class="ch-mark"></span></li>
-<li><span class="ch ch-narr" aria-label="Capítulo 23, narración">23</span><span aria-hidden="true" class="ch-mark"></span></li>
-<li><span class="ch ch-disc" aria-label="Capítulo 24, discurso">24</span><span aria-hidden="true" class="ch-mark"></span></li>
-<li><span class="ch ch-disc" aria-label="Capítulo 25, discurso">25</span><span aria-hidden="true" class="ch-mark"></span></li>
-<li><span class="ch ch-narr" aria-label="Capítulo 26, narración">26</span><span aria-hidden="true" class="ch-mark"></span></li>
-<li><span class="ch ch-narr" aria-label="Capítulo 27, narración">27</span><span aria-hidden="true" class="ch-mark"></span></li>
-<li><span class="ch ch-narr" aria-label="Capítulo 28, narración">28</span><span aria-hidden="true" class="ch-mark"></span></li>
-</ol>
-<ol class="disc">
-<li>
-<p class="disc-ref">I · MT 5–7</p>
-<p class="disc-name">Sermón del Monte</p>
-<p class="disc-end">Termina en 7:28</p>
-</li>
-<li>
-<p class="disc-ref">II · MT 10</p>
-<p class="disc-name">El envío de los Doce</p>
-<p class="disc-end">Termina en 11:1</p>
-</li>
-<li>
-<p class="disc-ref">III · MT 13</p>
-<p class="disc-name">Parábolas del reino</p>
-<p class="disc-end">Termina en 13:53</p>
-</li>
-<li>
-<p class="disc-ref">IV · MT 18</p>
-<p class="disc-name">La vida en comunidad</p>
-<p class="disc-end">Termina en 19:1</p>
-</li>
-<li>
-<p class="disc-ref">V · MT 24–25</p>
-<p class="disc-name">Discurso del monte de los Olivos</p>
-<p class="disc-end">Termina en 26:1</p>
-</li>
-</ol>
 </div>
 </section>
 
