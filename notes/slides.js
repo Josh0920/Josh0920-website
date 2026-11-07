@@ -19,6 +19,10 @@
    - an object paired with an out-of-sight copy on the other slide (a point,
      clear text) shrinks into it, text by its font size, fading as it goes,
      both on the morph's curve (Matthew deck 17→18);
+   - a picture cropped differently on the next slide: the whole picture moves
+     between its two places and the frame with it, both on the morph's curve
+     (scale and position fit to within 3% on the Matthew deck's map, 29→30);
+   - Fade dissolves the new slide in over the old at an even speed;
    - text that re-wraps moves word by word, not as a block.
 
    It can also lay the deck out as pages to scroll through, like the PDF.
@@ -467,6 +471,7 @@
         const sh = v.shapes[uid];
         sh.el.style.transform = "";
         sh.el.style.opacity = "";
+        sh.el.style.clipPath = "";
         for (const lid in sh.layers) {
           const img = sh.layers[lid];
           img.style.opacity = "";
@@ -688,6 +693,26 @@
           a.el.style.opacity = "0";
           const stretch = !b.sh.text;
           track(p => setGeom(b.el, gb, lerpBox(ga, gb, MORPH(p)), stretch));
+        } else if (pr.mode === "crop") {
+          /* The same picture cropped differently. PowerPoint moves the whole
+             picture between its two places, and its frame with it, each on
+             the morph's curve; the wider drawing is scaled to match and
+             clipped to the frame. */
+          const wide = pr.on === "a" ? a : b, other = pr.on === "a" ? b : a;
+          const home = pr.on === "a" ? ga : gb;
+          const whole = (g, c) => {
+            const w = g.w / (1 - c[0] - c[2]), h = g.h / (1 - c[1] - c[3]);
+            return { x: g.x - c[0] * w, y: g.y - c[1] * h, w, h };
+          };
+          const ia = whole(ga, pr.from), ib = whole(gb, pr.to);
+          other.el.style.opacity = "0";
+          track(p => {
+            const e = MORPH(p), g = lerpBox(ga, gb, e), im = lerpBox(ia, ib, e);
+            const l = (g.x - im.x) / im.w, t = (g.y - im.y) / im.h;
+            const r = 1 - l - g.w / im.w, u = 1 - t - g.h / im.h;
+            wide.el.style.clipPath = `inset(${t * 100}% ${r * 100}% ${u * 100}% ${l * 100}%)`;
+            setGeom(wide.el, home, im, true);
+          });
         } else if (pr.mode === "cross") {
           track(p => {
             const g = lerpBox(ga, gb, MORPH(p));
@@ -766,6 +791,13 @@
         const a = A.shapes[g.a];
         if (!a) continue;
         const ga = geomA(g.a);
+        /* Morph draws in the new slide's order, so the object crosses over
+           whatever lies below its hidden copy there. */
+        if ("under" in g) {
+          const above = g.under && B.shapes[g.under];
+          (above ? above.el.parentNode : B.el).insertBefore(a.el, above ? above.el : null);
+          extras.push(a.el);
+        }
         track(p => { const e = MORPH(p); toward(a.el, ga, g, e); a.el.style.opacity = String(1 - e); });
       }
       for (const g of tr.ghostsIn || []) {
@@ -785,12 +817,20 @@
         b.el.style.opacity = "0";
         track(p => { b.el.style.opacity = String(windowed(p, FADE_IN)); });
       }
+      /* PowerPoint's Fade: the new slide, on its own ground, dissolves in
+         over the old one at an even speed (Matthew deck, into slide 19). */
+      if (tr.type === "fade") {
+        B.el.style.background = B.s.bg || deck.bg || "#fff";
+        B.el.style.opacity = "0";
+        track(p => { B.el.style.opacity = String(p); });
+      }
 
       cur = { i: j, k: 0 };
       paintCount();
       run = play(tracks, D, () => {
         run = null;
         extras.forEach(x => x.remove());
+        B.el.style.background = B.el.style.opacity = "";
         show(B, B.states[0]);
         arrive(true);
       });
@@ -807,7 +847,7 @@
       if (cur.k < s.steps.length) { playStep(cur.k); return; }
       if (cur.i >= deck.slides.length - 1) { srEl.textContent = t("end"); return; }
       const j = cur.i + 1, tr = deck.slides[j].transition;
-      if (tr.type === "morph" && !reducedMotion()) morphTo(j);
+      if ((tr.type === "morph" || tr.type === "fade") && !reducedMotion()) morphTo(j);
       else cutTo(j, "start", true);
     }
 
