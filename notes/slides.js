@@ -23,6 +23,9 @@
      between its two places and the frame with it, both on the morph's curve
      (scale and position fit to within 3% on the Matthew deck's map, 29→30);
    - Fade dissolves the new slide in over the old at an even speed;
+   - text kept clear on one slide moves as its colour comes up on that curve,
+     and an object that only changes colour blends it on that curve;
+   - Fly In and its like run between plain offsets at an even speed;
    - text that re-wraps moves word by word, not as a block.
 
    It can also lay the deck out as pages to scroll through, like the PDF.
@@ -546,7 +549,7 @@
     function playStep(k, onDone) {
       const v = view, s = v.s, st = s.steps[k];
       applyState(v, v.states[k]);
-      const tracks = [];
+      const tracks = [], flown = {};
       // where each motion path starts: after the paths before it in this click
       const startOf = new Map(), carried = {};
       const moves = [];
@@ -570,6 +573,23 @@
             const imgs = e.layers.map(l => { for (const u in v.shapes) if (v.shapes[u].layers[l]) return v.shapes[u].layers[l]; }).filter(Boolean);
             if (isIn) imgs.forEach(img => effectFrame(img, b.filter, true, 0));
             tracks.push({ t0, dur, fn: p => imgs.forEach(img => effectFrame(img, b.filter, isIn, p)) });
+          } else if (b.kind === "anim" && b.move) {
+            /* Fly In and its like: an offset from rest, between key values. */
+            const sh = v.shapes[e.shape];
+            if (!sh) continue;
+            const off = flown[e.shape] || (flown[e.shape] = [0, 0]), keys = b.move.keys;
+            const a = e.accel || b.accel || 0, d = e.decel || b.decel || 0;
+            const at = q => {
+              let i = 0;
+              while (i < keys.length - 2 && q > keys[i + 1][0]) i++;
+              const [t0k, v0] = keys[i], [t1k, v1] = keys[i + 1];
+              return lerp(v0, v1, t1k > t0k ? Math.min(1, Math.max(0, (q - t0k) / (t1k - t0k))) : 1);
+            };
+            off[b.move.axis] = at(0);
+            tracks.push({ t0, dur, fn: p => {
+              off[b.move.axis] = at(warp(p, a, d));
+              sh.el.style.transform = `translate(${off[0]}px, ${off[1]}px)`;
+            } });
           } else if (b.kind === "animMotion") {
             const sh = v.shapes[e.shape];
             if (!sh) continue;
@@ -693,6 +713,26 @@
           a.el.style.opacity = "0";
           const stretch = !b.sh.text;
           track(p => setGeom(b.el, gb, lerpBox(ga, gb, MORPH(p)), stretch));
+        } else if (pr.mode === "recolour") {
+          /* The same object in a new colour: the old drawing moves underneath
+             and the new one comes up over it on the morph's curve, which blends
+             the colour as PowerPoint does. */
+          track(p => {
+            const e = MORPH(p), g = lerpBox(ga, gb, e);
+            setGeom(a.el, ga, g, !a.sh.text);
+            setGeom(b.el, gb, g, !b.sh.text);
+            b.el.style.opacity = String(e);
+          });
+        } else if (pr.mode === "fade") {
+          /* Text kept clear on one slide: it moves, and its colour comes up
+             (or goes) on the morph's curve. */
+          const shown = pr.clear === "a" ? b : a, home = pr.clear === "a" ? gb : ga;
+          (pr.clear === "a" ? a : b).el.style.opacity = "0";
+          track(p => {
+            const e = MORPH(p);
+            setGeom(shown.el, home, lerpBox(ga, gb, e), false);
+            shown.el.style.opacity = String(pr.clear === "a" ? e : 1 - e);
+          });
         } else if (pr.mode === "crop") {
           /* The same picture cropped differently. PowerPoint moves the whole
              picture between its two places, and its frame with it, each on
