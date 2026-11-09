@@ -304,7 +304,11 @@
       if (remember) store.set(VIEW_KEY, m);
       if (m === "scroll") {
         showTextPage(from);
-        read.focus({ preventScroll: true });
+        /* Focus the text only when the reader chose Reader mode just now, so
+           the arrow keys scroll it. Done on opening, Safari drew its focus
+           ring round the pane after a Command-R reload (Joshua, 2026-11-09):
+           the key press makes the focus look keyboard-driven. */
+        if (remember) read.focus({ preventScroll: true });
       } else {
         startPdf();
         if (pages.length) go(from, true);
