@@ -154,8 +154,17 @@
 [data-theme="dark"] .pt-doc .ink-blue, [data-theme="dark"] .pt-pop-b .ink-blue{ color: #8fb0ff; }
 /* Hebrew: a right-to-left island in the English line (build_paper_text.py
    isolate_hebrew), in a face that carries the vowel points */
+/* Hebrew with its quotation marks and closing punctuation: kept on one line */
+.pt-doc .nobr, .pt-pop-b .nobr{ white-space: nowrap; }
+/* An inline-block, laid out right to left inside itself and never split across
+   lines: Safari broke footnote 4's phrase at the maqaf and set the part left on
+   the first line in English word order (Joshua, 2026-11-09). Word keeps it on
+   one line, and so does this; a longer one wraps inside its own box, still
+   right to left. text-indent is reset, as the box would inherit the indent. */
 .pt-doc .he, .pt-pop-b .he{
-  unicode-bidi: isolate; font-family: "SBL Hebrew", "Ezra SIL", "Times New Roman", "Arial Hebrew", "David", serif;
+  display: inline-block; max-width: 100%; direction: rtl; unicode-bidi: isolate;
+  text-indent: 0; vertical-align: baseline;
+  font-family: "SBL Hebrew", "Ezra SIL", "Times New Roman", "Arial Hebrew", "David", serif;
   font-size: 1.1em; font-style: normal;
 }
 .pt-doc .sc{ font-variant: small-caps; }
