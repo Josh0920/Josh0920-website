@@ -11,8 +11,8 @@
   <link rel="icon" href="/favicon.ico?v=jmh" sizes="any">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=jmh">
   <!-- the site's PDF reader, shared with the library -->
-  <link rel="stylesheet" href="/pdf-pages.css?v=2026-10-31b">
-  <script src="/pdf-pages.js?v=2026-10-31b"></script>
+  <link rel="stylesheet" href="/pdf-pages.css?v=2026-11-08b">
+  <script src="/pdf-pages.js?v=2026-11-08b"></script>
   <meta name="description" content="A collection of textual-critical studies on disputed New Testament passages — examining manuscript evidence, Church Fathers, and the original text." />
   <!-- share-card -->
   <meta property="og:type" content="article">
@@ -511,6 +511,8 @@
       if (pdfView) pdfView.destroy();
       pdfView = window.PdfPages.mount(modalPdf, paper.pdfHref, {
         strings: { loading: "Loading paper\u2026", label: "Paper pages", fail: "The paper couldn\u2019t load." },
+        // a paper can also be read as running text (build_paper_text.py)
+        text: "/papers/" + encodeURIComponent(id) + "/text.html",
         onPages: n => { modalSub.textContent = paper.date + " \u00b7 " + n + (n === 1 ? " page" : " pages"); }
       });
       modalPdf.style.display = "block";
@@ -893,11 +895,11 @@
         socialSharing: [],
         linksOpenNewWindow: true,
         convertHyperlinks: false,
-        noSearchClassNames: ["meta", "kicker", "back-btn", "ref-auto"]
+        noSearchClassNames: ["meta", "kicker", "back-btn", "ref-auto", "no-ref"]
       }
     };
   </script>
-  <script src="../scripture-context.js"></script>
+  <script src="../scripture-context.js?v=2026-11-08b"></script>
   <script src="../RefTagger.js"></script>
 </body>
 </html>
