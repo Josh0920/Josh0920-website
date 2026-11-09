@@ -9,11 +9,23 @@
    pill. A paper runs to 26 pages, so only the pages near the view are drawn,
    and far ones are let go again, which keeps a phone's memory in hand.
 
-     const view = PdfPages.mount(host, pdfUrl, { strings, onPages(n) });
+   Papers also have a Reader mode (Joshua, 2026-11-08: "a 'reader mode' for
+   all my papers that looks like 'Scroll' mode on joshuahaub.com/commentarytest";
+   then "instead of 'scroll' can you name it 'reader mode'" and "instead of
+   'page' can you put 'Original mode'"). Given `text`, the reader gets a
+   Reader mode / Original mode switch: Reader mode shows the paper
+   as running text, set as the commentary's Scroll view sets it, with
+   footnotes in popups and the PDF's page numbers in the margin of the text.
+   The text is papers/<id>/text.html, written from the Word original by
+   commentary-build/build_paper_text.py. Switching keeps the reader's place,
+   and the choice is remembered. If the text cannot be had, the switch never
+   shows and the pages are all there is.
+
+     const view = PdfPages.mount(host, pdfUrl, { strings, onPages(n), text });
      view.destroy();      // before the host is reused
 
    The page that mounts it styles the reader around it (pdf-pages.css has the
-   pane, the pages and the toolbar). */
+   pane, the pages, the toolbar and the Scroll view). */
 (function () {
   "use strict";
   const PDFJS = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/";
@@ -21,8 +33,15 @@
     loading: "Loading…", of: "{i} of {n} pages", label: "Pages", controls: "Page controls",
     prev: "Previous page", next: "Next page", out: "Zoom out", in: "Zoom in",
     reset: "Reset zoom to 100%", fit: "Fit to width",
-    fail: "This couldn’t load.", open: "Open the PDF"
+    fail: "This couldn’t load.", open: "Open the PDF",
+    view: "View", scroll: "Reader mode", page: "Original mode",
+    scrollTip: "The paper as running text", pageTip: "The paper’s pages, as printed",
+    size: "Text size", smaller: "Smaller text", larger: "Larger text",
+    text: "Paper text", textLoading: "Loading the text…", note: "Footnote", close: "Close",
+    pageNo: "Page {n}"
   };
+  const VIEW_KEY = "paperView", SIZE_KEY = "paperTextSize";
+  const SIZES = [15, 16, 17, 18, 19, 20, 22], SIZE_DEFAULT = 2;
   // the placeholder lines of the design's loading page: width %, indent (pt of 480), centred
   const SK = [[46, 0, 1], [96], [72], [38], [58, 24], [34, 48], [66, 72], [52, 24], [70, 48], [62, 48], [68], [24, 24],
               [54, 48], [14, 72], [36, 48], [22, 48], [42, 24], [26, 48], [44, 48], [74, 48], [56, 48], [46, 24], [30, 48], [50, 48]];
@@ -44,14 +63,35 @@
 
   const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const icon = d => `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+  // the commentary's own Scroll and Page icons
+  const ICON_SCROLL = '<svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M3 2.6h10M3 6h10M3 9.4h10M3 12.8h6"/></svg>';
+  const ICON_PAGE = '<svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.2" y="2" width="9.6" height="12" rx="1"/><path d="M5.6 5.4h4.8M5.6 8h4.8M5.6 10.6h3"/></svg>';
+  const store = {
+    get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* private mode */ } }
+  };
+  const calm = () => window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const narrow = () => window.matchMedia && matchMedia("(max-width: 620px)").matches;
 
   function mount(host, pdfUrl, opts) {
     opts = opts || {};
     const T = Object.assign({}, EN, opts.strings || {});
     const url = new URL(pdfUrl, document.baseURI).href;   // PDF.js ignores <base>
+    const textUrl = opts.text ? new URL(opts.text, document.baseURI).href : null;
     let alive = true;
     host.classList.add("hv-host");
     host.innerHTML = `
+      ${textUrl ? `<div class="hv-modes" role="toolbar" aria-label="${esc(T.view)}" hidden>
+        <div class="hv-seg" role="group" aria-label="${esc(T.view)}">
+          <button type="button" data-mode="scroll" title="${esc(T.scrollTip)}" aria-pressed="false">${ICON_SCROLL}<span>${esc(T.scroll)}</span></button>
+          <button type="button" data-mode="page" title="${esc(T.pageTip)}" aria-pressed="true">${ICON_PAGE}<span>${esc(T.page)}</span></button>
+        </div>
+        <div class="hv-size" role="group" aria-label="${esc(T.size)}">
+          <button type="button" data-size="-1" title="${esc(T.smaller)}" aria-label="${esc(T.smaller)}">A</button>
+          <button type="button" data-size="1" title="${esc(T.larger)}" aria-label="${esc(T.larger)}" class="hv-size-up">A</button>
+        </div>
+      </div>
+      <div class="pt-read" tabindex="0" role="region" aria-label="${esc(T.text)}"><div class="pt-page"><p class="pt-wait">${esc(T.textLoading)}</p></div></div>` : ""}
       <div class="hv-progress" aria-hidden="true"><div></div></div>
       <div class="hv-scroll" tabindex="0" role="region" aria-label="${esc(T.label)}" aria-busy="true"><div class="hv-pages"></div></div>
       <div class="hv-float hv-status" role="status"><span class="hv-spin" aria-hidden="true"></span><span>${esc(T.loading)}</span><span class="hv-of"></span></div>
@@ -74,9 +114,14 @@
     const fitZoom = () => Math.max(0.3, Math.min(2, (scroll.clientWidth - pad().x) / 612));
     const ratio = () => Math.max(1.5, Math.min(3, window.devicePixelRatio || 1));
 
+    // the page count joins the date under the title, once, from whichever view loads first
+    let reported = false;
+    function report(n) { if (!reported && n && opts.onPages) { reported = true; opts.onPages(n); } }
+
+    /* ── Page view: the PDF's pages ── */
     let z = 1;                                   // the design's 100% (a phone's width once measured)
     let sizes = [{ w: 612, h: 792 }, { w: 612, h: 792 }];
-    let frames = [], pages = [], drawnAt = [], current = 1, loadingPhase = true;
+    let frames = [], pages = [], drawnAt = [], current = 1, loadingPhase = true, pdfStarted = false, pendingPage = 0;
     const near = new Set();                      // pages close enough to the view to draw
     let nearObs = null, farObs = null, timer = 0, pumping = false;
 
@@ -151,10 +196,9 @@
       clearTimeout(timer);                       // draw again at the new size once the zooming stops
       timer = setTimeout(() => { if (alive) pump(); }, 220);
     }
-    function go(p) {
+    function go(p, instant) {
       p = Math.min(pages.length, Math.max(1, p));
-      const calm = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
-      scroll.scrollTo({ top: frames[p - 1].offsetTop - pad().top, behavior: calm ? "auto" : "smooth" });
+      scroll.scrollTo({ top: frames[p - 1].offsetTop - pad().top, behavior: instant || calm() ? "auto" : "smooth" });
       current = p; showCount();
     }
     bar.addEventListener("click", e => {
@@ -176,47 +220,259 @@
       if (p !== current) { current = p; if (!loadingPhase) showCount(); }
     }, { passive: true });
 
-    (async () => {
-      // mounted before the reader is shown: measure the pane once it is laid out
-      await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
-      if (!alive) return;
-      if (scroll.clientWidth) z = Math.min(1, fitZoom());
-      build();
-      try {
-        await loadPdfJs();
-        const pdf = await window.pdfjsLib.getDocument(url).promise;
+    function startPdf() {
+      if (pdfStarted) return;
+      pdfStarted = true;
+      (async () => {
+        // mounted before the reader is shown: measure the pane once it is laid out
+        await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
         if (!alive) return;
-        for (let i = 1; i <= pdf.numPages; i++) pages.push(await pdf.getPage(i));
-      } catch (e) {
+        if (scroll.clientWidth) z = Math.min(1, fitZoom());
+        build();
+        try {
+          await loadPdfJs();
+          const pdf = await window.pdfjsLib.getDocument(url).promise;
+          if (!alive) return;
+          for (let i = 1; i <= pdf.numPages; i++) pages.push(await pdf.getPage(i));
+        } catch (e) {
+          if (!alive) return;
+          const p = host.querySelector(".hv-progress");
+          if (p) p.remove();
+          status.remove();
+          scroll.removeAttribute("aria-busy");
+          pagesEl.style.width = "auto";
+          pagesEl.innerHTML = `<p class="hv-fail">${esc(T.fail)} <a href="${esc(url)}" target="_blank" rel="noopener">${esc(T.open)}</a></p>`;
+          return;
+        }
         if (!alive) return;
-        host.querySelector(".hv-progress").remove(); status.remove();
-        scroll.removeAttribute("aria-busy");
-        pagesEl.style.width = "auto";
-        pagesEl.innerHTML = `<p class="hv-fail">${esc(T.fail)} <a href="${esc(url)}" target="_blank" rel="noopener">${esc(T.open)}</a></p>`;
-        return;
+        sizes = pages.map(p => { const v = p.getViewport({ scale: 1 }); return { w: v.width, h: v.height }; });
+        build();
+        report(pages.length);
+        if (pendingPage > 1) { current = Math.min(pages.length, pendingPage); scroll.scrollTop = frames[current - 1].offsetTop - pad().top; }
+        pendingPage = 0;
+        // draw what is within a screen of the view; let go of what is three screens off
+        nearObs = new IntersectionObserver(es => {
+          es.forEach(e => { const i = +e.target.dataset.i; if (e.isIntersecting) near.add(i); else near.delete(i); });
+          pump();
+        }, { root: scroll, rootMargin: "100% 0px 100% 0px" });
+        farObs = new IntersectionObserver(es => {
+          es.forEach(e => { if (!e.isIntersecting) drop(+e.target.dataset.i); });
+        }, { root: scroll, rootMargin: "300% 0px 300% 0px" });
+        frames.forEach(f => { nearObs.observe(f); farObs.observe(f); });
+      })();
+    }
+
+    /* ── Scroll view: the paper as running text ── */
+    const modes = host.querySelector(".hv-modes");
+    const read = host.querySelector(".pt-read"), sheet = host.querySelector(".pt-page");
+    let mode = "page", textReady = false, sizeIx = SIZE_DEFAULT;
+    let pop = null, popAnchor = null, popTimer = 0, borrowed = null, borrowSlot = null;
+    const offs = [];                             // listeners on document/window, removed on destroy
+    const on = (target, type, fn, o) => { target.addEventListener(type, fn, o); offs.push(() => target.removeEventListener(type, fn, o)); };
+
+    function applySize() {
+      if (!read) return;
+      read.style.setProperty("--pt-size", SIZES[sizeIx] + "px");
+      modes.querySelector('[data-size="-1"]').disabled = sizeIx <= 0;
+      modes.querySelector('[data-size="1"]').disabled = sizeIx >= SIZES.length - 1;
+    }
+    // the PDF page at the top of the text: the last page marker above the
+    // reading line, or the page before the first marker
+    function textPage() {
+      const marks = sheet.querySelectorAll(".pgb[data-i]");
+      if (!marks.length) return 1;
+      const line = read.getBoundingClientRect().top + Math.min(120, read.clientHeight * 0.25);
+      let p = Math.max(1, +marks[0].dataset.i - 1);
+      for (const m of marks) { if (m.getBoundingClientRect().top <= line) p = +m.dataset.i; else break; }
+      return p;
+    }
+    function showTextPage(p) {
+      let target = null;
+      if (p > 1) for (const m of sheet.querySelectorAll(".pgb[data-i]")) { if (+m.dataset.i <= p) target = m; else break; }
+      if (!target) { read.scrollTop = 0; return; }
+      const block = target.closest("p, h2, h3, h4, .tbl-wrap, td, th") || target;
+      const y = (target.classList.contains("pgb-lead") ? block : target).getBoundingClientRect().top;
+      read.scrollTop += y - read.getBoundingClientRect().top - 28;
+    }
+    function setMode(m, remember) {
+      if (m === mode || (m === "scroll" && !textReady)) return;
+      const from = mode === "scroll" ? textPage() : current;
+      hidePop();
+      mode = m;
+      host.classList.toggle("pt-on", m === "scroll");
+      modes.querySelectorAll("[data-mode]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.mode === m)));
+      if (remember) store.set(VIEW_KEY, m);
+      if (m === "scroll") {
+        showTextPage(from);
+        read.focus({ preventScroll: true });
+      } else {
+        startPdf();
+        if (pages.length) go(from, true);
+        else pendingPage = from;
       }
-      if (!alive) return;
-      sizes = pages.map(p => { const v = p.getViewport({ scale: 1 }); return { w: v.width, h: v.height }; });
-      build();
-      if (opts.onPages) opts.onPages(pages.length);
-      // draw what is within a screen of the view; let go of what is three screens off
-      nearObs = new IntersectionObserver(es => {
-        es.forEach(e => { const i = +e.target.dataset.i; if (e.isIntersecting) near.add(i); else near.delete(i); });
-        pump();
-      }, { root: scroll, rootMargin: "100% 0px 100% 0px" });
-      farObs = new IntersectionObserver(es => {
-        es.forEach(e => { if (!e.isIntersecting) drop(+e.target.dataset.i); });
-      }, { root: scroll, rootMargin: "300% 0px 300% 0px" });
-      frames.forEach(f => { nearObs.observe(f); farObs.observe(f); });
-    })();
+    }
+
+    function returnNote() {
+      if (borrowed && borrowSlot && borrowSlot.parentNode) borrowSlot.parentNode.replaceChild(borrowed, borrowSlot);
+      borrowed = borrowSlot = null;
+    }
+    function place(anchor) {
+      if (narrow()) { pop.style.left = ""; pop.style.top = ""; return; }
+      const r = anchor.getBoundingClientRect(), w = pop.offsetWidth, h = pop.offsetHeight;
+      let left = r.left + r.width / 2 - w / 2;
+      left = Math.max(10, Math.min(left, innerWidth - w - 10));
+      let top = (r.top - h - 9 > 8) ? r.top - h - 9 : r.bottom + 9;
+      top = Math.max(8, Math.min(top, innerHeight - h - 8));
+      pop.style.left = left + "px"; pop.style.top = top + "px";
+    }
+    /* The popup borrows the note's live nodes rather than a copy, as the
+       commentary's does: the verse links RefTagger made inside a note keep
+       their tooltips only on the elements it bound them to. */
+    function showPop(anchor) {
+      clearTimeout(popTimer);
+      const note = sheet.querySelector(`.note[data-fn="${CSS.escape(anchor.dataset.f)}"]`);
+      const body = note && note.querySelector(":scope > span + span");
+      if (!body) return;
+      if (!pop) {
+        pop = document.createElement("div");
+        pop.className = "pt-pop";
+        pop.setAttribute("role", "dialog");
+        pop.innerHTML = `<div class="pt-pop-h"><span class="pt-pop-l"></span><button type="button" class="pt-pop-x" aria-label="${esc(T.close)}"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M1 1l8 8M9 1l-8 8"/></svg></button></div><div class="pt-pop-b"></div>`;
+        pop.querySelector(".pt-pop-x").addEventListener("click", hidePop);
+        pop.addEventListener("mouseenter", () => clearTimeout(popTimer));
+        pop.addEventListener("mouseleave", () => { if (!narrow()) hideSoon(); });
+        document.body.appendChild(pop);
+      }
+      if (popAnchor && popAnchor !== anchor) popAnchor.classList.remove("lit");
+      returnNote();
+      popAnchor = anchor;
+      anchor.classList.add("lit");
+      const label = T.note + " " + anchor.textContent.trim();
+      pop.querySelector(".pt-pop-l").textContent = label;
+      pop.setAttribute("aria-label", label);
+      const b = pop.querySelector(".pt-pop-b");
+      b.innerHTML = "";
+      borrowed = body;
+      borrowSlot = document.createComment("note");
+      body.parentNode.replaceChild(borrowSlot, body);
+      b.appendChild(body);
+      pop.style.left = "-9999px"; pop.style.top = "-9999px";
+      pop.classList.add("show");
+      place(anchor);
+    }
+    /* Close a hovered note once the pointer has left it, but not while it is on
+       the verse preview RefTagger opened from a link in the note: that preview
+       is drawn outside the popup, and reaching its "more »" would otherwise
+       close the note underneath it. */
+    function hideSoon() {
+      clearTimeout(popTimer);
+      popTimer = setTimeout(function check() {
+        if ((pop && pop.matches(":hover")) || (popAnchor && popAnchor.matches(":hover")) ||
+            document.querySelector(".rtTooltip:hover")) { popTimer = setTimeout(check, 300); return; }
+        hidePop();
+      }, 220);
+    }
+    function hidePop() {
+      clearTimeout(popTimer);
+      if (pop) pop.classList.remove("show");
+      returnNote();
+      if (popAnchor) { popAnchor.classList.remove("lit"); popAnchor = null; }
+    }
+
+    function wireText() {
+      sheet.addEventListener("click", e => {
+        const m = e.target.closest(".fnm");
+        if (!m) return;
+        e.stopPropagation();
+        if (popAnchor === m && pop && pop.classList.contains("show")) hidePop(); else showPop(m);
+      });
+      sheet.addEventListener("keydown", e => {
+        const m = e.target.closest(".fnm");
+        if (m && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); showPop(m); }
+      });
+      sheet.addEventListener("mouseover", e => {
+        const m = e.target.closest(".fnm");
+        if (!m || narrow()) return;
+        clearTimeout(popTimer);
+        popTimer = setTimeout(() => showPop(m), 260);
+      });
+      sheet.addEventListener("mouseout", e => {
+        const m = e.target.closest(".fnm");
+        if (!m || narrow() || m.contains(e.relatedTarget)) return;
+        hideSoon();
+      });
+      read.addEventListener("scroll", () => {
+        if (!popAnchor || narrow()) return;
+        const r = popAnchor.getBoundingClientRect(), v = read.getBoundingClientRect();
+        if (r.bottom < v.top || r.top > v.bottom) hidePop(); else place(popAnchor);
+      }, { passive: true });
+      on(document, "click", e => { if (pop && !pop.contains(e.target) && !e.target.closest(".fnm, .rtTooltip")) hidePop(); });
+      // Escape closes the note first, and only the note
+      on(window, "keydown", e => {
+        if (e.key === "Escape" && pop && pop.classList.contains("show")) { e.stopPropagation(); e.preventDefault(); hidePop(); }
+      }, true);
+      on(window, "resize", () => { if (popAnchor) place(popAnchor); });
+    }
+
+    if (textUrl) {
+      const saved = parseInt(store.get(SIZE_KEY), 10);
+      if (SIZES.indexOf(saved) >= 0) sizeIx = SIZES.indexOf(saved);
+      applySize();
+      modes.addEventListener("click", e => {
+        const b = e.target.closest("button");
+        if (!b || b.disabled) return;
+        if (b.dataset.mode) setMode(b.dataset.mode, true);
+        else if (b.dataset.size) {
+          // keep the line being read in place while the type changes size
+          const r = read.scrollHeight > read.clientHeight ? read.scrollTop / (read.scrollHeight - read.clientHeight) : 0;
+          sizeIx = Math.max(0, Math.min(SIZES.length - 1, sizeIx + +b.dataset.size));
+          applySize();
+          store.set(SIZE_KEY, String(SIZES[sizeIx]));
+          read.scrollTop = r * (read.scrollHeight - read.clientHeight);
+          if (popAnchor) place(popAnchor);
+        }
+      });
+      const want = store.get(VIEW_KEY) === "scroll" ? "scroll" : "page";
+      if (want === "scroll") host.classList.add("pt-on", "pt-pending");
+      else startPdf();
+      fetch(textUrl).then(r => { if (!r.ok) throw new Error(r.status); return r.text(); }).then(src => {
+        if (!alive) return;
+        const art = new DOMParser().parseFromString(src, "text/html").querySelector("article.pt-doc");
+        if (!art) throw new Error("no text");
+        sheet.innerHTML = "";
+        sheet.appendChild(document.adoptNode(art));
+        sheet.querySelectorAll(".pgb[data-p]").forEach(m => { m.title = T.pageNo.replace("{n}", m.dataset.p); });
+        textReady = true;
+        modes.hidden = false;
+        host.classList.add("hv-moded");
+        host.classList.remove("pt-pending");
+        wireText();
+        // verse links, as on the articles: scripture-context.js only watches
+        // the article pane by itself, so it is handed the text
+        if (window.rescanScripture) { try { window.rescanScripture(art); } catch (e) { /* the text reads without them */ } }
+        if (want === "scroll") { mode = "page"; host.classList.remove("pt-on"); setMode("scroll", false); report(+art.dataset.pages); }
+      }).catch(() => {
+        // no text for this paper: the pages are all there is
+        if (!alive) return;
+        host.classList.remove("pt-on", "pt-pending");
+        if (modes) modes.remove();
+        if (read) read.remove();
+        startPdf();
+      });
+    } else {
+      startPdf();
+    }
 
     return {
       destroy() {
         alive = false;
         clearTimeout(timer);
+        hidePop();
+        if (pop) pop.remove();
+        offs.forEach(f => f());
         if (nearObs) nearObs.disconnect();
         if (farObs) farObs.disconnect();
-        host.classList.remove("hv-host");
+        host.classList.remove("hv-host", "hv-moded", "pt-on", "pt-pending");
       }
     };
   }

@@ -58,7 +58,7 @@
     ["Psalms", ["Psalms", "Psalm", "Pss", "Ps"]],
     ["Proverbs", ["Proverbs", "Prov"]],
     ["Ecclesiastes", ["Ecclesiastes", "Eccles", "Eccl", "Qoheleth"]],
-    ["Song of Songs", ["Song of Songs", "Song of Solomon", "Song"]],
+    ["Song of Songs", ["Song of Songs", "Song of Solomon", "Canticles", "Song", "Cant"]],   // "Cant 2:17": Bauckham, in the 1 and 2 Peter paper
     ["Isaiah", ["Isaiah", "Isa"]],
     ["Jeremiah", ["Jeremiah", "Jer"]],
     ["Lamentations", ["Lamentations", "Lam"]],
@@ -292,6 +292,24 @@
     return null;
   }
 
+  /* A passage can name the book of every bare reference in it, whatever else
+     it cites. Bauckham's list in the 1 and 2 Peter paper reads "1:11 (Dan 7:27
+     θ, LXX); 1:17 (Ps 8:6); …": each bare reference is 2 Peter and each book
+     named is the Old Testament source, so sentence context links "1:17" to
+     Daniel. build_paper_text.py marks such a passage data-ref-book="2 Peter";
+     nothing else on the site carries the attribute, so nothing else changes. */
+  function forcedBookOf(node, lookup, bookRe) {
+    for (var el = node.parentElement; el; el = el.parentElement) {
+      if (el.hasAttribute && el.hasAttribute("data-ref-book")) {
+        bookRe.lastIndex = 0;
+        var fm = bookRe.exec(el.getAttribute("data-ref-book") || "");
+        bookRe.lastIndex = 0;
+        return fm ? (lookup[fm[1].toLowerCase()] || null) : null;
+      }
+    }
+    return null;
+  }
+
   /* Index of the sentence each character belongs to, so a book named in one
      sentence does not leak into the next. */
   function sentenceStarts(text) {
@@ -332,8 +350,10 @@
       }
       if (bmarks.length) book = bmarks[bmarks.length - 1][1];   // sticky carry-over
       var home = homeBookOf(node, BOOK_LOOKUP, BOOK_RE);
+      var forced = forcedBookOf(node, BOOK_LOOKUP, BOOK_RE);
 
       function bookAt(pos, carried) {
+        if (forced) return forced;          // the passage names its own book
         var sent = sentenceOf(bounds, pos), last = null, anyBefore = null;
         for (var i = 0; i < bmarks.length; i++) {
           if (bmarks[i][0] >= pos) break;
@@ -345,7 +365,7 @@
         return anyBefore || carried;        // else plain sticky behaviour
       }
 
-      if (skippable(node) || !book) return;
+      if (skippable(node) || !(book || forced)) return;
 
       /* Translations named in this text node, with where they were named.
          A version only governs references that come AFTER it, and a code that

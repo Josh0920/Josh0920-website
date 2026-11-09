@@ -84,3 +84,147 @@
 .comment-form .cf-label{ display: none; }
 .has-pages .comment-form .cf-label{ display: block; margin-bottom: -4px; font-size: 12px; font-weight: 600; color: var(--muted); }
 .has-pages #commentName::placeholder{ color: transparent; }
+
+/* ── Reader mode: a paper as running text (pdf-pages.js `text`) ──
+   Joshua, 2026-11-08: "a 'reader mode' for all my papers that looks like
+   'Scroll' mode on joshuahaub.com/commentarytest". The type, measure, rhythm,
+   footnote marks and page markers are the commentary's Scroll view
+   (commentary-build/shell.html); the colours are this site's. */
+:root{ --pt-pgb: #c2560f; }
+[data-theme="dark"]{ --pt-pgb: #e08a4a; }
+.hv-modes{
+  position: absolute; top: 0; left: 0; right: 0; height: 44px; z-index: 3; box-sizing: border-box;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 0 12px;
+  background: var(--paper); border-bottom: 1px solid var(--rule);
+}
+.hv-modes[hidden]{ display: none; }
+.hv-moded .hv-scroll, .hv-moded .hv-progress{ top: 44px; }
+.hv-seg, .hv-size{ display: inline-flex; border: 1px solid var(--rule); border-radius: 999px; overflow: hidden; background: var(--paper); }
+.hv-seg button, .hv-size button{
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 30px; padding: 0 13px;
+  border: 0; background: none; color: var(--muted); font: inherit; font-family: var(--sans); font-size: 13px; font-weight: 600; cursor: pointer;
+}
+.hv-seg button + button, .hv-size button + button{ border-left: 1px solid var(--rule); }
+.hv-seg button:hover, .hv-size button:hover:not(:disabled){ color: var(--ink); background: var(--soft); }
+.hv-seg button[aria-pressed="true"]{ color: var(--accent); background: color-mix(in srgb, var(--accent) 11%, transparent); }
+.hv-seg button:focus-visible, .hv-size button:focus-visible{ outline: 2px solid var(--accent); outline-offset: -2px; }
+.hv-size{ display: none; }
+.pt-on .hv-size{ display: inline-flex; }
+.hv-size button{ width: 36px; padding: 0; font-family: var(--serif); font-weight: 400; font-size: 13px; }
+.hv-size button.hv-size-up{ font-size: 18px; }
+.hv-size button:disabled{ opacity: .35; cursor: default; }
+
+.pt-read{
+  position: absolute; inset: 44px 0 0 0; overflow-y: auto; display: none;
+  background: var(--paper); overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+}
+.hv-host:not(.hv-moded) .pt-read{ top: 0; }
+.hv-host.pt-on .pt-read{ display: block; }
+.hv-host.pt-on .hv-scroll, .hv-host.pt-on .hv-float, .hv-host.pt-on .hv-progress{ display: none; }
+.pt-read:focus{ outline: none; }
+.pt-read:focus-visible{ outline: 2px solid var(--accent); outline-offset: -2px; }
+.pt-page{ max-width: 680px; margin: 0 auto; padding: 36px 46px 120px; box-sizing: border-box; font-size: var(--pt-size, 17px); }
+.pt-wait{ font-family: var(--sans); font-size: 13px; color: var(--muted); }
+
+/* the text, after the commentary's Scroll view */
+.pt-doc{ color: var(--ink); font-family: var(--serif); }
+.pt-doc p{ font-family: var(--serif); font-size: 1em; line-height: 1.72; color: var(--ink); margin: 0 0 .62em; }
+.pt-doc p.ind{ text-indent: 1.4em; margin-top: -.42em; }
+.pt-doc .hd + p.ind, .pt-doc .tbl-wrap + p.ind, .pt-doc .tbl-note + p.ind{ margin-top: 0; }
+.pt-doc p.bq{ margin: .3em 0 1em 1.8em; font-size: .94em; line-height: 1.62; }
+.pt-doc p.hang{ padding-left: 1.8em; text-indent: -1.8em; margin-bottom: .55em; line-height: 1.6; }
+.pt-doc .ac{ text-align: center; }
+.pt-doc .ar{ text-align: right; }
+.pt-doc .aj{ text-align: justify; hyphens: auto; }
+.pt-doc .hd{ font-family: var(--serif); font-weight: 700; line-height: 1.24; color: var(--ink); text-wrap: balance; margin: 1.6em 0 .55em; }
+.pt-doc .hd.h1{ font-size: 1.34em; margin-top: 0; }
+.pt-doc .hd.h2{ font-size: 1.16em; }
+.pt-doc .hd.hsub{ font-size: 1em; font-weight: 600; font-style: italic; margin: 1.2em 0 .4em; }
+.pt-doc .hd .lm{ margin-right: .1em; }
+.pt-front{ padding: 8px 0 1.9em; margin-bottom: 2.2em; border-bottom: 1px solid var(--rule); }
+.pt-front .fm{ margin: 0 0 .3em; line-height: 1.5; text-indent: 0; }
+.pt-front .fm-title{ font-size: 1.5em; font-weight: 700; line-height: 1.25; text-wrap: balance; margin: .2em 0 .35em; }
+.pt-front .fm-gap{ margin-top: 1.4em; }
+.pt-doc .gk{ font-style: normal; }
+.pt-doc .sc{ font-variant: small-caps; }
+.pt-doc sup{ font-size: .68em; line-height: 0; }
+.pt-doc a.lnk{ color: var(--accent); text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); word-break: break-word; }
+.pt-doc a.lnk:hover{ border-bottom-color: var(--accent); }
+.pt-doc .tabcol{ display: inline-block; vertical-align: baseline; }
+.pt-doc .fnm{
+  font-family: var(--sans); font-size: .62em; font-weight: 700; color: var(--accent); vertical-align: super; line-height: 0;
+  cursor: pointer; margin: 0 1px; padding: 0 1px; border-radius: 2px; user-select: none; text-indent: 0;
+}
+.pt-doc .fnm:hover, .pt-doc .fnm.lit{ text-decoration: underline; background: color-mix(in srgb, var(--accent) 11%, transparent); }
+.pt-doc .fnm:focus-visible{ outline: 2px solid var(--accent); outline-offset: 1px; }
+/* the PDF's page numbers, where each page begins */
+.pt-doc .pgb{
+  font-family: var(--sans); font-size: calc(var(--pt-size, 17px) * .46); line-height: 0; vertical-align: super;
+  color: var(--pt-pgb); white-space: nowrap; user-select: none; font-variant-numeric: tabular-nums;
+  letter-spacing: .02em; text-indent: 0; font-style: normal; font-weight: 400; opacity: .75; margin: 0 .12em;
+}
+.pt-doc .pgb:hover{ opacity: 1; }
+.pt-doc .pgb-p{ opacity: .7; margin-right: 1px; }
+.pt-doc .notes{ display: none; }
+.pt-doc .tbl-wrap{ margin: 1.4em 0 .5em; overflow-x: auto; }
+/* a narrow pane scrolls a wide table sideways rather than breaking its words */
+.pt-doc table.sbl{ border-collapse: collapse; width: 100%; min-width: 560px; table-layout: fixed; font-family: var(--sans); font-size: .62em; line-height: 1.42; font-variant-numeric: tabular-nums; }
+.pt-doc table.sbl caption{ caption-side: top; text-align: left; padding: 0 2px 9px; font-size: 1.05em; color: var(--muted); line-height: 1.45; }
+.pt-doc table.sbl caption b{ color: var(--ink); letter-spacing: .03em; }
+.pt-doc table.sbl thead th{
+  text-align: left; padding: 7px 6px; color: var(--ink); font-weight: 700; vertical-align: bottom;
+  border-top: 1.6px solid var(--ink); border-bottom: .9px solid var(--ink); word-break: normal; overflow-wrap: normal; hyphens: none;
+}
+.pt-doc table.sbl td{ padding: 5.5px 6px; color: var(--ink); vertical-align: top; word-break: normal; overflow-wrap: normal; hyphens: manual; }
+.pt-doc table.sbl tbody tr:last-child td{ border-bottom: 1.6px solid var(--ink); }
+.pt-doc table.sbl tbody tr:hover{ background: var(--soft); }
+.pt-doc table.sbl td:first-child, .pt-doc table.sbl th:first-child{ font-weight: 600; }
+.pt-doc .tbl-note{ font-size: .76em; font-style: italic; color: var(--muted); margin: .7em 0 1.6em; line-height: 1.55; text-indent: 0; }
+
+/* a footnote, opened from its mark: beside it, or as a sheet on a phone */
+.pt-pop{
+  position: fixed; z-index: 3000; width: 330px; max-height: 60vh; overflow-y: auto; box-sizing: border-box;
+  background: var(--paper); border: 1px solid var(--rule); border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(16,20,24,.18), 0 1px 3px rgba(16,20,24,.12);
+  opacity: 0; transform: translateY(4px); transition: opacity .11s, transform .11s; pointer-events: none;
+}
+[data-theme="dark"] .pt-pop{ box-shadow: 0 12px 34px rgba(0,0,0,.55), 0 2px 6px rgba(0,0,0,.4); }
+.pt-pop.show{ opacity: 1; transform: none; pointer-events: auto; }
+.pt-pop-h{ position: sticky; top: 0; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 5px 6px 5px 12px; background: var(--paper); border-bottom: 1px solid var(--rule); }
+.pt-pop-l{ font-family: var(--sans); font-size: 10px; letter-spacing: .13em; text-transform: uppercase; font-weight: 700; color: var(--muted); }
+.pt-pop-x{ width: 28px; height: 28px; border: 0; border-radius: 6px; background: none; color: var(--muted); cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.pt-pop-x:hover{ background: var(--soft); color: var(--ink); }
+.pt-pop-b{ padding: 11px 14px 14px; font-family: var(--serif); font-size: 14px; line-height: 1.62; color: var(--ink); }
+.pt-pop-b a{ color: var(--accent); }
+.pt-pop-b .gk{ font-style: normal; }
+@media (max-width: 620px){
+  .pt-pop{ left: 0 !important; right: 0; bottom: 0; top: auto !important; width: auto; max-height: 54vh; border-radius: 14px 14px 0 0; transform: translateY(100%); }
+  .pt-pop.show{ transform: none; }
+}
+@media (prefers-reduced-motion: reduce){ .pt-pop{ transition: none; } }
+@container (max-width: 520px){
+  .pt-page{ padding: 22px 18px 90px; }
+  .pt-doc .aj{ text-align: left; hyphens: none; }
+  .pt-doc table.sbl{ font-size: .56em; }
+  .hv-modes{ padding: 0 8px; }
+  .hv-seg button{ padding: 0 11px; }
+}
+
+/* the narrowest phones: the two labels keep their words and lose their icons */
+@container (max-width: 400px){
+  .hv-seg svg{ display: none; }
+  .hv-seg button{ padding: 0 10px; }
+  .hv-size button{ width: 32px; }
+}
+
+/* text.html opened on its own (search engines are asked to skip it) */
+.pt-standalone{
+  --ink: #101418; --muted: #586171; --paper: #fff; --accent: #1f4bd8; --rule: rgba(16,20,24,.12); --soft: rgba(16,20,24,.06);
+  --serif: ui-serif, Georgia, "Times New Roman", Times, serif; --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  margin: 0; background: #fff;
+}
+.pt-standalone .pt-doc{ max-width: 680px; margin: 0 auto; padding: 36px 22px 80px; font-size: 17px; }
+.pt-standalone .pt-doc .notes{ display: block; margin-top: 32px; padding-top: 13px; border-top: 1px solid var(--rule); }
+.pt-standalone .note{ display: flex; gap: 8px; font-size: .8em; line-height: 1.6; color: var(--muted); margin: 0 0 7px; }
+.pt-standalone .note .n{ color: var(--accent); font-family: var(--sans); font-weight: 700; font-size: 10px; padding-top: 3px; min-width: 14px; }
+.pt-standalone .notes-h{ font-family: var(--sans); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 9px; }

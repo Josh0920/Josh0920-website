@@ -11,8 +11,8 @@
   <link rel="icon" href="/favicon.ico?v=jmh" sizes="any">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=jmh">
   <!-- the site's PDF reader (handouts and papers) -->
-  <link rel="stylesheet" href="/pdf-pages.css?v=2026-10-31b">
-  <script src="/pdf-pages.js?v=2026-10-31b"></script>
+  <link rel="stylesheet" href="/pdf-pages.css?v=2026-11-08b">
+  <script src="/pdf-pages.js?v=2026-11-08b"></script>
   <meta name="description" content="Bible notes, papers, and articles." />
   <!-- share-card -->
   <meta property="og:type" content="website">
@@ -2339,6 +2339,11 @@ footer_right: "To Him Be the Glory",
         hv_in: "Zoom in",
         hv_reset: "Reset zoom to 100%",
         hv_fit: "Fit to width",
+        pt_view: "View", pt_scroll: "Reader mode", pt_page: "Original mode",
+        pt_scroll_tip: "The paper as running text", pt_page_tip: "The paper’s pages, as printed",
+        pt_size: "Text size", pt_smaller: "Smaller text", pt_larger: "Larger text",
+        pt_text: "Paper text", pt_text_loading: "Loading the text…", pt_note: "Footnote",
+        pt_close: "Close", pt_page_no: "Page {n}",
         hv_fail_handout: "The handout couldn’t load.",
         hv_fail_paper: "The paper couldn’t load.",
         hv_open: "Open the PDF",
@@ -2413,6 +2418,11 @@ footer_right: "A Él sea la gloria",
         hv_in: "Acercar",
         hv_reset: "Volver al 100%",
         hv_fit: "Ajustar al ancho",
+        pt_view: "Vista", pt_scroll: "Modo lectura", pt_page: "Modo original",
+        pt_scroll_tip: "El trabajo como texto continuo", pt_page_tip: "Las páginas del trabajo, como se imprimieron",
+        pt_size: "Tamaño del texto", pt_smaller: "Texto más pequeño", pt_larger: "Texto más grande",
+        pt_text: "Texto del trabajo", pt_text_loading: "Cargando el texto…", pt_note: "Nota",
+        pt_close: "Cerrar", pt_page_no: "Página {n}",
         hv_fail_handout: "No se pudo cargar el folleto.",
         hv_fail_paper: "No se pudo cargar el trabajo.",
         hv_open: "Abrir el PDF",
@@ -3456,8 +3466,14 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
           strings: {
             loading: t("hv_loading_" + noun), of: t("hv_of"), label: t("hv_label_" + noun),
             controls: t("hv_controls"), prev: t("hv_prev"), next: t("hv_next"), out: t("hv_out"),
-            in: t("hv_in"), reset: t("hv_reset"), fit: t("hv_fit"), fail: t("hv_fail_" + noun), open: t("hv_open")
+            in: t("hv_in"), reset: t("hv_reset"), fit: t("hv_fit"), fail: t("hv_fail_" + noun), open: t("hv_open"),
+            view: t("pt_view"), scroll: t("pt_scroll"), page: t("pt_page"), scrollTip: t("pt_scroll_tip"),
+            pageTip: t("pt_page_tip"), size: t("pt_size"), smaller: t("pt_smaller"), larger: t("pt_larger"),
+            text: t("pt_text"), textLoading: t("pt_text_loading"), note: t("pt_note"), close: t("pt_close"),
+            pageNo: t("pt_page_no")
           },
+          // a paper can also be read as running text (build_paper_text.py)
+          text: item.type === "Papers" ? "/papers/" + item.id + "/text.html" : null,
           // the page count joins the date under the title
           onPages: n => {
             const [one, many] = t("hv_pages");
@@ -4096,7 +4112,7 @@ renderGrid();
         linksOpenNewWindow: true,
         convertHyperlinks: false,
         noSearchClassNames: ["item", "title", "excerpt", "badge", "tag", "tags",
-                             "meta", "kicker", "featured", "ref-auto"]
+                             "meta", "kicker", "featured", "ref-auto", "no-ref"]
       }
     };
   </script>
@@ -4215,7 +4231,7 @@ renderGrid();
       .catch(() => { root.dataset.state = "error"; paint(); });
   })();
   </script>
-  <script src="scripture-context.js"></script>
+  <script src="scripture-context.js?v=2026-11-08b"></script>
   <script src="RefTagger.js"></script>
 </body>
 </html>
