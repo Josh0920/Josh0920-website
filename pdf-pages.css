@@ -146,6 +146,12 @@
 .pt-front .fm-title{ font-size: 1.5em; font-weight: 700; line-height: 1.25; text-wrap: balance; margin: .2em 0 .35em; }
 .pt-front .fm-gap{ margin-top: 1.4em; }
 .pt-doc .gk{ font-style: normal; }
+/* Hebrew: a right-to-left island in the English line (build_paper_text.py
+   isolate_hebrew), in a face that carries the vowel points */
+.pt-doc .he, .pt-pop-b .he{
+  unicode-bidi: isolate; font-family: "SBL Hebrew", "Ezra SIL", "Times New Roman", "Arial Hebrew", "David", serif;
+  font-size: 1.1em; font-style: normal;
+}
 .pt-doc .sc{ font-variant: small-caps; }
 .pt-doc sup{ font-size: .68em; line-height: 0; }
 .pt-doc a.lnk{ color: var(--accent); text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); word-break: break-word; }
