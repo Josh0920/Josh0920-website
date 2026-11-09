@@ -146,6 +146,12 @@
 .pt-front .fm-title{ font-size: 1.5em; font-weight: 700; line-height: 1.25; text-wrap: balance; margin: .2em 0 .35em; }
 .pt-front .fm-gap{ margin-top: 1.4em; }
 .pt-doc .gk{ font-style: normal; }
+/* the Word file's own text colours (build_paper_text.py run_colour): Genesis 4's
+   red letters, Luther's blue titles; lighter on the dark ground */
+.pt-doc .ink-red, .pt-pop-b .ink-red{ color: #e00000; }
+.pt-doc .ink-blue, .pt-pop-b .ink-blue{ color: #0000ee; }
+[data-theme="dark"] .pt-doc .ink-red, [data-theme="dark"] .pt-pop-b .ink-red{ color: #ff6b6b; }
+[data-theme="dark"] .pt-doc .ink-blue, [data-theme="dark"] .pt-pop-b .ink-blue{ color: #8fb0ff; }
 /* Hebrew: a right-to-left island in the English line (build_paper_text.py
    isolate_hebrew), in a face that carries the vowel points */
 .pt-doc .he, .pt-pop-b .he{
