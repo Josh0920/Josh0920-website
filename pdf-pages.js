@@ -276,23 +276,44 @@
       modes.querySelector('[data-size="-1"]').disabled = sizeIx <= 0;
       modes.querySelector('[data-size="1"]').disabled = sizeIx >= SIZES.length - 1;
     }
+    /* What scrolls the text. On a wide screen the text has a box of its own;
+       on a phone it flows down the reader's page, with the title and comments
+       after it (pdf-pages.css), so the reader's own scroll carries it. */
+    function scroller() {
+      if (/(auto|scroll)/.test(getComputedStyle(read).overflowY)) return read;
+      for (let el = host.parentElement; el; el = el.parentElement) {
+        if (/(auto|scroll)/.test(getComputedStyle(el).overflowY)) return el;
+      }
+      return document.scrollingElement || document.documentElement;
+    }
+    // the top of what can be read: below the Reader mode bar where it is pinned
+    function viewTop() {
+      const sc = scroller();
+      const top = sc === document.scrollingElement ? 0 : sc.getBoundingClientRect().top;
+      return sc === read ? top : Math.max(top, modes.getBoundingClientRect().bottom);
+    }
     // the PDF page at the top of the text: the last page marker above the
     // reading line, or the page before the first marker
     function textPage() {
       const marks = sheet.querySelectorAll(".pgb[data-i]");
       if (!marks.length) return 1;
-      const line = read.getBoundingClientRect().top + Math.min(120, read.clientHeight * 0.25);
+      const line = viewTop() + Math.min(120, scroller().clientHeight * 0.25);
       let p = Math.max(1, +marks[0].dataset.i - 1);
       for (const m of marks) { if (m.getBoundingClientRect().top <= line) p = +m.dataset.i; else break; }
       return p;
     }
     function showTextPage(p) {
+      const sc = scroller();
       let target = null;
       if (p > 1) for (const m of sheet.querySelectorAll(".pgb[data-i]")) { if (+m.dataset.i <= p) target = m; else break; }
-      if (!target) { read.scrollTop = 0; return; }
+      if (!target) {
+        if (sc === read) read.scrollTop = 0;
+        else { const up = host.getBoundingClientRect().top - viewTop(); if (up < 0) sc.scrollTop += up; }
+        return;
+      }
       const block = target.closest("p, h2, h3, h4, .tbl-wrap, td, th") || target;
       const y = (target.classList.contains("pgb-lead") ? block : target).getBoundingClientRect().top;
-      read.scrollTop += y - read.getBoundingClientRect().top - 28;
+      sc.scrollTop += y - viewTop() - 28;
     }
     function setMode(m, remember) {
       if (m === mode || (m === "scroll" && !textReady)) return;
@@ -301,7 +322,8 @@
       mode = m;
       host.classList.toggle("pt-on", m === "scroll");
       modes.querySelectorAll("[data-mode]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.mode === m)));
-      if (remember) store.set(VIEW_KEY, m);
+      // a phone always opens in Reader mode, so a switch there is not remembered
+      if (remember && !narrow()) store.set(VIEW_KEY, m);
       if (m === "scroll") {
         showTextPage(from);
         /* Focus the text only when the reader chose Reader mode just now, so
@@ -427,16 +449,23 @@
         if (!b || b.disabled) return;
         if (b.dataset.mode) setMode(b.dataset.mode, true);
         else if (b.dataset.size) {
-          // keep the line being read in place while the type changes size
-          const r = read.scrollHeight > read.clientHeight ? read.scrollTop / (read.scrollHeight - read.clientHeight) : 0;
+          // keep the paragraph being read where it is while the type changes size
+          const line = viewTop() + 40;
+          let keep = null, off = 0;
+          for (const el of sheet.querySelectorAll("p, h2, h3, h4, .tbl-wrap")) {
+            const r = el.getBoundingClientRect();
+            if (r.bottom > line) { keep = el; off = r.top - line; break; }
+          }
           sizeIx = Math.max(0, Math.min(SIZES.length - 1, sizeIx + +b.dataset.size));
           applySize();
           store.set(SIZE_KEY, String(SIZES[sizeIx]));
-          read.scrollTop = r * (read.scrollHeight - read.clientHeight);
+          if (keep) scroller().scrollTop += keep.getBoundingClientRect().top - (viewTop() + 40) - off;
           if (popAnchor) place(popAnchor);
         }
       });
-      const want = store.get(VIEW_KEY) === "scroll" ? "scroll" : "page";
+      /* A phone always opens a paper in Reader mode (Joshua, 2026-11-11: "Make
+         mobile always open papers in Reader Mode"); elsewhere the last choice. */
+      const want = narrow() || store.get(VIEW_KEY) === "scroll" ? "scroll" : "page";
       if (want === "scroll") host.classList.add("pt-on", "pt-pending");
       else startPdf();
       fetch(textUrl).then(r => { if (!r.ok) throw new Error(r.status); return r.text(); }).then(src => {

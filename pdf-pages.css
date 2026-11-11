@@ -63,12 +63,23 @@
 @keyframes hv-spin{ to{ transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce){ .hv-sk i, .hv-progress > div, .hv-spin{ animation: none; } }
 
-/* On a phone the pages sit above the title and comments, as the slides do,
-   instead of an "Open PDF" button. */
+/* On a phone the paper sits above the title and comments, as the slides do,
+   instead of an "Open PDF" button. The reader body is plain blocks there, one
+   scroll: as a grid its rows shrank to fit the screen, and the 78vh pages box
+   spilled over the comments, which sat underneath it in a strip of their own
+   (Joshua, 2026-11-11). Reader mode drops the box altogether: the text flows
+   down the page with its bar pinned at the top, and the title and comments
+   follow it, as on an article. Original mode keeps its box of pages. */
 @media (max-width: 620px){
+  .modal-body.has-pages{ display: block; }
+  .modal-body.has-pages .modal-sidebar{ overflow: visible; }
   .modal-body.has-pages .modal-pdf.hv-host{ display: block !important; height: 78vh; }
   .modal-body.has-pages .mobile-pdf-btn{ display: none !important; }
   .has-pages .hv-float{ bottom: 14px; }
+  .modal-body.has-pages .modal-pdf.hv-host.pt-on{ height: auto; overflow: visible; border-bottom: 1px solid var(--rule); }
+  .hv-host.pt-on .hv-modes{ position: sticky; }
+  .hv-host.pt-on .pt-read{ position: static; overflow: visible; }
+  .hv-host.pt-on .pt-page{ padding-bottom: 40px; }
 }
 /* A narrow pages pane (a phone, or a tablet beside the sidebar) gets a
    smaller toolbar, so it never runs past the pane's edge. */
