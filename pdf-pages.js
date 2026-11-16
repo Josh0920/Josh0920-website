@@ -394,7 +394,7 @@
       clearTimeout(popTimer);
       popTimer = setTimeout(function check() {
         if ((pop && pop.matches(":hover")) || (popAnchor && popAnchor.matches(":hover")) ||
-            document.querySelector(".rtTooltip:hover")) { popTimer = setTimeout(check, 300); return; }
+            document.querySelector(".rtTooltip:hover, .rc-nets-card:hover")) { popTimer = setTimeout(check, 300); return; }
         hidePop();
       }, 220);
     }
@@ -432,7 +432,7 @@
         const r = popAnchor.getBoundingClientRect(), v = read.getBoundingClientRect();
         if (r.bottom < v.top || r.top > v.bottom) hidePop(); else place(popAnchor);
       }, { passive: true });
-      on(document, "click", e => { if (pop && !pop.contains(e.target) && !e.target.closest(".fnm, .rtTooltip")) hidePop(); });
+      on(document, "click", e => { if (pop && !pop.contains(e.target) && !e.target.closest(".fnm, .rtTooltip, .rc-nets-card")) hidePop(); });
       // Escape closes the note first, and only the note
       on(window, "keydown", e => {
         if (e.key === "Escape" && pop && pop.classList.contains("show")) { e.stopPropagation(); e.preventDefault(); hidePop(); }
