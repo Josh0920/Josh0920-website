@@ -12,27 +12,100 @@
  *      in ordinary prose ("The author of Ecclesiastes, in 11:9–12:1, …") —
  *      until a different book is named.
  *   3. A translation named nearby is used for the link; otherwise NASB95.
+ *      (Joshua, 2026-11-16: "keep NASB95 as the default, but if i ever
+ *      reference another translation, offer that reftag translation (use
+ *      context to know when the follow the refernce and when to switch back)".)
+ *      It holds for references that name their book too, which RefTagger alone
+ *      would always give its one default:
+ *        - a translation right after a reference is that reference's:
+ *          "(Gen 11:4, NASB95)", "(Proverbs 30:15–16 ESV)", "(Dan 7:27 θ, LXX)";
+ *        - one named earlier in a sentence governs the references after it in
+ *          that sentence ("the NET translates Deuteronomy 22:28 as …"), and the
+ *          next sentence returns to the default;
+ *        - "All Scripture quotations are from the ESV" makes it the default of
+ *          that article or paper;
+ *        - a translation that titles a resource ("CSB Study Bible", "NET Bible
+ *          notes") or is denied ("not to the LXX version") is not a choice;
+ *        - the LXX, the Septuagint and the Vulgate are texts under discussion
+ *          more often than translations being quoted, so they count only right
+ *          beside a reference.
+ *   4. NETS (Joshua, 2026-11-16: "can you create the ability to use NETS"):
+ *      a reference marked NETS, or LXX/Septuagint beside it, opens the NETS
+ *      project's own PDF of that book, with a small card in place of
+ *      RefTagger's verse text. The NETS files are free for personal, scholarly
+ *      use but "may not be sold or redistributed", so the site links to them
+ *      and quotes nothing from them.
  */
 (function () {
   "use strict";
 
 
-  /* Biblia resource ids for the versions worth naming in prose. */
+  /* The translations a reference can be linked to, by the names written in
+     prose, with Biblia's id for each. Every id here was checked on 2026-11-16
+     to return verse text through RefTagger's feed (reftagger.bibliacdn.com).
+     Editions with no feed — NASB 2020, NVI, NTV, the Greek LXX, NA28 — are
+     left out on purpose: a reference to one of them keeps the default rather
+     than opening a preview that never loads. Case matters ("NET", not "net"). */
   var VERSIONS = {
-    NASB95: "nasb95", NASB: "nasb95", NASB20: "nasb2020",
-    ESV: "esv", KJV: "kjv1900", NKJV: "nkjv", NIV: "niv", NRSV: "nrsv",
-    NLT: "nlt", CSB: "csb", HCSB: "hcsb", NET: "gs-netbible", LEB: "leb",
-    ASV: "asv", YLT: "ylt", MESSAGE: "message", GW: "godsword",
-    RVR60: "rvr60", NVI: "nvi", NTV: "ntv", RVA: "rva",
-    // spellings that actually appear in Spanish prose
-    "RVR 1960": "rvr60", "Reina-Valera 1960": "rvr60", "Reina Valera": "rvr60",
-    "Nueva Biblia de las Américas": "nblh",
-    "Nueva Version Internacional": "nvi", "Nueva Versión Internacional": "nvi",
-    // NBLA is served under Biblia's older id "nblh" (Nueva Biblia
+    "NASB95": "nasb95", "NASB 95": "nasb95", "NASB1995": "nasb95", "NASB 1995": "nasb95",
+    "NASB": "nasb95", "New American Standard Bible": "nasb95",
+    "LSB": "lsb", "Legacy Standard Bible": "lsb",
+    "ESV": "esv", "English Standard Version": "esv",
+    "KJV": "kjv1900", "King James Version": "kjv1900",
+    "NKJV": "nkjv", "New King James Version": "nkjv",
+    "NIV": "niv", "New International Version": "niv",
+    "CSB": "csb", "Christian Standard Bible": "csb",
+    "HCSB": "hcsb", "Holman Christian Standard Bible": "hcsb",
+    "NLT": "nlt", "New Living Translation": "nlt",
+    "NET": "gs-netbible", "NET Bible": "gs-netbible", "New English Translation": "gs-netbible",
+    "LEB": "leb", "Lexham English Bible": "leb",
+    "NRSV": "nrsv", "NRSVue": "nrsv", "New Revised Standard Version": "nrsv",
+    "RSV": "rsv", "Revised Standard Version": "rsv",
+    "ASV": "asv", "American Standard Version": "asv",
+    "YLT": "ylt", "Young\u2019s Literal Translation": "ylt", "Young's Literal Translation": "ylt",
+    "Young\u2019s Literal": "ylt", "Young's Literal": "ylt",
+    "Darby": "darby", "DARBY": "darby",
+    "MESSAGE": "message", "The Message": "message", "MSG": "message",
+    "GW": "godsword",
+    "Douay-Rheims": "douayrheims", "Douay Rheims": "douayrheims",
+    // Spanish. NBLA is served under Biblia's older id "nblh" (Nueva Biblia
     // Latinoamericana de Hoy) — "nbla" itself 404s.
-    NBLA: "nblh", NBLH: "nblh",
-    LXX: "lxx", VULGATE: "vulgataclem"
+    "NBLA": "nblh", "NBLH": "nblh", "Nueva Biblia de las Américas": "nblh",
+    "RVR60": "rvr60", "RVR 1960": "rvr60", "RVR1960": "rvr60",
+    "Reina-Valera 1960": "rvr60", "Reina Valera 1960": "rvr60",
+    "Reina-Valera": "rvr60", "Reina Valera": "rvr60",
+    // the Septuagint in English: the NETS project's PDFs (see NETS below)
+    "NETS": "nets", "New English Translation of the Septuagint": "nets",
+    // texts under discussion more often than translations being quoted:
+    // they count only right beside a reference (WITNESS)
+    "LXX": "nets", "Septuagint": "nets", "Septuaginta": "nets",
+    "Vulgate": "vulgataclem", "Vulgata": "vulgataclem"
   };
+  var WITNESS = { "LXX": 1, "Septuagint": 1, "Septuaginta": 1, "Vulgate": 1, "Vulgata": 1 };
+
+  /* NETS, A New English Translation of the Septuagint, is published by its
+     project as one PDF per book (ccat.sas.upenn.edu/nets/edition/). Its books
+     keep the Septuagint's names and order, so 1 Samuel is "1 Reigns" and the
+     twelve minor prophets are one file. */
+  var NETS_BASE = "https://ccat.sas.upenn.edu/nets/edition/";
+  var NETS = {
+    "Genesis": ["01-gen", "Genesis"], "Exodus": ["02-exod", "Exodus"],
+    "Leviticus": ["03-leu", "Leuitikon"], "Numbers": ["04-num", "Numbers"],
+    "Deuteronomy": ["05-deut", "Deuteronomion"], "Joshua": ["06-iesous", "Iesous"],
+    "Judges": ["07-judges", "Judges"], "Ruth": ["08-routh", "Routh"],
+    "1 Samuel": ["09-1reigns", "1 Reigns"], "2 Samuel": ["10-2reigns", "2 Reigns"],
+    "1 Kings": ["11-3reigns", "3 Reigns"], "2 Kings": ["12-4reigns", "4 Reigns"],
+    "1 Chronicles": ["13-1suppl", "1 Supplements"], "2 Chronicles": ["14-2suppl", "2 Supplements"],
+    "Ezra": ["16-2esdras", "2 Esdras"], "Nehemiah": ["16-2esdras", "2 Esdras"],
+    "Esther": ["17-esther", "Esther"], "Job": ["28-iob", "Iob"],
+    "Psalms": ["24-ps", "Psalms"], "Proverbs": ["25-proverbs", "Proverbs"],
+    "Ecclesiastes": ["26-eccles", "Ecclesiast"], "Song of Songs": ["27-song", "Song of Songs"],
+    "Isaiah": ["33-esaias", "Esaias"], "Jeremiah": ["34-ieremias", "Ieremias"],
+    "Lamentations": ["36-lam", "Lamentations"], "Ezekiel": ["38-iezekiel", "Iezekiel"],
+    "Daniel": ["40-daniel", "Daniel"]
+  };
+  ["Hosea", "Joel", "Amos", "Obadiah", "Jonah", "Micah", "Nahum", "Habakkuk", "Zephaniah",
+   "Haggai", "Zechariah", "Malachi"].forEach(function (b) { NETS[b] = ["32-twelve", "The Twelve Prophets"]; });
 
   /* Canonical book names, plus the abbreviations Joshua actually writes.
      Order matters: longer names are tried first so "1 John" wins over "John". */
@@ -223,10 +296,50 @@
   /* A continuation may be a range of its own: "Éx 12:1-14, 21-28". */
   var CONT_RE = /,\s*(\d{1,3})(?:\s*[-\u2013]\s*(\d{1,3}))?(?!\d)(?!\s*[:.]\s*\d)/g;
 
+  var VERSION_ALT = Object.keys(VERSIONS)
+    .sort(function (x, y) { return y.length - x.length; }).map(esc).join("|");
   var VERSION_RE = new RegExp(
-    "(?:\\b|^)(" + Object.keys(VERSIONS)
-      .sort(function (x, y) { return y.length - x.length; })
-      .map(esc).join("|") + ")(?:\\b|$)", "g");
+    "(?:^|[^A-Za-z\\u00C0-\\u024F0-9_])(" + VERSION_ALT + ")(?![A-Za-z\\u00C0-\\u024F0-9_])", "g");
+  /* A translation right after a reference (and its run of verses): ", ESV)",
+     " ESV)", " (ESV)", " θ, LXX)" — Theodotion's sign before the LXX. A verse
+     letter may come first ("23:34a, ESV"). */
+  var AFTER_RE = new RegExp(
+    "^[a-d]?\\s*(?:[,;]\\s*)?(?:\\(\\s*)?(?:\u03b8\\s*,\\s*)?(" + VERSION_ALT + ")(?![A-Za-z\\u00C0-\\u024F0-9_])");
+  /* A resource, not a choice of translation: "CSB Study Bible", "NET Bible
+     notes", "NIV Commentary". */
+  var TITLE_AFTER = /^[\s.]*(?:Study|Commentary|Notes|Dictionary|Atlas|Reader|Bible\s+(?:notes|Notes|Commentary|Dictionary))\b/;
+  /* A translation denied, not chosen: "certainly not to the LXX version". */
+  var DENIED_BEFORE = /\bnot\s+(?:to\s+|in\s+|from\s+|of\s+|by\s+)?(?:the\s+)?$/i;
+  /* A note that sets the translation for a whole article or paper:
+     "All Scripture quotations are from the ESV", "unless otherwise noted, …
+     taken from the NET". */
+  var DECLARED_RE = new RegExp(
+    "(?:\\b(?:All|all)\\b|unless otherwise (?:noted|indicated|stated))[^.]{0,90}?" +
+    "(?:Scripture|scripture|quotations?|references|citations|verses)[^.]{0,60}?" +
+    "(?:from|are|is|in)\\s+(?:the\\s+)?(" + VERSION_ALT + ")(?![A-Za-z0-9])");
+
+  /* Sentence ends for the reach of a translation. Unlike sentenceStarts this
+     does not end a sentence at an abbreviation ("Gen. 4:7", "cf. v. 9", "J.
+     Byron"), or "the NET renders Gen. 4:7" would lose the NET at "Gen.". */
+  var ABBR_WORDS = ["cf", "e.g", "i.e", "v", "vv", "ch", "chs", "p", "pp", "ed", "eds", "trans",
+                    "vol", "no", "ibid", "Ibid", "al", "etc", "ca", "c", "St", "Dr", "Mr", "Mrs", "Jr", "Sr"];
+  // the English book abbreviations ("Gen", "Matt", "1 Pet"), not the full names
+  BOOKS.forEach(function (bk) { bk[1].forEach(function (n) { if (n !== bk[0] && n.length <= 7) ABBR_WORDS.push(n); }); });
+  var ABBREV = new RegExp("(?:^|[\\s(\\[])(?:[A-Z]|" + ABBR_WORDS.map(esc).join("|") + ")$");
+  function versionSentenceStarts(text) {
+    var bounds = [0], re = /[.!?]["'”’)\]]*\s+/g, m;
+    while ((m = re.exec(text))) {
+      if (text[m.index] === "." && ABBREV.test(text.slice(Math.max(0, m.index - 9), m.index))) continue;
+      bounds.push(m.index + m[0].length);
+    }
+    return bounds;
+  }
+  function blockOf(node) {
+    for (var el = node.parentElement; el; el = el.parentElement) {
+      if (/^(P|LI|TD|TH|BLOCKQUOTE|DIV|SECTION|ARTICLE|H4|H5|H6|DD|DT|FIGCAPTION)$/.test(el.tagName)) return el;
+    }
+    return null;
+  }
 
   /* Text nodes we must not touch: inside links, headings, code, or anything
      the page has already marked as not-for-scanning. */
@@ -265,6 +378,103 @@
     span.setAttribute("data-want-version", version);
     span.textContent = bookName + " " + chv;
     return span;
+  }
+
+  /* A NETS reference: a link to the project's PDF of the book, with a card
+     (below) in place of a verse preview. Nothing is quoted from NETS. */
+  function netsLink(bookName, chv, shown) {
+    var a = document.createElement("a");
+    a.className = "rtBibleRef ref-auto ref-nets";
+    a.href = NETS_BASE + NETS[bookName][0] + "-nets.pdf";
+    a.target = "_blank";
+    a.rel = "noopener";
+    a.setAttribute("data-reference", bookName + " " + chv);
+    a.setAttribute("data-version", "nets");
+    a.textContent = shown;
+    return a;
+  }
+
+  /* The NETS card: what the reference is, where NETS keeps it, and the link.
+     Hover (or focus) shows it on a computer; on a phone the first tap shows it
+     and its link opens the PDF. */
+  var netsCard = null, netsFor = null, netsTimer = 0, lastTouch = 0;
+  function netsText(a) {
+    var ref = a.getAttribute("data-reference") || "";
+    var bookName = ref.replace(/\s+\d.*$/, ""), nb = NETS[bookName] || ["", bookName];
+    var es = isSpanish(), where = ref.slice(bookName.length + 1);
+    var named = nb[1] !== bookName ? nb[1] + " (" + bookName + ")" : nb[1];
+    var note = "";
+    if (bookName === "Psalms") note = es ? " NETS numera los salmos según el griego, a menudo uno menos." : " NETS numbers the Psalms by the Greek, often one lower.";
+    if (bookName === "Jeremiah") note = es ? " Ieremias sigue el orden griego, distinto del hebreo desde el capítulo 25." : " Ieremias follows the Greek order, which departs from the Hebrew after chapter 25.";
+    return {
+      head: ref,
+      body: (es ? "A New English Translation of the Septuagint. Cada libro es un PDF: este abre " + named + "; busque " + where + " allí."
+                : "A New English Translation of the Septuagint. NETS comes as one PDF per book: this opens " + named + "; look for " + where + " there.") + note,
+      link: es ? "Abrir en NETS (PDF) \u00bb" : "Open in NETS (PDF) \u00bb"
+    };
+  }
+  function showNets(a) {
+    clearTimeout(netsTimer);
+    if (!netsCard) {
+      netsCard = document.createElement("div");
+      netsCard.className = "rc-nets-card";
+      netsCard.setAttribute("role", "dialog");
+      netsCard.addEventListener("mouseenter", function () { clearTimeout(netsTimer); });
+      netsCard.addEventListener("mouseleave", function () { hideNetsSoon(); });
+      document.body.appendChild(netsCard);
+    }
+    var t = netsText(a);
+    netsCard.innerHTML = "";
+    var h = document.createElement("div"); h.className = "rc-nets-h";
+    h.appendChild(document.createTextNode(t.head + " "));
+    var tag = document.createElement("span"); tag.textContent = "(NETS)"; h.appendChild(tag);
+    var b = document.createElement("div"); b.className = "rc-nets-b"; b.textContent = t.body;
+    var f = document.createElement("div"); f.className = "rc-nets-f";
+    var l = document.createElement("a"); l.href = a.href; l.target = "_blank"; l.rel = "noopener"; l.textContent = t.link;
+    f.appendChild(l);
+    netsCard.appendChild(h); netsCard.appendChild(b); netsCard.appendChild(f);
+    netsCard.setAttribute("aria-label", t.head + " (NETS)");
+    netsCard.style.display = "block";
+    var r = a.getBoundingClientRect(), w = netsCard.offsetWidth, ht = netsCard.offsetHeight;
+    var left = Math.max(8, Math.min(r.left, innerWidth - w - 8));
+    var top = r.bottom + 8 + ht < innerHeight ? r.bottom + 8 : Math.max(8, r.top - ht - 8);
+    netsCard.style.left = left + "px";
+    netsCard.style.top = top + "px";
+    netsFor = a;
+  }
+  function hideNets() { clearTimeout(netsTimer); if (netsCard) netsCard.style.display = "none"; netsFor = null; }
+  function hideNetsSoon() {
+    clearTimeout(netsTimer);
+    netsTimer = setTimeout(function check() {
+      if ((netsCard && netsCard.matches(":hover")) || (netsFor && netsFor.matches(":hover"))) { netsTimer = setTimeout(check, 300); return; }
+      hideNets();
+    }, 260);
+  }
+  function wireNets() {
+    var near = function (e) { return e.target && e.target.closest ? e.target.closest("a.ref-nets") : null; };
+    document.addEventListener("touchstart", function (e) {
+      lastTouch = Date.now();
+      if (netsCard && netsFor && !netsCard.contains(e.target) && !near(e)) hideNets();
+    }, true);
+    document.addEventListener("mouseover", function (e) {
+      var a = near(e);
+      if (!a || Date.now() - lastTouch < 800) return;
+      clearTimeout(netsTimer);
+      netsTimer = setTimeout(function () { showNets(a); }, 220);
+    });
+    document.addEventListener("mouseout", function (e) {
+      var a = near(e);
+      if (a && !a.contains(e.relatedTarget)) hideNetsSoon();
+    });
+    document.addEventListener("focusin", function (e) { var a = near(e); if (a) showNets(a); });
+    document.addEventListener("focusout", function (e) { if (near(e)) hideNetsSoon(); });
+    // a tap shows the card first; its link opens the PDF
+    document.addEventListener("click", function (e) {
+      var a = near(e);
+      if (a && Date.now() - lastTouch < 800 && netsFor !== a) { e.preventDefault(); showNets(a); }
+    }, true);
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && netsFor) hideNets(); });
+    window.addEventListener("scroll", function () { if (netsFor) hideNets(); }, true);
   }
 
   /* The commentary declares the passage each section covers ("2 Peter · 1:1-4").
@@ -336,6 +546,16 @@
     var book = null;          // carries across the whole article
     var linked = 0;
 
+    /* The translation of this article or paper, if it declares one. */
+    var docDefault = DEFAULT_VERSION;
+    var dm = DECLARED_RE.exec(root.textContent || "");
+    if (dm && VERSIONS[dm[1]] && VERSIONS[dm[1]] !== "nets") docDefault = VERSIONS[dm[1]];
+    /* RefTagger links references that name their book in its own default;
+       one meant for another translation is taken over here instead. */
+    var TAGGER_VERSION = "nasb95";
+    // a translation still in force where a text node ends mid-sentence
+    var carry = null;
+
     nodes.forEach(function (node) {
       var text = node.nodeValue;
       if (!text || !text.trim()) return;
@@ -365,24 +585,50 @@
         return anyBefore || carried;        // else plain sticky behaviour
       }
 
-      if (skippable(node) || !(book || forced)) return;
-
-      /* Translations named in this text node, with where they were named.
-         A version only governs references that come AFTER it, and a code that
-         titles a resource ("CSB Study Bible", "NIV Commentary") is a citation,
-         not a choice of translation. */
+      /* Translations named in this text node. A translation reaches the
+         references after it in its own sentence; a witness (LXX, Vulgate) only
+         the reference it stands beside. Read for every node, so a translation
+         named in one run of text ("the <em>NET</em> translates …") carries
+         into the next run of the same paragraph until the sentence ends. */
+      var vbounds = versionSentenceStarts(text);
+      var block = blockOf(node);
+      var startVer = (carry && carry.block === block) ? carry.code : null;
       var vmarks = [], vm;
       VERSION_RE.lastIndex = 0;
       while ((vm = VERSION_RE.exec(text))) {
-        var after = text.slice(vm.index + vm[0].length, vm.index + vm[0].length + 16);
-        if (/^[\s.]*(Study|Bible|Commentary|Notes|Dictionary|Atlas|Reader)\b/i.test(after)) continue;
-        vmarks.push([vm.index, VERSIONS[vm[1]] || DEFAULT_VERSION]);
+        var vname = vm[1], vat = vm.index + vm[0].indexOf(vname);
+        var vend = vat + vname.length;
+        VERSION_RE.lastIndex = vend;
+        if (WITNESS[vname]) continue;
+        if (TITLE_AFTER.test(text.slice(vend, vend + 24))) continue;
+        if (DENIED_BEFORE.test(text.slice(Math.max(0, vat - 26), vat))) continue;
+        vmarks.push([vat, VERSIONS[vname], sentenceOf(vbounds, vat)]);
       }
-      function versionAt(pos) {
-        var v = DEFAULT_VERSION;
-        for (var i = 0; i < vmarks.length; i++) if (vmarks[i][0] < pos) v = vmarks[i][1];
+      // what is still in force at the end of this node, for the next one
+      (function () {
+        var lastSent = vbounds.length - 1, code = lastSent === 0 ? startVer : null;
+        for (var i = 0; i < vmarks.length; i++) if (vmarks[i][2] === lastSent) code = vmarks[i][1];
+        carry = code ? { block: block, code: code } : null;
+      })();
+      function sentenceVersion(pos) {
+        var sent = sentenceOf(vbounds, pos), v = sent === 0 ? startVer : null;
+        for (var i = 0; i < vmarks.length; i++) {
+          if (vmarks[i][0] >= pos) break;
+          if (vmarks[i][2] === sent) v = vmarks[i][1];
+        }
         return v;
       }
+      /* The translation for a reference: one beside it, else one earlier in
+         its sentence, else the article's own, else the default. NETS only for
+         the books it has; otherwise the reference keeps the default. */
+      function versionFor(pos, endPos, bookName) {
+        var am = AFTER_RE.exec(text.slice(endPos, endPos + 40));
+        var v = (am && VERSIONS[am[1]]) || sentenceVersion(pos) || docDefault;
+        if (v === "nets" && !NETS[bookName]) v = docDefault === "nets" ? DEFAULT_VERSION : docDefault;
+        return v;
+      }
+
+      if (skippable(node) || !(book || forced)) return;
 
       REF_RE.lastIndex = 0;
       var out = null, cursor = 0, m;
@@ -401,25 +647,35 @@
           continue;
         }
 
-        // On English pages RefTagger already handles references that name
-        // their book, so leave those alone. On Spanish pages it cannot see
-        // them at all, so we take those too.
-        if (named && !spanish) { book = named; continue; }
-        if (named) book = named;
-
         var maxCh = CHAPTERS[useBook] || 150;
-        if (+m[2] > maxCh || (m[4] && +m[4] > maxCh)) continue;
-        if (+m[3] > 176 || (m[5] && +m[5] > 176)) continue;
+        var possible = !(+m[2] > maxCh || (m[4] && +m[4] > maxCh)) &&
+                       !(+m[3] > 176 || (m[5] && +m[5] > 176));
+
+        /* The run of verses that follows ("Romans 5:8, 10"), found before
+           anything is changed, so a translation after the run ("…, 10,
+           NASB1995") is seen as belonging to the whole of it. */
+        var runEnd = m.index + m[0].length;
+        CONT_RE.lastIndex = runEnd;
+        var cr;
+        while ((cr = CONT_RE.exec(text)) && cr.index === runEnd) { runEnd = cr.index + cr[0].length; CONT_RE.lastIndex = runEnd; }
+        var ver = versionFor(m.index, runEnd, useBook);
+
+        // On English pages RefTagger already handles references that name
+        // their book, in its default, so leave those alone unless another
+        // translation is wanted. On Spanish pages it cannot see them at all,
+        // so we take those too.
+        if (named) book = named;
+        if (named && !spanish && ver === TAGGER_VERSION) continue;
+        if (!possible) continue;
 
         // Expand to the English name so RefTagger will tag it, remembering
         // the author's own wording to put back afterwards.
         var chv = m[2] + ":" + m[3];
         if (m[5]) chv += "-" + (m[4] ? m[4] + ":" + m[5] : m[5]);
 
-        var ver = versionAt(m.index);
         out = out || document.createDocumentFragment();
         out.appendChild(document.createTextNode(text.slice(cursor, m.index)));
-        out.appendChild(placeholder(useBook, chv, m[0], ver));
+        out.appendChild(ver === "nets" ? netsLink(useBook, chv, m[0]) : placeholder(useBook, chv, m[0], ver));
         cursor = m.index + m[0].length;
         linked++;
 
@@ -433,8 +689,9 @@
           if (+c[1] > 176 || (c[2] && +c[2] > 176)) break;
           var at = c[0].indexOf(c[1]);
           out.appendChild(document.createTextNode(c[0].slice(0, at)));
-          out.appendChild(placeholder(useBook, lastCh + ":" + c[1] + (c[2] ? "-" + c[2] : ""),
-                                      c[0].slice(at), ver));
+          var cchv = lastCh + ":" + c[1] + (c[2] ? "-" + c[2] : "");
+          out.appendChild(ver === "nets" ? netsLink(useBook, cchv, c[0].slice(at))
+                                         : placeholder(useBook, cchv, c[0].slice(at), ver));
           cursor = c.index + c[0].length;
           linked++;
           CONT_RE.lastIndex = cursor;
@@ -494,7 +751,20 @@
       "a.rtBibleRef, a.rtBibleRef:link, a.rtBibleRef:visited {" +
       "font-size: inherit !important; font-family: inherit !important;" +
       "font-weight: inherit !important; font-style: inherit !important;" +
-      "vertical-align: baseline !important; line-height: inherit !important; }";
+      "vertical-align: baseline !important; line-height: inherit !important; }" +
+      /* the NETS card, in the manner of RefTagger's light preview */
+      ".rc-nets-card{display:none;position:fixed;z-index:9999999;width:320px;max-width:calc(100vw - 16px);" +
+      "box-sizing:border-box;background:#fff;color:#444;border-radius:4px;overflow:hidden;" +
+      "box-shadow:0 0 6px 0 #444;font:13px/1.45 Helvetica,Arial,sans-serif;text-align:left;}" +
+      ".rc-nets-h{background:#e7e7e7;color:#333;font-weight:700;padding:7px 10px;}" +
+      ".rc-nets-h span{font-weight:400;color:#666;}" +
+      ".rc-nets-b{padding:9px 10px 4px;}" +
+      ".rc-nets-f{padding:4px 10px 9px;text-align:right;}" +
+      ".rc-nets-f a{color:#0080FF;text-decoration:none;}.rc-nets-f a:hover{color:#66B2FF;}" +
+      "[data-theme=dark] .rc-nets-card{background:#1f242b;color:#d5dbe4;box-shadow:0 0 8px 0 #000;}" +
+      "[data-theme=dark] .rc-nets-h{background:#2b3138;color:#e9edf3;}" +
+      "[data-theme=dark] .rc-nets-h span{color:#a6afbf;}" +
+      "[data-theme=dark] .rc-nets-f a{color:#86a3ff;}";
     (document.head || document.documentElement).appendChild(st);
   }
 
@@ -537,6 +807,7 @@
 
   function start() {
     injectStyle();
+    wireNets();
     watchModal();
     /* Pick what to scan:
          - an article page has <article> (a library card is also <article>,
