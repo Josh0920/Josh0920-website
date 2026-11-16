@@ -533,6 +533,18 @@
     return i;
   }
 
+  /* The title of what is being read: a heading inside it (a paper's text), the
+     reader's title bar when it is shown in the reader (an article's text has
+     no heading of its own), else the page's own heading. */
+  function titleOf(root) {
+    var h = root.querySelector ? root.querySelector("h1, h2") : null;
+    if (h) return h.textContent;
+    var t = document.getElementById("modalTitle");
+    if (t && root.id === "modalBody") return t.textContent;
+    h = document.querySelector("h1");
+    return h ? h.textContent : "";
+  }
+
   function run(root) {
     var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
     var nodes = [], n;
@@ -545,6 +557,19 @@
 
     var book = null;          // carries across the whole article
     var linked = 0;
+
+    /* A book named in the title is the book under discussion from the start.
+       The Spanish "Filipenses 2" names its book only in its title — its text
+       says "los filipenses", the people — so its "(1:27)" had no book and was
+       left plain, while the English, which says "the Philippians", was linked
+       (found 2026-11-16). A book named in the text still takes over at once. */
+    (function () {
+      var title = titleOf(root) || "", tm, tb = null;
+      BOOK_RE.lastIndex = 0;
+      while ((tm = BOOK_RE.exec(title))) tb = BOOK_LOOKUP[tm[1].toLowerCase()] || tb;
+      BOOK_RE.lastIndex = 0;
+      if (tb) book = tb;
+    })();
 
     /* The translation of this article or paper, if it declares one. */
     var docDefault = DEFAULT_VERSION;
