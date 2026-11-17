@@ -29,12 +29,33 @@
  *        - the LXX, the Septuagint and the Vulgate are texts under discussion
  *          more often than translations being quoted, so they count only right
  *          beside a reference.
+ *   5. "v. 7", "vv. 6–7", "vv 6-7", "v. 9b", "vs 26" (his own short form),
+ *      "verse 34a", "verses 34–35" (and Spanish "versículo(s)") are verses of
+ *      the chapter in hand (Joshua, 2026-11-16: "learn that "v. [number]" and
+ *      "vv [numbers]" refers to verses as well"). The chapter, in order:
+ *      the passage cited after a quotation the "v." stands in (“… [verse 10
+ *      …] …” (Romans 5:8, 10)); a reference or chapter named earlier in its
+ *      sentence; the passage of the commentary section it is in; then, on a
+ *      page whose title names a chapter ("Titus 2: So That", "… of Luke
+ *      23:34a"), the last reference before it, but the title's own chapter
+ *      after a mere mention of a chapter of the same book ("in Genesis 3") or
+ *      after a new paragraph; elsewhere the last reference or chapter named
+ *      before it. A reference in parentheses the "v." is outside of is an
+ *      aside ("(false teachers, 1:10ff)") on such a page. A book named with no
+ *      chapter ("the book of Romans") leaves none, and then nothing is linked,
+ *      unless it is the book already in hand ("Titus’ opponents"). The name of
+ *      a work (in italics, or a run of chapters: Westermann's *Genesis 1-11*)
+ *      sets no chapter. Checked 2026-11-17 against all 111 pages.
  *   4. NETS (Joshua, 2026-11-16: "can you create the ability to use NETS"):
  *      a reference marked NETS, or LXX/Septuagint beside it, opens the NETS
  *      project's own PDF of that book, with a small card in place of
- *      RefTagger's verse text. The NETS files are free for personal, scholarly
- *      use but "may not be sold or redistributed", so the site links to them
- *      and quotes nothing from them.
+ *      RefTagger's verse text. For a passage in NETS_PLACES (2026-11-17, "can
+ *      you display on my website the verse with a link to that exact part of
+ *      the pdf?") the card shows NETS's wording, read off the PDF, with NETS's
+ *      credit line, and the link opens the PDF at that verse. NETS allows
+ *      quoting up to 250 verses that way; the PDFs themselves "may not be
+ *      sold or redistributed", so the site links to them and never copies
+ *      them.
  */
 (function () {
   "use strict";
@@ -106,6 +127,23 @@
   };
   ["Hosea", "Joel", "Amos", "Obadiah", "Jonah", "Micah", "Nahum", "Habakkuk", "Zephaniah",
    "Haggai", "Zechariah", "Malachi"].forEach(function (b) { NETS[b] = ["32-twelve", "The Twelve Prophets"]; });
+
+  /* NETS passages cited on the site, read off the NETS PDFs: the PDF page,
+     how far down it the verse starts (in points, for the viewer's
+     "view=FitH,top", so Chrome opens with the verse at the top of the window;
+     other viewers open the page), and NETS's wording, shown in the card.
+     NETS's terms allow quoting up to 250 verses with its credit line, which
+     the card carries. Not for the 1 and 2 Peter commentary: a commentary
+     needs Oxford University Press's written permission. */
+  var NETS_PLACES = {
+    // the Genesis 4 paper, footnote 18 (checked 2026-11-17, 01-gen-nets.pdf, page 8)
+    "Genesis 4:8": { page: 8, top: 200,
+      text: "And Kain said to his brother Habel, “Let us go through into the plain.” And it came about when they were in the plain, that then Kain rose up against his brother Habel and killed him." }
+  };
+  var NETS_CREDIT = "Quotations marked NETS are taken from A New English Translation of the Septuagint, ©2007 by the International Organization for Septuagint and Cognate Studies, Inc. Used by permission of Oxford University Press. All rights reserved.";
+  function netsPlace(ref) {
+    return NETS_PLACES[ref] || NETS_PLACES[ref.replace(/[a-d]$/, "")] || null;
+  }
 
   /* Canonical book names, plus the abbreviations Joshua actually writes.
      Order matters: longer names are tried first so "1 John" wins over "John". */
@@ -219,8 +257,8 @@
     ["1 Corinthians", ["1 Corintios", "1 Co"]], ["2 Corinthians", ["2 Corintios", "2 Co"]],
     ["Galatians", ["Gálatas", "Galatas", "Gá"]], ["Ephesians", ["Efesios", "Ef"]],
     ["Philippians", ["Filipenses", "Fil"]], ["Colossians", ["Colosenses", "Col"]],
-    ["1 Thessalonians", ["1 Tesalonicenses", "1 Ts"]],
-    ["2 Thessalonians", ["2 Tesalonicenses", "2 Ts"]],
+    ["1 Thessalonians", ["1 Tesalonicenses", "1 Tes", "1 Ts"]],   // "1 Tes. 4:1" was read as Luke (2026-11-16)
+    ["2 Thessalonians", ["2 Tesalonicenses", "2 Tes", "2 Ts"]],
     ["1 Timothy", ["1 Timoteo", "1 Ti"]], ["2 Timothy", ["2 Timoteo", "2 Ti"]],
     ["Titus", ["Tito", "Tit"]], ["Philemon", ["Filemón", "Filemon", "Flm"]],
     ["Hebrews", ["Hebreos", "Heb", "He"]], ["James", ["Santiago", "Stg"]],
@@ -262,8 +300,21 @@
     var alt = names.map(function (n) { return esc(n[0]); }).join("|");
     var lookup = {};
     names.forEach(function (n) { lookup[n[0].toLowerCase()] = n[1]; });
+    // abbreviations of four letters or fewer ("Os", "Mal", "Josh", "1 Tes"),
+    // unless the same spelling is a book's full name somewhere ("Job", "Amos")
+    var full = {}, short = {};
+    tables.forEach(function (t) { t.forEach(function (bk) { full[bk[1][0].toLowerCase()] = true; }); });
+    tables.forEach(function (t) {
+      t.forEach(function (bk) {
+        bk[1].slice(1).forEach(function (n) {
+          var k = n.toLowerCase();
+          if (!full[k] && k.replace(/^\d\s*/, "").length <= 4) short[k] = true;
+        });
+      });
+    });
     return {
       lookup: lookup,
+      short: short,
       /* Not \b: it counts accented letters as word breaks, so "Éx", "Josué"
          and "Gá" were never seen as book names and a Spanish reference with
          no book named before it went unlinked. (No lookbehind: older iPhones
@@ -318,10 +369,17 @@
     "(?:Scripture|scripture|quotations?|references|citations|verses)[^.]{0,60}?" +
     "(?:from|are|is|in)\\s+(?:the\\s+)?(" + VERSION_ALT + ")(?![A-Za-z0-9])");
 
+  /* "v. 7", "vv. 6–7", "vv 6-7", "v. 9b", "verse 34a", "verses 34–35", and the
+     Spanish "versículo(s)". Group 1 is what comes before (not a letter, so
+     "rev. 2" is not one), 2 the word, 3–6 the verse(s) and their letters. */
+  var VERSE_RE = /(^|[^A-Za-z\u00C0-\u024F])((?:[Vv](?:v|ss?)?\.?|[Vv]erses?|[Vv]ers\u00edculos?)\s?)(\d{1,3})([a-d])?(?:\s*[-\u2013]\s*(\d{1,3})([a-d])?)?(?!\d|:\d)/g;
+  /* A chapter named on its own: "chapter 3", "ch. 3", "chs. 18-9", "capítulo 3". */
+  var CHAPTER_RE = /(?:^|[^A-Za-z\u00C0-\u024F])(?:[Cc]hapters?|ch\.|chs\.|[Cc]ap\u00edtulos?|[Cc]apitulos?|cap\.)\s*(\d{1,3})(?![\d:])/g;
+
   /* Sentence ends for the reach of a translation. Unlike sentenceStarts this
      does not end a sentence at an abbreviation ("Gen. 4:7", "cf. v. 9", "J.
      Byron"), or "the NET renders Gen. 4:7" would lose the NET at "Gen.". */
-  var ABBR_WORDS = ["cf", "e.g", "i.e", "v", "vv", "ch", "chs", "p", "pp", "ed", "eds", "trans",
+  var ABBR_WORDS = ["cf", "e.g", "i.e", "esp", "v", "vv", "vs", "ch", "chs", "p", "pp", "ed", "eds", "trans",
                     "vol", "no", "ibid", "Ibid", "al", "etc", "ca", "c", "St", "Dr", "Mr", "Mrs", "Jr", "Sr"];
   // the English book abbreviations ("Gen", "Matt", "1 Pet"), not the full names
   BOOKS.forEach(function (bk) { bk[1].forEach(function (n) { if (n !== bk[0] && n.length <= 7) ABBR_WORDS.push(n); }); });
@@ -385,7 +443,9 @@
   function netsLink(bookName, chv, shown) {
     var a = document.createElement("a");
     a.className = "rtBibleRef ref-auto ref-nets";
-    a.href = NETS_BASE + NETS[bookName][0] + "-nets.pdf";
+    var place = netsPlace(bookName + " " + chv);
+    a.href = NETS_BASE + NETS[bookName][0] + "-nets.pdf" +
+             (place ? "#page=" + place.page + "&view=FitH," + place.top : "");
     a.target = "_blank";
     a.rel = "noopener";
     a.setAttribute("data-reference", bookName + " " + chv);
@@ -406,6 +466,13 @@
     var note = "";
     if (bookName === "Psalms") note = es ? " NETS numera los salmos según el griego, a menudo uno menos." : " NETS numbers the Psalms by the Greek, often one lower.";
     if (bookName === "Jeremiah") note = es ? " Ieremias sigue el orden griego, distinto del hebreo desde el capítulo 25." : " Ieremias follows the Greek order, which departs from the Hebrew after chapter 25.";
+    var place = netsPlace(ref);
+    if (place) return {
+      head: ref,
+      verse: place.text,
+      credit: NETS_CREDIT,
+      link: es ? "Abrir en NETS, pág. " + place.page + " del PDF »" : "Open in NETS, PDF page " + place.page + " »"
+    };
     return {
       head: ref,
       body: (es ? "A New English Translation of the Septuagint. Cada libro es un PDF: este abre " + named + "; busque " + where + " allí."
@@ -428,11 +495,17 @@
     var h = document.createElement("div"); h.className = "rc-nets-h";
     h.appendChild(document.createTextNode(t.head + " "));
     var tag = document.createElement("span"); tag.textContent = "(NETS)"; h.appendChild(tag);
-    var b = document.createElement("div"); b.className = "rc-nets-b"; b.textContent = t.body;
+    var b = document.createElement("div"); b.className = "rc-nets-b";
+    if (t.verse) {
+      b.className += " rc-nets-v";
+      var num = document.createElement("sup"); num.textContent = t.head.replace(/^.*:/, "");
+      b.appendChild(num); b.appendChild(document.createTextNode(" " + t.verse));
+    } else b.textContent = t.body;
     var f = document.createElement("div"); f.className = "rc-nets-f";
     var l = document.createElement("a"); l.href = a.href; l.target = "_blank"; l.rel = "noopener"; l.textContent = t.link;
     f.appendChild(l);
     netsCard.appendChild(h); netsCard.appendChild(b); netsCard.appendChild(f);
+    if (t.credit) { var c = document.createElement("div"); c.className = "rc-nets-c"; c.textContent = t.credit; netsCard.appendChild(c); }
     netsCard.setAttribute("aria-label", t.head + " (NETS)");
     netsCard.style.display = "block";
     var r = a.getBoundingClientRect(), w = netsCard.offsetWidth, ht = netsCard.offsetHeight;
@@ -502,6 +575,22 @@
     return null;
   }
 
+  /* The chapter of the commentary section a node is in: "2 Peter · 1:1-4" is
+     chapter 1. Returns [section element, book, chapter] or null. */
+  function homeChapterOf(node, lookup, bookRe) {
+    for (var el = node.parentElement; el; el = el.parentElement) {
+      if (el.hasAttribute && el.hasAttribute("data-loc")) {
+        var loc = el.getAttribute("data-loc") || "", found = null, bm2, at = -1;
+        bookRe.lastIndex = 0;
+        while ((bm2 = bookRe.exec(loc))) { found = lookup[bm2[1].toLowerCase()] || found; at = bm2.index + bm2[0].length; }
+        bookRe.lastIndex = 0;
+        var cm = at >= 0 ? /(\d{1,3})\s*[:.]\s*\d/.exec(loc.slice(at)) : null;
+        return found && cm ? [el, found, +cm[1]] : [el, null, null];
+      }
+    }
+    return null;
+  }
+
   /* A passage can name the book of every bare reference in it, whatever else
      it cites. Bauckham's list in the 1 and 2 Peter paper reads "1:11 (Dan 7:27
      θ, LXX); 1:17 (Ps 8:6); …": each bare reference is 2 Peter and each book
@@ -537,7 +626,8 @@
      reader's title bar when it is shown in the reader (an article's text has
      no heading of its own), else the page's own heading. */
   function titleOf(root) {
-    var h = root.querySelector ? root.querySelector("h1, h2") : null;
+    // a paper's own title on its title page, not its first section heading
+    var h = root.querySelector ? root.querySelector(".fm-title, h1, h2") : null;
     if (h) return h.textContent;
     var t = document.getElementById("modalTitle");
     if (t && root.id === "modalBody") return t.textContent;
@@ -563,12 +653,22 @@
        says "los filipenses", the people — so its "(1:27)" had no book and was
        left plain, while the English, which says "the Philippians", was linked
        (found 2026-11-16). A book named in the text still takes over at once. */
+    // the chapter in hand where the last text ended:
+    // [book, chapter or null, named with a verse?, its block]
+    var chapCarry = null, lastHome = null;
+    // the passage in the title ("Titus 2: So That", "… of Luke 23:34a"): [book, chapter]
+    var titleCh = null;
     (function () {
-      var title = titleOf(root) || "", tm, tb = null;
+      var title = titleOf(root) || "", tm, tb = null, tc = null;
       BOOK_RE.lastIndex = 0;
-      while ((tm = BOOK_RE.exec(title))) tb = BOOK_LOOKUP[tm[1].toLowerCase()] || tb;
+      while ((tm = BOOK_RE.exec(title))) {
+        tb = BOOK_LOOKUP[tm[1].toLowerCase()] || tb;
+        var cm = /^\.?\s+(\d{1,3})(?!\d)/.exec(title.slice(tm.index + tm[0].length));
+        tc = cm ? +cm[1] : null;
+      }
       BOOK_RE.lastIndex = 0;
       if (tb) book = tb;
+      if (tb && tc) { chapCarry = [tb, tc, true, null]; titleCh = [tb, tc]; }
     })();
 
     /* The translation of this article or paper, if it declares one. */
@@ -591,6 +691,11 @@
       var bmarks = [], bm;
       BOOK_RE.lastIndex = 0;
       while ((bm = BOOK_RE.exec(text))) {
+        /* A short form is a book only with a chapter after it: the Spanish
+           «Os exhortamos» is "you", not Hosea; "Josh", "Phil", "Mal" alone are
+           a name or a word. */
+        if (bundle.short[bm[1].toLowerCase()] &&
+            !/^\.?\s*[\[(]?\d/.test(text.slice(bm.index + bm[0].length, bm.index + bm[0].length + 5))) continue;
         bmarks.push([bm.index, BOOK_LOOKUP[bm[1].toLowerCase()], sentenceOf(bounds, bm.index)]);
       }
       if (bmarks.length) book = bmarks[bmarks.length - 1][1];   // sticky carry-over
@@ -653,10 +758,142 @@
         return v;
       }
 
-      if (skippable(node) || !(book || forced)) return;
-
+      /* Where a chapter is put in hand in this node: by a reference, by a
+         book named with a chapter ("Genesis 4 begins"), by "chapter 3" — and
+         where a book named alone ("the book of Genesis") leaves none. Read in
+         every node, headings and links included, as books are. */
+      var homeCh = homeChapterOf(node, BOOK_LOOKUP, BOOK_RE);
+      if (homeCh && homeCh[0] !== lastHome) { lastHome = homeCh[0]; if (homeCh[2]) chapCarry = [homeCh[1], homeCh[2], true, null]; }
+      var blk = blockOf(node);
+      /* The name of a work is not a chapter put in hand: Westermann's
+         *Genesis 1-11*, a commentary on "Luke 9:51-24:53". So a book in italics
+         sets none, nor does a run of chapters. */
+      var cited = (function () {
+        for (var el = node.parentElement; el && el !== blk; el = el.parentElement) {
+          if (/^(I|EM|CITE)$/.test(el.tagName)) return true;
+        }
+        return false;
+      })();
+      // marks: [where, book, chapter or null, named with a verse?, sentence]
+      var chapStart = chapCarry, cmarks = [], refSpans = [], km;
       REF_RE.lastIndex = 0;
-      var out = null, cursor = 0, m;
+      while ((km = REF_RE.exec(text))) {
+        refSpans.push([km.index, km.index + km[0].length]);
+        if (km[4] && +km[4] !== +km[2]) continue;                    // "9:51-24:53"
+        var kb = km[1] ? BOOK_LOOKUP[km[1].toLowerCase()] : bookAt(km.index, book);
+        if (kb) cmarks.push([km.index, kb, +km[2], true]);
+      }
+      REF_RE.lastIndex = 0;
+      for (var bi = 0; bi < bmarks.length; bi++) {
+        var bAt = bmarks[bi][0], bAfter = text.slice(bAt, bAt + 60);
+        var nameLen = (BOOK_RE.lastIndex = 0, (BOOK_RE.exec(bAfter) || [""])[0].length);
+        BOOK_RE.lastIndex = 0;
+        var rest = bAfter.slice(nameLen), cnum = /^\.?\s+(\d{1,3})(?![\d])(\s*[:.]\s*\d)?(\s*[-–]\s*\d)?/.exec(rest);
+        if (cited) continue;
+        // "the Philippians", "the Romans": the people, not the book
+        if (!cnum && /(?:ians|ans|ews)$/.test(bmarks[bi][1]) && /\bthe\s+$/i.test(text.slice(Math.max(0, bAt - 5), bAt + 1))) continue;
+        if (!cnum) cmarks.push([bAt, bmarks[bi][1], null, false]);          // a book alone: no chapter
+        else if (!cnum[2] && !cnum[3]) cmarks.push([bAt, bmarks[bi][1], +cnum[1], false]);  // "Genesis 4 begins"
+      }
+      CHAPTER_RE.lastIndex = 0;
+      while ((km = CHAPTER_RE.exec(text))) {
+        var cb = bookAt(km.index, book);
+        if (cb) cmarks.push([km.index, cb, +km[1], true]);
+      }
+      cmarks.sort(function (x, y) { return x[0] - y[0]; });
+      /* A book named alone puts no chapter in hand, so it ends the one in
+         hand — unless it is that same book: "Titus’ opponents" in Titus 2,
+         "Mark writes" in Mark 2. */
+      (function () {
+        var cur = chapStart && chapStart[1] ? chapStart[0] : (titleCh ? titleCh[0] : null);
+        cmarks = cmarks.filter(function (cm) {
+          if (!cm[2] && cm[1] === cur) return false;
+          cur = cm[2] ? cm[1] : null;
+          return true;
+        });
+      })();
+      // sentences that do not end at "esp." or "cf.": "1 Cor 13:1-13 (esp. verse 13)"
+      for (var ci = 0; ci < cmarks.length; ci++) cmarks[ci].push(sentenceOf(vbounds, cmarks[ci][0]));
+      if (cmarks.length) {
+        var lastMark = cmarks[cmarks.length - 1];
+        chapCarry = [lastMark[1], lastMark[2], lastMark[3], blk];
+      }
+
+      // parentheses, so an aside — "(false teachers, 1:10ff)" — can be told apart
+      var parens = [];
+      (function () {
+        var open = [];
+        for (var i = 0; i < text.length; i++) {
+          if (text[i] === "(") open.push(i);
+          else if (text[i] === ")" && open.length) parens.push([open.pop(), i]);
+        }
+      })();
+      /* On a page about one passage, a reference in parentheses that closed
+         before the "v." is an aside and does not move the "v." to its chapter.
+         A citation closing a quotation is no aside: it names the passage. */
+      function aside(at, pos) {
+        if (!titleCh) return false;
+        for (var i = 0; i < parens.length; i++) {
+          var p = parens[i];
+          if (p[0] < at && at < p[1] && p[1] < pos)
+            return !/[”’"'»]\s*$/.test(text.slice(Math.max(0, p[0] - 3), p[0]));
+        }
+        return false;
+      }
+      /* A "v." inside a quotation that ends with its citation is a verse of
+         that passage: “while we were yet sinners [verse 10 calls us
+         ‘enemies’] Christ died for us” (Romans 5:8, 10). */
+      function quoteCite(pos) {
+        var open = Math.max(text.lastIndexOf("“", pos), text.lastIndexOf("«", pos));
+        if (open < 0 || /[”»]/.test(text.slice(open, pos))) return null;
+        var cm = /[”»]/.exec(text.slice(pos));
+        if (!cm) return null;
+        var close = pos + cm.index;
+        if (/[“«]/.test(text.slice(pos, close))) return null;
+        var after = /^[\s,.;:!?]*\(\s*/.exec(text.slice(close + 1));
+        if (!after) return null;
+        var at = close + 1 + after[0].length;
+        for (var i = 0; i < cmarks.length; i++) {
+          if (cmarks[i][3] && cmarks[i][0] >= at - 1 && cmarks[i][0] <= at + 1) return [cmarks[i][1], cmarks[i][2]];
+        }
+        return null;
+      }
+      /* The chapter for a "v." at pos: the passage a quotation around it
+         cites; else one named in its sentence; else the section's passage.
+         Then, on a page about one passage (its title names a chapter), the
+         last reference before it, unless that was only a book or chapter named
+         in passing ("in Genesis 3") — the page's passage again. Elsewhere,
+         the last one before it, as before. */
+      function chapterAt(pos) {
+        var q = quoteCite(pos);
+        if (q) return q;
+        var sent = sentenceOf(vbounds, pos), inSent = null, last = null;
+        for (var i = 0; i < cmarks.length; i++) {
+          if (cmarks[i][0] >= pos) break;
+          if (aside(cmarks[i][0], pos)) continue;
+          last = cmarks[i];
+          if (cmarks[i][4] === sent) inSent = cmarks[i];
+        }
+        if (inSent) return inSent[2] ? [inSent[1], inSent[2]] : null;
+        if (homeCh && homeCh[2]) return [homeCh[1], homeCh[2]];
+        if (titleCh) {
+          if (last) {
+            if (last[3]) return [last[1], last[2]];
+            if (last[1] === titleCh[0]) return titleCh;
+            return last[2] ? [last[1], last[2]] : null;
+          }
+          if (chapStart && chapStart[3] === blk && chapStart[2] && chapStart[1]) return [chapStart[0], chapStart[1]];
+          return titleCh;
+        }
+        if (last) return last[2] ? [last[1], last[2]] : null;
+        return chapStart && chapStart[1] ? [chapStart[0], chapStart[1]] : null;
+      }
+
+      if (skippable(node) || !(book || forced || chapStart || cmarks.length)) return;
+
+      var reps = [];                 // [start, end, [nodes]] to put in place of the text
+      REF_RE.lastIndex = 0;
+      var cursor = 0, m;
       while ((m = REF_RE.exec(text))) {
         var named = m[1] ? BOOK_LOOKUP[m[1].toLowerCase()] : null;
         var useBook = named || bookAt(m.index, book);
@@ -698,9 +935,8 @@
         var chv = m[2] + ":" + m[3];
         if (m[5]) chv += "-" + (m[4] ? m[4] + ":" + m[5] : m[5]);
 
-        out = out || document.createDocumentFragment();
-        out.appendChild(document.createTextNode(text.slice(cursor, m.index)));
-        out.appendChild(ver === "nets" ? netsLink(useBook, chv, m[0]) : placeholder(useBook, chv, m[0], ver));
+        reps.push([m.index, m.index + m[0].length,
+                   [ver === "nets" ? netsLink(useBook, chv, m[0]) : placeholder(useBook, chv, m[0], ver)]]);
         cursor = m.index + m[0].length;
         linked++;
 
@@ -713,18 +949,58 @@
         while ((c = CONT_RE.exec(text)) && c.index === cursor) {
           if (+c[1] > 176 || (c[2] && +c[2] > 176)) break;
           var at = c[0].indexOf(c[1]);
-          out.appendChild(document.createTextNode(c[0].slice(0, at)));
           var cchv = lastCh + ":" + c[1] + (c[2] ? "-" + c[2] : "");
-          out.appendChild(ver === "nets" ? netsLink(useBook, cchv, c[0].slice(at))
-                                         : placeholder(useBook, cchv, c[0].slice(at), ver));
+          reps.push([c.index + at, c.index + c[0].length,
+                     [ver === "nets" ? netsLink(useBook, cchv, c[0].slice(at))
+                                     : placeholder(useBook, cchv, c[0].slice(at), ver)]]);
           cursor = c.index + c[0].length;
           linked++;
           CONT_RE.lastIndex = cursor;
         }
         REF_RE.lastIndex = cursor;
       }
-      if (out) {
-        out.appendChild(document.createTextNode(text.slice(cursor)));
+
+      /* "v. 7", "vv. 6–7", "verse 34a": verses of the chapter in hand. */
+      var taken = refSpans.concat(reps.map(function (r) { return [r[0], r[1]]; }));
+      VERSE_RE.lastIndex = 0;
+      var vr;
+      while ((vr = VERSE_RE.exec(text))) {
+        var vs = vr.index + vr[1].length, ve = vr.index + vr[0].length;
+        var clash = taken.some(function (t) { return vs < t[1] && ve > t[0]; });
+        var here = chapterAt(vs);
+        if (clash || !here || +vr[3] > 176 || (vr[5] && +vr[5] > 176) ||
+            (vr[5] && +vr[5] < +vr[3]) || here[1] > (CHAPTERS[here[0]] || 150)) continue;
+        // more verses of the same chapter after it: "vv. 6, 7"
+        var vEnd = ve, more = [], cv;
+        CONT_RE.lastIndex = ve;
+        while ((cv = CONT_RE.exec(text)) && cv.index === vEnd) {
+          if (+cv[1] > 176 || (cv[2] && +cv[2] > 176)) break;
+          more.push(cv); vEnd = cv.index + cv[0].length; CONT_RE.lastIndex = vEnd;
+        }
+        var vver = versionFor(vs, vEnd, here[0]);
+        var vchv = here[1] + ":" + vr[3] + (vr[5] ? "-" + vr[5] : "");
+        var shown = text.slice(vs, ve);
+        reps.push([vs, ve, [vver === "nets" ? netsLink(here[0], vchv, shown) : placeholder(here[0], vchv, shown, vver)]]);
+        linked++;
+        more.forEach(function (cv2) {
+          var at2 = cv2[0].indexOf(cv2[1]), ch2 = here[1] + ":" + cv2[1] + (cv2[2] ? "-" + cv2[2] : "");
+          reps.push([cv2.index + at2, cv2.index + cv2[0].length,
+                     [vver === "nets" ? netsLink(here[0], ch2, cv2[0].slice(at2)) : placeholder(here[0], ch2, cv2[0].slice(at2), vver)]]);
+          linked++;
+        });
+        VERSE_RE.lastIndex = vEnd;
+      }
+
+      if (reps.length) {
+        reps.sort(function (x, y) { return x[0] - y[0]; });
+        var out = document.createDocumentFragment(), pos = 0;
+        reps.forEach(function (r) {
+          if (r[0] < pos) return;            // never overlap
+          out.appendChild(document.createTextNode(text.slice(pos, r[0])));
+          r[2].forEach(function (el) { out.appendChild(el); });
+          pos = r[1];
+        });
+        out.appendChild(document.createTextNode(text.slice(pos)));
         node.parentNode.replaceChild(out, node);
       }
     });
@@ -786,6 +1062,11 @@
       ".rc-nets-b{padding:9px 10px 4px;}" +
       ".rc-nets-f{padding:4px 10px 9px;text-align:right;}" +
       ".rc-nets-f a{color:#0080FF;text-decoration:none;}.rc-nets-f a:hover{color:#66B2FF;}" +
+      ".rc-nets-v{font:15px/1.5 Georgia,'Times New Roman',serif;color:#222;}" +
+      ".rc-nets-v sup{font:700 10px Helvetica,Arial,sans-serif;color:#777;margin-right:1px;}" +
+      ".rc-nets-c{padding:7px 10px 8px;border-top:1px solid #e3e3e3;font-size:10.5px;line-height:1.35;color:#777;}" +
+      "[data-theme=dark] .rc-nets-v{color:#e9edf3;}[data-theme=dark] .rc-nets-v sup{color:#a6afbf;}" +
+      "[data-theme=dark] .rc-nets-c{border-top-color:#353c45;color:#a6afbf;}" +
       "[data-theme=dark] .rc-nets-card{background:#1f242b;color:#d5dbe4;box-shadow:0 0 8px 0 #000;}" +
       "[data-theme=dark] .rc-nets-h{background:#2b3138;color:#e9edf3;}" +
       "[data-theme=dark] .rc-nets-h span{color:#a6afbf;}" +
