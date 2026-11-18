@@ -26,9 +26,16 @@
  *          that article or paper;
  *        - a translation that titles a resource ("CSB Study Bible", "NET Bible
  *          notes") or is denied ("not to the LXX version") is not a choice;
- *        - the LXX, the Septuagint and the Vulgate are texts under discussion
- *          more often than translations being quoted, so they count only right
- *          beside a reference.
+ *        - the LXX, the Septuagint, the OG (Old Greek) and the Vulgate are texts
+ *          under discussion more often than translations being quoted, so they
+ *          count only right beside a reference — read on past inline markup
+ *          and page markers: "Dan 7:27 <span>θ</span>, LXX", "65:17 (p13 OG)".
+ *   6. Tables (Joshua, 2026-11-17, "make these rules universal"): a bare
+ *      reference in a table cell belongs to its column's heading when that
+ *      heading is a book ("Psalms" over "33:20 (OG)"); in a comparison table's
+ *      other columns only references naming their own book are linked.
+ *      Pseudepigrapha ("Jub. 4:15", "T. Reu. 5:6") are not Scripture, and a
+ *      range written short ("24-5") is 24-25.
  *   5. "v. 7", "vv. 6–7", "vv 6-7", "v. 9b", "vs 26" (his own short form),
  *      "verse 34a", "verses 34–35" (and Spanish "versículo(s)") are verses of
  *      the chapter in hand (Joshua, 2026-11-16: "learn that "v. [number]" and
@@ -99,10 +106,12 @@
     "NETS": "nets", "New English Translation of the Septuagint": "nets",
     // texts under discussion more often than translations being quoted:
     // they count only right beside a reference (WITNESS)
-    "LXX": "nets", "Septuagint": "nets", "Septuaginta": "nets",
+    // "OG" (Old Greek) is Jobes's name for the Septuagint outside the
+    // Pentateuch: "33:2 OG", "Is 42:12 OG" (2026-11-17)
+    "LXX": "nets", "Septuagint": "nets", "Septuaginta": "nets", "OG": "nets", "Old Greek": "nets",
     "Vulgate": "vulgataclem", "Vulgata": "vulgataclem"
   };
-  var WITNESS = { "LXX": 1, "Septuagint": 1, "Septuaginta": 1, "Vulgate": 1, "Vulgata": 1 };
+  var WITNESS = { "LXX": 1, "Septuagint": 1, "Septuaginta": 1, "OG": 1, "Old Greek": 1, "Vulgate": 1, "Vulgata": 1 };
 
   /* NETS, A New English Translation of the Septuagint, is published by its
      project as one PDF per book (ccat.sas.upenn.edu/nets/edition/). Its books
@@ -136,13 +145,82 @@
      the card carries. Not for the 1 and 2 Peter commentary: a commentary
      needs Oxford University Press's written permission. */
   var NETS_PLACES = {
+    // the 1 and 2 Peter paper and commentary (tables of LXX/OG references) and the
+    // commentary's notes, read off the NETS PDFs 2026-11-17; Psalms use the Greek
+    // numbering NETS prints first ("33:2 OG"). NETS numbers the Old Greek's Hosea
+    // 2:25 as 2:23 (num). Daniel has the Old Greek and Theodotion side by side
+    // ("Daniel 7:27" and "Daniel 7:27 Th").
+    "Genesis 6:17": { page: 9, top: 757, text: "And for my part, look, I am going to bring the flood, water on the earth, to destroy under heaven all flesh in which is a spirit of life, and as many as there are on the earth shall perish." },
+    "Genesis 18:22": { page: 16, top: 182, text: "And after the men had turned away from there, they went to Sodoma, but Abraam was still standing before the Lord." },
+    "Genesis 19:29": { page: 17, top: 160, text: "And it came about when God annihilated all the cities of the neighboring region that God remembered Abraam and sent Lot out of the midst of the overthrow when the Lord overthrew the cities which Lot used to dwell in." },
+    "Exodus 19:5": { page: 22, top: 650, text: "And now if by paying attention you listen to my voice and keep my covenant, you shall be for me a people special above all nations. For all the earth is mine." },
+    "Exodus 19:6": { page: 22, top: 650, text: "And you shall be for me a royal priesthood and a holy nation. These words you shall say to the sons of Israel." },
+    "Leviticus 16:30": { page: 16, top: 297, text: "For on this day he shall make atonement for you, to cleanse you from all your sins before the Lord, and you shall be clean." },
+    "Proverbs 3:34": { page: 6, top: 780, text: "The Lord resists the arrogant, but he gives grace to the humble." },
+    "Proverbs 11:31": { page: 12, top: 490, text: "If the righteous is scarcely saved, where will the impious and the sinner appear?" },
+    "Proverbs 19:22": { page: 18, top: 380, text: "Compassion is a profit for a man, and a poor righteous person is better than a rich liar." },
+    "Psalms 8:6": { page: 9, top: 402, text: "You diminished him a little in comparison with angels; with glory and honor you crowned him." },
+    "Psalms 33:1": { page: 21, top: 557, text: "Pertaining to Dauid. When he changed his face before Abimelech, and he let him go, and he went away." },
+    "Psalms 33:2": { page: 21, top: 603, text: "I will bless the Lord at every opportunity; continually shall his praise be in my mouth." },
+    "Psalms 33:5": { page: 21, top: 691, text: "I sought the Lord, and he hearkened to me, and from all my sojournings he rescued me." },
+    "Psalms 33:6": { page: 21, top: 724, text: "Come to him, and be enlightened, and your faces shall never be put to shame." },
+    "Psalms 33:8": { page: 22, top: 104, text: "An angel of the Lord will encamp around those who fear him and will rescue them." },
+    "Psalms 33:9": { page: 22, top: 134, text: "O taste, and see that the Lord is kind; happy the man who hopes in him." },
+    "Psalms 33:12": { page: 22, top: 260, text: "Come, O children; hear me; the fear of the Lord I will teach you." },
+    "Psalms 33:13": { page: 22, top: 281, text: "What person is he who wants life, coveting to see good days?" },
+    "Psalms 33:14": { page: 22, top: 303, text: "Stop your tongue from evil and your lips from speaking deceit." },
+    "Psalms 33:15": { page: 22, top: 325, text: "Turn away from evil, and do good; seek peace, and pursue it." },
+    "Psalms 33:16": { page: 22, top: 358, text: "The Lord’s eyes are on the righteous, and his ears are toward their petition." },
+    "Psalms 33:17": { page: 22, top: 380, text: "But the Lord’s face is against evildoers, to destroy the remembrance of them from earth." },
+    "Psalms 33:18": { page: 22, top: 402, text: "The righteous cried, and the Lord listened to them, and from all their afflictions he rescued them." },
+    "Psalms 33:20": { page: 22, top: 479, text: "Many are the afflictions of the righteous, and from them all he will rescue them." },
+    "Psalms 33:23": { page: 22, top: 556, text: "The Lord will redeem his slaves’ souls, and none of those who hope in him will go wrong." },
+    "Psalms 89:4": { page: 52, top: 104, text: "because a thousand years in your sight are like the day of yesterday that passed and a watch in a night." },
+    "Psalms 117:22": { page: 65, top: 690, text: "A stone which the builders rejected, this one became the chief cornerstone." },
+    "Isaiah 8:12": { page: 9, top: 722, text: "Never say “Hard,” for whatever this people says is hard, but do not fear what it fears, neither be troubled." },
+    "Isaiah 8:13": { page: 9, top: 722, text: "Sanctify the Lord himself, and he himself will be your fear." },
+    "Isaiah 28:16": { page: 22, top: 700, text: "therefore thus says the Lord, See, I will lay for the foundations of Sion a precious, choice stone, a highly valued cornerstone for its foundations, and the one who believes in him will not be put to shame." },
+    "Isaiah 34:4": { page: 28, top: 190, text: "Heaven shall roll up like a scroll, and all the stars shall fall like leaves from a vine and as leaves fall from a fig tree." },
+    "Isaiah 42:8": { page: 34, top: 502, text: "I am the Lord God; this is my name; my glory I will not give to another, nor my excellences to the graven images." },
+    "Isaiah 42:12": { page: 34, top: 766, text: "They will give glory to God; they will declare his excellences in the islands." },
+    "Isaiah 43:3": { page: 35, top: 214, text: "because I am the Lord your God, the Holy One of Israel, who saves you. I have made Egypt and Ethiopia and Soene your exchange on your behalf." },
+    "Isaiah 43:4": { page: 35, top: 274, text: "Because you have become precious in my sight, you have been glorified, and I have loved you, and I will give many people on your behalf and rulers on behalf of your head." },
+    "Isaiah 43:20": { page: 35, top: 406, text: "The wild animals of the field will praise me, sirens and the daughters of ostriches, because I have provided water in the wilderness and rivers in the dry land, to give drink to my chosen race," },
+    "Isaiah 43:21": { page: 35, top: 477, text: "my people whom I have acquired to set forth my excellences." },
+    "Isaiah 52:5": { page: 43, top: 612, text: "And now, why are you here? This is what the Lord says, Because my people were taken for nothing, you marvel and howl. This is what the Lord says, Because of you, my name is continually blasphemed among the nations." },
+    "Isaiah 53:4": { page: 43, top: 730, text: "This one bears our sins and suffers pain for us, and we accounted him to be in trouble and calamity and ill-treatment." },
+    "Isaiah 53:5": { page: 43, top: 778, text: "But he was wounded because of our acts of lawlessness and has been weakened because of our sins; upon him was the discipline of our peace; by his bruise we were healed." },
+    "Isaiah 53:6": { page: 44, top: 106, text: "All we like sheep have gone astray; a man has strayed in his own way, and the Lord gave him over to our sins." },
+    "Isaiah 53:9": { page: 44, top: 310, text: "And I will give the wicked for his burial and the rich for his death, because he committed no lawlessness, nor was deceit found in his mouth." },
+    "Isaiah 65:17": { page: 52, top: 143, text: "For heaven will be new, and the earth will be new, and they shall not remember the former things, nor shall they come upon their heart," },
+    "Hosea 2:25": { page: 7, top: 300, num: "23", text: "and I will sow her for myself in the land. And I will have pity on Not Pitied, and I will say to Not My People, “You are my people,” and he shall say, “You are the Lord my God.”" },
+    "Daniel 7:27": { page: 23, top: 790, text: "And he shall give the authority and the kingdom and the magnitude of all the kingdoms, which are under heaven, to the holy people of the Most High, to reign over an everlasting kingdom, and all authorities will be subjected to him and obey him until the conclusion of the word.”" },
+    "Daniel 7:27 Th": { page: 23, top: 790, text: "And the kingdom and the authority and the greatness of the kings, which are under the whole heaven, was given to the holy ones of the Most High, and his kingdom is an everlasting kingdom, and all dominions shall be slaves and heed him.”" },
     // the Genesis 4 paper, footnote 18 (checked 2026-11-17, 01-gen-nets.pdf, page 8)
     "Genesis 4:8": { page: 8, top: 200,
       text: "And Kain said to his brother Habel, “Let us go through into the plain.” And it came about when they were in the plain, that then Kain rose up against his brother Habel and killed him." }
   };
   var NETS_CREDIT = "Quotations marked NETS are taken from A New English Translation of the Septuagint, ©2007 by the International Organization for Septuagint and Cognate Studies, Inc. Used by permission of Oxford University Press. All rights reserved.";
-  function netsPlace(ref) {
-    return NETS_PLACES[ref] || NETS_PLACES[ref.replace(/[a-d]$/, "")] || null;
+  /* The verses of a reference, from NETS_PLACES: "Psalms 33:12-17" gathers
+     each verse, "Daniel 7:27" with th set takes Theodotion's text (NETS sets
+     the Old Greek and Theodotion side by side). Null unless every verse is
+     there; a reference then gets the plain card and the book's PDF. */
+  function netsPlace(ref, th) {
+    var m = /^(.+?) (\d+):(\d+)[a-d]?(?:-(\d+)[a-d]?)?$/.exec(ref);
+    if (!m) return null;
+    var from = +m[3], to = m[4] ? +m[4] : from, verses = [], first = null;
+    if (to < from || to - from > 15) to = from;
+    for (var v = from; v <= to; v++) {
+      var key = m[1] + " " + m[2] + ":" + v;
+      var p = (th && NETS_PLACES[key + " Th"]) || NETS_PLACES[key];
+      if (!p) return null;
+      first = first || p;
+      verses.push([p.num || v, p.text]);
+    }
+    var twoTexts = !!NETS_PLACES[m[1] + " " + m[2] + ":" + from + " Th"], es = isSpanish();
+    var label = twoTexts ? (th ? (es ? "Teodoci\u00f3n" : "Theodotion") : (es ? "griego antiguo" : "Old Greek")) : "";
+    if (first.num) label = (es ? "numerado " : "numbered ") + m[2] + ":" + first.num;
+    return { page: first.page, top: first.top, verses: verses, label: label };
   }
 
   /* Canonical book names, plus the abbreviations Joshua actually writes.
@@ -170,7 +248,7 @@
     ["Proverbs", ["Proverbs", "Prov"]],
     ["Ecclesiastes", ["Ecclesiastes", "Eccles", "Eccl", "Qoheleth"]],
     ["Song of Songs", ["Song of Songs", "Song of Solomon", "Canticles", "Song", "Cant"]],   // "Cant 2:17": Bauckham, in the 1 and 2 Peter paper
-    ["Isaiah", ["Isaiah", "Isa"]],
+    ["Isaiah", ["Isaiah", "Isa", "Is"]],    // "Is 42:12 OG" (a short form: a book only with a number after it)
     ["Jeremiah", ["Jeremiah", "Jer"]],
     ["Lamentations", ["Lamentations", "Lam"]],
     ["Ezekiel", ["Ezekiel", "Ezek"]],
@@ -355,7 +433,7 @@
      " ESV)", " (ESV)", " θ, LXX)" — Theodotion's sign before the LXX. A verse
      letter may come first ("23:34a, ESV"). */
   var AFTER_RE = new RegExp(
-    "^[a-d]?\\s*(?:[,;]\\s*)?(?:\\(\\s*)?(?:\u03b8\\s*,\\s*)?(" + VERSION_ALT + ")(?![A-Za-z\\u00C0-\\u024F0-9_])");
+    "^(?:[a-d]|ff?\\.?)?\\s*(?:[,;]\\s*)?(?:\\(\\s*)?(?:\u03b8\\s*,\\s*)?(" + VERSION_ALT + ")(?![A-Za-z\\u00C0-\\u024F0-9_])");
   /* A resource, not a choice of translation: "CSB Study Bible", "NET Bible
      notes", "NIV Commentary". */
   var TITLE_AFTER = /^[\s.]*(?:Study|Commentary|Notes|Dictionary|Atlas|Reader|Bible\s+(?:notes|Notes|Commentary|Dictionary))\b/;
@@ -408,18 +486,17 @@
      in ordinary prose and must not suppress a real reference — while the
      timestamp words allow a capital for sentence starts. */
   var NOT_SCRIPTURE =
-    /(?:[Mm]inute|[Mm]in\.|[Tt]imestamp)\s*$|\b(?:Hom|Ep|Comm|Adv|Haer|Strom|Apol|Praef|Frag|Serm|Tract|Ant|Vit|Pp|No|Vol)\.\s*$|\b(?:pp?|vol)\.\s*$/;
+    /(?:[Mm]inute|[Mm]in\.|[Tt]imestamp)\s*$|\bJub\.\s*$|\bT\.\s*[A-Z][a-z]{1,6}\.\s*$|\b[12]\s?(?:En|Bar)\.\s*$|\b(?:Hom|Ep|Comm|Adv|Haer|Strom|Apol|Praef|Frag|Serm|Tract|Ant|Vit|Pp|No|Vol)\.\s*$|\b(?:pp?|vol)\.\s*$/;
   function skippable(node) {
     for (var el = node.parentElement; el; el = el.parentElement) {
       if (SKIP.test(el.tagName)) return true;
       if (el.classList) {
         var cl = el.classList;
-        // Never infer a book inside a comparison table: its bare references
-        // belong to the column heading, not to the surrounding prose.
+        // Tables are scanned: a bare reference there belongs to its column
+        // heading (see columnBookOf), never to the surrounding prose.
         // "note"/"notes" are deliberately absent: footnotes are scanned like
         // any other prose, using the data-loc the build stamps on each note.
         if (cl.contains("no-ref") || cl.contains("meta") || cl.contains("kicker") ||
-            cl.contains("tbl-wrap") || cl.contains("sbl") ||
             cl.contains("toc-line") || cl.contains("pgb") ||
             cl.contains("fnm")) return true;
       }
@@ -440,10 +517,11 @@
 
   /* A NETS reference: a link to the project's PDF of the book, with a card
      (below) in place of a verse preview. Nothing is quoted from NETS. */
-  function netsLink(bookName, chv, shown) {
+  function netsLink(bookName, chv, shown, th) {
     var a = document.createElement("a");
     a.className = "rtBibleRef ref-auto ref-nets";
-    var place = netsPlace(bookName + " " + chv);
+    if (th) a.setAttribute("data-nets-text", "th");
+    var place = netsPlace(bookName + " " + chv, th);
     a.href = NETS_BASE + NETS[bookName][0] + "-nets.pdf" +
              (place ? "#page=" + place.page + "&view=FitH," + place.top : "");
     a.target = "_blank";
@@ -466,10 +544,11 @@
     var note = "";
     if (bookName === "Psalms") note = es ? " NETS numera los salmos según el griego, a menudo uno menos." : " NETS numbers the Psalms by the Greek, often one lower.";
     if (bookName === "Jeremiah") note = es ? " Ieremias sigue el orden griego, distinto del hebreo desde el capítulo 25." : " Ieremias follows the Greek order, which departs from the Hebrew after chapter 25.";
-    var place = netsPlace(ref);
+    var place = netsPlace(ref, a.getAttribute("data-nets-text") === "th");
     if (place) return {
       head: ref,
-      verse: place.text,
+      label: place.label,
+      verses: place.verses,
       credit: NETS_CREDIT,
       link: es ? "Abrir en NETS, pág. " + place.page + " del PDF »" : "Open in NETS, PDF page " + place.page + " »"
     };
@@ -494,12 +573,14 @@
     netsCard.innerHTML = "";
     var h = document.createElement("div"); h.className = "rc-nets-h";
     h.appendChild(document.createTextNode(t.head + " "));
-    var tag = document.createElement("span"); tag.textContent = "(NETS)"; h.appendChild(tag);
+    var tag = document.createElement("span"); tag.textContent = "(NETS" + (t.label ? ", " + t.label : "") + ")"; h.appendChild(tag);
     var b = document.createElement("div"); b.className = "rc-nets-b";
-    if (t.verse) {
+    if (t.verses) {
       b.className += " rc-nets-v";
-      var num = document.createElement("sup"); num.textContent = t.head.replace(/^.*:/, "");
-      b.appendChild(num); b.appendChild(document.createTextNode(" " + t.verse));
+      t.verses.forEach(function (vv, i) {
+        var num = document.createElement("sup"); num.textContent = vv[0];
+        b.appendChild(num); b.appendChild(document.createTextNode(" " + vv[1] + (i < t.verses.length - 1 ? " " : "")));
+      });
     } else b.textContent = t.body;
     var f = document.createElement("div"); f.className = "rc-nets-f";
     var l = document.createElement("a"); l.href = a.href; l.target = "_blank"; l.rel = "noopener"; l.textContent = t.link;
@@ -609,6 +690,33 @@
     return null;
   }
 
+  /* A table cell's book: the heading of its column when that heading is a
+     book ("Psalms" over "33:20 (OG)" in the 1 and 2 Peter tables). Returns
+     the book, "" for a cell of a comparison table (papers, commentary) whose
+     column names no book — its bare references are then left alone — or null
+     outside such tables. */
+  function columnBookOf(node, lookup) {
+    var cell = null;
+    for (var el = node.parentElement; el; el = el.parentElement) {
+      if (el.tagName === "TD" || el.tagName === "TH") { cell = el; break; }
+    }
+    if (!cell) return null;
+    var table = cell.closest ? cell.closest("table") : null;
+    if (!table) return null;
+    var head = table.tHead && table.tHead.rows[0];
+    var th = head && head.cells[cell.cellIndex];
+    var name = th ? (th.textContent || "").replace(/\s+/g, " ").trim().toLowerCase() : "";
+    if (name && lookup[name]) return lookup[name];
+    var compare = table.classList.contains("sbl") || !!(table.closest && table.closest(".tbl-wrap"));
+    return compare ? "" : null;
+  }
+
+  /* "24-5" is 24-25, "20-1" is 20-21: the end of a range written short. */
+  function rangeEnd(a, b) {
+    if (b && +b < +a && b.length < a.length) return a.slice(0, a.length - b.length) + b;
+    return b;
+  }
+
   /* Index of the sentence each character belongs to, so a book named in one
      sentence does not leak into the next. */
   function sentenceStarts(text) {
@@ -681,7 +789,7 @@
     // a translation still in force where a text node ends mid-sentence
     var carry = null;
 
-    nodes.forEach(function (node) {
+    nodes.forEach(function (node, ni) {
       var text = node.nodeValue;
       if (!text || !text.trim()) return;
 
@@ -700,7 +808,8 @@
       }
       if (bmarks.length) book = bmarks[bmarks.length - 1][1];   // sticky carry-over
       var home = homeBookOf(node, BOOK_LOOKUP, BOOK_RE);
-      var forced = forcedBookOf(node, BOOK_LOOKUP, BOOK_RE);
+      var column = columnBookOf(node, BOOK_LOOKUP);
+      var forced = forcedBookOf(node, BOOK_LOOKUP, BOOK_RE) || column || null;
 
       function bookAt(pos, carried) {
         if (forced) return forced;          // the passage names its own book
@@ -711,6 +820,7 @@
           if (bmarks[i][2] === sent) last = bmarks[i][1];
         }
         if (last) return last;              // named in this very sentence
+        if (column === "") return anyBefore;  // a table cell: only its own books
         if (home) return home;              // otherwise the section's passage
         return anyBefore || carried;        // else plain sticky behaviour
       }
@@ -751,8 +861,22 @@
       /* The translation for a reference: one beside it, else one earlier in
          its sentence, else the article's own, else the default. NETS only for
          the books it has; otherwise the reference keeps the default. */
+      /* What follows a reference, read on into the next runs of text of the
+         same block: "Dan 7:27 <span>θ</span>, LXX" puts its LXX two text
+         nodes further on. */
+      function tailAt(endPos) {
+        var tail = text.slice(endPos, endPos + 40);
+        for (var j = ni + 1; tail.length < 40 && j < nodes.length; j++) {
+          if (blockOf(nodes[j]) !== block) break;
+          if (skippable(nodes[j])) continue;        // a page marker ("p13") between
+          tail += nodes[j].nodeValue || "";
+        }
+        return tail.slice(0, 40);
+      }
+      // Theodotion's sign after a reference: "Dan 7:27 θ, LXX"
+      function theodotion(endPos) { return /^(?:[a-d]|ff?\.?)?\s*(?:[,;]\s*)?(?:\(\s*)?\u03b8/.test(tailAt(endPos)); }
       function versionFor(pos, endPos, bookName) {
-        var am = AFTER_RE.exec(text.slice(endPos, endPos + 40));
+        var am = AFTER_RE.exec(tailAt(endPos));
         var v = (am && VERSIONS[am[1]]) || sentenceVersion(pos) || docDefault;
         if (v === "nets" && !NETS[bookName]) v = docDefault === "nets" ? DEFAULT_VERSION : docDefault;
         return v;
@@ -933,10 +1057,11 @@
         // Expand to the English name so RefTagger will tag it, remembering
         // the author's own wording to put back afterwards.
         var chv = m[2] + ":" + m[3];
-        if (m[5]) chv += "-" + (m[4] ? m[4] + ":" + m[5] : m[5]);
+        if (m[5]) chv += "-" + (m[4] ? m[4] + ":" + m[5] : rangeEnd(m[3], m[5]));
+        var th = ver === "nets" && theodotion(runEnd);
 
         reps.push([m.index, m.index + m[0].length,
-                   [ver === "nets" ? netsLink(useBook, chv, m[0]) : placeholder(useBook, chv, m[0], ver)]]);
+                   [ver === "nets" ? netsLink(useBook, chv, m[0], th) : placeholder(useBook, chv, m[0], ver)]]);
         cursor = m.index + m[0].length;
         linked++;
 
@@ -949,9 +1074,9 @@
         while ((c = CONT_RE.exec(text)) && c.index === cursor) {
           if (+c[1] > 176 || (c[2] && +c[2] > 176)) break;
           var at = c[0].indexOf(c[1]);
-          var cchv = lastCh + ":" + c[1] + (c[2] ? "-" + c[2] : "");
+          var cchv = lastCh + ":" + c[1] + (c[2] ? "-" + rangeEnd(c[1], c[2]) : "");
           reps.push([c.index + at, c.index + c[0].length,
-                     [ver === "nets" ? netsLink(useBook, cchv, c[0].slice(at))
+                     [ver === "nets" ? netsLink(useBook, cchv, c[0].slice(at), th)
                                      : placeholder(useBook, cchv, c[0].slice(at), ver)]]);
           cursor = c.index + c[0].length;
           linked++;
@@ -969,7 +1094,7 @@
         var clash = taken.some(function (t) { return vs < t[1] && ve > t[0]; });
         var here = chapterAt(vs);
         if (clash || !here || +vr[3] > 176 || (vr[5] && +vr[5] > 176) ||
-            (vr[5] && +vr[5] < +vr[3]) || here[1] > (CHAPTERS[here[0]] || 150)) continue;
+            (vr[5] && +rangeEnd(vr[3], vr[5]) < +vr[3]) || here[1] > (CHAPTERS[here[0]] || 150)) continue;
         // more verses of the same chapter after it: "vv. 6, 7"
         var vEnd = ve, more = [], cv;
         CONT_RE.lastIndex = ve;
@@ -978,7 +1103,7 @@
           more.push(cv); vEnd = cv.index + cv[0].length; CONT_RE.lastIndex = vEnd;
         }
         var vver = versionFor(vs, vEnd, here[0]);
-        var vchv = here[1] + ":" + vr[3] + (vr[5] ? "-" + vr[5] : "");
+        var vchv = here[1] + ":" + vr[3] + (vr[5] ? "-" + rangeEnd(vr[3], vr[5]) : "");
         var shown = text.slice(vs, ve);
         reps.push([vs, ve, [vver === "nets" ? netsLink(here[0], vchv, shown) : placeholder(here[0], vchv, shown, vver)]]);
         linked++;
