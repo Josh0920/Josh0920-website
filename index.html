@@ -1084,22 +1084,29 @@
     }
     .next-reading ul{ list-style: none; margin: 0; padding: 0; }
     .next-reading li + li{ border-top: 1px solid var(--rule); }
+    /* a sheet of paper, then the title as a link (not bold like the heading),
+       so it reads as another work */
     .next-reading a{
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      column-gap: 13px;
+      row-gap: 3px;
+      align-items: start;
       padding: 12px 0;
       color: var(--ink);
       text-decoration: none;
     }
     .next-reading a:hover{ text-decoration: none; }
+    .next-reading .nr-icon{ grid-row: 1 / span 2; margin-top: 3px; color: var(--muted); }
     .next-reading .nr-title{
       font-family: var(--serif);
-      font-weight: 700;
+      font-weight: 400;
       font-size: 16px;
       line-height: 1.35;
+      color: var(--accent);
     }
-    .next-reading a:hover .nr-title{ color: var(--accent); }
+    .next-reading a:hover .nr-title{ text-decoration: underline; text-underline-offset: 3px; }
+    .next-reading a:hover .nr-icon{ color: var(--accent); }
     .next-reading .nr-kind{ font-size: 13px; color: var(--muted); }
     .next-reading:not([hidden]) + .comments-section{ margin-top: 12px; }
 
@@ -1184,6 +1191,7 @@
       margin-bottom: 6px;
     }
     .comment-author{
+      overflow-wrap: anywhere;
       font-weight: 700;
       font-size: 13px;
       color: var(--ink);
@@ -1197,6 +1205,7 @@
       color: var(--ink);
       line-height: 1.5;
       margin: 0;
+      overflow-wrap: anywhere;       /* a long web address stays in the bubble */
     }
     .comment-text p, .comment-text div{ margin: 0 0 8px; }
     .comment-text p:last-child, .comment-text div:last-child{ margin-bottom: 0; }
@@ -3650,7 +3659,8 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
         const kind = t("next_kind")[n.type] || localizeType(n.type);
         const li = document.createElement("li"), a = document.createElement("a");
         a.href = href;
-        a.innerHTML = `<span class="nr-title">${escapeHtml(getLocalizedTitle(n))}</span>` +
+        a.innerHTML = `<svg class="nr-icon" width="26" height="33" viewBox="0 0 26 33" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 1h13.5L25 9.5V30a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2z"/><path d="M16.5 1v8.5H25"/><path d="M6.5 15.5h13M6.5 20h13M6.5 24.5h8"/></svg>` +
+                      `<span class="nr-title">${escapeHtml(getLocalizedTitle(n))}</span>` +
                       `<span class="nr-kind">${escapeHtml(kind)}</span>`;
         a.addEventListener("click", e => {
           if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button) return;   // a new tab, as asked
