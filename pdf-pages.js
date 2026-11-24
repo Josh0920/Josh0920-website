@@ -62,6 +62,18 @@
   }
 
   const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  /* A browser may keep a file for 10 minutes without asking (GitHub Pages), so a
+     paper just updated still showed its old pages (Joshua, 2026-11-24). Ask the
+     site which version is current, and name it in the address: a saved copy of
+     that same version is still used. */
+  async function latestUrl(url) {
+    try {
+      const r = await fetch(url, { method: "HEAD", cache: "no-cache" });
+      const v = (r.headers.get("etag") || r.headers.get("last-modified") || "").replace(/\W/g, "");
+      if (r.ok && v) return url + (url.includes("?") ? "&" : "?") + "v=" + v;
+    } catch (e) { /* the plain address will do */ }
+    return url;
+  }
   const icon = d => `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
   // the commentary's own Scroll and Page icons
   const ICON_SCROLL = '<svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M3 2.6h10M3 6h10M3 9.4h10M3 12.8h6"/></svg>';
@@ -231,7 +243,7 @@
         build();
         try {
           await loadPdfJs();
-          const pdf = await window.pdfjsLib.getDocument(url).promise;
+          const pdf = await window.pdfjsLib.getDocument(await latestUrl(url)).promise;
           if (!alive) return;
           for (let i = 1; i <= pdf.numPages; i++) pages.push(await pdf.getPage(i));
         } catch (e) {
@@ -468,7 +480,7 @@
       const want = narrow() || store.get(VIEW_KEY) === "scroll" ? "scroll" : "page";
       if (want === "scroll") host.classList.add("pt-on", "pt-pending");
       else startPdf();
-      fetch(textUrl).then(r => { if (!r.ok) throw new Error(r.status); return r.text(); }).then(src => {
+      fetch(textUrl, { cache: "no-cache" }).then(r => { if (!r.ok) throw new Error(r.status); return r.text(); }).then(src => {
         if (!alive) return;
         const art = new DOMParser().parseFromString(src, "text/html").querySelector("article.pt-doc");
         if (!art) throw new Error("no text");

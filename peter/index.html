@@ -12,7 +12,7 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=jmh">
   <!-- the site's PDF reader, shared with the library -->
   <link rel="stylesheet" href="/pdf-pages.css?v=2026-11-16a">
-  <script src="/pdf-pages.js?v=2026-11-16a"></script>
+  <script src="/pdf-pages.js?v=2026-11-24a"></script>
   <meta name="description" content="A collection of studies on 1 and 2 Peter — examining authorship, dating, early reception, and the theology of the Petrine epistles." />
   <!-- share-card -->
   <meta property="og:type" content="article">
@@ -540,7 +540,7 @@
         li.appendChild(a);
         list.appendChild(li);
         // the paper's length, as under its own title
-        fetch("/papers/" + encodeURIComponent(id) + "/text.html").then(r => r.ok ? r.text() : "").then(src => {
+        fetch("/papers/" + encodeURIComponent(id) + "/text.html", { cache: "no-cache" }).then(r => r.ok ? r.text() : "").then(src => {
           const m = /data-pages="(\d+)"/.exec(src);
           if (m) kind.textContent = "Paper \u00b7 " + m[1] + (m[1] === "1" ? " page" : " pages");
         }).catch(() => { /* the title alone will do */ });
