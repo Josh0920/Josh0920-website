@@ -1067,6 +1067,42 @@
     }
 
     /* ===== Comment section ===== */
+    /* "Suggested next reading", above the comments, from an item's nextReading */
+    .next-reading{
+      display: block;                /* the top bar's nav is a flex row */
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--rule);
+    }
+    .next-reading[hidden]{ display: none; }
+    .next-reading h3{
+      margin: 0 0 6px;
+      font-family: var(--serif);
+      font-weight: 800;
+      font-size: 17px;
+      color: var(--ink);
+    }
+    .next-reading ul{ list-style: none; margin: 0; padding: 0; }
+    .next-reading li + li{ border-top: 1px solid var(--rule); }
+    .next-reading a{
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 12px 0;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .next-reading a:hover{ text-decoration: none; }
+    .next-reading .nr-title{
+      font-family: var(--serif);
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 1.35;
+    }
+    .next-reading a:hover .nr-title{ color: var(--accent); }
+    .next-reading .nr-kind{ font-size: 13px; color: var(--muted); }
+    .next-reading:not([hidden]) + .comments-section{ margin-top: 12px; }
+
     .comments-section{
       margin-top: 24px;
       padding-top: 20px;
@@ -1481,6 +1517,11 @@
           </a>
           <div class="body" id="modalBody"></div>
 
+          <nav class="next-reading" id="nextReading" aria-labelledby="nextReadingHead" hidden>
+            <h3 id="nextReadingHead"></h3>
+            <ul id="nextReadingList"></ul>
+          </nav>
+
           <div class="comments-section" id="commentsSection">
             <h3 id="commentsHeading">Comments</h3>
             <form class="comment-form" id="commentForm">
@@ -1500,6 +1541,11 @@
   <script>
     /*************************************************************
      * EDIT YOUR CONTENT HERE
+     *
+     * nextReading: ["id", …] puts "Suggested next reading" above an item's
+     * comments, with those works in that order. An item without it has no
+     * such menu. Joshua, 2026-11-23: "only suggest readings i tell you to and
+     * only have that menu when i tell you i want to add a suggested reading."
      *************************************************************/
     const CONTENT = [
       {
@@ -1510,7 +1556,8 @@
         featured: false,
         tags: ["John", "Textual Criticism", "Pericope Adulterae", "Manuscripts", "Church Fathers"],
         excerpt: "A textual-critical analysis of John 7:53–8:11 and its external evidence from the Manuscript Witnesses and Early Church Fathers.",
-        pdfHref: "Is John 7.53-8.11 Part of the Original Text of John (PDF).pdf"
+        pdfHref: "Is John 7.53-8.11 Part of the Original Text of John (PDF).pdf",
+        nextReading: ["luke-23-34a-authorship", "1cor-14-34-35-authorship"]
       },
 
       {
@@ -1521,7 +1568,8 @@
         featured: false,
         tags: ["Luke", "Textual Criticism", "Manuscripts", "Church Fathers"],
         excerpt: "A textual-critical analysis of Luke 23:34a and its external evidence from the Manuscript Witnesses and Early Church Fathers.",
-        pdfHref: "The%20External%20Evidence%20for%20the%20Authenticity%20of%20Luke%2023.34a%20(PDF).pdf"
+        pdfHref: "The%20External%20Evidence%20for%20the%20Authenticity%20of%20Luke%2023.34a%20(PDF).pdf",
+        nextReading: ["john-7-53-8-11", "1cor-14-34-35-authorship"]
       },
 
       {
@@ -1532,7 +1580,8 @@
         featured: false,
         tags: ["1 Corinthians", "Textual Criticism", "Manuscripts"],
         excerpt: "A textual-critical analysis of 1 Corinthians 14:34–35 and its external evidence from the Manuscript Witnesses.",
-        pdfHref: "Who Wrote 1 Cor. 14.34-5. Paul or Someone Else (PDF).pdf"
+        pdfHref: "Who Wrote 1 Cor. 14.34-5. Paul or Someone Else (PDF).pdf",
+        nextReading: ["john-7-53-8-11", "luke-23-34a-authorship"]
       },
 
       {
@@ -1669,7 +1718,8 @@
         featured: false,
         tags: ["2 Peter", "New Testament", "Authorship", "Epistles"],
         excerpt: "An assessment of the authorship, dating, and early reception of Second Peter, examining the internal and external evidence bearing on the question of Petrine authorship.",
-        pdfHref: "Who Wrote Second Peter (PDF).pdf"
+        pdfHref: "Who Wrote Second Peter (PDF).pdf",
+        nextReading: ["communication-of-1-and-2-peter"]
       },
 
       {
@@ -1680,7 +1730,20 @@
         featured: false,
         tags: ["1 Peter", "2 Peter", "New Testament", "Authorship", "Epistles"],
         excerpt: "A literary analysis of 1 and 2 Peter examining their internal similarities, differences, and connections — including Greek style, Old Testament use, Gospel allusions, and Pauline influence.",
-        pdfHref: "The Communication of 1 and 2 Peter (PDF).pdf"
+        pdfHref: "The Communication of 1 and 2 Peter (PDF).pdf",
+        nextReading: ["second-peter-authorship"]
+      },
+
+      {
+        id: "cain-and-abel-mt-lxx",
+        type: "Papers",
+        title: "Cain and Abel: The MT and LXX Versions",
+        date: "2026-12-04",
+        featured: false,
+        tags: ["Genesis", "Old Testament", "Septuagint", "Masoretic Text", "Cain and Abel"],
+        excerpt: "A comparison of the Cain and Abel account in the Masoretic Text and the Septuagint, arguing that the Septuagint's more interpretive telling leads to the New Testament's view of “righteous Abel” and “wicked Cain.”",
+        pdfHref: "Cain and Abel. The MT and LXX Versions (PDF).pdf",
+        nextReading: ["genesis-4-cain-abel"]
       },
 
       {
@@ -1691,7 +1754,8 @@
         featured: false,
         tags: ["Genesis", "Old Testament", "Problem of Evil", "Free Will", "Augustine"],
         excerpt: "An examination of Cain and Abel in Genesis 4:1–16 and the problem of evil, arguing from the narrative and Augustine's free will theodicy that Cain, not God, is responsible for the first moral evil in the Bible.",
-        pdfHref: "Genesis 4. Cain, Abel, Free Will, and Moral Evil (PDF).pdf"
+        pdfHref: "Genesis 4. Cain, Abel, Free Will, and Moral Evil (PDF).pdf",
+        nextReading: ["cain-and-abel-mt-lxx"]
       },
 
       {
@@ -2323,6 +2387,8 @@
         lang_btn_when_es: "English",
         footer_left: "© {year} Joshua Haub",
 footer_right: "To Him Be the Glory",
+        next_reading: "Suggested next reading",
+        next_kind: { Papers: "Paper", Articles: "Article", Notes: "Notes" },
         comments_heading: "Comments",
         comment_name_ph: "Your name",
         comment_label: "Comment",
@@ -2402,6 +2468,8 @@ footer_right: "To Him Be the Glory",
         lang_btn_when_es: "English",
         footer_left: "© {year} Josué Haub",
 footer_right: "A Él sea la gloria",
+        next_reading: "Siguiente lectura sugerida",
+        next_kind: { Papers: "Trabajo", Articles: "Artículo", Notes: "Notas" },
         comments_heading: "Comentarios",
         comment_name_ph: "Tu nombre",
         comment_label: "Comentario",
@@ -2471,6 +2539,10 @@ footer_right: "A Él sea la gloria",
         title: "El calendario hebreo",
         excerpt: "Un registro de todos los sucesos fechados del Antiguo Testamento (Éx 12:2).",
         href: "notes/hebrew-calendar/es/"
+      },
+      "cain-and-abel-mt-lxx": {
+        title: "Caín y Abel: las versiones del TM y la LXX",
+        excerpt: "Una comparación del relato de Caín y Abel en el Texto Masorético y en la Septuaginta, que sostiene que la narración más interpretativa de la Septuaginta conduce a la visión neotestamentaria del «justo Abel» y el «malvado Caín»."
       },
       "genesis-4-cain-abel": {
         title: "Génesis 4: Caín, Abel, el libre albedrío y el mal moral",
@@ -2821,6 +2893,9 @@ const TAGS_ES = {
   "Pentecost": "Pentecostés",
   "Great Commission": "La Gran Comisión",
   "Problem of Evil": "El problema del mal",
+  "Septuagint": "Septuaginta",
+  "Masoretic Text": "Texto Masorético",
+  "Cain and Abel": "Caín y Abel",
   "Free Will": "Libre albedrío",
   "Augustine": "Agustín"
 };
@@ -3555,8 +3630,45 @@ document.getElementById("podcastDesc").textContent = t("podcast_desc");
       document.body.style.overflow = "hidden";
       history.replaceState(null, "", canonicalPath(item, localizedHref));
 
+      renderNextReading(item);
       // Load comments for this document
       renderComments(item.id);
+    }
+
+    /* "Suggested next reading": the works an item's nextReading names, in order;
+       no list, no menu. */
+    function renderNextReading(item){
+      const nav = document.getElementById("nextReading"), list = document.getElementById("nextReadingList");
+      const next = (item.nextReading || []).map(id => CONTENT.find(x => x.id === id)).filter(Boolean);
+      nav.hidden = !next.length;
+      list.innerHTML = "";
+      if (!next.length) return;
+      document.getElementById("nextReadingHead").textContent = t("next_reading");
+      next.forEach(n => {
+        const es = CONTENT_ES[n.id];
+        const href = canonicalPath(n, (state.lang === "es" && es && es.href) ? es.href : n.href);
+        const kind = t("next_kind")[n.type] || localizeType(n.type);
+        const li = document.createElement("li"), a = document.createElement("a");
+        a.href = href;
+        a.innerHTML = `<span class="nr-title">${escapeHtml(getLocalizedTitle(n))}</span>` +
+                      `<span class="nr-kind">${escapeHtml(kind)}</span>`;
+        a.addEventListener("click", e => {
+          if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button) return;   // a new tab, as asked
+          e.preventDefault();
+          openReader(n.id);
+        });
+        li.appendChild(a);
+        list.appendChild(li);
+        // a paper's length, as under its own title
+        if (n.type === "Papers") {
+          fetch("/papers/" + encodeURIComponent(n.id) + "/text.html").then(r => r.ok ? r.text() : "").then(src => {
+            const m = /data-pages="(\d+)"/.exec(src), el = a.querySelector(".nr-kind");
+            if (!m) return;
+            const [one, many] = t("hv_pages"), c = +m[1];
+            el.textContent = kind + " \u00b7 " + (c === 1 ? one : many).replace("{n}", c);
+          }).catch(() => { /* the title alone will do */ });
+        }
+      });
     }
 
     // The article view scrolls as a whole; the hairline under the top bar shows how far in.
@@ -4231,7 +4343,7 @@ renderGrid();
       .catch(() => { root.dataset.state = "error"; paint(); });
   })();
   </script>
-  <script src="scripture-context.js?v=2026-11-17b"></script>
+  <script src="scripture-context.js?v=2026-11-23a"></script>
   <script src="RefTagger.js"></script>
 </body>
 </html>

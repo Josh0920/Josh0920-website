@@ -29,7 +29,9 @@
  *        - the LXX, the Septuagint, the OG (Old Greek) and the Vulgate are texts
  *          under discussion more often than translations being quoted, so they
  *          count only right beside a reference — read on past inline markup
- *          and page markers: "Dan 7:27 <span>θ</span>, LXX", "65:17 (p13 OG)".
+ *          and page markers: "Dan 7:27 <span>θ</span>, LXX", "65:17 (p13 OG)";
+ *          or right before one, which the bare references in its list then
+ *          share: "LXX Genesis 32:14, 19; 33:10" (2026-11-23).
  *   6. Tables (Joshua, 2026-11-17, "make these rules universal"): a bare
  *      reference in a table cell belongs to its column's heading when that
  *      heading is a book ("Psalms" over "33:20 (OG)"); in a comparison table's
@@ -196,6 +198,19 @@
     "Hosea 2:25": { page: 7, top: 300, num: "23", text: "and I will sow her for myself in the land. And I will have pity on Not Pitied, and I will say to Not My People, “You are my people,” and he shall say, “You are the Lord my God.”" },
     "Daniel 7:27": { page: 23, top: 790, text: "And he shall give the authority and the kingdom and the magnitude of all the kingdoms, which are under heaven, to the holy people of the Most High, to reign over an everlasting kingdom, and all authorities will be subjected to him and obey him until the conclusion of the word.”" },
     "Daniel 7:27 Th": { page: 23, top: 790, text: "And the kingdom and the authority and the greatness of the kings, which are under the whole heaven, was given to the holy ones of the Most High, and his kingdom is an everlasting kingdom, and all dominions shall be slaves and heed him.”" },
+    // the second Genesis 4 paper, "Cain and Abel: The MT and LXX Versions" (read off
+    // the PDF 2026-11-23). It cites Genesis 32 by the Septuagint's numbers; NETS
+    // prints the English number first: LXX 32:14 is its 13(14).
+    "Genesis 4:7": { page: 8, top: 195, text: "If you offer correctly but do not divide correctly, have you not sinned? Be still; his recourse is to you, and you will rule over him.”" },
+    "Genesis 32:14": { page: 28, top: 646, num: "13(14)", text: "And he slept there that night. And from what he was bringing he took presents and sent them off to his brother Esau," },
+    "Genesis 32:19": { page: 28, top: 802, num: "18(19)", text: "you shall say, ‘Your servant Iakob’s; he has sent presents to my lord Esau, and there he is behind us.’ ”" },
+    "Genesis 32:21": { page: 28, top: 106, num: "20(21)", text: "And you shall say, ‘There is your servant Iakob coming behind us.’ ” For he said, “I shall propitiate his face with the presents that go on before him, and afterwards I shall see his face, for perhaps he will accept my face.”" },
+    "Genesis 32:22": { page: 28, top: 154, num: "21(22)", text: "And the presents passed by in front of him, but he himself slept that night in the camp." },
+    "Genesis 33:10": { page: 28, top: 838, text: "But Iakob said, “If I have found favor before you, accept my presents through my hands; with regard to this I saw your face, as someone might see a divine face, and you will be pleased with me." },
+    "Genesis 43:11": { page: 36, top: 250, text: "Then their father Israel said to them, “If it is so, do this: take some of the fruits of the land in your containers, and bring down presents to the man, some pine resin and some honey, incense and oil of myrrh and terebinth and nuts." },
+    "Genesis 43:15": { page: 36, top: 394, text: "Now when the men took these presents they also took double the money in their hands, and Beniamin, and rising, they went down into Egypt and stood before Ioseph." },
+    "Genesis 43:25": { page: 36, top: 790, text: "And they made the presents ready until Ioseph came at noon, for they had heard that he was going to have lunch there." },
+    "Genesis 43:26": { page: 36, top: 838, text: "And Ioseph came into the dwelling, and they brought to him the presents that they had in their hands—into the house—and did obeisance to him face down on the ground." },
     // the Genesis 4 paper, footnote 18 (checked 2026-11-17, 01-gen-nets.pdf, page 8)
     "Genesis 4:8": { page: 8, top: 200,
       text: "And Kain said to his brother Habel, “Let us go through into the plain.” And it came about when they were in the plain, that then Kain rose up against his brother Habel and killed him." }
@@ -434,6 +449,8 @@
      letter may come first ("23:34a, ESV"). */
   var AFTER_RE = new RegExp(
     "^(?:[a-d]|ff?\\.?)?\\s*(?:[,;]\\s*)?(?:\\(\\s*)?(?:\u03b8\\s*,\\s*)?(" + VERSION_ALT + ")(?![A-Za-z\\u00C0-\\u024F0-9_])");
+  var WITNESS_BEFORE = new RegExp("(?:^|[^A-Za-z\\u00C0-\\u024F0-9_/])(" +
+    Object.keys(WITNESS).sort(function (x, y) { return y.length - x.length; }).map(esc).join("|") + ")\\s+$");
   /* A resource, not a choice of translation: "CSB Study Bible", "NET Bible
      notes", "NIV Commentary". */
   var TITLE_AFTER = /^[\s.]*(?:Study|Commentary|Notes|Dictionary|Atlas|Reader|Bible\s+(?:notes|Notes|Commentary|Dictionary))\b/;
@@ -452,7 +469,7 @@
      "rev. 2" is not one), 2 the word, 3–6 the verse(s) and their letters. */
   var VERSE_RE = /(^|[^A-Za-z\u00C0-\u024F])((?:[Vv](?:v|ss?)?\.?|[Vv]erses?|[Vv]ers\u00edculos?)\s?)(\d{1,3})([a-d])?(?:\s*[-\u2013]\s*(\d{1,3})([a-d])?)?(?!\d|:\d)/g;
   /* A chapter named on its own: "chapter 3", "ch. 3", "chs. 18-9", "capítulo 3". */
-  var CHAPTER_RE = /(?:^|[^A-Za-z\u00C0-\u024F])(?:[Cc]hapters?|ch\.|chs\.|[Cc]ap\u00edtulos?|[Cc]apitulos?|cap\.)\s*(\d{1,3})(?![\d:])/g;
+  var CHAPTER_RE = /(?:^|[^A-Za-z\u00C0-\u024F])(?:[Cc]hapters?|ch\.|chs\.|[Cc]ap\u00edtulos?|[Cc]apitulos?|cap\.)\s*(\d{1,3})(?![\d:])(?!\s*[-\u2013]\s*\d)/g;   // not a run: "Chapters 1–17" is in a title
 
   /* Sentence ends for the reach of a translation. Unlike sentenceStarts this
      does not end a sentence at an abbreviation ("Gen. 4:7", "cf. v. 9", "J.
@@ -875,9 +892,9 @@
       }
       // Theodotion's sign after a reference: "Dan 7:27 θ, LXX"
       function theodotion(endPos) { return /^(?:[a-d]|ff?\.?)?\s*(?:[,;]\s*)?(?:\(\s*)?\u03b8/.test(tailAt(endPos)); }
-      function versionFor(pos, endPos, bookName) {
+      function versionFor(pos, endPos, bookName, before) {
         var am = AFTER_RE.exec(tailAt(endPos));
-        var v = (am && VERSIONS[am[1]]) || sentenceVersion(pos) || docDefault;
+        var v = (am && VERSIONS[am[1]]) || before || sentenceVersion(pos) || docDefault;
         if (v === "nets" && !NETS[bookName]) v = docDefault === "nets" ? DEFAULT_VERSION : docDefault;
         return v;
       }
@@ -1017,7 +1034,7 @@
 
       var reps = [];                 // [start, end, [nodes]] to put in place of the text
       REF_RE.lastIndex = 0;
-      var cursor = 0, m;
+      var cursor = 0, m, list = null;
       while ((m = REF_RE.exec(text))) {
         var named = m[1] ? BOOK_LOOKUP[m[1].toLowerCase()] : null;
         var useBook = named || bookAt(m.index, book);
@@ -1044,7 +1061,14 @@
         CONT_RE.lastIndex = runEnd;
         var cr;
         while ((cr = CONT_RE.exec(text)) && cr.index === runEnd) { runEnd = cr.index + cr[0].length; CONT_RE.lastIndex = runEnd; }
-        var ver = versionFor(m.index, runEnd, useBook);
+        /* A witness right before a reference ("cf. LXX Genesis 32:14, 19; 33:10;
+           43:11") is its text, and the text of the bare references that go on
+           after it in the same list. */
+        var wm = WITNESS_BEFORE.exec(text.slice(Math.max(0, m.index - 16), m.index));
+        var before = wm ? VERSIONS[wm[1]]
+                   : (!named && list && /^\s*;\s*$/.test(text.slice(list.end, m.index)) ? list.code : null);
+        list = before ? { end: runEnd, code: before } : null;
+        var ver = versionFor(m.index, runEnd, useBook, before);
 
         // On English pages RefTagger already handles references that name
         // their book, in its default, so leave those alone unless another

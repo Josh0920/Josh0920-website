@@ -250,6 +250,19 @@
       .modal-sidebar h1{ font-size:18px; }
     }
 
+    /* "Suggested next reading", above the comments, from a paper's nextReading */
+    .next-reading{ display:block; margin-top:24px; padding-top:20px; border-top:1px solid var(--rule); }
+    .next-reading[hidden]{ display:none; }
+    .next-reading h3{ margin:0 0 6px; font-family:var(--serif); font-weight:800; font-size:17px; color:var(--ink); }
+    .next-reading ul{ list-style:none; margin:0; padding:0; }
+    .next-reading li + li{ border-top:1px solid var(--rule); }
+    .next-reading a{ display:flex; flex-direction:column; gap:4px; padding:12px 0; color:var(--ink); text-decoration:none; }
+    .next-reading a:hover{ text-decoration:none; }
+    .next-reading .nr-title{ font-family:var(--serif); font-weight:700; font-size:16px; line-height:1.35; }
+    .next-reading a:hover .nr-title{ color:var(--accent); }
+    .next-reading .nr-kind{ font-size:13px; color:var(--muted); }
+    .next-reading:not([hidden]) + .comments-section{ margin-top:12px; }
+
     /* ===== Comment section ===== */
     .comments-section{ margin-top:24px; padding-top:20px; border-top:1px solid var(--rule); }
     .comments-section h3{ margin:0 0 14px; font-family:var(--serif); font-weight:800; font-size:17px; color:var(--ink); }
@@ -417,6 +430,11 @@
             Open PDF
           </a>
 
+          <nav class="next-reading" id="nextReading" aria-labelledby="nextReadingHead" hidden>
+            <h3 id="nextReadingHead">Suggested next reading</h3>
+            <ul id="nextReadingList"></ul>
+          </nav>
+
           <div class="comments-section" id="commentsSection">
             <h3>Comments</h3>
             <form class="comment-form" id="commentForm">
@@ -439,13 +457,15 @@
         title: "Who Wrote Second Peter? Assessing Its Authorship, Dating, and Early Reception",
         date: "April 12, 2026",
         tags: ["2 Peter", "New Testament", "Authorship", "Epistles"],
-        pdfHref: "../Who Wrote Second Peter (PDF).pdf"
+        pdfHref: "../Who Wrote Second Peter (PDF).pdf",
+        nextReading: ["communication-of-1-and-2-peter"]
       },
       "communication-of-1-and-2-peter": {
         title: "The Communication of 1 and 2 Peter: How Different Are They?",
         date: "August 2, 2026",
         tags: ["1 Peter", "2 Peter", "Authorship", "Epistles"],
-        pdfHref: "../The Communication of 1 and 2 Peter (PDF).pdf"
+        pdfHref: "../The Communication of 1 and 2 Peter (PDF).pdf",
+        nextReading: ["second-peter-authorship"]
       }
     };
 
@@ -488,7 +508,38 @@
       overlay.classList.add("show");
       document.body.style.overflow = "hidden";
       history.replaceState(null, "", "/peter/" + encodeURIComponent(id) + "/");
+      renderNextReading(paper);
       renderComments(id);
+    }
+
+    /* "Suggested next reading": the papers this one's nextReading names, in
+       order, and nothing for a paper without one (the home page's reader does
+       the same; only pairings Joshua has approved go in) */
+    function renderNextReading(paper) {
+      const nav = document.getElementById("nextReading"), list = document.getElementById("nextReadingList");
+      const next = (paper.nextReading || []).filter(id => PAPERS[id]);
+      nav.hidden = !next.length;
+      list.innerHTML = "";
+      next.forEach(id => {
+        const li = document.createElement("li"), a = document.createElement("a");
+        const title = document.createElement("span"), kind = document.createElement("span");
+        a.href = "/peter/" + encodeURIComponent(id) + "/";
+        title.className = "nr-title"; title.textContent = PAPERS[id].title;
+        kind.className = "nr-kind"; kind.textContent = "Paper";
+        a.append(title, kind);
+        a.addEventListener("click", e => {
+          if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button) return;   // a new tab, as asked
+          e.preventDefault();
+          openReader(id);
+        });
+        li.appendChild(a);
+        list.appendChild(li);
+        // the paper's length, as under its own title
+        fetch("/papers/" + encodeURIComponent(id) + "/text.html").then(r => r.ok ? r.text() : "").then(src => {
+          const m = /data-pages="(\d+)"/.exec(src);
+          if (m) kind.textContent = "Paper \u00b7 " + m[1] + (m[1] === "1" ? " page" : " pages");
+        }).catch(() => { /* the title alone will do */ });
+      });
     }
 
     function closeReader() {
@@ -832,7 +883,7 @@
       }
     };
   </script>
-  <script src="../scripture-context.js?v=2026-11-17b"></script>
+  <script src="../scripture-context.js?v=2026-11-23a"></script>
   <script src="../RefTagger.js"></script>
 </body>
 </html>
